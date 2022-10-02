@@ -1,6 +1,6 @@
 ---
 title: First blog post
-publishedAt: 2022-10-02T03:25:12.315Z
+published_at: 2022-10-02
 snippet: Objective of the blog
 ---
 
