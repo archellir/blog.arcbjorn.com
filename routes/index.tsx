@@ -14,7 +14,7 @@ function Post(props: { post: IPost }) {
 
   return (
     <li class="border-t mt-8">
-      <a href={`/blog/${post.id}`} class="p-2 flex gap-4 group">
+      <a href={`/${post.id}`} class="p-2 flex gap-4 group">
         <div>{post.publishedAt.toLocaleDateString()}</div>
         <div>
           <h2 class="text-xl font-bold group-hover:underline">{post.title}</h2>
