@@ -5,3 +5,7 @@ export interface IPost {
   snippet: string;
   content: string;
 }
+
+export interface IState {
+  locales: string[];
+}
