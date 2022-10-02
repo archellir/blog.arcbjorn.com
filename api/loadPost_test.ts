@@ -1,14 +1,17 @@
 import { loadPost } from "./loadPost.ts";
 
 import { assert, assertEquals } from "$std/testing/asserts.ts";
+import { describe, it } from "$std/testing/bdd.ts";
 
-Deno.test("load post", async () => {
-  const post = await loadPost("introduction");
-  assert(post);
-  assertEquals(post.id, "introduction");
-});
+describe("load posts", () => {
+  it("loads successfully", async () => {
+    const post = await loadPost("introduction");
+    assert(post);
+    assertEquals(post.id, "introduction");
+  });
 
-Deno.test("load post that does not exist", async () => {
-  const post = await loadPost("non-existent post");
-  assertEquals(post, null);
+  it("load post that does not exist", async () => {
+    const post = await loadPost("non-existent post");
+    assertEquals(post, null);
+  });
 });
