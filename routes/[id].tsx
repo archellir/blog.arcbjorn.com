@@ -1,14 +1,6 @@
-import { IPost } from "../types.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { IPost } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
-
-const post: IPost = {
-  id: "string",
-  title: "string",
-  publishedAt: new Date(),
-  snippet: "string",
-  content: "string",
-};
 
 export const handler: Handlers<IPost | false> = {
   async GET(_req, ctx) {
