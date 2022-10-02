@@ -1,8 +1,8 @@
 import { extract } from "$std/encoding/front_matter.ts";
 
-import { Post } from "../types.ts";
+import { IPost } from "../types.ts";
 
-export async function loadPost(id: string): Promise<Post | null> {
+export async function loadPost(id: string): Promise<IPost | null> {
   let text: string;
 
   try {
@@ -16,7 +16,7 @@ export async function loadPost(id: string): Promise<Post | null> {
 
   const { attrs, body: content }: {
     attrs: Record<string, string>;
-    body: Post["content"];
+    body: IPost["content"];
   } = extract(text);
 
   return {
