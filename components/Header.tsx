@@ -1,10 +1,10 @@
-export default function Home() {
+export default function Header() {
   return (
-    <div class="flex items-center justify-around flex-wrap p-12">
-      <div class="cursor-pointer font-bold text-xl px-7 font-plex-mono">
+    <div class="flex items-center justify-around gap-4 flex-wrap p-12">
+      <a href="/" class="cursor-pointer font-bold text-xl font-plex-mono">
         arcbjorn
-      </div>
-      <h1 class="text-xl font-plex-sans">public thoughtbook</h1>
+      </a>
+      <h1 class="text-lg font-plex-sans">thoughtbook</h1>
     </div>
   );
 }
