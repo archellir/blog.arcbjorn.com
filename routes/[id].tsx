@@ -4,6 +4,10 @@ import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
 import { HeadElement } from "../components/HeadElement.tsx";
 
+import "https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check";
+import "https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check";
+import "https://esm.sh/prismjs@1.27.0/components/prism-rust?no-check";
+
 interface IData extends IState {
   post: IPost | null;
 }
