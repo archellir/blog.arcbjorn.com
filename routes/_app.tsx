@@ -7,7 +7,9 @@ export default function App({ Component }: AppProps) {
       <Head>
         {/* <link rel="stylesheet" href="/app.css" /> */}
       </Head>
-      <Component />
+      <div class="container mx-auto h-full">
+        <Component />
+      </div>
     </>
   );
 }
