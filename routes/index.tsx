@@ -33,7 +33,7 @@ function Post(props: { post: IPost; locales: IState["locales"] }) {
 export default function Home(props: PageProps<IData>) {
   const { posts, locales } = props.data;
   return (
-    <div class="p-4 mx-auto max-w-screen-md">
+    <div class="p-4 mx-auto max-w-screen-md font-plex-mono">
       <h1 class="text-5xl mt-12 font-bold">Arc's blog</h1>
       <ul>
         {posts.map((post) => <Post post={post} locales={locales} />)}

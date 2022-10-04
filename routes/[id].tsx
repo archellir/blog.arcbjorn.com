@@ -31,13 +31,13 @@ export default function BlogPostPage(props: PageProps) {
 
   return (
     <div class="p-4 mx-auto max-w-screen-md">
-      <p class="text-grey-600 mt-12">
+      <p class="text-grey-600 mt-12 font-plex-mono">
         {dateFmt.format(post.publishedAt)}
       </p>
-      <h1 class="text-5xl mt-2 font-bold">{post.title}</h1>
+      <h1 class="text-5xl mt-2 font-bold font-plex-mono">{post.title}</h1>
       <style class="mt-12" dangerouslySetInnerHTML={{ __html: CSS }} />
       <div
-        class="mt-12 markdown-body"
+        class="mt-12 !font-plex-sans markdown-body"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>
