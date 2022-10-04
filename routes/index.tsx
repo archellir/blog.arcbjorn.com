@@ -2,6 +2,7 @@ import { IPost, IState } from "../types.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { listPosts } from "../api/listPosts.ts";
 import Header from "../components/Header.tsx";
+import { HeadElement } from "../components/HeadElement.tsx";
 
 interface IData extends IState {
   posts: IPost[];
@@ -32,15 +33,26 @@ function Post(props: { post: IPost; locales: IState["locales"] }) {
 }
 
 export default function Home(props: PageProps<IData>) {
-  const { posts, locales } = props.data;
+  const { data, url } = props;
   return (
-    <div class="flex flex-col">
-      <Header />
-      <div class="max-w-screen-lg self-center">
-        <ul>
-          {posts.map((post) => <Post post={post} locales={locales} />)}
-        </ul>
+    <>
+      <HeadElement
+        description="Public thoughtbook of Arcbjorn"
+        image={url.href + "logo.svg"}
+        title="Arc's thoughtbook"
+        url={url}
+      />
+
+      <div class="flex flex-col">
+        <Header />
+        <div class="max-w-screen-lg self-center">
+          <ul>
+            {data.posts.map((post) => (
+              <Post post={post} locales={data.locales} />
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { CSS, render } from "$gfm";
 import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
+import { HeadElement } from "../components/HeadElement.tsx";
 
 interface IData extends IState {
   post: IPost | null;
@@ -19,11 +20,11 @@ export const handler: Handlers<IData, IState> = {
 };
 
 export default function BlogPostPage(props: PageProps) {
-  const { post, locales } = props.data;
+  const { data, url } = props;
 
-  const dateFmt = new Intl.DateTimeFormat(locales, { dateStyle: "full" });
+  const dateFmt = new Intl.DateTimeFormat(data.locales, { dateStyle: "full" });
 
-  const html = render(post.content);
+  const html = render(data.post.content);
 
   if (!props.data) {
     return "No post";
@@ -31,10 +32,16 @@ export default function BlogPostPage(props: PageProps) {
 
   return (
     <div class="p-4 mx-auto max-w-screen-md">
+      <HeadElement
+        title={data.post.title}
+        description={data.post.snippet}
+        url={url}
+      />
+
       <p class="text-grey-600 mt-12 font-plex-mono">
-        {dateFmt.format(post.publishedAt)}
+        {dateFmt.format(data.post.publishedAt)}
       </p>
-      <h1 class="text-5xl mt-2 font-bold font-plex-mono">{post.title}</h1>
+      <h1 class="text-5xl mt-2 font-bold font-plex-mono">{data.post.title}</h1>
       <style class="mt-12" dangerouslySetInnerHTML={{ __html: CSS }} />
       <div
         class="mt-12 !font-plex-sans markdown-body"
