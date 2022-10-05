@@ -10,7 +10,7 @@ export default {
       },
 
       animation: {
-        appear: "fadeIn 0.5s ease-in-out",
+        appear: "fadeIn 1s ease-in-out",
       },
 
       // that is actual animation
