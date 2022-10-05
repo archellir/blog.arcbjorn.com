@@ -49,7 +49,7 @@ export default function BlogPostPage(props: PageProps) {
           {dateFmt.format(data.post.publishedAt)}
         </p>
 
-        <h1 class="text-5xl py-8 font-semibold font-plex-mono">
+        <h1 class="text-3xl py-8 font-semibold font-plex-mono">
           {data.post.title}
         </h1>
 

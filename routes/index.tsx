@@ -23,7 +23,7 @@ function Post(props: { post: IPost; locales: IState["locales"] }) {
     <li class="border-t py-4 px-2 mx-8">
       <a
         href={`/${post.id}`}
-        class="p-2 flex justify-start items-baseline flex-wrap md:flex-nowrap gap-y-2 gap-x-4 group"
+        class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
       >
         <div class="font-plex-mono">{dateFmt.format(post.publishedAt)}</div>
         <div>
