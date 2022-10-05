@@ -1,7 +1,7 @@
 import { IPost, IState } from "../types.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { listPosts } from "../api/listPosts.ts";
-import Header from "../components/Header.tsx";
+import { Header } from "../components/Header.tsx";
 import { HeadElement } from "../components/HeadElement.tsx";
 
 interface IData extends IState {
