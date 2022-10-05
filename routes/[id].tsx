@@ -38,9 +38,9 @@ export default function BlogPostPage(props: PageProps) {
   return (
     <div class="animate-appear">
       <HeadElement
+        url={url}
         title={data.post.title}
         description={data.post.snippet}
-        url={url}
       />
 
       <Header />

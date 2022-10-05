@@ -42,10 +42,10 @@ export default function Home(props: PageProps<IData>) {
   return (
     <>
       <HeadElement
-        description="Thoughtbook of Arcbjorn"
-        image={url.href + "logo.svg"}
-        title="Arc's thoughtbook"
         url={url}
+        title="Thoughtbook"
+        image={url.href + "logo.svg"}
+        description="Tech explorations"
       />
 
       <div class="flex flex-col animate-appear">
