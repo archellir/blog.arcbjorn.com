@@ -50,6 +50,26 @@ export default function Home(props: PageProps<IData>) {
 
       <div class="flex flex-col">
         <Header />
+
+        <div class="self-center text-center p-8 max-w-screen-md text-sm sm:text-base">
+          <div class="p-1">
+            My first name is Oleg{" "}
+            <span class="text-green-600">[al'eg].{" "}</span>
+            <a
+              target="_blank"
+              href="https://arcbjorn.com"
+              class="underline"
+            >
+              More info.
+            </a>
+          </div>
+          <div class="p-1">
+            Here I share my explorations of System Design, Algorithms, Math,
+            Networks, Databases, Operational Systems, Blockchain, programming
+            languages & patterns, web related tech.
+          </div>
+        </div>
+
         <div class="max-w-screen-md self-center">
           <ul>
             {data.posts.map((post) => (
