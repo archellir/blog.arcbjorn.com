@@ -48,7 +48,7 @@ export default function Home(props: PageProps<IData>) {
         url={url}
       />
 
-      <div class="flex flex-col">
+      <div class="flex flex-col animate-appear">
         <Header />
 
         <div class="self-center text-center p-8 max-w-screen-md text-sm sm:text-base">

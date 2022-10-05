@@ -36,7 +36,7 @@ export default function BlogPostPage(props: PageProps) {
   }
 
   return (
-    <>
+    <div class="animate-appear">
       <HeadElement
         title={data.post.title}
         description={data.post.snippet}
@@ -60,6 +60,6 @@ export default function BlogPostPage(props: PageProps) {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
-    </>
+    </div>
   );
 }
