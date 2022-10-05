@@ -1,7 +1,10 @@
 ---
-title: First blog post
+title: First post
 published_at: 2022-10-02
-snippet: Objective of the blog
+snippet: Why「 blog 」?
 ---
 
-This is my first blog post
+Why blog?
+
+As for every cell on Earth, storing and sharing information is an existential
+necessity.
