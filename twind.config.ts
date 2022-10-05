@@ -8,6 +8,18 @@ export default {
         "plex-mono": ["IBMPlexMono", "Courier New", "Courier", "monospace"],
         "plex-sans": ["IBMPlexSans", "sans-serif", "sans"],
       },
+
+      animation: {
+        appear: "fadeIn 0.5s ease-in-out",
+      },
+
+      // that is actual animation
+      keyframes: () => ({
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 100 },
+        },
+      }),
     },
   },
   preflight: {
