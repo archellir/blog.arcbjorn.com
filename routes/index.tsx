@@ -21,7 +21,7 @@ function Post(props: { post: IPost; locales: IState["locales"] }) {
   });
 
   return (
-    <li class="border-t py-4 px-2 mx-8 list-none">
+    <li class="border-t border-gray-400 py-4 px-2 mx-8 list-none">
       <a
         href={`/${post.id}`}
         class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
@@ -50,7 +50,7 @@ export default function Home(props: PageProps<IData>) {
       />
 
       <div class="flex flex-col">
-        <div class="self-center text-center p-8 max-w-screen-md text-sm sm:text-base">
+        <div class="self-center text-center p-8 max-w-screen-lg text-sm sm:text-base lg:border-x border-t border-dashed border-gray-400">
           <div class="p-1">
             My first name is Oleg{" "}
             <span class="text-green-600">[al'eg].{" "}</span>
@@ -69,7 +69,7 @@ export default function Home(props: PageProps<IData>) {
           </div>
         </div>
 
-        <div class="max-w-screen-md self-center">
+        <div class="max-w-screen-lg self-center">
           <ul>
             {data.posts.map((post) => (
               <Post post={post} locales={data.locales} />

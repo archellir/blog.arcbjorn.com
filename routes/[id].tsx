@@ -42,7 +42,7 @@ export default function BlogPostPage(props: PageProps) {
         description={data.post.snippet}
       />
 
-      <div class="p-8 mx-auto max-w-screen-lg">
+      <div class="p-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
         <p class="text-grey-600 font-plex-mono">
           {dateFmt.format(data.post.publishedAt)}
         </p>
