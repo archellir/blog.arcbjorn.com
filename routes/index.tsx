@@ -19,7 +19,7 @@ function Post(props: { post: IPost; locales: IState["locales"] }) {
   const dateFmt = new Intl.DateTimeFormat("en-UK", { dateStyle: "short" });
 
   return (
-    <li class="border-t py-4 px-2 mx-8">
+    <li class="border-t py-4 px-2 mx-8 list-none">
       <a
         href={`/${post.id}`}
         class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
