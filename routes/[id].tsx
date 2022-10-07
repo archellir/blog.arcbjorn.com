@@ -3,7 +3,6 @@ import { CSS, render } from "$gfm";
 import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
 import { HeadElement } from "../components/HeadElement.tsx";
-import { Header } from "../components/Header.tsx";
 
 import "https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check";
@@ -36,14 +35,13 @@ export default function BlogPostPage(props: PageProps) {
   }
 
   return (
-    <div class="animate-appear">
+    <>
       <HeadElement
         url={url}
         title={data.post.title}
         description={data.post.snippet}
       />
 
-      <Header />
       <div class="p-8 mx-auto max-w-screen-md">
         <p class="text-grey-600 font-plex-mono">
           {dateFmt.format(data.post.publishedAt)}
@@ -60,6 +58,6 @@ export default function BlogPostPage(props: PageProps) {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
-    </div>
+    </>
   );
 }

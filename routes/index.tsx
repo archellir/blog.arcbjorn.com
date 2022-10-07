@@ -1,7 +1,6 @@
 import { IPost, IState } from "../types.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { listPosts } from "../api/listPosts.ts";
-import { Header } from "../components/Header.tsx";
 import { HeadElement } from "../components/HeadElement.tsx";
 
 interface IData extends IState {
@@ -48,9 +47,7 @@ export default function Home(props: PageProps<IData>) {
         description="Tech explorations"
       />
 
-      <div class="flex flex-col animate-appear">
-        <Header />
-
+      <div class="flex flex-col">
         <div class="self-center text-center p-8 max-w-screen-md text-sm sm:text-base">
           <div class="p-1">
             My first name is Oleg{" "}
