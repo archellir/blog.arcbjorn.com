@@ -16,7 +16,9 @@ export const handler: Handlers<IData, IState> = {
 
 function Post(props: { post: IPost; locales: IState["locales"] }) {
   const post = props.post;
-  const dateFmt = new Intl.DateTimeFormat("en-UK", { dateStyle: "short" });
+  const dateFmt = new Intl.DateTimeFormat(props.locales, {
+    dateStyle: "short",
+  });
 
   return (
     <li class="border-t py-4 px-2 mx-8 list-none">
