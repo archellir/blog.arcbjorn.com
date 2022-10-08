@@ -1,8 +1,12 @@
 import { FunctionalComponent } from "preact";
 
-export const Footer: FunctionalComponent = () => {
+interface IFooterProps {
+  classes?: string;
+}
+
+export const Footer: FunctionalComponent<IFooterProps> = ({ classes }) => {
   return (
-    <div class="flex justify-center p-8">
+    <div class={classes + " flex justify-center p-8"}>
       <a
         rel="license"
         href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"
