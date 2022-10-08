@@ -8,22 +8,26 @@ import "https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-rust?no-check";
 
-interface IData extends IState {
-  post: IPost | null;
+interface IPostPageData extends IState {
+  post: IPost;
 }
 
-export const handler: Handlers<IData, IState> = {
+export const handler: Handlers<IPostPageData, IState> = {
   async GET(_req, ctx) {
     const id = ctx.params.id;
     const post = await loadPost(id);
     if (!post) {
-      return ctx.render({ ...ctx.state, post: null });
+      const headers = new Headers({ Location: "/" });
+      return new Response("", {
+        status: 303,
+        headers,
+      });
     }
     return ctx.render({ ...ctx.state, post });
   },
 };
 
-export default function BlogPostPage(props: PageProps) {
+export default function BlogPostPage(props: PageProps<IPostPageData>) {
   const { data, url } = props;
 
   const dateFmt = new Intl.DateTimeFormat(data.locales, { dateStyle: "full" });
