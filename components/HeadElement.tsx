@@ -1,13 +1,13 @@
 import { Head } from "$fresh/runtime.ts";
 
-export type HeadProps = {
+interface IHeadProps {
   url: URL;
   title: string;
   description: string;
   image?: string;
-};
+}
 
-export function HeadElement({ description, image, title, url }: HeadProps) {
+export function HeadElement({ description, image, title, url }: IHeadProps) {
   return (
     <Head>
       <title>{title}</title>
