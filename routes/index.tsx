@@ -3,11 +3,11 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { listPosts } from "../api/listPosts.ts";
 import { HeadElement } from "../components/HeadElement.tsx";
 
-interface IData extends IState {
+interface IHomePageData extends IState {
   posts: IPost[];
 }
 
-export const handler: Handlers<IData, IState> = {
+export const handler: Handlers<IHomePageData, IState> = {
   async GET(_req, ctx) {
     const posts = await listPosts();
     return ctx.render({ ...ctx.state, posts });
@@ -38,7 +38,7 @@ function Post(props: { post: IPost; locales: IState["locales"] }) {
   );
 }
 
-export default function Home(props: PageProps<IData>) {
+export default function Home(props: PageProps<IHomePageData>) {
   const { data, url } = props;
   return (
     <>
