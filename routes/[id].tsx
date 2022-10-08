@@ -51,7 +51,7 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
 
       <Header />
 
-      <div class="p-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
+      <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
         <p class="text-grey-600 font-plex-mono">
           {dateFmt.format(data.post.publishedAt)}
         </p>
