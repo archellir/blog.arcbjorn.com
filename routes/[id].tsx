@@ -1,5 +1,7 @@
+import { FunctionalComponent } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { CSS, render } from "$gfm";
+
 import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
 import { HeadElement } from "../components/HeadElement.tsx";
@@ -11,6 +13,8 @@ import "https://esm.sh/prismjs@1.27.0/components/prism-rust?no-check";
 interface IPostPageData extends IState {
   post: IPost;
 }
+
+type TPostPageProps = PageProps<IPostPageData>;
 
 export const handler: Handlers<IPostPageData, IState> = {
   async GET(_req, ctx) {
@@ -27,16 +31,12 @@ export const handler: Handlers<IPostPageData, IState> = {
   },
 };
 
-export default function BlogPostPage(props: PageProps<IPostPageData>) {
+const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
   const { data, url } = props;
 
   const dateFmt = new Intl.DateTimeFormat(data.locales, { dateStyle: "full" });
 
   const html = render(data.post.content);
-
-  if (!props.data) {
-    return "No post";
-  }
 
   return (
     <>
@@ -64,4 +64,6 @@ export default function BlogPostPage(props: PageProps<IPostPageData>) {
       </div>
     </>
   );
-}
+};
+
+export default BlogPostPage;

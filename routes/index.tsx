@@ -1,7 +1,9 @@
-import { IPost, IState } from "../types.ts";
+import { FunctionalComponent } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { listPosts } from "../api/listPosts.ts";
+
 import { HeadElement } from "../components/HeadElement.tsx";
+import { IPost, IState } from "../types.ts";
+import { listPosts } from "../api/listPosts.ts";
 
 interface IHomePageData extends IState {
   posts: IPost[];
@@ -14,7 +16,9 @@ export const handler: Handlers<IHomePageData, IState> = {
   },
 };
 
-function Post(props: { post: IPost; locales: IState["locales"] }) {
+const Post: FunctionalComponent<{ post: IPost; locales: IState["locales"] }> = (
+  props,
+) => {
   const post = props.post;
   const dateFmt = new Intl.DateTimeFormat(props.locales, {
     dateStyle: "short",
@@ -36,9 +40,9 @@ function Post(props: { post: IPost; locales: IState["locales"] }) {
       </a>
     </li>
   );
-}
+};
 
-export default function Home(props: PageProps<IHomePageData>) {
+const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
   const { data, url } = props;
   return (
     <>
@@ -79,4 +83,6 @@ export default function Home(props: PageProps<IHomePageData>) {
       </div>
     </>
   );
-}
+};
+
+export default Home;

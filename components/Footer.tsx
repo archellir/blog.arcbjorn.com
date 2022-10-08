@@ -1,6 +1,8 @@
-export function Footer() {
+import { FunctionalComponent } from "preact";
+
+export const Footer: FunctionalComponent = () => {
   return (
-    <div class="mt-auto flex justify-center p-8">
+    <div class="flex justify-center p-8">
       <a
         rel="license"
         href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"
@@ -13,4 +15,4 @@ export function Footer() {
       </a>
     </div>
   );
-}
+};

@@ -1,3 +1,4 @@
+import { FunctionalComponent } from "preact";
 import { Head } from "$fresh/runtime.ts";
 
 interface IHeadProps {
@@ -7,7 +8,9 @@ interface IHeadProps {
   image?: string;
 }
 
-export function HeadElement({ description, image, title, url }: IHeadProps) {
+export const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
+  const { description, image, title, url } = props;
+
   return (
     <Head>
       <title>{title}</title>
@@ -30,4 +33,4 @@ export function HeadElement({ description, image, title, url }: IHeadProps) {
       {image && <meta name="twitter:image" content={image} />}
     </Head>
   );
-}
+};

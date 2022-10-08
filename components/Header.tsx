@@ -1,4 +1,6 @@
-export function Header() {
+import { FunctionalComponent } from "preact";
+
+export const Header: FunctionalComponent = () => {
   return (
     <div class="flex justify-between gap-4 flex-wrap p-12">
       <a href="/" class="cursor-pointer font-bold text-xl font-plex-mono">
@@ -7,4 +9,4 @@ export function Header() {
       <h1 class="text-lg font-plex-sans">thoughtbook</h1>
     </div>
   );
-}
+};

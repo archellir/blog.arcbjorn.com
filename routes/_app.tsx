@@ -1,9 +1,10 @@
+import { FunctionalComponent } from "preact";
 import { AppProps } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
 
-export default function App({ Component }: AppProps) {
+import { Header } from "../components/Header.tsx";
+
+const App: FunctionalComponent<AppProps> = ({ Component }) => {
   return (
     <div class="container flex flex-col mx-auto h-full animate-appear">
       <Head>
@@ -13,8 +14,8 @@ export default function App({ Component }: AppProps) {
       <Header />
 
       <Component />
-
-      <Footer />
     </div>
   );
-}
+};
+
+export default App;
