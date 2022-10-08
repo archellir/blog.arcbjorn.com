@@ -1,9 +1,11 @@
 import { FunctionalComponent } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 
-import { HeadElement } from "../components/HeadElement.tsx";
 import { IPost, IState } from "../types.ts";
 import { listPosts } from "../api/listPosts.ts";
+
+import { Post } from "../components/Post.tsx";
+import { HeadElement } from "../components/HeadElement.tsx";
 
 interface IHomePageData extends IState {
   posts: IPost[];
@@ -14,32 +16,6 @@ export const handler: Handlers<IHomePageData, IState> = {
     const posts = await listPosts();
     return ctx.render({ ...ctx.state, posts });
   },
-};
-
-const Post: FunctionalComponent<{ post: IPost; locales: IState["locales"] }> = (
-  props,
-) => {
-  const post = props.post;
-  const dateFmt = new Intl.DateTimeFormat(props.locales, {
-    dateStyle: "short",
-  });
-
-  return (
-    <li class="border-t border-gray-400 py-4 px-2 mx-8 list-none">
-      <a
-        href={`/${post.id}`}
-        class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
-      >
-        <div class="font-plex-mono">{dateFmt.format(post.publishedAt)}</div>
-        <div>
-          <h2 class="text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
-            {post.title}
-          </h2>
-          <p class="pt-1 font-plex-sans text-grey-600">{post.snippet}</p>
-        </div>
-      </a>
-    </li>
-  );
 };
 
 const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
