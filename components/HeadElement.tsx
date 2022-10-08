@@ -13,6 +13,8 @@ export const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
 
   return (
     <Head>
+      <link rel="stylesheet" href="/app.css" />
+
       <title>{title}</title>
       <link rel="icon" href="/favicon.ico" sizes="32x32" />
       <meta name="description" content={description} />
