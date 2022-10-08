@@ -4,7 +4,10 @@ import { CSS, render } from "$gfm";
 
 import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
+
 import { HeadElement } from "../components/HeadElement.tsx";
+import { Footer } from "../components/Footer.tsx";
+import { Header } from "../components/Header.tsx";
 
 import "https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check";
@@ -46,6 +49,8 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
         description={data.post.snippet}
       />
 
+      <Header />
+
       <div class="p-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
         <p class="text-grey-600 font-plex-mono">
           {dateFmt.format(data.post.publishedAt)}
@@ -62,6 +67,8 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
+
+      <Footer />
     </>
   );
 };

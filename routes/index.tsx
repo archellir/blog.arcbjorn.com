@@ -4,8 +4,10 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { IPost, IState } from "../types.ts";
 import { listPosts } from "../api/listPosts.ts";
 
-import { Post } from "../components/Post.tsx";
 import { HeadElement } from "../components/HeadElement.tsx";
+import { Header } from "../components/Header.tsx";
+import { Post } from "../components/Post.tsx";
+import { Footer } from "../components/Footer.tsx";
 
 interface IHomePageData extends IState {
   posts: IPost[];
@@ -29,7 +31,9 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
         description="Tech explorations"
       />
 
-      <div class="flex flex-col">
+      <div class="flex flex-col h-full">
+        <Header />
+
         <div class="self-center text-center p-8 max-w-screen-lg text-sm sm:text-base lg:border-x border-t border-dashed border-gray-400">
           <div class="p-1">
             My first name is Oleg{" "}
@@ -49,13 +53,15 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
           </div>
         </div>
 
-        <div class="max-w-screen-lg self-center">
+        <div class="max-w-screen-lg self-center flex-grow">
           <ul>
             {data.posts.map((post) => (
               <Post post={post} locales={data.locales} />
             ))}
           </ul>
         </div>
+
+        <Footer classes="mt-auto" />
       </div>
     </>
   );
