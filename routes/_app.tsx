@@ -6,7 +6,7 @@ import { Header } from "../components/Header.tsx";
 
 const App: FunctionalComponent<AppProps> = ({ Component }) => {
   return (
-    <div class="container flex flex-col mx-auto h-full animate-appear">
+    <div class="container mx-auto h-full animate-appear">
       <Head>
         <link rel="stylesheet" href="/app.css" />
       </Head>
