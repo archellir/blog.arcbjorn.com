@@ -1,7 +1,7 @@
 ---
-title: Archlinux installation
+title: Archlinux from scratch
 published_at: 2022-10-05
-snippet: Archlinux with the latest & greatest tools available (2022)
+snippet: Installation with the latest & greatest tools available (2022)
 ---
 
 This guide is a convenient combination of
