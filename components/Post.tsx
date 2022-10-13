@@ -19,10 +19,12 @@ export const Post: FunctionalComponent<IPostProps> = ({ post, locales }) => {
       >
         <div class="font-plex-mono">{dateFmt.format(post.publishedAt)}</div>
         <div>
-          <h2 class="text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
+          <h2 class="text-lg sm:text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
             {post.title}
           </h2>
-          <p class="pt-1 font-plex-sans text-grey-600">{post.snippet}</p>
+          <p class="pt-1 font-plex-sans text-grey-600 hidden sm:block">
+            {post.snippet}
+          </p>
         </div>
       </a>
     </li>

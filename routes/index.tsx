@@ -53,7 +53,7 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
           </div>
         </div>
 
-        <div class="max-w-screen-lg self-center flex-grow">
+        <div class="max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
           <ul>
             {data.posts.map((post) => (
               <Post post={post} locales={data.locales} />
