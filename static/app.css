@@ -5,6 +5,12 @@ html {
 
 body {
 	height: 100%;
+
+	--bg: #1b1d1e;
+  --color: #dddddd;
+	
+	background-color: var(--bg);
+  color: var(--color);
 }
 
 ul {

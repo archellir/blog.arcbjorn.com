@@ -52,7 +52,7 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
       <Header />
 
       <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
-        <p class="text-gray-600 font-plex-mono">
+        <p class="text-gray-400 font-plex-mono">
           {dateFmt.format(data.post.publishedAt)}
         </p>
 
@@ -63,7 +63,10 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
         <div
+          style={{ backgroundColor: "#1b1d1e" }}
           class="!font-plex-sans markdown-body"
+          data-color-mode="dark"
+          data-dark-theme="dark"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
