@@ -1,4 +1,5 @@
 import { FunctionalComponent } from "preact";
+import { RSSIcon } from "../components/RSSIcon.tsx";
 
 export const Header: FunctionalComponent = () => {
   return (
@@ -6,7 +7,10 @@ export const Header: FunctionalComponent = () => {
       <a href="/" class="cursor-pointer font-bold text-xl font-plex-mono">
         arcbjorn
       </a>
-      <h1 class="text-lg font-plex-sans">thoughtbook</h1>
+      <div class="flex gap-4">
+        <h1 class="text-lg font-plex-sans">thoughtbook</h1>
+        <RSSIcon />
+      </div>
     </div>
   );
 };
