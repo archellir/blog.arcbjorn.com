@@ -1,6 +1,5 @@
 import { FunctionalComponent } from "preact";
 import { AppProps } from "$fresh/server.ts";
-import { Head } from "$fresh/runtime.ts";
 
 const App: FunctionalComponent<AppProps> = ({ Component }) => {
   return (
