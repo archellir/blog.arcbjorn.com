@@ -9,7 +9,9 @@ export const Header: FunctionalComponent = () => {
       </a>
       <div class="flex gap-4">
         <h1 class="text-lg font-plex-sans">thoughtbook</h1>
-        <RSSIcon />
+        <a href="/rss">
+          <RSSIcon />
+        </a>
       </div>
     </div>
   );
