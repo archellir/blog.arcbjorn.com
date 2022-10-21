@@ -52,171 +52,171 @@ please refer to my robust
 
 ### Installation
 
-1. Boot from USB drive with Arch ISO
+Step 1: boot from USB drive with Arch ISO
 
-2. Prepare the disk (partitions) - using GPT device
+Step 2: prepare the disk (partitions) - using GPT device
 
-   ```bash
-   # check the disks
-   lsblk
+```bash
+# check the disks
+lsblk
 
-   # partition the disk - create GPT Labels
-   gdisk /dev/***
+# partition the disk - create GPT Labels
+gdisk /dev/***
 
-   # choose new GPT Label command:
-   o
+# choose new GPT Label command:
+o
 
-   # First Partition for EFI
-   # choose new command:
-   n
-   # choose default partition number
-   # choose default First Sector memory
-   # choose Last Sector memory:
-   +550M
-   # enter the EFI partition code:
-   ef00
+# First Partition for EFI
+# choose new command:
+n
+# choose default partition number
+# choose default First Sector memory
+# choose Last Sector memory:
++550M
+# enter the EFI partition code:
+ef00
 
-   # Second Partition for main SSD storage
-   # choose new command
-   n
-   # choose default partition number
-   # choose default First Sector memory
-   # choose Last Sector memory:
-   (remaining SSD space - 2 GB)G
-   # choose default partition type (Linux Filesystem)
+# Second Partition for main SSD storage
+# choose new command
+n
+# choose default partition number
+# choose default First Sector memory
+# choose Last Sector memory:
+(remaining SSD space - 2 GB)G
+# choose default partition type (Linux Filesystem)
 
-   # Choose "write" command to overwrite exiting partitions:
-   w
-   ```
+# Choose "write" command to overwrite exiting partitions:
+w
+```
 
-3. Format partitions
+Step 3: format partitions
 
-   ```bash
-   # make fat32 filesystem for EFI
-   mkfs.vfat /dev/***1
-   # make butterFS filesystem for main storage
-   mkfs.btrfs  /dev/***2
-   ```
+```bash
+# make fat32 filesystem for EFI
+mkfs.vfat /dev/***1
+# make butterFS filesystem for main storage
+mkfs.btrfs  /dev/***2
+```
 
-4. ButterFS configuration
+Step 4: butterFS configuration
 
-   ```bash
-   # mount main partition - root subvolume
-   mount  /dev/***2 /mnt
+```bash
+# mount main partition - root subvolume
+mount  /dev/***2 /mnt
 
-   cd /mnt
-   # make btrFS subvolume for root subvolume
-   btrfs subvolume create @
-   # make btrFS subvolume for home subvolume
-   btrfs subvolume create @home
-   # make btrFS subvolume for var subvolume
-   btrfs subvolume create @var
+cd /mnt
+# make btrFS subvolume for root subvolume
+btrfs subvolume create @
+# make btrFS subvolume for home subvolume
+btrfs subvolume create @home
+# make btrFS subvolume for var subvolume
+btrfs subvolume create @var
 
-   cd
-   # unmount main partition - root subvolume
-   umount /mnt
+cd
+# unmount main partition - root subvolume
+umount /mnt
 
-   # mount root subvolume
-   mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@ /dev/***2 /mnt
+# mount root subvolume
+mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@ /dev/***2 /mnt
 
-   # directories var, home & var
-   mkdir -p /mnt/boot/efi
-   mkdir /mnt/{home,var}
+# directories var, home & var
+mkdir -p /mnt/boot/efi
+mkdir /mnt/{home,var}
 
-   # mount home & var subvolumes
-   mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@home /dev/***2 /mnt/home
+# mount home & var subvolumes
+mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@home /dev/***2 /mnt/home
 
-   mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@var /dev/***2 /mnt/var
-   ```
+mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@var /dev/***2 /mnt/var
+```
 
-5. Mount EFI partition
+Step 5: mount EFI partition
 
-   ```bash
-   mount /dev/***1 /mnt/boot/efi
-   ```
+```bash
+mount /dev/***1 /mnt/boot/efi
+```
 
-6. Install the base system
+Step 6: install the base system
 
-   ```bash
-   # for amd processor: amd-ucode instead of intel-ucode
-   pacstrap /mnt base linux linux-firmware git vim intel-ucode btrfs-progs
-   ```
+```bash
+# for amd processor: amd-ucode instead of intel-ucode
+pacstrap /mnt base linux linux-firmware git vim intel-ucode btrfs-progs
+```
 
-7. Generate filesystem table
+Step 7: generate filesystem table
 
-   ```bash
-   genfstab -U /mnt >> /mnt/etc/fstab
-   ```
+```bash
+genfstab -U /mnt >> /mnt/etc/fstab
+```
 
-8. Make new root directory with all mounts needed
+Step 8: make new root directory with all mounts needed
 
-   ```bash
-   # detach from main filesystem and process tree
-   arch-chroot /mnt
+```bash
+# detach from main filesystem and process tree
+arch-chroot /mnt
 
-   # check the fs & table
-   ls
-   cat /etc/fstab
-   ```
+# check the fs & table
+ls
+cat /etc/fstab
+```
 
-9. Run base archlinux system intall script
+Step 9: run base archlinux system intall script
 
-   ```bash
-   # give exec permissions to script
-   git clone https://github.com/arcbjorn/arc-arch-linux-installation-guide
-   cd arc-arch-linux-installation-guide
-   # don't forget to change username & password to yours :)
-   chmod +x base.sh
+```bash
+# give exec permissions to script
+git clone https://github.com/arcbjorn/arc-arch-linux-installation-guide
+cd arc-arch-linux-installation-guide
+# don't forget to change username & password to yours :)
+chmod +x base.sh
 
-   # run from root filesystem
-   cd /
-   ./arc-arch-linux-installation-guide/base.sh
+# run from root filesystem
+cd /
+./arc-arch-linux-installation-guide/base.sh
 
-   # choose xdr-desktop-portal-wlr (to use with Sway)
-   ```
+# choose xdr-desktop-portal-wlr (to use with Sway)
+```
 
-10. Check system init config
+Step 10: check system init config
 
-    ```bash
-    vim /etc/mkinitcpio.conf
-    # if butterFS used on 2 disks - put "btrfs" parameter in MODULES
-    # if amd or nvidia card is used - put "amdgpu" or "nvidia" parameters in MODULES accordingly
+```bash
+vim /etc/mkinitcpio.conf
+# if butterFS used on 2 disks - put "btrfs" parameter in MODULES
+# if amd or nvidia card is used - put "amdgpu" or "nvidia" parameters in MODULES accordingly
 
-    # if config was changed, recreate initramfs:
-    mkinitcpio -p linux
-    ```
+# if config was changed, recreate initramfs:
+mkinitcpio -p linux
+```
 
-11. Finish base packages installation
+Step 11: finish base packages installation
 
-    ```bash
-    exit
-    umount -a
-    reboot
-    ```
+```bash
+exit
+umount -a
+reboot
+```
 
-12. Install Desktop GUI & tools
+Step 12: install Desktop GUI & tools
 
-    ```bash
-    # copy the guide from root filesystem to home repository
-    cp -r /arc-arch-linux-installation-guide .
-    cd /arc-arch-linux-installation-guide
+```bash
+# copy the guide from root filesystem to home repository
+cp -r /arc-arch-linux-installation-guide .
+cd /arc-arch-linux-installation-guide
 
-    # give exec permissions to script
-    chmod +x sway.sh
+# give exec permissions to script
+chmod +x sway.sh
 
-    # go back to home directory
-    cd ..
-    ./arc-arch-linux-installation-guide/sway.sh
-    ```
+# go back to home directory
+cd ..
+./arc-arch-linux-installation-guide/sway.sh
+```
 
-13. Configure ZRAM (used for SWAP)
+Step 13: configure ZRAM (used for SWAP)
 
-    ```bash
-    paru -S zramd
-    sudo systemctl enable --now zramd.service
+```bash
+paru -S zramd
+sudo systemctl enable --now zramd.service
 
-    # check the block devices table
-    lsblk
+# check the block devices table
+lsblk
 
-    reboot
-    ```
+reboot
+```
