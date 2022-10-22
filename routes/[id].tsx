@@ -64,7 +64,7 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
         <div
-          style={{ backgroundColor: "#1b1d1e" }}
+          style={{ backgroundColor: "#212425" }}
           class="!font-plex-sans markdown-body"
           data-color-mode="dark"
           data-dark-theme="dark"
