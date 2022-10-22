@@ -9,9 +9,10 @@ import { HeadElement } from "../components/HeadElement.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { Header } from "../components/Header.tsx";
 
+import "https://esm.sh/prismjs@1.27.0/components/prism-c?no-check";
+import "https://esm.sh/prismjs@1.27.0/components/prism-cpp?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-rust?no-check";
+import "https://esm.sh/prismjs@1.27.0/components/prism-go?no-check";
 
 interface IPostPageData extends IState {
   post: IPost;
