@@ -6,8 +6,9 @@ import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
 
 import { HeadElement } from "../components/HeadElement.tsx";
-import { Footer } from "../components/Footer.tsx";
 import { Header } from "../components/Header.tsx";
+import { Footer } from "../components/Footer.tsx";
+import { CommentSection } from "../components/CommentSection.tsx";
 
 import "https://esm.sh/prismjs@1.27.0/components/prism-c?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-cpp?no-check";
@@ -71,6 +72,8 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
+
+      <CommentSection />
 
       <Footer />
     </>
