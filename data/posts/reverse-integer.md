@@ -92,6 +92,8 @@ public:
 
 #### Natural number solution:
 
+- Time Complexity: `O(1)` - constant amount of space
+
 ```cpp
 class Solution {
 public:
