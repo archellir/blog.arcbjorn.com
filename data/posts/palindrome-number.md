@@ -1,11 +1,49 @@
 ---
 title: Is number palindrome?
 published_at: 2022-10-22
-snippet: C++, Go, Typescript solutions
+snippet: Go, Typescript solutions, C++
 ---
 
 Palindrome number is a natural number that has reflectional symmetry across a
 vertical axis. It remains the same when its digits are reversed.
+
+## Go
+
+- Time complexity: `O(log10(input))` - each iteration divides the input by 10
+- Auxiliary space: `O(1)` - constant amount of space
+
+```go
+func isPalindrome(x int) bool {
+	if x < 0 || (x % 10 == 0 && x != 0) {
+			return false;
+	}
+	
+	var reversedNumber int = 0
+	for x > reversedNumber {
+			remainder := x % 10
+			reversedNumber = reversedNumber * 10 + remainder
+			x = x / 10
+	}
+	
+	// odd and even cases
+	return x == reversedNumber || x == reversedNumber / 10;
+}
+```
+
+## Typescript
+
+- Time complexity: `O(1)` - no division/multiplication by dynamic value
+- Auxiliary space: `O(1)` - constant amount of space
+
+```typescript
+function isPalindrome(x: number): boolean {
+  const reversedNumber: Number = Number(
+    x.toString().split("").reverse().join(""),
+  );
+
+  return x === reversedNumber;
+}
+```
 
 ## C++
 
@@ -67,43 +105,5 @@ bool isPalindrome(int x) {
 	}
 	
 	return palindrome;
-}
-```
-
-## Go
-
-- Time complexity: `O(log10(input))` - each iteration divides the input by 10
-- Auxiliary space: `O(1)` - constant amount of space
-
-```go
-func isPalindrome(x int) bool {
-	if x < 0 || (x % 10 == 0 && x != 0) {
-			return false;
-	}
-	
-	var reversedNumber int = 0
-	for x > reversedNumber {
-			remainder := x % 10
-			reversedNumber = reversedNumber * 10 + remainder
-			x = x / 10
-	}
-	
-	// odd and even cases
-	return x == reversedNumber || x == reversedNumber / 10;
-}
-```
-
-## Typescript
-
-- Time complexity: `O(1)` - no division/multiplication by dynamic value
-- Auxiliary space: `O(1)` - constant amount of space
-
-```typescript
-function isPalindrome(x: number): boolean {
-  const reversedNumber: Number = Number(
-    x.toString().split("").reverse().join(""),
-  );
-
-  return x === reversedNumber;
 }
 ```
