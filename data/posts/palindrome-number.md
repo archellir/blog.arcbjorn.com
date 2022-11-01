@@ -1,7 +1,7 @@
 ---
 title: Is number palindrome?
 published_at: 2022-10-22
-snippet: Go, Typescript solutions, C++
+snippet: Go, Typescript, C++ solutions
 ---
 
 Palindrome number is a natural number that has reflectional symmetry across a
