@@ -11,8 +11,8 @@ vertical axis. It remains the same when its digits are reversed.
 
 #### Number solution:
 
-- Time complexity : O(log10(n))
-- Space complexity: O(1)
+- Time complexity: `O(log10(input))` - each iteration divides the input by 10
+- Auxiliary space: `O(1)` - constant amount of space
 
 ```cpp
 bool isPalindrome(int x) {
@@ -43,6 +43,9 @@ bool isPalindrome(int x) {
 
 #### String solution:
 
+- Time complexity: `O(1)` - no division/multiplication by dynamic value
+- Auxiliary space: `O(1)` - constant amount of space
+
 ```cpp
 #include <string>
 
@@ -69,6 +72,9 @@ bool isPalindrome(int x) {
 
 ## Go
 
+- Time complexity: `O(log10(input))` - each iteration divides the input by 10
+- Auxiliary space: `O(1)` - constant amount of space
+
 ```go
 func isPalindrome(x int) bool {
 	if x < 0 || (x % 10 == 0 && x != 0) {
@@ -88,6 +94,9 @@ func isPalindrome(x int) bool {
 ```
 
 ## Typescript
+
+- Time complexity: `O(1)` - no division/multiplication by dynamic value
+- Auxiliary space: `O(1)` - constant amount of space
 
 ```typescript
 function isPalindrome(x: number): boolean {
