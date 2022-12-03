@@ -4,7 +4,7 @@ published_at: 2022-12-03
 snippet: Calorie Counting - Golang solution
 ---
 
-Advent of code 2022 - Day 1 - Calorie Counting - Golang solution
+#### Calorie Counting - Golang solution
 
 ```go
 package main
