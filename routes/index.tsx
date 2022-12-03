@@ -36,15 +36,15 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
 
         <div class="self-center text-center p-8 max-w-screen-lg text-sm sm:text-base lg:border-x border-t border-dashed border-gray-400">
           <div class="p-1">
-            My first name is Oleg{" "}
-            <span class="text-green-600">[al'eg].{" "}</span>
+            My name is Oleg{" "}
+            <span class="text-green-600">[al'eg]</span>. Online handle is{" "}
             <a
               target="_blank"
               href="https://arcbjorn.com"
               class="underline"
             >
-              More info.
-            </a>
+              @arcbjorn
+            </a>.
           </div>
           <div class="p-1">
             Here I share my explorations of System Design, Algorithms, Math,
