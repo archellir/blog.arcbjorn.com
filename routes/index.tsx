@@ -8,6 +8,7 @@ import { HeadElement } from "../components/HeadElement.tsx";
 import { Header } from "../components/Header.tsx";
 import { Post } from "../components/Post.tsx";
 import { Footer } from "../components/Footer.tsx";
+import Introduction from "../components/Introduction.tsx";
 
 interface IHomePageData extends IState {
   posts: IPost[];
@@ -34,24 +35,7 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
       <div class="flex flex-col h-full">
         <Header />
 
-        <div class="self-center text-center p-8 max-w-screen-lg text-sm sm:text-base lg:border-x border-t border-dashed border-gray-400">
-          <div class="p-1">
-            My name is Oleg{" "}
-            <span class="text-green-600">[al'eg]</span>. Online handle is{" "}
-            <a
-              target="_blank"
-              href="https://arcbjorn.com"
-              class="underline"
-            >
-              @arcbjorn
-            </a>.
-          </div>
-          <div class="p-1">
-            Here I share my explorations of System Design, Algorithms, Math,
-            Networks, Databases, Operational Systems, Blockchain, programming
-            languages & patterns, web related tech.
-          </div>
-        </div>
+        <Introduction />
 
         <div class="max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
           <ul>
