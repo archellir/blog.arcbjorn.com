@@ -25,7 +25,7 @@ export async function listPosts(
 
   // return all posts when no limit
   if (props.limit === 0) {
-    return { posts, all: true };
+    return { posts, all: allPostsQuantity };
   }
 
   const arrayOffset = props.offset > 0 ? props.offset : 0;
@@ -48,7 +48,5 @@ export async function listPosts(
     });
   }
 
-  const all = allPostsQuantity === posts.length;
-
-  return { posts, all };
+  return { posts, all: allPostsQuantity };
 }

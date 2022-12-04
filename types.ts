@@ -31,7 +31,7 @@ interface IListParams {
 
 export interface IPostsResponse {
   posts: IPost[];
-  all: boolean;
+  all: number;
 }
 
 export interface IListFirstLoadParams extends IListParams {
