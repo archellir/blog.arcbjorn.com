@@ -7,9 +7,9 @@ export enum ETag {
 export interface IPost {
   id: string;
   title: string;
-  publishedAt: Date;
+  publishedAt: string;
   snippet: string;
-  tags: ETag[];
+  tags?: ETag[];
   content: string;
 }
 
@@ -19,4 +19,26 @@ export type TMarkdownMetadata = Omit<IPost, "content" | "publishedAt"> & {
 
 export interface IState {
   locales: string[];
+}
+
+export interface IHomePageData extends IState {
+  posts: IPost[];
+}
+
+interface IListParams {
+  tags?: ETag[];
+}
+
+export interface IPostsResponse {
+  posts: IPost[];
+  all: boolean;
+}
+
+export interface IListFirstLoadParams extends IListParams {
+  quantity: number;
+}
+
+export interface IListLoadParams extends IListParams {
+  limit: number;
+  offset: number;
 }
