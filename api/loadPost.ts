@@ -1,6 +1,6 @@
 import { extract } from "$std/encoding/front_matter.ts";
 
-import { IPost } from "../types.ts";
+import { IPost, TMarkdownMetadata } from "../types.ts";
 
 export async function loadPost(id: string): Promise<IPost | null> {
   let text: string;
@@ -14,16 +14,17 @@ export async function loadPost(id: string): Promise<IPost | null> {
     throw error;
   }
 
-  const { attrs, body: content }: {
-    attrs: Record<string, string>;
+  const { body, attrs }: {
     body: IPost["content"];
-  } = extract(text);
+    attrs: TMarkdownMetadata;
+  } = extract<TMarkdownMetadata>(text);
 
   return {
     id,
     title: attrs.title,
     publishedAt: new Date(attrs.published_at),
     snippet: attrs.snippet,
-    content,
+    tags: attrs.tags,
+    content: body,
   };
 }
