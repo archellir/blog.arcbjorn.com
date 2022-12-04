@@ -2,9 +2,10 @@
 title: Reverse integer
 published_at: 2022-11-01
 snippet: Go, Typescript, C++ solutions for Leetcode 7
+tags: [Leetcode]
 ---
 
-Leetcode 7 problem.
+[Leetcode 7 problem.](https://leetcode.com/problems/reverse-integer/)
 
 32-bit integer with its digits reversed.
 

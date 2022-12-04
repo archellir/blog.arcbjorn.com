@@ -2,9 +2,10 @@
 title: Map with Sum of Pairs function
 published_at: 2022-12-4
 snippet: Go solution for Leetcode 677
+tags: [Leetcode]
 ---
 
-Leetcode 677 problem.
+[Leetcode 677 problem.](https://leetcode.com/problems/map-sum-pairs/)
 
 Map implementation with Insert and Sum methods.
 Sum returns a sum of map values, which keys were matched by some prefix.

@@ -2,9 +2,10 @@
 title: Is number palindrome?
 published_at: 2022-10-22
 snippet: Go, Typescript, C++ solutions for Leetcode 9
+tags: [Leetcode]
 ---
 
-Leetcode 9 problem.
+[Leetcode 9 problem.](https://leetcode.com/problems/palindrome-number/)
 
 Palindrome number is a natural number that has reflectional symmetry across a
 vertical axis. It remains the same when its digits are reversed.
