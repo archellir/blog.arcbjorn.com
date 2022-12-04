@@ -2,6 +2,7 @@
 title: Archlinux from scratch
 published_at: 2022-10-05
 snippet: Installation with the latest and greatest tools available (2022)
+tags: [linux]
 ---
 
 This guide is a convenient combination of
@@ -91,16 +92,16 @@ w
 
 Step 3: format partitions
 
-```bash
+   ```bash
 # make fat32 filesystem for EFI
 mkfs.vfat /dev/***1
 # make butterFS filesystem for main storage
 mkfs.btrfs  /dev/***2
-```
+   ```
 
 Step 4: butterFS configuration
 
-```bash
+   ```bash
 # mount main partition - root subvolume
 mount  /dev/***2 /mnt
 
@@ -127,13 +128,13 @@ mkdir /mnt/{home,var}
 mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@home /dev/***2 /mnt/home
 
 mount -o noatime, compress=zstd, space_cache,discard=async,subvol=@var /dev/***2 /mnt/var
-```
+   ```
 
 Step 5: mount EFI partition
 
-```bash
+   ```bash
 mount /dev/***1 /mnt/boot/efi
-```
+   ```
 
 Step 6: install the base system
 
@@ -161,7 +162,7 @@ cat /etc/fstab
 
 Step 9: run base archlinux system intall script
 
-```bash
+   ```bash
 # give exec permissions to script
 git clone https://github.com/arcbjorn/arc-arch-linux-installation-guide
 cd arc-arch-linux-installation-guide
@@ -173,7 +174,7 @@ cd /
 ./arc-arch-linux-installation-guide/base.sh
 
 # choose xdr-desktop-portal-wlr (to use with Sway)
-```
+   ```
 
 Step 10: check system init config
 

@@ -2,7 +2,7 @@
 title: Is number palindrome?
 published_at: 2022-10-22
 snippet: Go, Typescript, C++ solutions for Leetcode 9
-tags: [Leetcode]
+tags: [leetcode]
 ---
 
 [Leetcode 9 problem.](https://leetcode.com/problems/palindrome-number/)

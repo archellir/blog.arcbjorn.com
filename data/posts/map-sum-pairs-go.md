@@ -2,7 +2,7 @@
 title: Map with Sum of Pairs function
 published_at: 2022-12-4
 snippet: Go solution for Leetcode 677
-tags: [Leetcode]
+tags: [leetcode]
 ---
 
 [Leetcode 677 problem.](https://leetcode.com/problems/map-sum-pairs/)

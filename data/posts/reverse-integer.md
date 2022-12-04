@@ -2,7 +2,7 @@
 title: Reverse integer
 published_at: 2022-11-01
 snippet: Go, Typescript, C++ solutions for Leetcode 7
-tags: [Leetcode]
+tags: [leetcode]
 ---
 
 [Leetcode 7 problem.](https://leetcode.com/problems/reverse-integer/)
