@@ -22,7 +22,7 @@ export async function loadPost(id: string): Promise<IPost | null> {
   return {
     id,
     title: attrs.title,
-    publishedAt: new Date(attrs.published_at),
+    publishedAt: attrs.published_at,
     snippet: attrs.snippet,
     tags: attrs.tags,
     content: body,
