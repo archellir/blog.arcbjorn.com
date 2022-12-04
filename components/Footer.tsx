@@ -4,7 +4,7 @@ interface IFooterProps {
   classes?: string;
 }
 
-export const Footer: FunctionalComponent<IFooterProps> = ({ classes }) => {
+const Footer: FunctionalComponent<IFooterProps> = ({ classes }) => {
   return (
     <div class={classes + " flex justify-center p-8"}>
       <a
@@ -20,3 +20,5 @@ export const Footer: FunctionalComponent<IFooterProps> = ({ classes }) => {
     </div>
   );
 };
+
+export default Footer;

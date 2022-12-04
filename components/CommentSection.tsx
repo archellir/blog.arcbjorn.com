@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
 
-export const CommentSection: FunctionalComponent = () => {
+const CommentSection: FunctionalComponent = () => {
   return (
     <script
       src="https://utteranc.es/client.js"
@@ -15,3 +15,5 @@ export const CommentSection: FunctionalComponent = () => {
     </script>
   );
 };
+
+export default CommentSection;

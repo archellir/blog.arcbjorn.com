@@ -8,7 +8,7 @@ interface IHeadProps {
   image?: string;
 }
 
-export const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
+const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
   const { description, image, title, url } = props;
 
   return (
@@ -44,3 +44,5 @@ export const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
     </Head>
   );
 };
+
+export default HeadElement;
