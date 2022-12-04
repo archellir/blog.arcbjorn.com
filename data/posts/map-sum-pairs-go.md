@@ -10,7 +10,7 @@ tags: [leetcode]
 Map implementation with Insert and Sum methods.
 Sum returns a sum of map values, which keys were matched by some prefix.
 
-#### Go implementation
+### Go
 
 ```go
 package map_sum_pairs
