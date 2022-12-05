@@ -2,6 +2,7 @@ import { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
 import Post from "../components/Post.tsx";
+import Loader from "../components/Loader.tsx";
 
 import { pullPosts } from "../api/pullPosts.ts";
 import { IPost, IPostsResponse, IState } from "../types.ts";
@@ -15,10 +16,13 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   const [posts, setPosts] = useState<IPost[]>(props.postsData.posts);
 
   const all = props.postsData.posts.length === props.postsData.all;
-
   const [showMoreButton, setShowMoreButton] = useState<boolean>(!all);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const loadMorePosts = async () => {
+    setIsLoading(true);
+
     const baseOrigin = window.location.origin;
 
     const queryParams = parseQueryParams(window.location.search);
@@ -35,20 +39,26 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     const refreshUrl = baseOrigin + queryParamsString;
     window.history.pushState({ path: refreshUrl }, "", refreshUrl);
 
-    setPosts([...postsData.posts]);
-
     const all = postsData.posts.length === postsData.all;
+
+    setPosts([...postsData.posts]);
     setShowMoreButton(!all);
+    setIsLoading(false);
   };
 
   return (
     <>
-      <div class="max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
+      <div class="flex flex-col max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
         <ul>
           {posts.map((post) => <Post post={post} locales={props.locales} />)}
         </ul>
+        {isLoading && (
+          <div class="self-center">
+            <Loader />
+          </div>
+        )}
       </div>
-      {showMoreButton &&
+      {!isLoading && showMoreButton &&
         (
           <button class="mx-auto underline" onClick={loadMorePosts}>
             More posts
