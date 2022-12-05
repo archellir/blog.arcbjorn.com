@@ -20,13 +20,6 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  function onTap(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    return loadMorePosts();
-  }
-
   function loadMorePosts() {
     setIsLoading(true);
 
@@ -67,8 +60,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
             role="button"
             type="button"
             class="mx-auto my-8"
-            onClick={() => loadMorePosts()}
-            onTouchStart={(e) => onTap(e)}
+            onClick={loadMorePosts}
           >
             <span class="button_top prevent-select">
               More posts
