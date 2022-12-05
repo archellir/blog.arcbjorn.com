@@ -21,7 +21,6 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onTap = (event: Event) => {
-    alert("onTap");
     event.preventDefault();
     event.stopPropagation();
 
@@ -29,7 +28,6 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   };
 
   const loadMorePosts = async () => {
-    alert("loadMorePosts");
     setIsLoading(true);
 
     const baseOrigin = window.location.origin;
