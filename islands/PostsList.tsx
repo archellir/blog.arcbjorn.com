@@ -56,8 +56,10 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       </div>
       {!isLoading && showMoreButton &&
         (
-          <button class="mx-auto underline" onClick={loadMorePosts}>
-            More posts
+          <button class="mx-auto my-8" onClick={loadMorePosts}>
+            <span class="button_top">
+              More posts
+            </span>
           </button>
         )}
     </>
