@@ -20,9 +20,14 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const loadMorePosts = async (event: Event) => {
+  const onTap = (event: Event) => {
     event.preventDefault();
+    event.stopPropagation();
 
+    return loadMorePosts();
+  };
+
+  const loadMorePosts = async () => {
     setIsLoading(true);
 
     const baseOrigin = window.location.origin;
@@ -58,7 +63,11 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       </div>
       {!isLoading && showMoreButton &&
         (
-          <button class="mx-auto my-8" onClick={loadMorePosts}>
+          <button
+            class="mx-auto my-8"
+            onClick={loadMorePosts}
+            onTouchEnd={onTap}
+          >
             <span class="button_top prevent-select">
               More posts
             </span>
