@@ -1,5 +1,5 @@
 ---
-title: Advent of code 2022 - Day 1
+title: Advent of code 2022 - Day_1
 published_at: 2022-12-03
 snippet: Go solution for Calorie Counting
 tags: [advent]
