@@ -64,7 +64,8 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       {!isLoading && showMoreButton &&
         (
           <button
-            tabIndex={-1}
+            role="button"
+            type="button"
             class="mx-auto my-8"
             onClick={loadMorePosts}
             onTouchStart={onTap}
