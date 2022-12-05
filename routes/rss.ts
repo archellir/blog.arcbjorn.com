@@ -1,6 +1,6 @@
 import { HandlerContext, Handlers } from "$fresh/server.ts";
 import { listPosts } from "../api/listPosts.ts";
-import { IPost } from "../types.ts";
+import { IPost, IPostsResponse } from "../types.ts";
 
 const siteURL = "https://blog.arcbjorn.com";
 const siteTitle = "Arcbjorn's thoughtbook";
@@ -34,8 +34,8 @@ ${
 
 export const handler: Handlers = {
   async GET(_req: Request, _ctx: HandlerContext) {
-    const posts: IPost[] = await listPosts();
-    const xmlData = render(posts);
+    const postsData: IPostsResponse = await listPosts({ offset: 0, limit: 0 });
+    const xmlData = render(postsData.posts);
     const headers = new Headers({
       "Cache-Control": "max-age=0, s-maxage=3600",
       "Content-Type": "application/xml",
