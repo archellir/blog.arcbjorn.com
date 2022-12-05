@@ -52,11 +52,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
         <ul>
           {posts.map((post) => <Post post={post} locales={props.locales} />)}
         </ul>
-        {isLoading && (
-          <div class="self-center">
-            <Loader />
-          </div>
-        )}
+        {isLoading && <Loader />}
       </div>
       {!isLoading && showMoreButton &&
         (
