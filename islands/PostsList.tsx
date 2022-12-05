@@ -20,14 +20,14 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const onTap = (event: Event) => {
+  function onTap(event: Event) {
     event.preventDefault();
     event.stopPropagation();
 
     return loadMorePosts();
-  };
+  }
 
-  const loadMorePosts = () => {
+  function loadMorePosts() {
     setIsLoading(true);
 
     const baseOrigin = window.location.origin;
@@ -51,7 +51,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       setShowMoreButton(!all);
       setIsLoading(false);
     });
-  };
+  }
 
   return (
     <>
@@ -67,8 +67,8 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
             role="button"
             type="button"
             class="mx-auto my-8"
-            onClick={loadMorePosts}
-            onTouchStart={onTap}
+            onClick={() => loadMorePosts()}
+            onTouchStart={(e) => onTap(e)}
           >
             <span class="button_top prevent-select">
               More posts
