@@ -56,7 +56,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       </div>
       {!isLoading && showMoreButton &&
         (
-          <button class="mx-auto my-8" onClick={loadMorePosts}>
+          <button class="mx-auto my-8 cursor-pointer" onClick={loadMorePosts}>
             <span class="button_top prevent-select">
               More posts
             </span>
