@@ -63,16 +63,16 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       </div>
       {!isLoading && showMoreButton &&
         (
-          <div
-            tabIndex={999}
-            class="button mx-auto my-8"
+          <button
+            tabIndex={-1}
+            class="mx-auto my-8"
             onClick={loadMorePosts}
             onTouchStart={onTap}
           >
             <span class="button_top prevent-select">
               More posts
             </span>
-          </div>
+          </button>
         )}
     </>
   );
