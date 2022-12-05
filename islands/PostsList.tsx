@@ -20,7 +20,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  function loadMorePosts() {
+  const loadMorePosts = async () => {
     setIsLoading(true);
 
     const baseOrigin = window.location.origin;
@@ -32,19 +32,19 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       queryParamsString = `?tags=${queryParams.tags}&`;
     }
 
-    pullPosts(baseOrigin, posts, queryParams.tags).then((postsData) => {
-      queryParamsString += `quantity=${postsData.posts.length}`;
+    const postsData = await pullPosts(baseOrigin, posts, queryParams.tags);
 
-      const refreshUrl = baseOrigin + queryParamsString;
-      window.history.pushState({ path: refreshUrl }, "", refreshUrl);
+    queryParamsString += `quantity=${postsData.posts.length}`;
 
-      const all = postsData.posts.length === postsData.all;
+    const refreshUrl = baseOrigin + queryParamsString;
+    window.history.pushState({ path: refreshUrl }, "", refreshUrl);
 
-      setPosts([...postsData.posts]);
-      setShowMoreButton(!all);
-      setIsLoading(false);
-    });
-  }
+    const all = postsData.posts.length === postsData.all;
+
+    setPosts([...postsData.posts]);
+    setShowMoreButton(!all);
+    setIsLoading(false);
+  };
 
   return (
     <>
