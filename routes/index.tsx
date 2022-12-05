@@ -15,9 +15,9 @@ import { getFirstLoadListParams } from "../utils/getListParams.ts";
 export const handler: Handlers<IHomePageData, IState> = {
   async GET(req, ctx) {
     const listParams = getFirstLoadListParams(req.url);
-    const data: IPostsResponse = await listPosts(listParams);
+    const postsData: IPostsResponse = await listPosts(listParams);
 
-    return ctx.render({ ...ctx.state, posts: data.posts });
+    return ctx.render({ ...ctx.state, postsData });
   },
 };
 
@@ -37,7 +37,7 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
 
         <Introduction />
 
-        <PostsList posts={data.posts} locales={data.locales} />
+        <PostsList postsData={data.postsData} locales={data.locales} />
 
         <Footer classes="mt-auto" />
       </div>
