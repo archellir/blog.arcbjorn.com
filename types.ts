@@ -22,11 +22,7 @@ export interface IState {
 }
 
 export interface IHomePageData extends IState {
-  posts: IPost[];
-}
-
-interface IListParams {
-  tags?: ETag[];
+  postsData: IPostsResponse;
 }
 
 export interface IPostsResponse {
@@ -34,11 +30,15 @@ export interface IPostsResponse {
   all: number;
 }
 
-export interface IListFirstLoadParams extends IListParams {
-  quantity: number;
-}
-
-export interface IListLoadParams extends IListParams {
+export interface IListLoadParams {
   limit: number;
   offset: number;
+  tags?: string;
+}
+
+export interface IQueryParams {
+  offset?: string;
+  limit?: string;
+  quantity?: string;
+  tags?: string;
 }
