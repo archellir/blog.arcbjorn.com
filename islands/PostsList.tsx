@@ -66,7 +66,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
           <button
             class="mx-auto my-8"
             onClick={loadMorePosts}
-            onTouchEnd={onTap}
+            onTouchStartCapture={onTap}
           >
             <span class="button_top prevent-select">
               More posts
