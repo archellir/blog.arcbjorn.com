@@ -48,7 +48,7 @@ export async function listPosts(
     return { posts, all: allPostsQuantity };
   }
 
-  const arrayOffset = props.offset > 0 ? props.offset + 1 : 0;
+  const arrayOffset = props.offset > 0 ? props.offset : 0;
   posts = posts.slice(arrayOffset, arrayOffset + props.limit);
 
   return { posts, all: allPostsQuantity };
