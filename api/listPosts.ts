@@ -1,9 +1,10 @@
 import { loadPost } from "./loadPost.ts";
 
 import { IListLoadParams, IPost, IPostsResponse } from "../types.ts";
+import { POSTS_SET_NUMBER } from "../constants.ts";
 
 const defaultProps: IListLoadParams = {
-  limit: 5,
+  limit: POSTS_SET_NUMBER,
   offset: 0,
 };
 

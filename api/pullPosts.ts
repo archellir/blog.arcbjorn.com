@@ -1,4 +1,5 @@
 import { IPost, IPostsResponse } from "../types.ts";
+import { POSTS_SET_NUMBER } from "../constants.ts";
 
 export async function pullPosts(
   url: string,
@@ -6,7 +7,7 @@ export async function pullPosts(
   tags = "",
 ): Promise<IPostsResponse> {
   const offset = posts.length.toString();
-  const limit = (posts.length + 5).toString();
+  const limit = (posts.length + POSTS_SET_NUMBER).toString();
 
   let requestUrl = url + "/posts?" +
     new URLSearchParams({ offset, limit });
