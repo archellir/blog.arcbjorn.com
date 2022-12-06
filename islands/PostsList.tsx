@@ -83,7 +83,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
         </ul>
         {isLoading && <Loader />}
       </div>
-      {!isMobile && !isLoading && hasMore &&
+      {!isLoading && hasMore &&
         (
           <button
             role="button"
