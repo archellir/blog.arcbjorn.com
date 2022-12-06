@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { useState } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
 
 import Post from "../components/Post.tsx";
 import Loader from "../components/Loader.tsx";
@@ -7,6 +7,7 @@ import Loader from "../components/Loader.tsx";
 import { pullPosts } from "../api/pullPosts.ts";
 import { IPost, IPostsResponse, IState } from "../types.ts";
 import parseQueryParams from "../utils/parseQueryParams.ts";
+import useOnScreen from "../utils/useOnScreen.tsx";
 
 type IPostsListPageData = IState & {
   postsData: IPostsResponse;
@@ -16,11 +17,15 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   const [posts, setPosts] = useState<IPost[]>(props.postsData.posts);
 
   const all = props.postsData.posts.length === props.postsData.all;
-  const [showMoreButton, setShowMoreButton] = useState<boolean>(!all);
+  const [hasMore, setHasMore] = useState<boolean>(!all);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const loadMorePosts = async () => {
+  const { measureRef, isIntersecting, observer } = useOnScreen();
+
+  const isMobile = window.innerWidth <= 576;
+
+  const loadMorePosts = useCallback(async () => {
     setIsLoading(true);
 
     const baseOrigin = window.location.origin;
@@ -42,19 +47,43 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     const all = postsData.posts.length === postsData.all;
 
     setPosts([...postsData.posts]);
-    setShowMoreButton(!all);
+    setHasMore(!all);
     setIsLoading(false);
-  };
+  }, [window.location]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      return;
+    }
+
+    if (isIntersecting && hasMore) {
+      loadMorePosts();
+      if (observer) {
+        observer.disconnect();
+      }
+    }
+  }, [isIntersecting, hasMore, loadMorePosts]);
 
   return (
     <>
       <div class="flex flex-col max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
         <ul>
-          {posts.map((post) => <Post post={post} locales={props.locales} />)}
+          {posts.map((post, index) => {
+            if (index === posts.length - 1) {
+              return (
+                <Post
+                  measureRef={measureRef}
+                  post={post}
+                  locales={props.locales}
+                />
+              );
+            }
+            return <Post post={post} locales={props.locales} />;
+          })}
         </ul>
         {isLoading && <Loader />}
       </div>
-      {!isLoading && showMoreButton &&
+      {!isMobile && !isLoading && hasMore &&
         (
           <button
             role="button"
