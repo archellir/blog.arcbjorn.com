@@ -1,12 +1,15 @@
-import { FunctionalComponent } from "preact";
+import { FunctionalComponent, Ref } from "preact";
 import { IPost, IState } from "../types.ts";
 
 interface IPostProps {
   post: IPost;
   locales: IState["locales"];
+  measureRef?: Ref<HTMLLIElement>;
 }
 
-const Post: FunctionalComponent<IPostProps> = ({ post, locales }) => {
+const Post: FunctionalComponent<IPostProps> = (
+  { post, locales, measureRef },
+) => {
   const dateFmt = new Intl.DateTimeFormat(locales, {
     dateStyle: "short",
   });
@@ -15,7 +18,10 @@ const Post: FunctionalComponent<IPostProps> = ({ post, locales }) => {
   const localizedDate = dateFmt.format(date);
 
   return (
-    <li class="border-t border-gray-400 py-4 px-2 mx-8 list-none">
+    <li
+      class="border-t border-gray-400 py-4 px-2 mx-8 list-none"
+      ref={measureRef}
+    >
       <a
         href={`/${post.id}`}
         class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
