@@ -64,7 +64,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     }
   }, [isIntersecting, hasMore, loadMorePosts]);
 
-  const showMoreButton = (!isMobile || !isLoading) && hasMore;
+  const showMoreButton = !isMobile && !isLoading && hasMore;
 
   return (
     <>
