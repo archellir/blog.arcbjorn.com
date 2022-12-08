@@ -23,7 +23,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
 
   const { measureRef, isIntersecting, observer } = useOnScreen();
 
-  const isMobile = window.innerWidth <= 576;
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 576);
 
   const loadMorePosts = useCallback(async () => {
     setIsLoading(true);
@@ -49,6 +49,8 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     setPosts([...postsData.posts]);
     setHasMore(!all);
     setIsLoading(false);
+
+    setIsMobile(window.innerWidth <= 576);
   }, [window.location]);
 
   useEffect(() => {
