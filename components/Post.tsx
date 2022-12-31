@@ -8,9 +8,9 @@ interface IPostProps {
 }
 
 const Post: FunctionalComponent<IPostProps> = (
-  { post, locales, measureRef },
+  { post, measureRef },
 ) => {
-  const dateFmt = new Intl.DateTimeFormat(locales, {
+  const dateFmt = new Intl.DateTimeFormat("en-GB", {
     dateStyle: "short",
   });
 
