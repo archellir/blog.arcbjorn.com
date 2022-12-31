@@ -69,7 +69,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   return (
     <>
       <div class="flex flex-col max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
-        <ul>
+        <ul class="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
           {posts.map((post, index) => {
             if (index === posts.length - 1) {
               return (
