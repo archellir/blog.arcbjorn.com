@@ -5,7 +5,7 @@ snippet: Go solution for Leetcode 205
 tags: [leetcode]
 ---
 
-[Leetcode 205 problem.](https://leetcode.com/problems/isomorphic-trings-go/)
+[Leetcode 205 problem.](https://leetcode.com/problems/isomorphic-trings/)
 
 Two strings `s` and `t` are isomorphic if the characters in `s` can be replaced to get `t`.
 
