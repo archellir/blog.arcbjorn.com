@@ -1,1 +1,1 @@
-export const POSTS_SET_NUMBER = 4;
+export const POSTS_SET_NUMBER = 6;
