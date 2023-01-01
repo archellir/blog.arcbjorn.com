@@ -15,8 +15,8 @@ const Introduction: FunctionalComponent = () => {
         </a>.
       </div>
       <div class="p-1">
-        Here I share my explorations of System Design, Algorithms, Math,
-        Networks, Databases, Operational Systems, Blockchain, programming
+        Here I share my explorations of system design, algorithms, math,
+        networks, databases, operational systems, blockchain, programming
         languages & patterns, web related tech.
       </div>
     </div>
