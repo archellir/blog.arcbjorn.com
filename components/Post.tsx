@@ -26,7 +26,17 @@ const Post: FunctionalComponent<IPostProps> = (
         href={`/${post.id}`}
         class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
       >
-        <div class="font-plex-mono">{localizedDate}</div>
+        <div class="w-full flex gap-2 justify-between items-center sm:flex-col sm:justify-center sm:w-min">
+          <div class="font-plex-mono">{localizedDate}</div>
+          <div class="flex flex-wrap gap-2">
+            {post.tags?.length &&
+              post.tags.map((tag) => (
+                <div class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
+                  {tag}
+                </div>
+              ))}
+          </div>
+        </div>
         <div>
           <h2 class="text-lg sm:text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
             {post.title}
