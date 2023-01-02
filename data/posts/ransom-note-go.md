@@ -7,7 +7,7 @@ tags: [leetcode]
 
 [Leetcode 383 problem.](https://leetcode.com/problems/ransom-note/)
 
-A function to determin if `ransomNote` can be constructed by using the letters from `magazine`, each of them is used only once.
+A function to determine if `ransomNote` can be constructed by using the letters from `magazine`, each of them is used only once.
 
 ### Go
 
