@@ -1,7 +1,7 @@
 ---
 title: Length of last word
 published_at: 2022-12-16
-snippet: [58] Go solution
+snippet: 58 - Go solution
 tags: [leetcode]
 ---
 

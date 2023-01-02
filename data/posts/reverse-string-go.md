@@ -1,7 +1,7 @@
 ---
 title: Reverse string
 published_at: 2022-12-19
-snippet: [344] Go solution
+snippet: 344 - Go solution
 tags: [leetcode]
 ---
 

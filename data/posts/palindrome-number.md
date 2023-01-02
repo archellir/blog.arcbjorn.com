@@ -1,7 +1,7 @@
 ---
 title: Palindrome number
 published_at: 2022-10-22
-snippet: [9] Go, Typescript, C++ solutions
+snippet: 9 - Go, Typescript, C++ solutions
 tags: [leetcode]
 ---
 
