@@ -1,7 +1,7 @@
 ---
-title: Detect capital [520]
+title: Detect capital
 published_at: 2022-12-24
-snippet: Go solution
+snippet: [520] Go solution
 tags: [leetcode]
 ---
 

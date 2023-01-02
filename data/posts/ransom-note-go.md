@@ -1,7 +1,7 @@
 ---
-title: Ransom note [383]
+title: Ransom note
 published_at: 2022-12-22
-snippet: Go solution
+snippet: [383] Go solution
 tags: [leetcode]
 ---
 

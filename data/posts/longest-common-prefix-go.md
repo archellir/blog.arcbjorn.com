@@ -1,7 +1,7 @@
 ---
-title: Longest common prefix [14]
+title: Longest common prefix
 published_at: 2022-12-15
-snippet: Go solution
+snippet: [14] Go solution
 tags: [leetcode]
 ---
 

@@ -1,7 +1,7 @@
 ---
-title: Isomorphic strings [205]
+title: Isomorphic strings
 published_at: 2022-12-18
-snippet: Go solution
+snippet: [205] Go solution
 tags: [leetcode]
 ---
 
