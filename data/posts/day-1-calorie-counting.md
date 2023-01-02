@@ -1,11 +1,11 @@
 ---
-title: Advent of code 2022 - Day_1
+title: Day_1 - Calorie Counting
 published_at: 2022-12-03
-snippet: Go solution for Calorie Counting
-tags: [advent]
+snippet: Go solution
+tags: [advent2022]
 ---
 
-### [Calorie Counting](https://adventofcode.com/2022/day/1) 
+### Advent of code 2022 - Day_1: [Calorie Counting](https://adventofcode.com/2022/day/1) 
 
 ### Go
 
