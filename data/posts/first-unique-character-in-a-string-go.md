@@ -1,7 +1,7 @@
 ---
-title: First unique character in a string
+title: First unique character in a string [387]
 published_at: 2022-12-23
-snippet: Go solution for Leetcode 387
+snippet: Go solution
 tags: [leetcode]
 ---
 

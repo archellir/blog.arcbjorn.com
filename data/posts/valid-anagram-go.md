@@ -1,7 +1,7 @@
 ---
-title: Valid anagram
+title: Valid anagram [242]
 published_at: 2022-12-20
-snippet: Go solutions for Leetcode 242
+snippet: Go solutions
 tags: [leetcode]
 ---
 

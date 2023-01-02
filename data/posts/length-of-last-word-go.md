@@ -1,7 +1,7 @@
 ---
-title: Length of last word
+title: Length of last word [58]
 published_at: 2022-12-16
-snippet: Go solution for Leetcode 58
+snippet: Go solution
 tags: [leetcode]
 ---
 

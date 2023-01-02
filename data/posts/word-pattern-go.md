@@ -1,7 +1,7 @@
 ---
-title: Word pattern
+title: Word pattern [290]
 published_at: 2022-12-21
-snippet: Go solution for Leetcode 290
+snippet: Go solution
 tags: [leetcode]
 ---
 

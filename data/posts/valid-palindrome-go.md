@@ -1,7 +1,7 @@
 ---
-title: Valid palindrome
+title: Valid palindrome [125]
 published_at: 2022-12-17
-snippet: Go solution for Leetcode 125
+snippet: Go solution
 tags: [leetcode]
 ---
 

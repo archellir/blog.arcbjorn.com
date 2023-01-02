@@ -1,7 +1,7 @@
 ---
-title: Map with sum of pairs function
+title: Map with sum of pairs function [677]
 published_at: 2022-12-4
-snippet: Go solution for Leetcode 677
+snippet: Go solution
 tags: [leetcode]
 ---
 
