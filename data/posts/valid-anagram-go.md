@@ -1,5 +1,5 @@
 ---
-title: Valid Anagram
+title: Valid anagram
 published_at: 2022-12-20
 snippet: Go solutions for Leetcode 242
 tags: [leetcode]

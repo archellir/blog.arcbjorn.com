@@ -1,5 +1,5 @@
 ---
-title: Word Pattern
+title: Word pattern
 published_at: 2022-12-21
 snippet: Go solution for Leetcode 290
 tags: [leetcode]

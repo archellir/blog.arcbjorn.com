@@ -1,5 +1,5 @@
 ---
-title: Valid Palindrome
+title: Valid palindrome
 published_at: 2022-12-17
 snippet: Go solution for Leetcode 125
 tags: [leetcode]

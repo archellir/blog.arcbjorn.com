@@ -1,5 +1,5 @@
 ---
-title: Is number palindrome?
+title: Palindrome number
 published_at: 2022-10-22
 snippet: Go, Typescript, C++ solutions for Leetcode 9
 tags: [leetcode]

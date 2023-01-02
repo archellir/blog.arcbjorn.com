@@ -1,5 +1,5 @@
 ---
-title: Isomorphic Strings
+title: Isomorphic strings
 published_at: 2022-12-18
 snippet: Go solution for Leetcode 205
 tags: [leetcode]

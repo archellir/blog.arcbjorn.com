@@ -1,5 +1,5 @@
 ---
-title: Map with Sum of Pairs function
+title: Map with sum of pairs function
 published_at: 2022-12-4
 snippet: Go solution for Leetcode 677
 tags: [leetcode]

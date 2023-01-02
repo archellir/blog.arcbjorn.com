@@ -1,5 +1,5 @@
 ---
-title: Frequency of the Most Frequent Element
+title: Frequency of the most frequent element
 published_at: 2022-12-8
 snippet: Go solution for Leetcode 1838
 tags: [leetcode]

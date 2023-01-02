@@ -1,5 +1,5 @@
 ---
-title: Reverse String
+title: Reverse string
 published_at: 2022-12-19
 snippet: Go solution for Leetcode 344
 tags: [leetcode]
