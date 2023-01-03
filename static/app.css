@@ -6,8 +6,8 @@ html {
 body {
 	height: 100%;
 
-	--bg: #212425;
-  --color: #dddddd;
+	--bg: #1b1d1e;
+  --color: #f9f5ef;
 	
 	background-color: var(--bg);
   color: var(--color);
@@ -24,7 +24,7 @@ ol {
 .dot-wave {
   --uib-size: 70px;
   --uib-speed: 1s;
-  --uib-color: #dddddd;
+  --uib-color: #f9f5ef;
 
   display: flex;
   flex-flow: row nowrap;
@@ -83,7 +83,7 @@ ol {
 button {
   /* Variables */
  --button_radius: 0.75em;
- --button_color: #dddddd;
+ --button_color: #f9f5ef;
  --button_outline_color: #000000;
  font-size: 17px;
  border: none;
