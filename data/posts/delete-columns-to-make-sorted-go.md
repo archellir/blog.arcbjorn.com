@@ -17,17 +17,17 @@ func minDeletionSize(strs []string) int {
 		return 0
 	}
 
-	var deletedRows int
+	var deletedCols int
 	for i := range strs[0] {
         fmt.Println(i)
 		for wordsIdx := 0; wordsIdx < len(strs)-1; wordsIdx++ {
 			if strs[wordsIdx][i] > strs[wordsIdx+1][i] {
-				deletedRows++
+				deletedCols++
 				break
 			}
 		}
 	}
 
-	return deletedRows
+	return deletedCols
 }
 ```
