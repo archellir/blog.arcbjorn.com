@@ -22,6 +22,7 @@ func repeatedSubstringPattern(s string) bool {
             continue
         }
 
+		// create a string and compare with given
         if strings.Repeat(s[:i], length / i) == s {
             return true
         }
