@@ -1,6 +1,6 @@
 ---
 title: Map with sum of pairs function
-published_at: 2022-12-4
+published_at: 2022-12-4 12:00
 snippet: 677 - Go solution
 tags: [leetcode]
 ---

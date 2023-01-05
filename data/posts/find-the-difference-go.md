@@ -1,6 +1,6 @@
 ---
 title: Find the difference
-published_at: 2022-12-25
+published_at: 2022-12-25 12:00
 snippet: 389 - Go solution
 tags: [leetcode]
 ---

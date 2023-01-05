@@ -1,6 +1,6 @@
 ---
 title: Ransom note
-published_at: 2022-12-22
+published_at: 2022-12-22 12:00
 snippet: 383 - Go solution
 tags: [leetcode]
 ---

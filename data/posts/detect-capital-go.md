@@ -1,6 +1,6 @@
 ---
 title: Detect capital
-published_at: 2022-12-24
+published_at: 2022-12-24 12:00
 snippet: 520 - Go solution
 tags: [leetcode]
 ---

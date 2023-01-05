@@ -1,6 +1,6 @@
 ---
 title: Reverse integer
-published_at: 2022-11-01
+published_at: 2022-11-01 12:00
 snippet: 7 - Go, Typescript, C++ solutions
 tags: [leetcode]
 ---

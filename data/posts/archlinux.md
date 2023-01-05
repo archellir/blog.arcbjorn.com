@@ -1,6 +1,6 @@
 ---
 title: Archlinux from scratch
-published_at: 2022-10-05
+published_at: 2022-10-05 12:00
 snippet: Installation with the latest and greatest tools available (2022)
 tags: [linux]
 ---

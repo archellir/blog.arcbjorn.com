@@ -1,6 +1,6 @@
 ---
 title: Frequency of the most frequent element
-published_at: 2022-12-8
+published_at: 2022-12-8 12:00
 snippet: 1838 - Go solution
 tags: [leetcode]
 ---

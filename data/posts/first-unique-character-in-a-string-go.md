@@ -1,6 +1,6 @@
 ---
 title: First unique character in a string
-published_at: 2022-12-23
+published_at: 2022-12-23 12:00
 snippet: 387 - Go solution
 tags: [leetcode]
 ---

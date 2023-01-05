@@ -1,6 +1,6 @@
 ---
 title: Day_2 - Rock Paper Scissors
-published_at: 2022-12-05
+published_at: 2022-12-05 12:00
 snippet: Go solution
 tags: [advent2022]
 ---

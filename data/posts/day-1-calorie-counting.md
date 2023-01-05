@@ -1,6 +1,6 @@
 ---
 title: Day_1 - Calorie Counting
-published_at: 2022-12-03
+published_at: 2022-12-03 12:00
 snippet: Go solution
 tags: [advent2022]
 ---

@@ -1,6 +1,6 @@
 ---
 title: Valid palindrome
-published_at: 2022-12-17
+published_at: 2022-12-17 12:00
 snippet: 125 - Go solution
 tags: [leetcode]
 ---

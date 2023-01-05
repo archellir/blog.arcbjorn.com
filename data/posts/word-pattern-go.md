@@ -1,6 +1,6 @@
 ---
 title: Word pattern
-published_at: 2022-12-21
+published_at: 2022-12-21 12:00
 snippet: 290 - Go solution
 tags: [leetcode]
 ---

@@ -1,6 +1,6 @@
 ---
 title: Palindrome number
-published_at: 2022-10-22
+published_at: 2022-10-22 12:00
 snippet: 9 - Go, Typescript, C++ solutions
 tags: [leetcode]
 ---

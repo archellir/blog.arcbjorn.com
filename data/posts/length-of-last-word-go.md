@@ -1,6 +1,6 @@
 ---
 title: Length of last word
-published_at: 2022-12-16
+published_at: 2022-12-16 12:00
 snippet: 58 - Go solution
 tags: [leetcode]
 ---

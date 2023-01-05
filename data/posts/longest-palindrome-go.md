@@ -1,6 +1,6 @@
 ---
 title: Longest palindrome
-published_at: 2022-12-27
+published_at: 2022-12-27 12:00
 snippet: 409 - Go solution
 tags: [leetcode]
 ---

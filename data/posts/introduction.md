@@ -1,6 +1,6 @@
 ---
 title: First post
-published_at: 2022-10-02
+published_at: 2022-10-02 12:00
 snippet: Why「 blog 」?
 ---
 

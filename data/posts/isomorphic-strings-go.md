@@ -1,6 +1,6 @@
 ---
 title: Isomorphic strings
-published_at: 2022-12-18
+published_at: 2022-12-18 12:00
 snippet: 205 - Go solution
 tags: [leetcode]
 ---
