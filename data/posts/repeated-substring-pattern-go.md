@@ -17,7 +17,7 @@ import "strings"
 func repeatedSubstringPattern(s string) bool {
     length := len(s)
     for i := length / 2; i >= 1; i-- {
-	    // length must always be devidable by the length of repeated string
+	    // length must always be dividable by the length of repeated string
         if length % i != 0 {
             continue
         }
