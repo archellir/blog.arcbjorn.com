@@ -44,10 +44,10 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     const refreshUrl = baseOrigin + queryParamsString;
     window.history.pushState({ path: refreshUrl }, "", refreshUrl);
 
-    const all = postsData.posts.length === postsData.all;
+    const hasMore = postsData.posts.length !== postsData.all;
 
     setPosts([...postsData.posts]);
-    setHasMore(!all);
+    setHasMore(hasMore);
     setIsLoading(false);
 
     setIsMobile(window.innerWidth <= 576);
@@ -83,21 +83,21 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
             return <Post post={post} locales={props.locales} />;
           })}
         </ul>
-        {isLoading && <Loader />}
+        {isLoading ? <Loader /> : hasMore
+          ? (
+            <button
+              role="button"
+              type="button"
+              class="mx-auto my-8"
+              onClick={loadMorePosts}
+            >
+              <span class="button_top prevent-select">
+                More posts
+              </span>
+            </button>
+          )
+          : null}
       </div>
-      {hasMore && !isLoading &&
-        (
-          <button
-            role="button"
-            type="button"
-            class="mx-auto my-8"
-            onClick={loadMorePosts}
-          >
-            <span class="button_top prevent-select">
-              More posts
-            </span>
-          </button>
-        )}
     </>
   );
 };
