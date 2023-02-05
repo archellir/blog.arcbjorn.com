@@ -24,7 +24,7 @@ func containsChar(arr []string, target string) bool {
 
 func toGoatLatin(sentence string) string {
     words := strings.Split(sentence, " ")
-    vowels := []string{"a", "e", "i", "o", "u"}
+    vowels := []string{"a", "e", "i", "o", "u", "A", "E", "I", "O", "U"}
 
     var transformedSentence string
 
