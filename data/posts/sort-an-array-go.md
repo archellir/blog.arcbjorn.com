@@ -1,5 +1,5 @@
 ---
-title: Sort an array by Selection
+title: Sort an array
 published_at: 2023-02-15 12:00
 snippet: 912 - Go solutions
 tags: [leetcode]
