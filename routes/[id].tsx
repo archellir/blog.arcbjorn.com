@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { CSS, render } from "$gfm";
+import { CSS, KATEX_CSS, render } from "$gfm";
 
 import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
@@ -43,7 +43,9 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
   const date = new Date(data.post.publishedAt);
   const localizedDate = dateFmt.format(date);
 
-  const html = render(data.post.content);
+  const html = render(data.post.content, {
+    allowMath: true,
+  });
 
   return (
     <>
@@ -52,6 +54,9 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
         title={data.post.title}
         description={data.post.snippet}
       />
+
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <style dangerouslySetInnerHTML={{ __html: KATEX_CSS }} />
 
       <Header />
 
@@ -63,9 +68,6 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
         <h1 class="text-3xl py-8 font-semibold font-plex-mono">
           {data.post.title}
         </h1>
-
-        <style dangerouslySetInnerHTML={{ __html: CSS }} />
-
         <div
           style={{ backgroundColor: "#1b1d1e" }}
           class="!font-plex-sans markdown-body"
