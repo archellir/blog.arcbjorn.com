@@ -15,10 +15,7 @@ tags: [leetcode]
 - Auxiliary space: $O(n)$ - constant amount of space
 
 ```go
-func sortArray(nums []int) []int {
-    length := len(nums)
-
-    // Simple Selection Sotype data struct {
+type data struct {
     num int
     list int
 }
@@ -35,12 +32,12 @@ func smallestRange(nums [][]int) []int {
     
     // sort by list index
     sort.Slice(commonList, func(i int, j int) bool {
-        // if the current number equals next number in the common commonList
+        // if the current number equals next number in the common list
         if commonList[i].num == commonList[j].num {
             // sort by the list
             return commonList[i].list < commonList[j].list
         }
-        // if the numbers are not the same, sort by actual number value
+        // if the numbers are not the same, we sort by actual number value
         return commonList[i].num < commonList[j].num
     })
     
@@ -69,12 +66,12 @@ func smallestRange(nums [][]int) []int {
             }
 
 
-            // deduct from the count
+            // deduct from list iteration
             if dictinary[commonList[i].list] == 1 {
                 count--
             }
 
-            // deduct from list iteration
+            // deduct from the count
             dictinary[commonList[i].list]--
             // iterate over elements of arrays
             i++
