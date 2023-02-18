@@ -12,7 +12,7 @@ tags: [leetcode]
 ## Go
 
 - Time complexity: $n*log(n) + n*k$ - **n** is a quantity of all numbers, **k** is a number of lists
-- Auxiliary space: $O(n)$ - constant amount of space
+- Auxiliary space: $O(n)$ - depends on **n** - is a quantity of all numbers
 
 ```go
 type data struct {
