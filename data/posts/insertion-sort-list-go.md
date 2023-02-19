@@ -1,16 +1,16 @@
 ---
 title: Insertion sort list
-published_at: 2023-12-18 12:03
-snippet: 347 - Go solution
+published_at: 2023-12-19 12:00
+snippet: 147 - Go solution
 tags: [leetcode]
 ---
 
 [Leetcode 147 problem.](https://leetcode.com/problems/insertion-sort-list/)
 
+## Go
+
 - Time complexity: $O(n^2)$ - **n** is a quantity of nodes
 - Auxiliary space: $O(1)$ - constant amount of space
-
-### Go
 
 ```go
 /**
