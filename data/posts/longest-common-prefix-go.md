@@ -9,7 +9,7 @@ tags: [leetcode]
 
 A function to find the longest common prefix string amongst an array of strings.
 
-### Go
+## Go
 
 ```go
 func longestCommonPrefix(strs []string) string {
