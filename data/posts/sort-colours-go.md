@@ -1,6 +1,6 @@
 ---
 title: Sort colours
-published_at: 2022-12-19 12:00
+published_at: 2023-12-19 12:00
 snippet: 75 - Go solution
 tags: [leetcode]
 ---
@@ -41,4 +41,3 @@ func sortColors(nums []int) []int {
 // 	sort.Ints(nums)
 // }
 ```
-
