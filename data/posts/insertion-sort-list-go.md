@@ -1,6 +1,6 @@
 ---
 title: Insertion sort list
-published_at: 2023-12-19 12:00
+published_at: 2023-02-19 12:00
 snippet: 147 - Go solution
 tags: [leetcode]
 ---

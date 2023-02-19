@@ -1,6 +1,6 @@
 ---
 title: Kth largest element in an array
-published_at: 2023-12-18 12:01
+published_at: 2023-03-18 12:01
 snippet: 215 - Go solution
 tags: [leetcode]
 ---
