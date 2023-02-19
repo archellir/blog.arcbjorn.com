@@ -1,6 +1,6 @@
 ---
 title: Relative sort array
-published_at: 2022-12-19 12:01
+published_at: 2023-02-19 12:01
 snippet: 1122 - Go solution
 tags: [leetcode]
 ---
