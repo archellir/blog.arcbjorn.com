@@ -9,7 +9,7 @@ tags: [leetcode]
 
 ## Go
 
-- Time complexity: $n*log(n)$ - **n** is a number of all points
+- Time complexity: $O(n*log(n))$ - **n** is a number of all points
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
