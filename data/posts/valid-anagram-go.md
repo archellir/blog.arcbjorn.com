@@ -11,8 +11,8 @@ An **Anagram** is a word or phrase formed by rearranging the letters of a differ
 
 ## Go
 
-- Time complexity: `O(n)` - **n** is the length of the string
-- Auxiliary space: `O(1)` - constant amount of space
+- Time complexity: $O(n)$ - **n** is a length of a string
+- Auxiliary space: $O(1)$ - constant amount of space
 
 #### Byte comparison solution:
 
