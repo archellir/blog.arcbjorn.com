@@ -198,3 +198,61 @@ func divide(nums []int, left, right int) int {
     return left
 }
 ```
+
+#### Counting Sort
+
+- Time complexity: $O(n)$ - **n** is a length of an array of numbers
+- Auxiliary space: $O(n)$ - **n** is a length of an array of numbers
+
+```go
+func sortArray(nums []int) []int {
+    maxNumber := nums[0]
+
+    // iterate and compare to find max number in array
+    i := 1
+    for i < len(nums) {
+        if nums[i] > maxNumber {
+            maxNumber = nums[i]
+        }
+
+        i++
+    }
+
+    // index is a number value, length = the biggest number
+    indices := make([]int, maxNumber + 1)
+
+    i = 0
+    for i < len(nums) {
+        // index = number value
+        // value is a frequency of the number in `nums` array
+        indices[nums[i]]++
+
+        i++
+    }
+
+    i = 1
+    for i < len(indices) {
+        // increase frequency of each number by adding frequency of previous number
+        indices[i] += indices[i - 1]
+
+        i++
+    }
+
+    // list of actual numbers
+    sortedList := make([]int, len(nums))
+
+    i = 0
+    for i < len(nums) {
+        // index of sortedList = value (frequency) of the actual number from indices array - 1
+        // value of sortedList = actual number
+        sortedList[indices[nums[i]] - 1] = nums[i]
+
+        // decrease value of the frequency of current number in indices array
+        indices[nums[i]]--
+
+        i++
+    }
+
+    return sortedList
+}
+```
