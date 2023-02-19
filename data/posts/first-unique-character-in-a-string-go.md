@@ -9,7 +9,10 @@ tags: [leetcode]
 
 A function to find the first non-repeating character in it and return its index. If it does not exist, it returns `-1`.
 
-### Go
+## Go
+
+- Time complexity: $O(n^{2})$ - **n** is a length of a string
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 func firstUniqChar(s string) int {
