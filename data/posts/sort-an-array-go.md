@@ -147,3 +147,54 @@ func Merge(left, right []int) []int {
 	return slice
 }
 ```
+
+#### Quick Sort
+
+- Time complexity: $O(n * log_n)$ - **n** is the length of an array
+- Auxiliary space: $O(n)$ - **n** is the length of an array
+
+```go
+func sortArray(nums []int) []int {
+    quickSort(nums, 0, len(nums)-1)
+
+    return nums
+}
+
+func quickSort(nums []int, left, right int) {
+	// while there is a distance between left and right
+    if left < right {
+	    // get new division point
+        divisionIndex := divide(nums, left, right)
+
+		// sort up to this division point
+        quickSort(nums, left, divisionIndex - 1)
+		// sort from this division point
+        quickSort(nums, divisionIndex + 1, right)
+    }
+}
+
+func divide(nums []int, left, right int) int {
+	// starting from item with index 0
+    divisionItem := nums[left]
+
+	// while there is a distance between left and right
+    for left < right {
+	    // if the right limiter point >= division point, decrement the right limit
+        for left < right && nums[right] >= divisionItem {
+            right--
+        }
+
+		// swap values for start and end
+        nums[left], nums[right] = nums[right], nums[left]
+
+	    // if the start point <= division point, increment the left limit
+        for left < right && nums[left] <= divisionItem {
+            left++
+        }
+
+		// swap values for start and end
+        nums[left], nums[right] = nums[right], nums[left]
+    }
+    return left
+}
+```
