@@ -9,7 +9,10 @@ tags: [leetcode]
 
 A function, given a string `s`, to check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
 
-### Go
+## Go
+
+- Time complexity: $O(n * log_n)$ - **n** is a length of a string
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 import "strings"
