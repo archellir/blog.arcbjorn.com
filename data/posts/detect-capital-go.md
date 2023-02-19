@@ -11,6 +11,9 @@ A function to determine if the usage of capitals in a word is correct.
 
 ### Go
 
+- Time complexity: $O(n)$ - **n** is a length of a string
+- Auxiliary space: $O(1)$ - constant amount of space
+
 ```go
 import "strings"
 
