@@ -10,7 +10,10 @@ tags: [leetcode]
 Given a string s consisting of words and spaces, return the length of the last word in the string.
 A word is a maximal substring consisting of non-space characters only.
 
-### Go
+## Go
+
+- Time complexity: $O(n)$ - **n** is a length of an string
+- Auxiliary space: $O(n)$ - **n** is a length of an string
 
 ```go
 import "strings"
