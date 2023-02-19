@@ -9,7 +9,10 @@ tags: [leetcode]
 
 A function that reverses a string. The input string is given as an array of characters (bytes) `s`.
 
-### Go
+## Go
+
+- Time complexity: $O(n)$ - **n** is a length of a string
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 func reverseString(s []byte) string {
