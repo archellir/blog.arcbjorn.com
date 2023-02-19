@@ -9,6 +9,9 @@ tags: [leetcode]
 
 ### Go
 
+- Time complexity: $O(n * log_n)$ - **n** is a length of a string
+- Auxiliary space: $O(1)$ - constant amount of space
+
 ```go
 import "strings"
 
