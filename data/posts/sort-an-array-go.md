@@ -13,7 +13,7 @@ A function, given an array of integers `nums`, sort the array in ascending order
 
 #### Selection Sort
 
-- Time complexity: $O(n^{2})$ - **n** is the length of an array
+- Time complexity: $O(n^{2})$ - **n** is a length of an array
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
@@ -44,7 +44,7 @@ func sortArray(nums []int) []int {
 
 #### Bubble Sort
 
-- Time complexity: $O(n^{2})$ -  **n** is the length of an array
+- Time complexity: $O(n^{2})$ -  **n** is a length of an array
 - Auxiliary space: $O(1)$  - constant amount of space
 
 ```go
@@ -69,7 +69,7 @@ func sortArray(nums []int) []int {
 
 #### Insertion Sort
 
-- Time complexity: $O(n^{2})$ - **n** is the length of an array
+- Time complexity: $O(n^{2})$ - **n** is a length of an array
 - Auxiliary space: $O(1)$  - constant amount of space
 
 ```go
@@ -95,8 +95,8 @@ func sortArray(items []int) []int {
 
 #### Merge Sort
 
-- Time complexity: $O(n * log_n)$ - **n** is the length of an array
-- Auxiliary space: $O(n)$ - **n** is the length of an array
+- Time complexity: $O(n * log_n)$ - **n** is a length of an array
+- Auxiliary space: $O(n)$ - **n** is a length of an array
 
 ```go
 func sortArray(slice []int) []int {
@@ -150,8 +150,8 @@ func Merge(left, right []int) []int {
 
 #### Quick Sort
 
-- Time complexity: $O(n * log_n)$ - **n** is the length of an array
-- Auxiliary space: $O(n)$ - **n** is the length of an array
+- Time complexity: $O(n * log_n)$ - **n** is a length of an array
+- Auxiliary space: $O(n)$ - **n** is a length of an array
 
 ```go
 func sortArray(nums []int) []int {
