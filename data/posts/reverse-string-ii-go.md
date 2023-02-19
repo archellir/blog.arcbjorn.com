@@ -9,7 +9,10 @@ tags: [leetcode]
 
 Function to, given a string `s` and an integer `k`, reverse the first `k` characters for every `2k` characters counting from the start of the string.
 
-### Go
+## Go
+
+- Time complexity: $O(n)$ - **n** is a length of a string
+- Auxiliary space: $O(n)$ - **n** is a length of a string
 
 ```go
 import "fmt"
