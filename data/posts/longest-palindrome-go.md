@@ -9,7 +9,10 @@ tags: [leetcode]
 
 A function, given a string `s` which consists of lowercase or uppercase letters, to return _the length of the **longest palindrome**_ that can be built with those letters.
 
-### Go
+## Go
+
+- Time complexity: $O(n)$ - **n** is a length of a string
+- Auxiliary space: $O(n)$ - **n** is a length of a string
 
 ```go
 func longestPalindrome(s string) int {
