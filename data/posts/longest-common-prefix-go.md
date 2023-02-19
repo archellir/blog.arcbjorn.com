@@ -11,6 +11,9 @@ A function to find the longest common prefix string amongst an array of strings.
 
 ## Go
 
+- Time complexity: $O(n * l)$ - **n** is a length of a strings array and **l** is a largest length of a word
+- Auxiliary space: $O(n)$ - **n** is a number of all characters in all strings
+
 ```go
 func longestCommonPrefix(strs []string) string {
     var isMaxCommonPrefix bool = false;
