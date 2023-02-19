@@ -9,7 +9,10 @@ tags: [leetcode]
 
 A function, given a string `s`, to reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
 
-### Go
+## Go
+
+- Time complexity: $O(n*log_n)$ - **n** is a length of a string
+- Auxiliary space: $O(n)$ - **n** is a length of a string
 
 ```go
 import "fmt"
