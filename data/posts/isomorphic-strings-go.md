@@ -11,7 +11,10 @@ Two strings `s` and `t` are isomorphic if the characters in `s` can be replaced 
 
 All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
 
-### Go
+## Go
+
+- Time complexity: $O(n)$ - **n** is a length of a string (assuming both strings are the same length)
+- Auxiliary space: $O(n)$ - **n** is a length of a string (assuming both strings are the same length)
 
 ```go
 func isIsomorphic(s string, t string) bool {
