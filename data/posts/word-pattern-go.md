@@ -9,7 +9,10 @@ tags: [leetcode]
 
 A full match, such that there is a bijection between a letter in `pattern` and a **non-empty** word in `s`.
 
-### Go
+## Go
+
+- Time complexity: $O(n)$ - **n** is a length of a pattern string
+- Auxiliary space: $O(n)$ - **n** is a length of an input string
 
 ```go
 import "fmt"
@@ -47,6 +50,7 @@ func wordPattern(pattern string, str string) bool {
 		wordRuneMap[rune] = word
 		wordPresenceMap[word] = true
 	}
+	
 	return true
 }
 ```
