@@ -1,16 +1,16 @@
 ---
 title: Robot return to origin
-published_at: 2023-01-03 12:00
+published_at: 2022-01-03 12:00
 snippet: 657 - Go solution
 tags: [leetcode]
 ---
 
 [Leetcode 657 problem.](https://leetcode.com/problems/robot-return-to-origin/)
 
-### Go
+## Go
 
-- Time complexity: `O(n)` - **n** is the length of the string
-- Auxiliary space: `O(1)` - constant amount of space
+- Time complexity: $O(n)$ - **n** is a length of a string
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 import "strings"
