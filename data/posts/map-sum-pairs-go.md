@@ -12,9 +12,10 @@ Sum returns a sum of map values, which keys were matched by some prefix.
 
 ### Go
 
-```go
-package map_sum_pairs
+- Time complexity: $O(n*n)$ - **n** is a number of elements in a map
+- Auxiliary space: $O(n)$ - **n** is a number of elements in a map
 
+```go
 import (
 	"sort"
 	"strings"
