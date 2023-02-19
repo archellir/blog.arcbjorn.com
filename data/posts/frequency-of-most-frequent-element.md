@@ -14,6 +14,9 @@ performing at most `k` operations of incrementation (+1).
 
 ### Go
 
+- Time complexity: $O(n*k)$ - **n** is a length of an array, k is a constant parameter
+- Auxiliary space: $O(1)$ - constant amount of space
+
 ```go
 func maxFrequency(nums []int, k int) int {
 	sort.Ints(nums)
