@@ -7,7 +7,10 @@ tags: [leetcode]
 
 [Leetcode 824 problem.](https://leetcode.com/problems/goat-latin/)
 
-### Go
+## Go
+
+- Time complexity: $O(n^{2})$ - **n** a the length of a string
+- Auxiliary space: $O(n)$ - n is a length of a string
 
 ```go
 import "fmt"
