@@ -9,7 +9,10 @@ tags: [leetcode]
 
 A function to determine if `ransomNote` can be constructed by using the letters from `magazine`, each of them is used only once.
 
-### Go
+## Go
+
+- Time complexity: $O(n*k)$ - **n** is a length of the first string, **k** is a length of the second string (if it's larger than **n**)
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 import "strings"
