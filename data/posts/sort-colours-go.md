@@ -1,6 +1,6 @@
 ---
 title: Sort colours
-published_at: 2023-12-19 12:00
+published_at: 2023-02-19 12:00
 snippet: 75 - Go solution
 tags: [leetcode]
 ---
