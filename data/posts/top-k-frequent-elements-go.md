@@ -9,10 +9,10 @@ tags: [leetcode]
 
 A function, given an integer array `nums` and an integer `k`, to return _the_ `k` _most frequent elements_.
 
-- Time complexity: $n*log(n)$ - **n** is a quantity of numbers
-- Auxiliary space: $O(n)$ - depends on **n** - a quantity of all numbers
+## Go
 
-### Go
+- Time complexity: $O(n*log(n))$ - **n** is a quantity of numbers
+- Auxiliary space: $O(n)$ - **n** is a quantity of all numbers
 
 ```go
 func topKFrequent(nums []int, k int) []int {
