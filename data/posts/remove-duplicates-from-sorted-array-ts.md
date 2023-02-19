@@ -7,7 +7,10 @@ tags: [leetcode]
 
 [Leetcode 26 problem.](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
 
-### Typescript
+## Typescript
+
+- Time complexity: $O(n)$ - **n** is a length of numbers' array
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```typescript
 function removeDuplicates(nums: number[]): number {
@@ -24,6 +27,7 @@ function removeDuplicates(nums: number[]): number {
         // increment total
         count++;
     }
+    
     return count;
 };
 ```
