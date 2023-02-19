@@ -11,38 +11,38 @@ tags: [leetcode]
 
 ## Go
 
-- Time Complexity: `O(log10(input))` - each iteration divides the input by 10
-- Auxiliary space: `O(1)` - constant amount of space
+- Time Complexity: $O(log_{10}(n))$ - each iteration divides the input by 10
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 func reverse(x int) int {
-  result, sign := 0, 1
+	result, sign := 0, 1
  
-    if (x < 0) {
-      sign = -1
-      x = -x
-    }
-
-    for x > 0 {
-      remainder := x % 10;
-      result = result * 10 + remainder
-      x /= 10;
-    }
-    
-    var int32Converted int = int(int32(result))
-
-    if int32Converted != result {
-      return 0
-    }
-
-    return result * sign
+	if (x < 0) {
+		sign = -1
+		x = -x
+	}
+	
+	for x > 0 {
+	  remainder := x % 10;
+	  result = result * 10 + remainder
+	  x /= 10;
+	}
+	
+	var int32Converted int = int(int32(result))
+	
+	if int32Converted != result {
+	  return 0
+	}
+	
+	return result * sign
 }
 ```
 
 ## Typescript
 
-- Time complexity: `O(1)` - no division/multiplication by dynamic value
-- Auxiliary space: `O(1)` - constant amount of space
+- Time complexity: $O(n)$ - n is a length of string representation of an input number
+- Auxiliary space: $O(n)$ - n is a length of string representation of an input number
 
 ```typescript
 function reverse(x: number): number {
@@ -59,8 +59,8 @@ function reverse(x: number): number {
 
 ## C++
 
-- Time Complexity: `O(log10(input))` - each iteration divides the input by 10
-- Auxiliary space: `O(1)` - constant amount of space
+- Time Complexity: $O(log_{10}(n))$ - each iteration divides the input by 10
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```cpp
 class Solution {
@@ -92,7 +92,7 @@ public:
 
 #### Natural number solution:
 
-- Time Complexity: `O(1)` - constant amount of space
+- Time Complexity: $O(1)$ - constant amount of space
 
 ```cpp
 class Solution {
