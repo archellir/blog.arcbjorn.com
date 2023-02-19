@@ -10,7 +10,10 @@ tags: [leetcode]
 A function, given a string `s`, to return _the number of segments in the string_.
 A **segment** is defined to be a contiguous sequence of **non-space characters**.
 
-### Go
+## Go
+
+- Time complexity: $O(n * log_{n})$ - **n** is a length of a string
+- Auxiliary space: $O(n)$ - **n** is a length of a string
 
 ```go
 func countSegments(s string) int {
