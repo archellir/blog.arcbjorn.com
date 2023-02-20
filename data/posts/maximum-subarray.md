@@ -34,7 +34,7 @@ func maxSubArray(nums []int) int {
         // choose between current maximum and current sums
 		maximumSum = max(maximumSum, currentSum)
 
-        // reset temprorary
+        // reset temprorary sum
 		if currentSum <= 0 {
 			sum = 0
 		} else {
@@ -62,15 +62,19 @@ func max(a, b int) int {
 ```typescript
 function maxSubArray(nums: number[]): number {
   let sum = 0;
+
+  // starting as a first value
   let maximumSum = nums[0];
 
   for (let num of nums) {
+    // reset temprorary
     if (sum < 0) {
         sum = 0
     };
     
     sum += num;
 
+	// pick new maximum sum
     if (sum > maximumSum) {
         maximumSum = sum
     };
