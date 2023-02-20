@@ -16,7 +16,7 @@ A function, given an array of integers `nums`, sort the array in ascending order
 - Time complexity: $O(n * log(n))$ - **n** is a length of an array
 - Auxiliary space: $O(n)$ - **n** is a length of an array
 
-```go
+```cpp
 class Solution {
 public:
     vector<int> sortArray(vector<int>& nums) {
