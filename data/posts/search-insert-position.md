@@ -1,11 +1,13 @@
 ---
-title: Range sum query - immutable
-published_at: 2023-02-20 12:01
-snippet: 303 - Go, Typescript solutions
+title: Search insert position
+published_at: 2023-02-20 12:02
+snippet: 35 - Go, Typescript solutions
 tags: [leetcode]
 ---
 
-[Leetcode 303 problem.](https://leetcode.com/problems/range-sum-query-immutable/)
+[Leetcode 35 problem.](https://leetcode.com/problems/range-sum-query-immutable/)
+
+A function, given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
 
 ## Go
 

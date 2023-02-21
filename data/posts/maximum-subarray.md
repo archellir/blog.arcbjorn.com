@@ -12,7 +12,7 @@ A function, given an integer array `nums`, find the subarray with the largest su
 ## Go
 
 - Time complexity: $O(n)$ - **n** is a length of an array
-- Auxiliary space: $O(n)$ - constant amount of space
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 func maxSubArray(nums []int) int {
@@ -57,7 +57,7 @@ func max(a, b int) int {
 ## Typescript
 
 - Time complexity: $O(n)$ - **n** is a length of an array
-- Auxiliary space: $O(n)$ - constant amount of space
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```typescript
 function maxSubArray(nums: number[]): number {
