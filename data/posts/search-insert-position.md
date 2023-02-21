@@ -5,7 +5,7 @@ snippet: 35 - Go, Typescript solutions
 tags: [leetcode]
 ---
 
-[Leetcode 35 problem.](https://leetcode.com/problems/range-sum-query-immutable/)
+[Leetcode 35 problem.](https://leetcode.com/problems/search-insert-position/)
 
 A function, given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
 
@@ -15,33 +15,20 @@ A function, given a sorted array of distinct integers and a target value, return
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
-type NumArray struct {
-    nums []int
+func searchInsert(nums []int, target int) int {
+    for index, number := range nums {
+        // 1. equal number
+        // 2. since array is sorted, first larger number has position of possible insert
+
+		if number == target || number > target {
+			return index
+		}
+	}
+
+	// if there is no such a number and none of the numbers is larger than parameter number
+	// return new last index
+	return len(nums)
 }
-
-
-func Constructor(nums []int) NumArray {
-    return NumArray{
-        nums: nums,
-    }
-}
-
-
-func (this *NumArray) SumRange(left int, right int) int {
-    sum := 0
-
-    for i := left; i <= right; i++ {
-        sum += this.nums[i]
-    }
-
-    return sum
-}
-
-
-/**
- * obj := Constructor(nums);
- * param_1 := obj.SumRange(left,right);
- */
 ```
 
 ## Typescript
@@ -50,21 +37,18 @@ func (this *NumArray) SumRange(left int, right int) int {
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```typescript
-class NumArray {
-    nums: number[];
-
-    constructor(nums: number[]) {
-        this.nums = nums;
-    }
-
-    sumRange(left: number, right: number): number {
-        let sum = 0;
-
-        for (let i = left; i <= right; i++) {
-            sum += this.nums[i];
+function searchInsert(nums: number[], target: number): number {
+    for (let i = 0; i < nums.length; i++){
+        // 1. equal number
+        // 2. since array is sorted, first larger number has position of possible insert
+        
+        if (nums[i] == target || nums[i]  > target) {
+            return i
         }
-
-        return sum;
     }
-}
+    
+    // if there is no such a number and none of the numbers is larger than parameter number
+	// return new last index
+	return nums.length
+};
 ```
