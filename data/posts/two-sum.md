@@ -9,6 +9,8 @@ tags: [leetcode]
 
 ## Go
 
+#### Array iteration
+
 - Time complexity: $O(n)$ - **n** is a length of an array of integers
 - Auxiliary space: $O(n)$ - constant amount of space
 
@@ -31,6 +33,38 @@ func twoSum(nums []int, target int) []int {
 }
 ```
 
+#### Binary search
+
+- Time complexity: $O(log(n))$ - **n** is a length of an array of integers
+- Auxiliary space: $O(1)$ - constant amount of space
+
+```go
+func arrangeCoins(n int) int {
+    low := 0
+    mid := 0
+    high := int(math.Sqrt(float64(n))) * 2
+
+    for low < high {
+        mid = low + (high - low) / 2
+
+        currentCoinNumber, nextCoinNumber := getMaxCoinNumber(mid), getMaxCoinNumber(mid+1)
+
+        if currentCoinNumber <= n && n < nextCoinNumber { 
+            return mid 
+        } else if n < currentCoinNumber { 
+            high = mid - 1 
+        } else if n >= nextCoinNumber { 
+            low = mid + 1
+        }
+    }
+
+    return low
+}
+
+func getMaxCoinNumber(n int) int {
+    return int((n + 1) * n / 2)
+}
+```
 
 ## Typescript
 
