@@ -46,6 +46,8 @@ function arrangeCoins(n: number): number {
 
         if (usedCoins <= n) {
             completeRows++
+        } else {
+            return completeRows
         }
     }
 
