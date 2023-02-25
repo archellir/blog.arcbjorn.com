@@ -10,7 +10,7 @@ tags: [leetcode]
 ## Typescript
 
 - Time complexity: $O(n)$ - n is a length of a string
-- Auxiliary space: $O(n)$ - constant amount of space
+- Auxiliary space: $O(n)$ - n is a length of a string
 
 ```typescript
 function lengthOfLongestSubstring(s: string): number {
