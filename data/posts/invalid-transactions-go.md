@@ -10,7 +10,7 @@ tags: [leetcode]
 ## Go
 
 - Time complexity: $O(n^{2})$ - n is a number of transactions
-- Auxiliary space: $O(n)$ - constant amount of space
+- Auxiliary space: $O(n)$ - n is a number of transactions
 
 ```go
 type Transaction struct {
