@@ -48,4 +48,5 @@ func findPeakElement(nums []int) int {
     }
 
     return left
-}```
+}
+```
