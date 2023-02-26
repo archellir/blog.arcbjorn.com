@@ -11,8 +11,8 @@ tags: [leetcode]
 
 #### Two pointers
 
-- Time complexity: $O(s + t)$ - `n` is a length of first string parameter, `t` is a length of second
-- Auxiliary space: $O(s + t)$ - `n` is a length of first string parameter, `t` is a length of second
+- Time complexity: $O(s + t)$ - `s` is a length of first string parameter, `t` is a length of second
+- Auxiliary space: $O(s + t)$ - `s` is a length of first string parameter, `t` is a length of second
 
 ```go
 func minWindow(s string, t string) string {
