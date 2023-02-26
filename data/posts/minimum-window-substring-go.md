@@ -5,7 +5,7 @@ snippet: 76 - Go solution
 tags: [leetcode]
 ---
 
-[Leetcode 76 problem.](https://leetcode.com/minimum-window-substring-go/)
+[Leetcode 76 problem.](https://leetcode.com/problems/minimum-window-substring/)
 
 ## Go
 
