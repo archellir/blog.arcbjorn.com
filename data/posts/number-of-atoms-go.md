@@ -9,7 +9,7 @@ tags: [leetcode]
 
 ## Go
 
-- Time complexity: $O(n * log(n))$ - `n` is a length of a string
+- Time complexity: $O(n + log(n))$ - `n` is a length of a string
 - Auxiliary space: $O(n)$ - `n` is a length of a string
 
 ```go
