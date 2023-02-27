@@ -1,5 +1,5 @@
 ---
-title: Non overlapping intervals
+title: Non-overlapping intervals
 published_at: 2023-02-26 12:10
 snippet: 435 - Go solution
 tags: [leetcode]
