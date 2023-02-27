@@ -10,7 +10,7 @@ tags: [leetcode]
 ## Go
 
 - Time complexity: $O(n)$ - `n` is a length of a string
-- Auxiliary space: $O(n)$ - constant amount of time
+- Auxiliary space: $O(n)$ - `n` is a length of a string
 
 ```go
 type ElementInfo struct {
