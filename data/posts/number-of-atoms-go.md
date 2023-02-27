@@ -128,7 +128,7 @@ func countOfAtoms(s string) string {
 		elements = append(elements, ElementInfo{name, value})
 	}
 
-    // sort by descending order by names
+    // sort by ascending order by names
 	sort.Slice(elements, func(i, j int) bool {
 		return elements[i].element < elements[j].element
 	})
