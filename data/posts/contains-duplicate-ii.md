@@ -5,7 +5,7 @@ snippet: 219 - Go, Typescript solutions
 tags: [leetcode]
 ---
 
-[Leetcode 219 problem.](https://leetcode.com/problems/contains-duplicate/)
+[Leetcode 219 problem.](https://leetcode.com/problems/contains-duplicate-ii/)
 
 ## Go
 
