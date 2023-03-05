@@ -46,7 +46,7 @@ func singleNumber(nums []int) []int {
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        int all_xor = 0;
+        unsigned int all_xor = 0;
         int length = nums.size();
 
         // XOR all nums
