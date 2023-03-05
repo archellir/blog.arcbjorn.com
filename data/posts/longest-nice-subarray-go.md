@@ -10,7 +10,7 @@ tags: [leetcode]
 ## Go
 
 - Time complexity: $O(n)$ - `n` is a length of number
-- Auxiliary space: $O(n)$ - constant amount of space
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 func longestNiceSubarray(nums []int) int {
