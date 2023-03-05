@@ -1,5 +1,5 @@
 ---
-title: Symmetric tree
+title: Single number
 published_at: 2023-03-04 12:11
 snippet: 136 - Go solution
 tags: [leetcode]
