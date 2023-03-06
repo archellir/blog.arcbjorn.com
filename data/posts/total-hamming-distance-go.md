@@ -1,5 +1,5 @@
 ---
-title: Single number
+title: Total hamming distance
 published_at: 2023-03-05 12:05
 snippet: 477 - Go solution
 tags: [leetcode]
