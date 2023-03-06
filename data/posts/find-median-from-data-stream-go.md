@@ -11,7 +11,7 @@ tags: [leetcode]
 
 #### Min & Max Heaps
 
-- Time complexity: $O(1)$ - constant amount of space 
+- Time complexity: $O(1)$ - constant amount of time 
 - Auxiliary space: $O(n)$ - `n` is a number of elements in `MedianFinder`
 
 ```go
