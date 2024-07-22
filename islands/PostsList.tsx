@@ -23,14 +23,14 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
 
   const { measureRef, isIntersecting, observer } = useOnScreen();
 
-  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 576);
+  const [isMobile, setIsMobile] = useState<boolean>(globalThis.innerWidth <= 576);
 
   const loadMorePosts = useCallback(async () => {
     setIsLoading(true);
 
-    const baseOrigin = window.location.origin;
+    const baseOrigin = globalThis.location.origin;
 
-    const queryParams = parseQueryParams(window.location.search);
+    const queryParams = parseQueryParams(globalThis.location.search);
 
     let queryParamsString = "?";
     if (queryParams.tags) {
@@ -42,7 +42,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     queryParamsString += `quantity=${postsData.posts.length}`;
 
     const refreshUrl = baseOrigin + queryParamsString;
-    window.history.pushState({ path: refreshUrl }, "", refreshUrl);
+    globalThis.history.pushState({ path: refreshUrl }, "", refreshUrl);
 
     const hasMore = postsData.posts.length !== postsData.all;
 
@@ -50,8 +50,8 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     setHasMore(hasMore);
     setIsLoading(false);
 
-    setIsMobile(window.innerWidth <= 576);
-  }, [window.location]);
+    setIsMobile(globalThis.innerWidth <= 576);
+  }, [globalThis.location]);
 
   useEffect(() => {
     if (!isMobile) {

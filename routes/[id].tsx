@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps, FreshContext } from "$fresh/server.ts";
 import { CSS, KATEX_CSS, render } from "$gfm";
 
 import { IPost, IState } from "../types.ts";
@@ -22,7 +22,7 @@ interface IPostPageData extends IState {
 type TPostPageProps = PageProps<IPostPageData>;
 
 export const handler: Handlers<IPostPageData, IState> = {
-  async GET(_req, ctx) {
+  async GET(_req, ctx: FreshContext<IState>) {
     const id = ctx.params.id;
     const post = await loadPost(id);
     if (!post) {

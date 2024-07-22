@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps, FreshContext } from "$fresh/server.ts";
 
 import HeadElement from "../components/HeadElement.tsx";
 import Header from "../components/Header.tsx";
@@ -13,7 +13,7 @@ import { listPosts } from "../api/listPosts.ts";
 import { getFirstLoadListParams } from "../utils/getListParams.ts";
 
 export const handler: Handlers<IHomePageData, IState> = {
-  async GET(req, ctx) {
+  async GET(req, ctx: FreshContext<IState>) {
     const listParams = getFirstLoadListParams(req.url);
     const postsData: IPostsResponse = await listPosts(listParams);
 

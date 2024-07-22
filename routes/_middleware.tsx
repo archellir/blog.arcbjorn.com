@@ -1,8 +1,8 @@
-import { MiddlewareHandlerContext } from "$fresh/server.ts";
+import { FreshContext } from "$fresh/server.ts";
 import { parse } from "https://esm.sh/accept-language-parser@1.5.0";
 import { IState } from "../types.ts";
 
-export function handler(req: Request, ctx: MiddlewareHandlerContext<IState>) {
+export function handler(req: Request, ctx: FreshContext<IState>) {
   ctx.state.locales = [];
   const langs = parse(req.headers.get("accept-language") || undefined);
 
