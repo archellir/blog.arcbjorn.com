@@ -4,10 +4,47 @@
 /// <reference lib="dom.asynciterable" />
 /// <reference lib="deno.ns" />
 
-import { start } from "$fresh/server.ts";
+import { FreshContext, start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
+import { freshSEOPlugin } from "https://deno.land/x/fresh_seo/mod.ts";
 
 import twindPlugin from "$fresh/plugins/twind.ts";
 import twindConfig from "./twind.config.ts";
+import { POST_URL_NAMES } from "./constants.ts";
 
-await start(manifest, { plugins: [twindPlugin(twindConfig)] });
+const staticCacheMiddleware = {
+  name: "staticCacheMiddleware",
+  middlewares: [
+    {
+      path: "/",
+      middleware: {
+        handler: async (req: Request, ctx: FreshContext) => {
+          const res = await ctx.next();
+          const url = new URL(req.url);
+          
+          // Cache fonts
+          if (url.pathname.match(/\.(ttf|woff|woff2)$/)) {
+            res.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+          }
+          
+          // Cache Creative Commons image
+          if (url.pathname.endsWith('/by-nc-sa.svg')) {
+            res.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+          }
+          
+          return res;
+        },
+      },
+    },
+  ],
+};
+
+await start(manifest, {
+  plugins: [
+    twindPlugin(twindConfig),
+    staticCacheMiddleware,
+    freshSEOPlugin(manifest, {
+        include: POST_URL_NAMES,
+    })
+  ],
+});

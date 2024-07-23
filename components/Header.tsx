@@ -9,7 +9,8 @@ const Header: FunctionalComponent = () => {
       </a>
       <div class="flex gap-4">
         <h1 class="text-lg font-plex-sans">thoughtbook</h1>
-        <a href="/rss">
+        <a href="/rss" aria-label="RSS Feed">
+          <span class="sr-only">RSS Feed</span>
           <RSSIcon />
         </a>
       </div>
