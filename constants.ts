@@ -76,4 +76,5 @@ export const POST_URL_NAMES = [
   "/valid-palindrome-go",
   "/validate-binary-search-tree-go",
   "/word-pattern-go",
+  "/lucky-numbers-in-a-matrix-go",
 ];
