@@ -1,6 +1,6 @@
 ---
 title: Lucky numbers in matrix
-published_at: 2022-12-23 12:00
+published_at: 2024-07-23 12:00
 snippet: 1380 - Go solution
 tags: [leetcode]
 ---
