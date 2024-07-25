@@ -12,7 +12,7 @@ Implement an efficient sorting algorithm (like Quick Sort) that sorts an integer
 ## Go
 
 - Time complexity: $O(nlog(n))$ - **n** is a length of an array
-- Auxiliary space: $O(log n) $ - **n** is a length of an array
+- Auxiliary space: $O(log n)$ - **n** is a length of an array
 
 ```go
 func sortArray(numbers []int) []int {
