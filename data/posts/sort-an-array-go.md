@@ -99,52 +99,56 @@ func sortArray(items []int) []int {
 - Auxiliary space: $O(n)$ - **n** is a length of an array
 
 ```go
-func sortArray(slice []int) []int {
-    length := len(slice)
-
-	if length < 2 {
-		return slice
+func sortArray(numbers []int) []int {
+	if len(numbers) <= 1 {
+        return numbers
 	}
 
-	midIndex := length / 2
+	// middle index of the array
+	middleIndex := len(numbers) / 2
 
-	return Merge(sortArray(slice[:midIndex]), sortArray(slice[midIndex:]))
+	// sort the left half of the array
+	leftHalf := sortArray(numbers[:middleIndex])
+
+	// sort the right half of the array
+	rightHalf := sortArray(numbers[middleIndex:])
+
+	// merge the sorted halves
+	return mergeArrays(leftHalf, rightHalf)
 }
 
-func Merge(left, right []int) []int {
-    rightSliceLength := len(right)
-    leftSliceLength := len(right)
+func mergeArrays(leftArray, rightArray []int) []int {
+	mergedArray := make([]int, len(leftArray) + len(rightArray))
+	
+	leftIndex, rightIndex, mergedIndex := 0, 0, 0
 
-	length, i, j := leftSliceLength + rightSliceLength, 0, 0
-    // merged slice
-	slice := make([]int, length, length)
-
-    // first 2 cases are for arrays of different length
-
-	for k := 0; k < length; k++ {
-        // if i > left last index && j <= right last index, pick from right
-		if i > leftSliceLength - 1 && j <= rightSliceLength - 1 {
-			slice[k] = right[j]
-			j++
-
-        // if j > right last index && i <= left last index, pick from left
-		} else if j > rightSliceLength - 1 && i <= leftSliceLength - 1 {
-			slice[k] = left[i]
-			i++
-
-        // if left < right, pick left
-		} else if left[i] < right[j] {
-			slice[k] = left[i]
-			i++
-            
-        // else pick right
+	// compare elements from both arrays and add the smaller one to the merged array
+	for leftIndex < len(leftArray) && rightIndex < len(rightArray) {
+		if leftArray[leftIndex] <= rightArray[rightIndex] {
+			mergedArray[mergedIndex] = leftArray[leftIndex]
+			leftIndex++
 		} else {
-			slice[k] = right[j]
-			j++
+			mergedArray[mergedIndex] = rightArray[rightIndex]
+			rightIndex++
 		}
+		mergedIndex++
 	}
 
-	return slice
+	// add remaining elements from the left array
+	for leftIndex < len(leftArray) {
+		mergedArray[mergedIndex] = leftArray[leftIndex]
+		leftIndex++
+		mergedIndex++
+	}
+
+	// add remaining elements from the right array
+	for rightIndex < len(rightArray) {
+		mergedArray[mergedIndex] = rightArray[rightIndex]
+		rightIndex++
+		mergedIndex++
+	}
+
+	return mergedArray
 }
 ```
 
