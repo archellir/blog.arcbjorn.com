@@ -1,4 +1,4 @@
-import { Ref, useCallback, useState } from "preact/hooks";
+import { Ref, useCallback, useState, useEffect } from "preact/hooks";
 
 interface IUseOnScreenResult {
   measureRef: Ref<HTMLLIElement>;
@@ -11,25 +11,37 @@ const useOnScreen = ({
   rootMargin = "0px",
   threshold = 0,
 } = {}): IUseOnScreenResult => {
-  const [observer, setOserver] = useState<IntersectionObserver>();
+  const [observer, setObserver] = useState<IntersectionObserver>();
   const [isIntersecting, setIntersecting] = useState(false);
 
   const measureRef = useCallback(
-    (node: Element) => {
+    (node: Element | null) => {
+      if (observer) {
+        observer.disconnect();
+      }
+
       if (node) {
-        const observer = new IntersectionObserver(
+        const newObserver = new IntersectionObserver(
           ([entry]) => {
             setIntersecting(entry.isIntersecting);
           },
-          { root, rootMargin, threshold },
+          { root, rootMargin, threshold }
         );
 
-        observer.observe(node);
-        setOserver(observer);
+        newObserver.observe(node);
+        setObserver(newObserver);
       }
     },
-    [root, rootMargin, threshold],
+    [root, rootMargin, threshold]
   ) as unknown as Ref<HTMLLIElement>;
+
+  useEffect(() => {
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [observer]);
 
   return { measureRef, isIntersecting, observer };
 };

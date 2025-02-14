@@ -11,46 +11,38 @@ const defaultProps: IListLoadParams = {
 export async function listPosts(
   props: IListLoadParams = defaultProps,
 ): Promise<IPostsResponse> {
-  const promises: Promise<IPost | null>[] = [];
-  for await (const entry of Deno.readDir("./data/posts")) {
-    const id = entry.name.slice(0, -3);
-    promises.push(loadPost(id));
-  }
+  // Read all posts concurrently
+  const posts = await Promise.all(
+    Array.from(Deno.readDirSync("./data/posts")).map(
+      entry => loadPost(entry.name.slice(0, -3))
+    )
+  ) as IPost[];
 
-  let posts = await Promise.all(promises) as IPost[];
-  posts.sort((a, b) =>
+  // Sort by date descending
+  posts.sort((a, b) => 
     new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
-  let allPostsQuantity = posts.length;
+  // Filter by tags if specified
+  const filteredPosts = props.tags?.length 
+    ? posts.filter(post => 
+        post.tags?.some(tag => props.tags!.includes(tag))
+      )
+    : posts;
 
-  // filter by tags first to record the quantity
-  if (props.tags?.length) {
-    posts = posts.filter(({ tags }) => {
-      let hasTag = false;
+  const allPostsQuantity = filteredPosts.length;
 
-      if (tags && tags.length) {
-        for (let i = 0; i < tags.length; i++) {
-          if (props.tags!.includes(tags[i])) {
-            hasTag = true;
-          }
-        }
-      }
-
-      return hasTag;
-    });
-
-    // all posts quantity by tags
-    allPostsQuantity = posts.length;
-  }
-
-  // return all posts when no limit
+  // Return all posts if no limit specified
   if (props.limit === 0) {
-    return { posts, all: allPostsQuantity };
+    return { posts: filteredPosts, all: allPostsQuantity };
   }
 
-  const arrayOffset = props.offset > 0 ? props.offset : 0;
-  posts = posts.slice(arrayOffset, arrayOffset + props.limit);
+  // Slice for pagination
+  const start = props.offset > 0 ? props.offset : 0;
+  const paginatedPosts = filteredPosts.slice(
+    start, 
+    start + props.limit
+  );
 
-  return { posts, all: allPostsQuantity };
+  return { posts: paginatedPosts, all: allPostsQuantity };
 }
