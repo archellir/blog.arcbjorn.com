@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 
 import Post from "../components/Post.tsx";
 import Loader from "../components/Loader.tsx";
@@ -15,21 +15,24 @@ type IPostsListPageData = IState & {
 
 const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   const [posts, setPosts] = useState<IPost[]>(props.postsData.posts);
+  const loadingTimeoutRef = useRef<number | null>(null);
 
   const all = props.postsData.posts.length === props.postsData.all;
   const [hasMore, setHasMore] = useState<boolean>(!all);
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { measureRef, isIntersecting, observer } = useOnScreen();
-
   const [isMobile, setIsMobile] = useState<boolean>(globalThis.innerWidth <= 576);
 
   const loadMorePosts = useCallback(async () => {
     setIsLoading(true);
+    
+    // Clear any existing timeout
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
 
     const baseOrigin = globalThis.location.origin;
-
     const queryParams = parseQueryParams(globalThis.location.search);
 
     let queryParamsString = "?";
@@ -38,20 +41,30 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     }
 
     const postsData = await pullPosts(baseOrigin, posts, queryParams.tags);
+    
+    // Set minimum loading time
+    loadingTimeoutRef.current = setTimeout(() => {
+      queryParamsString += `quantity=${postsData.posts.length}`;
+      const refreshUrl = baseOrigin + queryParamsString;
+      globalThis.history.pushState({ path: refreshUrl }, "", refreshUrl);
 
-    queryParamsString += `quantity=${postsData.posts.length}`;
+      const hasMore = postsData.posts.length !== postsData.all;
 
-    const refreshUrl = baseOrigin + queryParamsString;
-    globalThis.history.pushState({ path: refreshUrl }, "", refreshUrl);
+      setPosts([...postsData.posts]);
+      setHasMore(hasMore);
+      setIsLoading(false);
+      setIsMobile(globalThis.innerWidth <= 576);
+    }, 750);
 
-    const hasMore = postsData.posts.length !== postsData.all;
-
-    setPosts([...postsData.posts]);
-    setHasMore(hasMore);
-    setIsLoading(false);
-
-    setIsMobile(globalThis.innerWidth <= 576);
   }, [globalThis.location]);
+
+  useEffect(() => {
+    return () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!isMobile) {
