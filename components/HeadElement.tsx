@@ -27,8 +27,8 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
 
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:domain" content={url.hostname} />
-      <meta property="twitter:url" content={url.href} />
+      <meta name="twitter:site" content="@arcbjorn" />
+      <meta name="twitter:creator" content="@arcbjorn" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {image && <meta name="twitter:image" content={image} />}
