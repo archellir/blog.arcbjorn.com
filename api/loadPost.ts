@@ -26,5 +26,6 @@ export async function loadPost(id: string): Promise<IPost | null> {
     snippet: attrs.snippet,
     tags: attrs.tags,
     content: body,
+    image: attrs.image,
   };
 }

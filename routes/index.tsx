@@ -29,7 +29,7 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
       <HeadElement
         url={url}
         title="Thoughtbook"
-        image={new URL(asset("/logo.svg"), url).href}
+        image={`${url.origin}${asset("/images/og-default.png")}`}
         description="Tech explorations"
       />
 

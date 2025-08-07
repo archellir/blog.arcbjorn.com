@@ -15,6 +15,7 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <link rel="canonical" href={url.href} />
 
       {/* Facebook Meta Tags */}
       <meta property="og:url" content={url.href} />
@@ -22,6 +23,7 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       {image && <meta property="og:image" content={image} />}
+      <meta property="og:site_name" content="blog.arcbjorn.com" />
 
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -30,6 +32,11 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {image && <meta name="twitter:image" content={image} />}
+      
+      {/* Additional SEO */}
+      <meta name="author" content="arcbjorn" />
+      <meta name="robots" content="index, follow" />
+      <meta property="article:author" content="arcbjorn" />
     </Head>
   );
 };

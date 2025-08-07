@@ -11,10 +11,12 @@ export interface IPost {
   snippet: string;
   tags?: ETag[];
   content: string;
+  image?: string;
 }
 
 export type TMarkdownMetadata = Omit<IPost, "content" | "publishedAt"> & {
   published_at: string;
+  image?: string;
 };
 
 export interface IState {

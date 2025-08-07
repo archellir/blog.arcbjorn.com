@@ -1,6 +1,7 @@
 import { FunctionalComponent } from "preact";
 import { Handlers, PageProps, FreshContext } from "$fresh/server.ts";
 import { CSS, KATEX_CSS, render } from "$gfm";
+import { asset } from "$fresh/runtime.ts";
 
 import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
@@ -47,16 +48,52 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
     allowMath: true,
   });
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": data.post.title,
+    "description": data.post.snippet,
+    "datePublished": data.post.publishedAt,
+    "dateModified": data.post.publishedAt,
+    "author": {
+      "@type": "Person",
+      "name": "arcbjorn"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "blog.arcbjorn.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${url.origin}${asset("/images/og-default.png")}`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": url.href
+    },
+    "image": data.post.image ? 
+      (data.post.image.startsWith('http') ? data.post.image : `${url.origin}${asset(data.post.image)}`) : 
+      `${url.origin}${asset("/images/og-default.png")}`
+  };
+
   return (
     <>
       <HeadElement
         url={url}
         title={data.post.title}
         description={data.post.snippet}
+        image={data.post.image ? 
+          (data.post.image.startsWith('http') ? data.post.image : `${url.origin}${asset(data.post.image)}`) : 
+          `${url.origin}${asset("/images/og-default.png")}`}
       />
 
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <style dangerouslySetInnerHTML={{ __html: KATEX_CSS }} />
+      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
       <Header />
 

@@ -69,9 +69,18 @@ This is a personal blog built with Deno Fresh framework - a modern full-stack we
    published_at: "2024-01-01"
    snippet: "Brief description"
    tags: ["leetcode", "go"]  # optional
+   image: "/images/posts/my-post-banner.png"  # optional - for social media previews
    ---
    ```
 3. Add post URL to `POST_URL_NAMES` array in `constants.ts` for SEO plugin
+
+### Adding Images to Posts
+- **For social media preview images**: 
+  - Place images in `/static/images/posts/` directory
+  - Use relative path in frontmatter: `image: "/images/posts/my-banner.png"`
+  - Recommended size: 1200x630 pixels for optimal display
+  - Supports both local paths (`/images/...`) and external URLs (`https://...`)
+- **Default image**: If no image is specified, uses `/static/images/og-default.png`
 
 ### Post Metadata
 - Posts support math rendering (KaTeX)
