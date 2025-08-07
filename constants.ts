@@ -3,6 +3,7 @@ export const POSTS_SET_NUMBER = 6;
 export const POST_URL_NAMES = [
   "/archlinux",
   "/arranging-coins",
+  "/bare-metal-k8s-production",
   "/bitwise-and-of-numbers-range-go",
   "/circular-array-loop-go",
   "/contains-duplicate-ii",
