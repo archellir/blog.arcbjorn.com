@@ -1,4 +1,4 @@
-import { FreshContext, Handlers } from "$fresh/server.ts";
+import { Handlers, FreshContext } from "$fresh/server.ts";
 import { listPosts } from "../api/listPosts.ts";
 import { IPost, IPostsResponse } from "../types.ts";
 
@@ -33,7 +33,7 @@ ${
 `;
 
 export const handler: Handlers = {
-  async GET(_req: Request, _ctx: FreshContext) {
+  async GET(req: Request, ctx: FreshContext) {
     const postsData: IPostsResponse = await listPosts({ offset: 0, limit: 0 });
     const xmlData = render(postsData.posts);
     const headers = new Headers({

@@ -22,11 +22,13 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { measureRef, isIntersecting, observer } = useOnScreen();
-  const [isMobile, setIsMobile] = useState<boolean>(globalThis.innerWidth <= 576);
+  const [isMobile, setIsMobile] = useState<boolean>(
+    globalThis.innerWidth <= 576,
+  );
 
   const loadMorePosts = useCallback(async () => {
     setIsLoading(true);
-    
+
     // Clear any existing timeout
     if (loadingTimeoutRef.current) {
       clearTimeout(loadingTimeoutRef.current);
@@ -41,7 +43,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
     }
 
     const postsData = await pullPosts(baseOrigin, posts, queryParams.tags);
-    
+
     // Set minimum loading time
     loadingTimeoutRef.current = setTimeout(() => {
       queryParamsString += `quantity=${postsData.posts.length}`;
@@ -55,7 +57,6 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       setIsLoading(false);
       setIsMobile(globalThis.innerWidth <= 576);
     }, 750);
-
   }, [globalThis.location]);
 
   useEffect(() => {

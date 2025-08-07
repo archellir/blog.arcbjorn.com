@@ -13,10 +13,7 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
 
   return (
     <Head>
-      <link rel="stylesheet" href="/app.css" />
-
       <title>{title}</title>
-      <link rel="icon" href="/favicon.ico" sizes="32x32" />
       <meta name="description" content={description} />
 
       {/* Facebook Meta Tags */}
@@ -33,14 +30,6 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {image && <meta name="twitter:image" content={image} />}
-
-      <script
-        async
-        defer
-        data-website-id="940d11c2-bcf5-40bf-afcd-039b6f28bc1a"
-        src="https://analytics.arcbjorn.com/umami.js"
-      >
-      </script>
     </Head>
   );
 };

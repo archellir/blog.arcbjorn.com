@@ -1,4 +1,4 @@
-import { Ref, useCallback, useState, useEffect } from "preact/hooks";
+import { Ref, useCallback, useEffect, useState } from "preact/hooks";
 
 interface IUseOnScreenResult {
   measureRef: Ref<HTMLLIElement>;
@@ -25,14 +25,14 @@ const useOnScreen = ({
           ([entry]) => {
             setIntersecting(entry.isIntersecting);
           },
-          { root, rootMargin, threshold }
+          { root, rootMargin, threshold },
         );
 
         newObserver.observe(node);
         setObserver(newObserver);
       }
     },
-    [root, rootMargin, threshold]
+    [root, rootMargin, threshold],
   ) as unknown as Ref<HTMLLIElement>;
 
   useEffect(() => {

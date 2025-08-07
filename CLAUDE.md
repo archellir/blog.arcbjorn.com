@@ -14,7 +14,10 @@ This is a personal blog built with Deno Fresh framework - a modern full-stack we
 - `deno task preview` - Run production build locally
 
 ### Testing
-- `deno test` - Run all tests in the `tests/` directory
+- `deno task test` - Run all tests with proper permissions
+- `deno test --allow-read --allow-env` - Run tests directly with manual permissions
+- `deno task check` - Type check all TypeScript files
+- `deno task ok` - Alias for check command
 - Tests use Deno's built-in testing framework with BDD-style describe/it blocks
 
 ### Dependency Management
@@ -85,8 +88,10 @@ This is a personal blog built with Deno Fresh framework - a modern full-stack we
 
 ### Performance Optimizations
 - Static asset caching middleware for fonts and images
+- Uses `asset()` function for cache-friendly asset URLs
 - Pagination system loads posts in sets of 6 (`POSTS_SET_NUMBER`)
 - Concurrent post loading using `Promise.all()`
+- Proper HTML structure in `_app.tsx` for SEO and performance
 
 ### SEO Features
 - Uses `fresh_seo` plugin for metadata generation
@@ -104,6 +109,13 @@ This is a personal blog built with Deno Fresh framework - a modern full-stack we
 
 Follow the existing commit style seen in the repository history.
 
+## Error Handling
+
+The project includes proper error pages:
+- `routes/_404.tsx` - Custom 404 Not Found page
+- `routes/_500.tsx` - Custom 500 Internal Server Error page
+- Both pages maintain the site's design consistency
+
 ## Common Development Patterns
 
 When adding new features:
@@ -111,6 +123,8 @@ When adding new features:
 2. Follow Fresh conventions for handlers and components
 3. Use TypeScript interfaces defined in `types.ts`
 4. Maintain the islands architecture - keep interactivity minimal and isolated
-5. Test new API functions in `tests/api_test.ts`
+5. Use `asset()` function for static assets to enable proper caching
+6. Guard client-side code with `IS_BROWSER` checks when needed
+7. Test new API functions in `tests/api_test.ts`
 
 The codebase follows functional programming patterns with TypeScript, emphasizing immutability and pure functions where possible.

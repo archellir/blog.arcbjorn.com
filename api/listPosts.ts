@@ -14,20 +14,20 @@ export async function listPosts(
   // Read all posts concurrently
   const posts = await Promise.all(
     Array.from(Deno.readDirSync("./data/posts")).map(
-      entry => loadPost(entry.name.slice(0, -3))
-    )
+      (entry) => loadPost(entry.name.slice(0, -3)),
+    ),
   ) as IPost[];
 
   // Sort by date descending
-  posts.sort((a, b) => 
+  posts.sort((a, b) =>
     new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
   // Filter by tags if specified
-  const filteredPosts = props.tags?.length 
-    ? posts.filter(post => 
-        post.tags?.some(tag => props.tags!.includes(tag))
-      )
+  const filteredPosts = props.tags?.length
+    ? posts.filter((post) =>
+      post.tags?.some((tag) => props.tags!.includes(tag))
+    )
     : posts;
 
   const allPostsQuantity = filteredPosts.length;
@@ -40,8 +40,8 @@ export async function listPosts(
   // Slice for pagination
   const start = props.offset > 0 ? props.offset : 0;
   const paginatedPosts = filteredPosts.slice(
-    start, 
-    start + props.limit
+    start,
+    start + props.limit,
   );
 
   return { posts: paginatedPosts, all: allPostsQuantity };

@@ -20,11 +20,14 @@ describe("api", () => {
 
   describe("list posts", () => {
     it("lists successfully", async () => {
-      const posts = await listPosts();
-      assert(posts.length >= 1);
-      const last = posts.at(-1);
-      assert(last);
-      assertEquals(last.id, "introduction");
+      const postsData = await listPosts();
+      assert(postsData.posts.length >= 1);
+      assert(postsData.all >= 1);
+      const firstPost = postsData.posts[0];
+      assert(firstPost);
+      assert(firstPost.id);
+      assert(firstPost.title);
+      assert(firstPost.publishedAt);
     });
   });
 });

@@ -1,5 +1,6 @@
 import { FunctionalComponent } from "preact";
 import { Handlers, PageProps, FreshContext } from "$fresh/server.ts";
+import { asset } from "$fresh/runtime.ts";
 
 import HeadElement from "../components/HeadElement.tsx";
 import Header from "../components/Header.tsx";
@@ -13,7 +14,7 @@ import { listPosts } from "../api/listPosts.ts";
 import { getFirstLoadListParams } from "../utils/getListParams.ts";
 
 export const handler: Handlers<IHomePageData, IState> = {
-  async GET(req, ctx: FreshContext<IState>) {
+  async GET(req: Request, ctx: FreshContext<IState>) {
     const listParams = getFirstLoadListParams(req.url);
     const postsData: IPostsResponse = await listPosts(listParams);
 
@@ -28,7 +29,7 @@ const Home: FunctionalComponent<PageProps<IHomePageData>> = (props) => {
       <HeadElement
         url={url}
         title="Thoughtbook"
-        image={url.href + "logo.svg"}
+        image={new URL(asset("/logo.svg"), url).href}
         description="Tech explorations"
       />
 

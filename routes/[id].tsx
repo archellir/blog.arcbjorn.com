@@ -22,7 +22,7 @@ interface IPostPageData extends IState {
 type TPostPageProps = PageProps<IPostPageData>;
 
 export const handler: Handlers<IPostPageData, IState> = {
-  async GET(_req, ctx: FreshContext<IState>) {
+  async GET(req: Request, ctx: FreshContext<IState>) {
     const id = ctx.params.id;
     const post = await loadPost(id);
     if (!post) {
