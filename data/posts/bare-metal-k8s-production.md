@@ -1,24 +1,24 @@
 ---
 title: "Running 9 Services on Bare Metal K8s: What Actually Worked"
-published_at: "2025-08-06"
-snippet: "I deployed a production Kubernetes cluster on a single bare metal server. Here's what worked, what didn't, and the code that made it happen."
+published_at: "2025-08-05"
+snippet: "I deployed a production k8s cluster on a single bare metal server. Here's what worked, what didn't, and the code that made it happen."
 tags: ["kubernetes", "devops"]
 ---
 
-I deployed a production Kubernetes cluster on a single bare metal server. Here's what worked, what didn't, and the code that made it happen.
+Migrating from a bunch of Docker-compose files setup, I deployed a production Kubernetes cluster on a single bare metal server. Here's what worked, what didn't, and the code that made it happen.
 
 ## The Architecture
 
 ```
 ┌─────────────────────────────────────────┐
-│              External Traffic            │
-│  git.arcbjorn.com, analytics.arcbjorn.com│
-│  humansconnect.ai, argentinamusic.space │
+│             External Traffic            │
+│ git.arcbjorn.com, analytics.arcbjorn.com│
+│       dashboard.arcbjorn.com            │
 └─────────────────┬───────────────────────┘
                   │
 ┌─────────────────▼───────────────────────┐
 │           iptables bypass               │
-│    DOCKER-STYLE-HTTP/HTTPS-BYPASS      │
+│    DOCKER-STYLE-HTTP/HTTPS-BYPASS       │
 │         (Ports 80/443)                  │
 └─────────────────┬───────────────────────┘
                   │
