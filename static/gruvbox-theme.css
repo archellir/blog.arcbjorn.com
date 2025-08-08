@@ -1,0 +1,130 @@
+/* Gruvbox syntax highlighting theme */
+.markdown-body pre {
+  background-color: #282828 !important;
+  border: 1px solid #3c3836 !important;
+  border-radius: 8px !important;
+  position: relative !important;
+  tab-size: 4 !important;
+  -moz-tab-size: 4 !important;
+}
+
+.markdown-body pre code {
+  white-space: pre !important;
+  word-break: normal !important;
+  overflow-x: auto !important;
+  background-color: transparent !important;
+  color: #ebdbb2 !important;
+}
+
+.markdown-body code {
+  background-color: #3c3836 !important;
+  color: #ebdbb2 !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+}
+
+/* Copy button styles */
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #3c3836;
+  color: #a89984;
+  border: 1px solid #504945;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: monospace;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.markdown-body pre:hover .copy-button {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background-color: #504945;
+  color: #ebdbb2;
+}
+
+.copy-button.copied {
+  background-color: #689d6a;
+  color: #282828;
+  border-color: #689d6a;
+}
+
+/* Gruvbox syntax highlighting colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #928374 !important;
+  font-style: italic !important;
+}
+
+.token.punctuation {
+  color: #a89984 !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #d3869b !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #b8bb26 !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #fe8019 !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #fb4934 !important;
+}
+
+.token.function,
+.token.class-name {
+  color: #fabd2f !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #83a598 !important;
+}
+
+.token.namespace {
+  opacity: 0.7 !important;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold !important;
+}
+
+.token.italic {
+  font-style: italic !important;
+}
