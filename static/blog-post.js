@@ -1,7 +1,5 @@
 // Blog post functionality: Mermaid diagrams and copy buttons
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Initializing blog post features...');
-  
   initializeMermaid();
   processMermaidCodeBlocks();
   addCopyButtonsToCodeBlocks();
@@ -9,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeMermaid() {
   if (typeof mermaid === 'undefined') {
-    console.warn('Mermaid library not loaded');
     return;
   }
   
@@ -44,7 +41,6 @@ function processMermaidCodeBlocks() {
     const code = block.textContent.trim();
     
     if (isMermaidDiagram(code)) {
-      console.log('Converting mermaid block...');
       const containerId = 'mermaid-' + index;
       
       const container = document.createElement('div');
@@ -67,9 +63,7 @@ function processMermaidCodeBlocks() {
 function isMermaidDiagram(code) {
   return code.startsWith('graph ') || 
          code.includes('graph TD') || 
-         code.includes('graph LR') ||
-         code.includes('flowchart') ||
-         code.includes('sequenceDiagram');
+         code.includes('graph LR');
 }
 
 function addCopyButtonsToCodeBlocks() {
