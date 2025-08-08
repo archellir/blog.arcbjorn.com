@@ -1,0 +1,41 @@
+/* Mermaid diagram styling */
+.mermaid {
+  background-color: #282828 !important;
+  border: 1px solid #3c3836 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  text-align: center !important;
+}
+
+.mermaid svg {
+  background-color: transparent !important;
+}
+
+.mermaid text,
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid svg text {
+  font-family: 'Source Serif Pro', Georgia, 'Times New Roman', serif !important;
+}
+
+/* Round corners for Mermaid diagram components */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .cluster rect {
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+/* Specific styling for flowchart nodes */
+.mermaid .flowchart-node rect {
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+/* Round corners for decision nodes (diamonds) - convert to rounded rectangles */
+.mermaid .node polygon {
+  rx: 8px !important;
+  ry: 8px !important;
+}
