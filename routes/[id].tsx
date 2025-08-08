@@ -1,20 +1,22 @@
 import { FunctionalComponent } from "preact";
 import { Handlers, PageProps, FreshContext } from "$fresh/server.ts";
-import { CSS, KATEX_CSS, render } from "$gfm";
+import { render } from "$gfm";
 import { asset } from "$fresh/runtime.ts";
 
 import { IPost, IState } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
+import { resolveImageUrl } from "../utils/imageUtils.ts";
 
 import HeadElement from "../components/HeadElement.tsx";
-import Header from "../components/Header.tsx";
-import Footer from "../components/Footer.tsx";
-import CommentSection from "../components/CommentSection.tsx";
+import BlogLayout from "../components/BlogLayout.tsx";
+import StructuredData from "../components/StructuredData.tsx";
 
 import "https://esm.sh/prismjs@1.27.0/components/prism-c?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-cpp?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check";
 import "https://esm.sh/prismjs@1.27.0/components/prism-go?no-check";
+import "https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check";
+import "https://esm.sh/prismjs@1.27.0/components/prism-yaml?no-check";
 
 interface IPostPageData extends IState {
   post: IPost;
@@ -48,9 +50,7 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
     allowMath: true,
   });
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
+  const blogPostData = {
     "headline": data.post.title,
     "description": data.post.snippet,
     "datePublished": data.post.publishedAt,
@@ -71,9 +71,7 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
       "@type": "WebPage",
       "@id": url.href
     },
-    "image": data.post.image ? 
-      (data.post.image.startsWith('http') ? data.post.image : `${url.origin}${asset(data.post.image)}`) : 
-      `${url.origin}${asset("/images/og-default.png")}`
+    "image": resolveImageUrl(data.post.image, url.origin)
   };
 
   return (
@@ -82,41 +80,29 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
         url={url}
         title={data.post.title}
         description={data.post.snippet}
-        image={data.post.image ? 
-          (data.post.image.startsWith('http') ? data.post.image : `${url.origin}${asset(data.post.image)}`) : 
-          `${url.origin}${asset("/images/og-default.png")}`}
+        image={resolveImageUrl(data.post.image, url.origin)}
       />
-
-      <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <style dangerouslySetInnerHTML={{ __html: KATEX_CSS }} />
       
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <StructuredData type="BlogPosting" data={blogPostData} />
+      
+      <BlogLayout includeCodeHighlighting={true}>
+        <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
+          <p class="text-gray-400">
+            {localizedDate}
+          </p>
 
-      <Header />
-
-      <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
-        <p class="text-gray-400 font-plex-mono">
-          {localizedDate}
-        </p>
-
-        <h1 class="text-3xl py-8 font-semibold font-plex-mono">
-          {data.post.title}
-        </h1>
-        <div
-          style={{ backgroundColor: "#1b1d1e" }}
-          class="!font-plex-sans markdown-body"
-          data-color-mode="dark"
-          data-dark-theme="dark"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </div>
-
-      <CommentSection />
-
-      <Footer />
+          <h1 class="text-3xl py-8 font-semibold">
+            {data.post.title}
+          </h1>
+          <div
+            style={{ backgroundColor: "#1b1d1e" }}
+            class="markdown-body"
+            data-color-mode="dark"
+            data-dark-theme="dark"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        </div>
+      </BlogLayout>
     </>
   );
 };
