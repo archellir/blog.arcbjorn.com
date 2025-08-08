@@ -4,7 +4,6 @@ import { CSS, KATEX_CSS } from "$gfm";
 
 import Header from "./Header.tsx";
 import Footer from "./Footer.tsx";
-import MermaidScript from "./MermaidScript.tsx";
 
 interface BlogLayoutProps {
   children: ComponentChildren;
@@ -24,8 +23,8 @@ const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({
         <>
           <link rel="stylesheet" href={asset("/gruvbox-theme.css")} />
           <link rel="stylesheet" href={asset("/mermaid-theme.css")} />
-          <MermaidScript />
-          <script src={asset("/blog-post.js")}></script>
+          <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+          <script src={asset("/copy-buttons.js")}></script>
         </>
       )}
 
