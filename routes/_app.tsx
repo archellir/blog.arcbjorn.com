@@ -16,10 +16,9 @@ const App: FunctionalComponent<PageProps> = ({ Component }) => {
         
         {/* Analytics */}
         <script
-          async
           defer
-          data-website-id="940d11c2-bcf5-40bf-afcd-039b6f28bc1a"
-          src="https://analytics.arcbjorn.com/umami.js"
+          src="https://analytics.arcbjorn.com/script.js"
+          data-website-id="b633e350-4ff3-41d4-803f-13eeaa62e121"
         >
         </script>
       </head>
