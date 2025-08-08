@@ -23,11 +23,10 @@ graph TD
     style E fill:#3c3836,stroke:#a89984,stroke-width:2px,color:#ebdbb2
 ```
 
+
 **Stack**: K8s v1.29.15, single node, 9 services sharing one PostgreSQL, individual Let's Encrypt certs per domain.
 
 ## Base Setup
-
-Skip the boring install stuff. Here's what matters:
 
 ```bash
 # Remove control-plane taint for single node
@@ -139,7 +138,7 @@ GRANT ALL ON SCHEMA public TO gitea_user;
 
 Without that schema grant, you'll get permission denied errors that make no sense.
 
-## The UFW Bypass That Actually Works
+## The UFW Bypass
 
 UFW and Kubernetes don't play nice. Docker solved this years ago by bypassing UFW entirely. Here's the same trick:
 
@@ -241,7 +240,7 @@ EOF
 
 If the dry-run fails, your webhook isn't ready. Don't proceed.
 
-## Service Patterns That Actually Scale
+## Service Patterns
 
 Connection pooling for database-heavy apps:
 ```yaml
@@ -281,7 +280,6 @@ That `poolsize=20` prevents connection exhaustion. Default is often too low.
 When things break (they will), these help:
 
 ```bash
-# See what nginx-ingress is actually doing
 kubectl logs -n ingress-nginx deployment/ingress-nginx-controller -f
 
 # Check certificate status
@@ -293,7 +291,6 @@ kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 > nslookup postgresql.base-infra.svc.cluster.local
 > curl -v http://gitea.base-infra.svc.cluster.local:3000
 
-# Check iptables rules are actually working
 iptables -L INPUT -n -v --line-numbers | head -20
 
 # PostgreSQL connection test
@@ -322,7 +319,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 kubectl wait --for=condition=available --timeout=300s deployment/ingress-nginx-controller -n ingress-nginx
 ```
 
-## Automation That Actually Works
+## Automation
 
 ```bash
 #!/bin/bash
@@ -460,7 +457,7 @@ helm install vmagent vm/victoria-metrics-agent -f values.yaml
 arkade install openfaas
 ```
 
-Yes, [arkade](https://github.com/alexellis/arkade). It actually makes OpenFaaS installation trivial.
+Yes, [arkade](https://github.com/alexellis/arkade). It makes OpenFaaS installation trivial.
 
 ### The Reverse Proxy Problem
 When you add more services, nginx-ingress config gets messy. Consider [Traefik](https://traefik.io/) with its automatic service discovery:
@@ -484,7 +481,7 @@ resources:
     nvidia.com/gpu: 1  # Request one GPU
 ```
 
-### The Backup Strategy That Actually Works
+### The Backup Strategy
 [Velero](https://velero.io/) backs up both Kubernetes resources and persistent volumes:
 
 ```bash
@@ -503,9 +500,9 @@ linkerd install | kubectl apply -f -
 
 Automatic mTLS between services, circuit breaking, and observability. Worth it when you hit 20+ services.
 
-## Resources That Actually Help
+## Resources
 
-- [Kubernetes Network Debugging](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/) - Official guide that's actually good
+- [Kubernetes Network Debugging](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/) - Official guide
 - [nginx-ingress Bare Metal Considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/) - Read this twice
 - [cert-manager Troubleshooting](https://cert-manager.io/docs/troubleshooting/) - Bookmark the ACME section
 - [StatefulSet vs Deployment](https://www.baeldung.com/ops/kubernetes-deployment-vs-statefulset) - When to use what
