@@ -23,7 +23,6 @@ const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({
         <>
           <link rel="stylesheet" href={asset("/gruvbox-theme.css")} />
           <link rel="stylesheet" href={asset("/mermaid-theme.css")} />
-          <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
           <script src={asset("/copy-buttons.js")}></script>
         </>
       )}

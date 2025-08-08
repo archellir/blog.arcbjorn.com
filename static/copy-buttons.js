@@ -16,7 +16,7 @@ async function processMermaidDiagrams() {
   if (!mermaidBlocks.length) return;
 
   try {
-    while (typeof mermaid === 'undefined') await new Promise(r => setTimeout(r, 100));
+    while (typeof mermaid === 'undefined') await new Promise(r => setTimeout(r, 50));
     
     mermaid.initialize({
       startOnLoad: false,

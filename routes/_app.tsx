@@ -14,6 +14,9 @@ const App: FunctionalComponent<PageProps> = ({ Component }) => {
         <link rel="stylesheet" href={asset("/app.css")} />
         <link rel="icon" href={asset("/favicon.ico")} sizes="32x32" />
         
+        <link rel="preload" href="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" as="script" />
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" async></script>
+        
         {/* Analytics */}
         <script
           defer
