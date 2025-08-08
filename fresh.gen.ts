@@ -10,6 +10,7 @@ import * as $_middleware from "./routes/_middleware.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $posts from "./routes/posts.ts";
 import * as $rss from "./routes/rss.ts";
+import * as $sitemap_xml from "./routes/sitemap.xml.ts";
 import * as $PostsList from "./islands/PostsList.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
@@ -23,6 +24,7 @@ const manifest = {
     "./routes/index.tsx": $index,
     "./routes/posts.ts": $posts,
     "./routes/rss.ts": $rss,
+    "./routes/sitemap.xml.ts": $sitemap_xml,
   },
   islands: {
     "./islands/PostsList.tsx": $PostsList,

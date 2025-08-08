@@ -9,34 +9,18 @@ Migrating from a bunch of Docker-compose files setup, I deployed a production Ku
 
 ## The Architecture
 
-```
-┌─────────────────────────────────────────┐
-│             External Traffic            │
-│ git.arcbjorn.com, analytics.arcbjorn.com│
-│       dashboard.arcbjorn.com            │
-└─────────────────┬───────────────────────┘
-                  │
-┌─────────────────▼───────────────────────┐
-│           iptables bypass               │
-│    DOCKER-STYLE-HTTP/HTTPS-BYPASS       │
-│         (Ports 80/443)                  │
-└─────────────────┬───────────────────────┘
-                  │
-┌─────────────────▼───────────────────────┐
-│        nginx-ingress (hostNetwork)      │
-│    Standard controller + individual     │
-│         SSL certificates                │
-└─────────────────┬───────────────────────┘
-                  │
-┌─────────────────▼───────────────────────┐
-│           Kubernetes Services           │
-│    ClusterIP → Application Pods         │
-└─────────────────┬───────────────────────┘
-                  │
-┌─────────────────▼───────────────────────┐
-│       PostgreSQL StatefulSet            │
-│    Shared database with multiple DBs    │
-└─────────────────────────────────────────┘
+```mermaid
+graph TD
+    A["External Traffic<br/>git.arcbjorn.com<br/>analytics.arcbjorn.com<br/>dashboard.arcbjorn.com"] --> B["iptables bypass<br/>DOCKER-STYLE-HTTP/HTTPS-BYPASS<br/>(Ports 80/443)"]
+    B --> C["nginx-ingress (hostNetwork)<br/>Standard controller + individual<br/>SSL certificates"]
+    C --> D["Kubernetes Services<br/>ClusterIP → Application Pods"]
+    D --> E["PostgreSQL StatefulSet<br/>Shared database with multiple DBs"]
+
+    style A fill:#3c3836,stroke:#a89984,stroke-width:2px,color:#ebdbb2
+    style B fill:#3c3836,stroke:#a89984,stroke-width:2px,color:#ebdbb2
+    style C fill:#3c3836,stroke:#a89984,stroke-width:2px,color:#ebdbb2
+    style D fill:#3c3836,stroke:#a89984,stroke-width:2px,color:#ebdbb2
+    style E fill:#3c3836,stroke:#a89984,stroke-width:2px,color:#ebdbb2
 ```
 
 **Stack**: K8s v1.29.15, single node, 9 services sharing one PostgreSQL, individual Let's Encrypt certs per domain.
