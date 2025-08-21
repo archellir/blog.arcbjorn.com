@@ -5,7 +5,7 @@ snippet: "Architecture decisions and language trade-offs for building Sekisho - 
 tags: ["go", "security", "architecture"]
 ---
 
-Sekisho (関所) - building security infrastructure with extreme minimalism. The project's defining constraint—zero external dependencies—drives architectural decisions that illuminate both the capabilities and limitations of different technology stacks for proxy development.
+[Sekisho](https://github.com/archellir/sekisho/) (関所) - building security infrastructure with extreme minimalism. The project's defining constraint—zero external dependencies—drives architectural decisions that illuminate both the capabilities and limitations of different technology stacks for proxy development.
 
 ## Architecture: Middleware Pipeline Design
 
