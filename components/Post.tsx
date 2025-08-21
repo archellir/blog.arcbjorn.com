@@ -24,19 +24,21 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
         href={`/${post.id}`}
         class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
       >
-        <div class="w-full flex gap-2 justify-between items-center sm:flex-col sm:justify-center sm:w-min">
-          <time class="font-plex-mono">{localizedDate}</time>
-          {post.tags && post.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+        <div class="order-2 sm:order-1 w-full sm:flex-col sm:justify-center sm:w-min">
+          <div class="flex flex-wrap gap-2 justify-between items-start">
+            <time class="font-plex-mono shrink-0">{localizedDate}</time>
+            {post.tags && post.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 justify-end">
+                {post.tags.map((tag) => (
+                  <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        <div>
+        <div class="order-1 sm:order-2">
           <h2 class="text-lg sm:text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
             {post.title}
           </h2>
