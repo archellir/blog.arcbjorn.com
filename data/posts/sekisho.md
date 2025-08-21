@@ -5,8 +5,6 @@ snippet: "Architecture decisions and language trade-offs for building Sekisho - 
 tags: ["go", "security", "architecture"]
 ---
 
-# Building a Zero-Trust Proxy in Go: Architecture Decisions and Trade-offs
-
 Sekisho (関所) - building security infrastructure with extreme minimalism. The project's defining constraint—zero external dependencies—drives architectural decisions that illuminate both the capabilities and limitations of different technology stacks for proxy development.
 
 ## Architecture: Middleware Pipeline Design
