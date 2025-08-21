@@ -207,9 +207,296 @@ Overhead considerations:
 - 5-30 second cold start times
 - Framework abstraction layers
 
-## Implementation Decisions and Trade-offs
+## Module-by-Module Architectural Analysis
 
-### Session Storage Architecture
+### Authentication Module (`internal/auth/`)
+
+**Current Approach:** Provider interface with OAuth2/OIDC implementations
+
+```go
+type Provider interface {
+    AuthURL(state, redirectURI string) string
+    TokenURL() string
+    UserInfoURL() string
+    Scopes() []string
+}
+```
+
+**Design Decision:** Interface-based provider system enables easy extensibility for new OAuth providers (Google, GitHub, Microsoft) without code duplication.
+
+**Alternative Approaches:**
+- **Generic OAuth2 Library:** Could use `golang.org/x/oauth2` library for provider abstraction
+- **SAML Support:** Enterprise environments often require SAML in addition to OAuth2
+- **Certificate-based Auth:** mTLS authentication for machine-to-machine communication
+
+**Trade-offs Made:**
+- **Chosen:** Custom provider implementations for zero dependencies
+- **Pro:** Complete control over OAuth flows, no external library versions to track
+- **Con:** Manual implementation of OAuth2 specification details, potential for security bugs
+
+**Go Patterns Used:**
+- **Implicit interfaces:** Providers automatically satisfy interface without explicit declaration
+- **Factory pattern:** Provider selection based on configuration string
+- **Error wrapping:** `fmt.Errorf("token exchange failed: %w", err)` for error context
+
+### Session Management (`internal/session/`)
+
+**Current Approach:** In-memory storage with AES-256-GCM encryption
+
+```go
+type Store struct {
+    sessions map[string]*Session
+    mutex    sync.RWMutex
+    ttl      time.Duration
+}
+```
+
+**Design Decision:** Prioritizes simplicity and performance over scalability and persistence.
+
+**Alternative Approaches:**
+- **Redis/Memcached:** External session store for horizontal scaling
+- **Database Storage:** PostgreSQL/MySQL for persistence across restarts
+- **JWT Tokens:** Stateless sessions encoded in client-side tokens
+- **Encrypted Cookies:** Session data stored in encrypted client cookies
+
+**Trade-offs Analysis:**
+
+| Approach | Pros | Cons | Memory | Scalability |
+|----------|------|------|--------|-------------|
+| In-Memory (Current) | Zero config, microsecond access | Single instance only | Low | None |
+| Redis | Horizontal scaling, persistence | External dependency, network latency | None | High |
+| JWT | Stateless, scales infinitely | Token size, revocation complexity | None | Infinite |
+| Database | Persistence, ACID properties | Complex setup, slower access | None | Medium |
+
+**Go Patterns Used:**
+- **Mutex synchronization:** `sync.RWMutex` for concurrent map access
+- **Cleanup goroutines:** Background session expiration using `time.Ticker`
+- **Crypto package usage:** AES-256-GCM for session encryption without external libraries
+
+### Proxy Engine (`internal/proxy/`)
+
+**Current Approach:** Standard library HTTP reverse proxy with custom TCP proxy
+
+```go
+func (p *HTTPProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    proxy := &httputil.ReverseProxy{
+        Director: p.director,
+        Transport: p.transport,
+    }
+    proxy.ServeHTTP(w, r)
+}
+```
+
+**Design Decision:** Leverage Go's built-in `httputil.ReverseProxy` for HTTP and implement custom TCP proxy for arbitrary protocols.
+
+**Alternative Approaches:**
+- **Full Custom Implementation:** Build HTTP proxy from scratch for complete control
+- **Envoy Integration:** Use Envoy as data plane with Sekisho as control plane
+- **HAProxy Backend:** Use HAProxy for load balancing with Sekisho for auth
+- **Service Mesh:** Implement as Istio/Linkerd sidecar proxy
+
+**Architecture Comparison:**
+
+```go
+// Current: Standard library approach
+proxy := &httputil.ReverseProxy{Director: director}
+
+// Alternative: Full custom implementation
+func customProxy(w http.ResponseWriter, r *http.Request) {
+    client := &http.Client{}
+    resp, err := client.Do(r)
+    // Manual response copying, header handling, etc.
+}
+```
+
+**Trade-offs Made:**
+- **Chosen:** Standard library + custom TCP proxy
+- **Pro:** Mature, tested HTTP proxy implementation with connection pooling
+- **Con:** Less control over proxy behavior, limited to stdlib features
+
+**Go Patterns Used:**
+- **HTTP hijacking:** Taking control of TCP connection for CONNECT tunnels
+- **io.Copy:** Efficient bidirectional data streaming for TCP proxy
+- **Context propagation:** Request cancellation through proxy chain
+
+### Configuration System (`internal/config/`)
+
+**Current Approach:** Custom YAML parser with environment variable substitution
+
+```go
+func parseYAML(filename string) (*Config, error) {
+    // Custom line-by-line parsing
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        line := parseConfigLine(scanner.Text())
+        // Custom parsing logic
+    }
+}
+```
+
+**Design Decision:** Implement minimal YAML parser to avoid external dependencies.
+
+**Alternative Approaches:**
+- **gopkg.in/yaml.v3:** Standard YAML library with full specification support
+- **TOML Configuration:** Using `github.com/BurntSushi/toml` for simpler syntax
+- **JSON Configuration:** Standard library `encoding/json` support
+- **Environment Variables:** 12-factor app approach with `os.Getenv`
+
+**Complexity Comparison:**
+
+| Approach | Lines of Code | Features | Dependencies |
+|----------|---------------|----------|--------------|
+| Custom YAML | ~200 | Basic key-value, lists | 0 |
+| yaml.v3 | ~20 | Full YAML spec | 1 |
+| TOML | ~25 | Rich types, comments | 1 |
+| JSON | ~15 | Simple, ubiquitous | 0 |
+
+**Trade-offs Made:**
+- **Chosen:** Custom parser for zero dependencies
+- **Pro:** No external libraries, complete control over features
+- **Con:** Limited YAML support, potential parsing bugs, maintenance burden
+
+### Policy Engine (`internal/policy/`)
+
+**Current Approach:** Rule-based evaluation with caching
+
+```go
+type Rule struct {
+    Name        string
+    Path        string
+    Methods     []string
+    AllowUsers  []string
+    RequireAuth bool
+    Action      Action
+}
+```
+
+**Design Decision:** Simple, declarative rule system with glob pattern matching and LRU cache.
+
+**Alternative Approaches:**
+- **Open Policy Agent:** Rego language for complex authorization logic
+- **Cedar Language:** Amazon's policy language for fine-grained authorization
+- **XACML:** XML-based standard for enterprise authorization
+- **Lua Scripting:** Embedded Lua for custom policy logic
+
+**Policy Language Comparison:**
+
+```yaml
+# Current: YAML-based rules
+rules:
+  - name: "admin_access"
+    path: "/admin/*"
+    allow_users: ["admin@company.com"]
+    action: "allow"
+```
+
+```rego
+# Alternative: Open Policy Agent
+package sekisho.authz
+
+allow {
+    input.path == "/admin/*"
+    input.user == "admin@company.com"
+}
+```
+
+**Trade-offs Made:**
+- **Chosen:** Simple rule-based system
+- **Pro:** Easy to understand, fast evaluation, YAML configuration
+- **Con:** Limited expressiveness, no complex policy logic
+
+**Go Patterns Used:**
+- **Strategy pattern:** Multiple matcher implementations (glob, email, IP)
+- **Caching:** LRU cache with TTL for policy decisions
+- **Hot reloading:** File modification time checking for config updates
+
+### Middleware Pipeline (`internal/middleware/`)
+
+**Current Approach:** Functional middleware composition
+
+```go
+type Middleware func(http.Handler) http.Handler
+
+func Chain(middlewares ...Middleware) Middleware {
+    return func(h http.Handler) http.Handler {
+        for i := len(middlewares) - 1; i >= 0; i-- {
+            h = middlewares[i](h)
+        }
+        return h
+    }
+}
+```
+
+**Design Decision:** Standard Go middleware pattern with functional composition.
+
+**Alternative Approaches:**
+- **Chi/Gin Framework:** Router-based middleware registration
+- **Negroni/Alice:** Dedicated middleware chaining libraries
+- **Context-based:** Pass data through `context.Context` instead of headers
+- **Annotation-based:** Decorator pattern using struct tags
+
+**Middleware Patterns Comparison:**
+
+```go
+// Current: Functional composition
+handler = RequestID(Recovery(RateLimit(handler)))
+
+// Alternative: Framework approach
+r := chi.NewRouter()
+r.Use(RequestID, Recovery, RateLimit)
+r.Handle("/*", handler)
+```
+
+**Security Middleware Analysis:**
+
+| Component | Implementation | Security Benefit |
+|-----------|----------------|------------------|
+| Rate Limiting | Token bucket per IP | DDoS protection |
+| CSRF Protection | Double-submit cookie | Cross-site attack prevention |
+| Security Headers | Static header injection | Browser security policies |
+| Request ID | UUID generation | Request tracing and correlation |
+
+### Audit Logging (`internal/audit/`)
+
+**Current Approach:** Buffered logging with multiple formatters
+
+```go
+type Formatter interface {
+    Format(entry *Entry) ([]byte, error)
+}
+
+// Multiple implementations: JSON, Text, CEF, Compact
+```
+
+**Design Decision:** Strategy pattern for log formatting with buffered, concurrent-safe logging.
+
+**Alternative Approaches:**
+- **Structured Logging Libraries:** `zerolog`, `zap`, `logrus` for performance
+- **OpenTelemetry:** Distributed tracing and metrics standard
+- **Syslog Integration:** RFC 5424 syslog for enterprise log management
+- **Streaming Logs:** Direct output to log aggregation systems
+
+**Performance Implications:**
+
+```go
+// Current: Mutex-protected buffer
+type Logger struct {
+    buffer []Entry
+    mutex  sync.Mutex
+}
+
+// Alternative: Channel-based logging
+type Logger struct {
+    entries chan Entry
+}
+```
+
+**Trade-offs Made:**
+- **Chosen:** Custom logger with multiple formatters
+- **Pro:** Zero dependencies, flexible output formats
+- **Con:** Lower performance than optimized libraries, more complex implementation
+
+## Session Storage Architecture Deep Dive
 
 The system uses in-memory session storage with mutex synchronization:
 
