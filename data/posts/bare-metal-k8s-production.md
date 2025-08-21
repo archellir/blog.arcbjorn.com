@@ -1,6 +1,6 @@
 ---
 title: "Running 9 Services on Bare Metal K8s: What Actually Worked"
-published_at: "2025-08-05"
+published_at: "2025-08-05 12:00"
 snippet: "I deployed a production k8s cluster on a single bare metal server. Here's what worked, what didn't, and the code that made it happen."
 tags: ["kubernetes", "devops"]
 ---

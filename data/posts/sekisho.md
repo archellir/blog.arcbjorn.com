@@ -1,6 +1,6 @@
 ---
 title: "Building a Zero-Dependency Proxy in Go"
-published_at: "2025-08-20"
+published_at: "2025-08-20 12:00"
 snippet: "Architecture decisions and language trade-offs for building Sekisho - a zero-dependency security proxy in Go."
 tags: ["go", "security", "architecture"]
 ---
