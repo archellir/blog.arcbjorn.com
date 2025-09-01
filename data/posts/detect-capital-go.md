@@ -1,8 +1,8 @@
 ---
 title: Detect capital
 published_at: 2022-12-24 12:00
-snippet: 520 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 520
 ---
 
 [Leetcode 520 problem.](https://leetcode.com/problems/detect-capital/)

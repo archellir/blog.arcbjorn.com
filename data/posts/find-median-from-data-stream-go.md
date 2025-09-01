@@ -1,8 +1,8 @@
 ---
 title: Find median from data stream
 published_at: 2023-03-05 12:10
-snippet: 295 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 295
 ---
 
 [Leetcode 295 problem.](https://leetcode.com/problems/find-median-from-data-stream/)

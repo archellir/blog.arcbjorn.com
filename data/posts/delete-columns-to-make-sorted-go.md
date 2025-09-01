@@ -1,8 +1,8 @@
 ---
 title: Delete columns to make sorted
 published_at: 2022-12-27 12:00
-snippet: 944 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 944
 ---
 
 [Leetcode 944 problem.](https://leetcode.com/problems/delete-columns-to-make-sorted/)

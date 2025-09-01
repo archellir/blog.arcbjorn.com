@@ -1,8 +1,8 @@
 ---
 title: Contains duplicate II
 published_at: 2023-02-24 12:01
-snippet: 219 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 219
 ---
 
 [Leetcode 219 problem.](https://leetcode.com/problems/contains-duplicate-ii/)

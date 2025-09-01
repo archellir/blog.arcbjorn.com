@@ -1,8 +1,8 @@
 ---
 title: Contains duplicate III
 published_at: 2023-02-26 12:04
-snippet: 220 - Typescript solution
-tags: [leetcode]
+tags: [leetcode, typescript]
+leetcode_number: 220
 ---
 
 [Leetcode 220 problem.](https://leetcode.com/problems/contains-duplicate-iii/)

@@ -1,8 +1,8 @@
 ---
 title: Circular array loop
 published_at: 2023-03-05 12:00
-snippet: 457 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 457
 ---
 
 [Leetcode 457 problem.](https://leetcode.com/problems/circular-array-loop/)

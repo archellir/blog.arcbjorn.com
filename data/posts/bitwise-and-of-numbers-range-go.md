@@ -1,8 +1,8 @@
 ---
 title: Bitwise and of numbers range
 published_at: 2023-03-04 12:07
-snippet: 201 - Go solutions
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 201
 ---
 
 [Leetcode 201 problem.](https://leetcode.com/problems/bitwise-and-of-numbers-range/)

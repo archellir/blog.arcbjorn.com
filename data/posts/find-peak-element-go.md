@@ -1,8 +1,8 @@
 ---
 title: Find peak element
 published_at: 2023-02-25 12:04
-snippet: 162 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 162
 ---
 
 [Leetcode 162 problem.](https://leetcode.com/find-peak-element/)

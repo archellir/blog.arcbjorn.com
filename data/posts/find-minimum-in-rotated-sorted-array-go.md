@@ -1,8 +1,8 @@
 ---
 title: Find minimum in rotated sorted array
 published_at: 2023-02-25 12:03
-snippet: 153 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 153
 ---
 
 [Leetcode 153 problem.](https://leetcode.com/find-minimum-in-rotated-sorted-array/)

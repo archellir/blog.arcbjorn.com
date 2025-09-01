@@ -1,8 +1,8 @@
 ---
 title: Arranging coins
 published_at: 2023-02-23 12:00
-snippet: 441 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 441
 ---
 
 [Leetcode 441 problem.](https://leetcode.com/problems/arranging-coins/)
