@@ -27,5 +27,6 @@ export async function loadPost(id: string): Promise<IPost | null> {
     tags: attrs.tags,
     content: body,
     image: attrs.image,
+    leetcode_number: attrs.leetcode_number,
   };
 }
