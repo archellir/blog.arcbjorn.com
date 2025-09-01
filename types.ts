@@ -12,6 +12,7 @@ export interface IPost {
   tags?: ETag[];
   content: string;
   image?: string;
+  leetcode_number?: number;
 }
 
 export type TMarkdownMetadata = Omit<IPost, "content" | "publishedAt"> & {
