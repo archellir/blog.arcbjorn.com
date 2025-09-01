@@ -1,4 +1,4 @@
-import { extract } from "$std/front_matter/yaml.ts";
+import { extract } from "$std/front_matter/any.ts";
 
 import { IPost, TMarkdownMetadata } from "../types.ts";
 
