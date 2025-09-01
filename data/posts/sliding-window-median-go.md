@@ -1,8 +1,8 @@
 ---
 title: Sliding window median
 published_at: 2023-03-05 12:11
-snippet: 480 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 480
 ---
 
 [Leetcode 480 problem.](https://leetcode.com/problems/sliding-window-median/)

@@ -1,8 +1,8 @@
 ---
 title: Single number
 published_at: 2023-03-04 12:11
-snippet: 136 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 136
 ---
 
 [Leetcode 136 problem.](https://leetcode.com/problems/single-number/)

@@ -1,8 +1,8 @@
 ---
 title: Sliding window maximum
 published_at: 2023-02-26 12:05
-snippet: 239 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 239
 ---
 
 [Leetcode 239 problem.](https://leetcode.com/problems/sliding-window-maximum/)

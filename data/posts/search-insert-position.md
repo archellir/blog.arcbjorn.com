@@ -1,8 +1,8 @@
 ---
 title: Search insert position
 published_at: 2023-02-20 12:02
-snippet: 35 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 35
 ---
 
 [Leetcode 35 problem.](https://leetcode.com/problems/search-insert-position/)

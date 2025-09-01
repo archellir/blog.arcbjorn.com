@@ -1,8 +1,8 @@
 ---
 title: Reverse string II
 published_at: 2023-01-2 12:00
-snippet: 541 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 541
 ---
 
 [Leetcode 541 problem.](https://leetcode.com/problems/reverse-string-ii/)

@@ -1,8 +1,8 @@
 ---
 title: Smallest range covering elements from k lists
 published_at: 2023-02-17 12:00
-snippet: 632 - Go solutions
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 632
 ---
 
 [Leetcode 632 problem.](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/)

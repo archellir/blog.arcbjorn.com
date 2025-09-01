@@ -1,8 +1,8 @@
 ---
 title: Single number III
 published_at: 2023-03-05 12:03
-snippet: 260 - Go, C++ solutions
-tags: [leetcode]
+tags: [leetcode, go, cpp]
+leetcode_number: 260
 ---
 
 [Leetcode 260 problem.](https://leetcode.com/problems/single-number-iii/)

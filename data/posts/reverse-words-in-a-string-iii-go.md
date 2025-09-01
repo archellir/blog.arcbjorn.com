@@ -1,8 +1,8 @@
 ---
 title: Reverse words in a string III
 published_at: 2023-01-4 12:00
-snippet: 557 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 557
 ---
 
 [Leetcode 557 problem.](https://leetcode.com/problems/reverse-words-in-a-string-iii/)

@@ -1,8 +1,8 @@
 ---
 title: Roman to integer
 published_at: 2024-07-25 12:00
-snippet: 13 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 13
 ---
 
 [Leetcode 13 problem.](https://leetcode.com/problems/roman-to-integer/)

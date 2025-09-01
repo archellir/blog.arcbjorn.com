@@ -1,8 +1,8 @@
 ---
 title: Robot return to origin
 published_at: 2022-01-03 12:00
-snippet: 657 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 657
 ---
 
 [Leetcode 657 problem.](https://leetcode.com/problems/robot-return-to-origin/)
