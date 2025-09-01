@@ -30,7 +30,7 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
         </div>
         <div class="order-1 sm:order-2 w-full">
           <h2 class="text-lg sm:text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
-            {post.title}
+            {post.title}{post.leetcode_number ? ` #${post.leetcode_number}` : ''}
           </h2>
           <p class="pt-1 font-plex-sans text-grey-600 hidden sm:block">
             {post.snippet}
