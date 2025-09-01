@@ -1,8 +1,8 @@
 ---
 title: Lowest common ancestor of a binary tree
 published_at: 2023-03-04 12:00
-snippet: 236 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 236
 ---
 
 [Leetcode 236 problem.](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)

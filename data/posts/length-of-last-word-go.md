@@ -1,8 +1,8 @@
 ---
 title: Length of last word
 published_at: 2022-12-16 12:00
-snippet: 58 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 58
 ---
 
 [Leetcode 58 problem.](https://leetcode.com/problems/length-of-last-word/)

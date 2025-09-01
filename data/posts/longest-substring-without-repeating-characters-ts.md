@@ -1,8 +1,8 @@
 ---
 title: Longest substring without repeating characters
 published_at: 2023-02-25 12:02
-snippet: 3 - Typescript solution
-tags: [leetcode]
+tags: [leetcode, typescript]
+leetcode_number: 3
 ---
 
 [Leetcode 3 problem.](https://leetcode.com/problems/longest-substring-without-repeating-characters/)

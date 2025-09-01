@@ -1,8 +1,8 @@
 ---
 title: Longest nice subarray
 published_at: 2023-03-04 12:01
-snippet: 2401 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 2401
 ---
 
 [Leetcode 2401 problem.](https://leetcode.com/problems/longest-nice-subarray/)

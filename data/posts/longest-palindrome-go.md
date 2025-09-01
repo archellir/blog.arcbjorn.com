@@ -1,8 +1,8 @@
 ---
 title: Longest palindrome
 published_at: 2022-12-27 12:00
-snippet: 409 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 409
 ---
 
 [Leetcode 409 problem.](https://leetcode.com/problems/longest-palindrome/)

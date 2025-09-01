@@ -1,8 +1,8 @@
 ---
 title: Longest repeating character replacement
 published_at: 2023-02-26 12:05
-snippet: 424 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 424
 ---
 
 [Leetcode 424 problem.](https://leetcode.com/problems/longest-repeating-character-replacement/)

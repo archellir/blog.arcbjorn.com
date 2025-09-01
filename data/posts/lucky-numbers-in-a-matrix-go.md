@@ -1,8 +1,8 @@
 ---
 title: Lucky numbers in matrix
 published_at: 2024-07-23 12:00
-snippet: 1380 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 1380
 ---
 
 [Leetcode 1380 problem.](https://leetcode.com/problems/lucky-numbers-in-a-matrix)

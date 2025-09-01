@@ -1,8 +1,8 @@
 ---
 title: Linked list cycle II
 published_at: 2023-03-04 12:04
-snippet: 142 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 142
 ---
 
 [Leetcode 142 problem.](https://leetcode.com/problems/linked-list-cycle-ii/)

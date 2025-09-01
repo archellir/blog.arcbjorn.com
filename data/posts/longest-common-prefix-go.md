@@ -1,8 +1,8 @@
 ---
 title: Longest common prefix
 published_at: 2022-12-15 12:00
-snippet: 14 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 14
 ---
 
 [Leetcode 14 problem.](https://leetcode.com/problems/longest-common-prefix/)

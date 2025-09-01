@@ -1,8 +1,8 @@
 ---
 title: License key formatting
 published_at: 2022-12-29 12:00
-snippet: 482 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 482
 ---
 
 [Leetcode 482 problem.](https://leetcode.com/problems/license-key-formatting/)
