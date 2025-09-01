@@ -39,7 +39,7 @@ technical explorations.
 - **Runtime**: Deno (modern TypeScript/JavaScript runtime)
 - **Framework**: Fresh (Deno's full-stack web framework)
 - **UI**: Preact (lightweight React alternative)
-- **Styling**: Twind (Tailwind CSS-in-JS)
+- **Styling**: Tailwind CSS
 - **Content**: Markdown files with frontmatter metadata
 - **Rendering**: Server-side rendering with islands architecture
 
@@ -117,7 +117,7 @@ frontmatter for categorization and filtering.
 - Uses JSR imports for Fresh core (`jsr:@fresh/core`)
 - Handlers export `GET` functions for server-side logic
 - Components are functional Preact components
-- Twind config in `twind.config.ts` for styling
+- Tailwind CSS config in `tailwind.config.ts` for styling
 
 ### Performance Optimizations
 
