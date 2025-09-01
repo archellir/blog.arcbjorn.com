@@ -71,28 +71,47 @@ function parseDenoUrl(u: URL): DepInfo | null {
 
 function parseEsmUrl(u: URL): DepInfo | null {
   if (u.hostname !== "esm.sh") return null;
-  // esm.sh paths may be:
+  // esm.sh paths examples:
   // - /preact@10.27.0
   // - /@preact/signals@2.2.1
-  // - /v135/postcss@8.4.49/... (registry-pinned build version)
+  // - /*@preact/signals@2.2.1
+  // - /v135/postcss@8.4.49/...
+  // - /v135/@twind/core@1.1.3/...
   const segs = u.pathname.split("/").filter(Boolean);
   if (segs.length === 0) return null;
 
-  let first = segs[0];
-  if (/^v\d+$/i.test(first) && segs.length >= 2) {
-    first = segs[1];
+  let i = 0;
+  // Skip build version segment like v135
+  if (/^v\d+$/i.test(segs[i])) i++;
+  if (i >= segs.length) return null;
+
+  let s = decodeURIComponent(segs[i]);
+  // Handle starred prefix used by esm.sh feature flags (e.g., * for ESM transform)
+  if (s.startsWith("*")) s = s.slice(1);
+
+  // Scoped packages split across two segments: /@scope/name@version
+  if (s.startsWith("@")) {
+    const next = segs[i + 1] ? decodeURIComponent(segs[i + 1]) : "";
+    const combined = next ? `${s}/${next}` : s; // e.g., @preact/signals@2.2.1
+    const slashIdx = combined.indexOf("/");
+    const atIdx = combined.lastIndexOf("@");
+    if (slashIdx >= 0 && atIdx > slashIdx) {
+      const name = combined.slice(0, atIdx); // @scope/name
+      const version = combined.slice(atIdx + 1);
+      return { kind: "npm", name, versions: version ? new Set([version]) : new Set() };
+    }
+    // No explicit version
+    return { kind: "npm", name: combined, versions: new Set() };
   }
 
-  // decode to restore scoped names
-  const decoded = decodeURIComponent(first);
-  const at = decoded.indexOf("@");
-  if (at > 0) {
-    const name = decoded.slice(0, at);
-    const version = decoded.slice(at + 1);
-    return { kind: "npm", name, versions: new Set([version]) };
+  // Unscoped: segment like preact@10.27.0 or postcss
+  const atIdx = s.indexOf("@");
+  if (atIdx > 0) {
+    const name = s.slice(0, atIdx);
+    const version = s.slice(atIdx + 1);
+    return { kind: "npm", name, versions: version ? new Set([version]) : new Set() };
   }
-  // No explicit version present
-  return { kind: "npm", name: decoded, versions: new Set() };
+  return { kind: "npm", name: s, versions: new Set() };
 }
 
 function parseRemoteImport(url: string): DepInfo | null {
@@ -253,4 +272,3 @@ async function main() {
 if (import.meta.main) {
   await main();
 }
-

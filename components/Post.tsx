@@ -22,23 +22,12 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
     >
       <a
         href={`/${post.id}`}
-        class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
+        class="p-2 flex flex-col sm:flex-row justify-start items-start gap-y-2 gap-x-4 group"
       >
-        <div class="order-2 sm:order-1 w-full sm:flex-col sm:justify-center sm:w-min">
-          <div class="flex flex-wrap gap-2 justify-between items-start">
-            <time class="font-plex-mono shrink-0">{localizedDate}</time>
-            {post.tags && post.tags.length > 0 && (
-              <div class="flex flex-wrap gap-2 justify-end md:hidden lg:flex">
-                {post.tags.map((tag) => (
-                  <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
+        <div class="order-2 sm:order-1 w-full sm:w-min sm:shrink-0">
+          <time class="font-plex-mono text-sm sm:text-base">{localizedDate}</time>
         </div>
-        <div class="order-1 sm:order-2">
+        <div class="order-1 sm:order-2 w-full">
           <h2 class="text-lg sm:text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
             {post.title}
           </h2>
@@ -46,7 +35,7 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
             {post.snippet}
           </p>
           {post.tags && post.tags.length > 0 && (
-            <div class="hidden md:flex lg:hidden flex-wrap gap-2 pt-2">
+            <div class="flex flex-wrap gap-2 pt-2">
               {post.tags.map((tag) => (
                 <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
                   {tag}

@@ -1,10 +1,16 @@
+/// <reference no-default-lib="true" />
+/// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
+/// <reference lib="dom.asynciterable" />
+/// <reference lib="deno.ns" />
+
+import "$std/dotenv/load.ts";
+
 import { start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
+import config from "./fresh.config.ts";
 import { freshSEOPlugin } from "https://deno.land/x/fresh_seo@1.0.1/mod.ts";
-
-import twindPlugin from "$fresh/plugins/twind.ts";
 import { FreshContext } from "$fresh/server.ts";
-import twindConfig from "./twind.config.ts";
 import { POST_URL_NAMES } from "./constants.ts";
 
 const staticCacheMiddleware = {
@@ -40,9 +46,11 @@ const staticCacheMiddleware = {
   ],
 };
 
+// Merge starter config plugins (Tailwind) with project plugins
 await start(manifest, {
+  ...config,
   plugins: [
-    twindPlugin(twindConfig),
+    ...(config.plugins ?? []),
     staticCacheMiddleware,
     freshSEOPlugin(manifest, {
       include: POST_URL_NAMES,
