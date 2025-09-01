@@ -1,8 +1,8 @@
 ---
 title: Reverse string
 published_at: 2022-12-19 12:00
-snippet: 344 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 344
 ---
 
 [Leetcode 344 problem.](https://leetcode.com/problems/reverse-string/)

@@ -1,8 +1,8 @@
 ---
 title: Remove duplicates from sorted array
 published_at: 2023-01-06 12:00
-snippet: 26 - Typescript solution
-tags: [leetcode]
+tags: [leetcode, typescript]
+leetcode_number: 26
 ---
 
 [Leetcode 26 problem.](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)

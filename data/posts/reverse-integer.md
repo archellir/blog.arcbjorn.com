@@ -1,8 +1,8 @@
 ---
 title: Reverse integer
 published_at: 2022-11-01 12:00
-snippet: 7 - Go, Typescript, C++ solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript, cpp]
+leetcode_number: 7
 ---
 
 [Leetcode 7 problem.](https://leetcode.com/problems/reverse-integer/)

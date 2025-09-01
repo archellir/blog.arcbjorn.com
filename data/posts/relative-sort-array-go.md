@@ -1,8 +1,8 @@
 ---
 title: Relative sort array
 published_at: 2023-02-19 12:01
-snippet: 1122 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 1122
 ---
 
 [Leetcode 1122 problem.](https://leetcode.com/problems/relative-sort-array/)

@@ -1,8 +1,8 @@
 ---
 title: Repeated substring pattern
 published_at: 2022-12-28 12:00
-snippet: 459 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 459
 ---
 
 [Leetcode 459 problem.](https://leetcode.com/problems/repeated-substring-pattern/)

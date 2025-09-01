@@ -1,8 +1,8 @@
 ---
 title: Peak index in a mountain array
 published_at: 2023-02-25 12:00
-snippet: 852 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 852
 ---
 
 [Leetcode 852 problem.](https://leetcode.com/problems/peak-index-in-a-mountain-array/)

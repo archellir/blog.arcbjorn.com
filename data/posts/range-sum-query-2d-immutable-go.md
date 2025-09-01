@@ -1,8 +1,8 @@
 ---
 title: Range sum query 2d immutable
 published_at: 2023-02-24 12:03
-snippet: 304 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 304
 ---
 
 [Leetcode 304 problem.](https://leetcode.com/problems/range-sum-query-2d-immutable/)

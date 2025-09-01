@@ -1,8 +1,8 @@
 ---
 title: Range sum query - immutable
 published_at: 2023-02-20 12:01
-snippet: 303 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 303
 ---
 
 [Leetcode 303 problem.](https://leetcode.com/problems/range-sum-query-immutable/)

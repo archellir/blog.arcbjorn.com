@@ -1,8 +1,8 @@
 ---
 title: Ransom note
 published_at: 2022-12-22 12:00
-snippet: 383 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 383
 ---
 
 [Leetcode 383 problem.](https://leetcode.com/problems/ransom-note/)

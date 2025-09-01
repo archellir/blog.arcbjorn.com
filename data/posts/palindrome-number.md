@@ -1,8 +1,8 @@
 ---
 title: Palindrome number
 published_at: 2022-10-22 12:00
-snippet: 9 - Go, Typescript, C++ solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript, cpp]
+leetcode_number: 9
 ---
 
 [Leetcode 9 problem.](https://leetcode.com/problems/palindrome-number/)
