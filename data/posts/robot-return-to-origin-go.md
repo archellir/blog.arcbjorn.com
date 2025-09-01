@@ -1,6 +1,6 @@
 ---
 title: Robot return to origin
-published_at: 2022-01-03 12:00
+published_at: 2023-01-03 12:00
 tags: [leetcode, go]
 leetcode_number: 657
 ---
