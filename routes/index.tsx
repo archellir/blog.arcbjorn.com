@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { Handlers, PageProps, FreshContext } from "$fresh/server.ts";
+import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import { asset } from "$fresh/runtime.ts";
 
 import HeadElement from "../components/HeadElement.tsx";

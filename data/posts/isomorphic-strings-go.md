@@ -7,14 +7,19 @@ leetcode_number: 205
 
 [Leetcode 205 problem.](https://leetcode.com/problems/isomorphic-trings/)
 
-Two strings `s` and `t` are isomorphic if the characters in `s` can be replaced to get `t`.
+Two strings `s` and `t` are isomorphic if the characters in `s` can be replaced
+to get `t`.
 
-All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+All occurrences of a character must be replaced with another character while
+preserving the order of characters. No two characters may map to the same
+character, but a character may map to itself.
 
 ## Go
 
-- Time complexity: $O(n)$ - **n** is a length of a string (assuming both strings are the same length)
-- Auxiliary space: $O(n)$ - **n** is a length of a string (assuming both strings are the same length)
+- Time complexity: $O(n)$ - **n** is a length of a string (assuming both strings
+  are the same length)
+- Auxiliary space: $O(n)$ - **n** is a length of a string (assuming both strings
+  are the same length)
 
 ```go
 func isIsomorphic(s string, t string) bool {

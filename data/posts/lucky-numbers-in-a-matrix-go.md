@@ -7,7 +7,8 @@ leetcode_number: 1380
 
 [Leetcode 1380 problem.](https://leetcode.com/problems/lucky-numbers-in-a-matrix)
 
-Find matrix elements that are simultaneously the minimum in their row and maximum in their column.
+Find matrix elements that are simultaneously the minimum in their row and
+maximum in their column.
 
 ## Go
 

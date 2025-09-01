@@ -7,7 +7,8 @@ leetcode_number: 347
 
 [Leetcode 347 problem.](https://leetcode.com/problems/top-k-frequent-elements/)
 
-A function, given an integer array `nums` and an integer `k`, to return _the_ `k` _most frequent elements_.
+A function, given an integer array `nums` and an integer `k`, to return _the_
+`k` _most frequent elements_.
 
 ## Go
 

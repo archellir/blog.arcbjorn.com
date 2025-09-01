@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { Handlers, PageProps, FreshContext } from "$fresh/server.ts";
+import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import { render } from "$gfm";
 import { asset } from "$fresh/runtime.ts";
 
@@ -61,21 +61,21 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
     "dateModified": data.post.publishedAt,
     "author": {
       "@type": "Person",
-      "name": "arcbjorn"
+      "name": "arcbjorn",
     },
     "publisher": {
       "@type": "Organization",
       "name": "blog.arcbjorn.com",
       "logo": {
         "@type": "ImageObject",
-        "url": `${url.origin}${asset("/images/og-default.png")}`
-      }
+        "url": `${url.origin}${asset("/images/og-default.png")}`,
+      },
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": url.href
+      "@id": url.href,
     },
-    "image": resolveImageUrl(data.post.image, url.origin)
+    "image": resolveImageUrl(data.post.image, url.origin),
   };
 
   return (
@@ -86,9 +86,9 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
         description={data.post.snippet}
         image={resolveImageUrl(data.post.image, url.origin)}
       />
-      
+
       <StructuredData type="BlogPosting" data={blogPostData} />
-      
+
       <BlogLayout includeCodeHighlighting={true}>
         <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
           <p class="text-gray-400">

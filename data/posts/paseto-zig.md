@@ -5,21 +5,30 @@ snippet: "PASETO v4 in Zig, exploring cryptographic security through type safety
 tags: ["zig", "crypto", "security"]
 ---
 
-Platform-Agnostic Security Tokens (PASETO) represent a modern alternative to JWT, designed with security as the primary concern. Here is [implementation of PASETO v4 in Zig](https://github.com/archellir/blog.arcbjorn.com) with additional insights about both the protocol's design and Zig's unique strengths for cryptographic software.
+Platform-Agnostic Security Tokens (PASETO) represent a modern alternative to
+JWT, designed with security as the primary concern. Here is
+[implementation of PASETO v4 in Zig](https://github.com/archellir/blog.arcbjorn.com)
+with additional insights about both the protocol's design and Zig's unique
+strengths for cryptographic software.
 
 ## Why PASETO Over JWT?
 
-Before diving into the implementation, it's worth understanding why PASETO exists. JWT's flexibility has led to numerous security vulnerabilities:
+Before diving into the implementation, it's worth understanding why PASETO
+exists. JWT's flexibility has led to numerous security vulnerabilities:
 
 - **Algorithm confusion attacks**: Tokens signed with RS256 verified as HS256
-- **None algorithm acceptance**: Bypassing signature verification entirely  
-- **Weak cryptographic choices**: Outdated algorithms still supported for "compatibility"
+- **None algorithm acceptance**: Bypassing signature verification entirely
+- **Weak cryptographic choices**: Outdated algorithms still supported for
+  "compatibility"
 
-PASETO eliminates these issues through **Algorithm Lucidity** - each token version specifies exactly one cryptographic suite. No choices, no confusion, no vulnerabilities.
+PASETO eliminates these issues through **Algorithm Lucidity** - each token
+version specifies exactly one cryptographic suite. No choices, no confusion, no
+vulnerabilities.
 
 ## Architecture: Security Through Type Safety
 
-The Zig implementation leverages the language's type system to enforce security at compile time:
+The Zig implementation leverages the language's type system to enforce security
+at compile time:
 
 ```zig
 pub const LocalKey = struct {
@@ -40,7 +49,8 @@ pub const SecretKey = struct {
 };
 ```
 
-This design makes algorithm confusion attacks **impossible at compile time**. Try to encrypt with a signing key? The compiler stops you:
+This design makes algorithm confusion attacks **impossible at compile time**.
+Try to encrypt with a signing key? The compiler stops you:
 
 ```zig
 // This won't compile - type mismatch
@@ -49,13 +59,17 @@ const token = try v4.local.encrypt(allocator, payload, &signing_key, null, null)
 //                                            Wrong key type!
 ```
 
-Compare this to typical JWT libraries where such mistakes are only caught at runtime (if at all).
+Compare this to typical JWT libraries where such mistakes are only caught at
+runtime (if at all).
 
 ## The XChaCha20 Challenge: When Standard Libraries Fall Short
 
-PASETO v4 mandates XChaCha20 encryption, but Zig's standard library only provides ChaCha20IETF. This presented an interesting choice: compromise the specification or implement XChaCha20 manually.
+PASETO v4 mandates XChaCha20 encryption, but Zig's standard library only
+provides ChaCha20IETF. This presented an interesting choice: compromise the
+specification or implement XChaCha20 manually.
 
-Correctness over convenience, implementing XChaCha20 using the HChaCha20 construction:
+Correctness over convenience, implementing XChaCha20 using the HChaCha20
+construction:
 
 ```zig
 fn xchachaEncrypt(output: []u8, input: []const u8, key: [32]u8, nonce: [24]u8) !void {
@@ -73,11 +87,14 @@ fn xchachaEncrypt(output: []u8, input: []const u8, key: [32]u8, nonce: [24]u8) !
 }
 ```
 
-This manual implementation highlights both Zig's power and its philosophy: when you need precise control, the language doesn't hide complexity behind abstractions.
+This manual implementation highlights both Zig's power and its philosophy: when
+you need precise control, the language doesn't hide complexity behind
+abstractions.
 
 ## Memory Management: Explicit but Safe
 
-Zig's manual memory management shines in cryptographic applications. Every function requires an allocator parameter, giving users complete control:
+Zig's manual memory management shines in cryptographic applications. Every
+function requires an allocator parameter, giving users complete control:
 
 ```zig
 // Arena allocator for short-lived operations
@@ -88,7 +105,8 @@ const token = try builder.buildLocal(&key);
 // Arena automatically frees everything at scope end
 ```
 
-The `defer` statement ensures cleanup even if errors occur. For sensitive data, explicit zeroing prevents memory disclosure:
+The `defer` statement ensures cleanup even if errors occur. For sensitive data,
+explicit zeroing prevents memory disclosure:
 
 ```zig
 pub fn deinit(self: *Self) void {
@@ -101,7 +119,8 @@ pub fn deinit(self: *Self) void {
 
 ## Error Handling: Making Failures Explicit
 
-Zig's error sets make all failure modes explicit and typed. Instead of generic exceptions, here are specific error conditions:
+Zig's error sets make all failure modes explicit and typed. Instead of generic
+exceptions, here are specific error conditions:
 
 ```zig
 pub const Error = error {
@@ -120,11 +139,13 @@ pub const Error = error {
 };
 ```
 
-This approach forces proper error handling and makes debugging significantly easier.
+This approach forces proper error handling and makes debugging significantly
+easier.
 
 ## The Builder Pattern: Fluent APIs in Zig
 
-Creating tokens safely requires managing multiple parameters and applying secure defaults. The builder pattern provides a fluent interface:
+Creating tokens safely requires managing multiple parameters and applying secure
+defaults. The builder pattern provides a fluent interface:
 
 ```zig
 var builder = paseto.createLocalBuilder(allocator);
@@ -140,11 +161,13 @@ _ = try builder.withDefaults()              // 1-hour expiration, issued-at now
 const token = try builder.buildLocal(&key);
 ```
 
-The `withDefaults()` method applies security best practices automatically - short expiration times and automatic timestamp management.
+The `withDefaults()` method applies security best practices automatically -
+short expiration times and automatic timestamp management.
 
 ## Testing: Security as a First-Class Concern
 
-The test suite includes dedicated security testing that goes beyond functional correctness:
+The test suite includes dedicated security testing that goes beyond functional
+correctness:
 
 ```zig
 // Test constant-time comparison
@@ -159,23 +182,36 @@ test "timing attack resistance" {
 }
 ```
 
-Security edge cases receive explicit testing coverage, including nonce uniqueness, key zeroing verification, and tampering detection.
+Security edge cases receive explicit testing coverage, including nonce
+uniqueness, key zeroing verification, and tampering detection.
 
 ## Language Comparisons: Where Zig Excels
 
-**vs. Go**: While Go's garbage collector simplifies memory management, it makes secure key handling challenging. You can't reliably zero memory that the GC might move around. Zig's manual memory management provides precise control over sensitive data.
+**vs. Go**: While Go's garbage collector simplifies memory management, it makes
+secure key handling challenging. You can't reliably zero memory that the GC
+might move around. Zig's manual memory management provides precise control over
+sensitive data.
 
-**vs. Rust**: Both languages provide excellent safety guarantees. Rust's borrow checker automates memory safety, while Zig makes it explicit. For cryptographic code, Zig's approach often feels more natural - you know exactly when and how memory is managed.
+**vs. Rust**: Both languages provide excellent safety guarantees. Rust's borrow
+checker automates memory safety, while Zig makes it explicit. For cryptographic
+code, Zig's approach often feels more natural - you know exactly when and how
+memory is managed.
 
-**vs. C**: Zig provides C-like control with significantly better safety. The allocator abstraction prevents many common memory bugs, while defer statements ensure cleanup happens reliably.
+**vs. C**: Zig provides C-like control with significantly better safety. The
+allocator abstraction prevents many common memory bugs, while defer statements
+ensure cleanup happens reliably.
 
-**vs. JavaScript/Python**: These languages make cryptographic implementations challenging due to their high-level nature. Zig's systems-level control enables precise implementations of cryptographic algorithms.
+**vs. JavaScript/Python**: These languages make cryptographic implementations
+challenging due to their high-level nature. Zig's systems-level control enables
+precise implementations of cryptographic algorithms.
 
 ## Interesting Problems and Solutions
 
 ### Footer Validation: Preventing DoS Attacks
 
-PASETO footers can contain arbitrary data, potentially enabling denial-of-service attacks through oversized payloads. The implementation includes security limits:
+PASETO footers can contain arbitrary data, potentially enabling
+denial-of-service attacks through oversized payloads. The implementation
+includes security limits:
 
 ```zig
 const MAX_FOOTER_LENGTH = 2048;
@@ -194,11 +230,15 @@ These limits prevent resource exhaustion while maintaining functionality.
 
 ### Ed25519 to X25519 Key Conversion
 
-PASERK (PASETO Key Serialization) includes "seal" operations that encrypt payloads to public keys. This requires converting Ed25519 signing keys to X25519 encryption keys - a non-trivial cryptographic operation that the implementation handles carefully.
+PASERK (PASETO Key Serialization) includes "seal" operations that encrypt
+payloads to public keys. This requires converting Ed25519 signing keys to X25519
+encryption keys - a non-trivial cryptographic operation that the implementation
+handles carefully.
 
 ### PAE (Pre-Authentication Encoding)
 
-PASETO's security relies on Pre-Authentication Encoding, which ensures all token components are cryptographically bound:
+PASETO's security relies on Pre-Authentication Encoding, which ensures all token
+components are cryptographically bound:
 
 ```zig
 pub fn pae(allocator: Allocator, pieces: []const []const u8) ![]u8 {
@@ -213,61 +253,83 @@ pub fn pae(allocator: Allocator, pieces: []const []const u8) ![]u8 {
 }
 ```
 
-This encoding prevents length extension attacks and ensures tamper-evident tokens.
+This encoding prevents length extension attacks and ensures tamper-evident
+tokens.
 
 ## Performance Characteristics
 
-The Zig implementation prioritizes security over raw speed, but still achieves excellent performance:
+The Zig implementation prioritizes security over raw speed, but still achieves
+excellent performance:
 
 - **Zero-copy operations**: Direct byte manipulation minimizes allocation
-- **Stack allocation**: Fixed-size cryptographic values avoid heap pressure  
+- **Stack allocation**: Fixed-size cryptographic values avoid heap pressure
 - **Minimal abstractions**: Critical paths avoid unnecessary indirection
-- **Compile-time optimizations**: Zig's comptime features enable zero-cost abstractions
+- **Compile-time optimizations**: Zig's comptime features enable zero-cost
+  abstractions
 
-Benchmarks show performance comparable to C implementations while maintaining memory safety.
+Benchmarks show performance comparable to C implementations while maintaining
+memory safety.
 
 ## Lessons Learned
 
 ### Type Safety as Security
 
-Using distinct types for different cryptographic purposes prevents entire classes of vulnerabilities. This is more than just good practice - it's a security design principle.
+Using distinct types for different cryptographic purposes prevents entire
+classes of vulnerabilities. This is more than just good practice - it's a
+security design principle.
 
 ### Explicit Resource Management
 
-Manual memory management isn't a burden in cryptographic code - it's a requirement. Sensitive data needs precise lifecycle control that garbage collectors can't provide.
+Manual memory management isn't a burden in cryptographic code - it's a
+requirement. Sensitive data needs precise lifecycle control that garbage
+collectors can't provide.
 
 ### Testing Security Properties
 
-Functional tests aren't enough for cryptographic code. Security properties like constant-time behavior and secure memory handling need explicit verification.
+Functional tests aren't enough for cryptographic code. Security properties like
+constant-time behavior and secure memory handling need explicit verification.
 
 ### Specification Compliance Matters
 
-Implementing exactly what the specification requires, even when inconvenient, ensures interoperability and security. The XChaCha20 implementation was complex but necessary.
+Implementing exactly what the specification requires, even when inconvenient,
+ensures interoperability and security. The XChaCha20 implementation was complex
+but necessary.
 
 ## Future Directions
 
-The implementation demonstrates Zig's potential for cryptographic software, but several areas offer improvement:
+The implementation demonstrates Zig's potential for cryptographic software, but
+several areas offer improvement:
 
 - **Hardware acceleration**: Leveraging CPU crypto instructions
 - **Formal verification**: Using tools to verify cryptographic properties
-- **Performance optimization**: Specialized implementations for high-throughput scenarios
-- **Standard library integration**: Contributing XChaCha20 implementation upstream
+- **Performance optimization**: Specialized implementations for high-throughput
+  scenarios
+- **Standard library integration**: Contributing XChaCha20 implementation
+  upstream
 
 ## Conclusion
 
-Building PASETO in Zig revealed the language's exceptional fitness for cryptographic work. The combination of:
+Building PASETO in Zig revealed the language's exceptional fitness for
+cryptographic work. The combination of:
 
 - **Type safety** preventing algorithm confusion
-- **Manual memory management** enabling secure key handling  
+- **Manual memory management** enabling secure key handling
 - **Explicit error handling** making failures visible
 - **Systems-level control** allowing precise implementations
 
 ...creates a compelling platform for security-critical software.
 
-The implementation showcases how Zig's philosophy - explicit is better than implicit, performance is important, and safety doesn't require complexity - translates beautifully to cryptographic protocols.
+The implementation showcases how Zig's philosophy - explicit is better than
+implicit, performance is important, and safety doesn't require complexity -
+translates beautifully to cryptographic protocols.
 
-For developers building secure systems, Zig offers a unique sweet spot: the control and performance of C with safety guarantees approaching Rust, wrapped in a syntax that doesn't fight you. In the world of cryptographic implementations, these properties aren't just nice to have - they're essential.
+For developers building secure systems, Zig offers a unique sweet spot: the
+control and performance of C with safety guarantees approaching Rust, wrapped in
+a syntax that doesn't fight you. In the world of cryptographic implementations,
+these properties aren't just nice to have - they're essential.
 
 ---
 
-*The complete PASETO Zig implementation is available on GitHub, including comprehensive tests and examples. It demonstrates full PASETO v4 and PASERK compatibility with extensive security testing.*
+_The complete PASETO Zig implementation is available on GitHub, including
+comprehensive tests and examples. It demonstrates full PASETO v4 and PASERK
+compatibility with extensive security testing._

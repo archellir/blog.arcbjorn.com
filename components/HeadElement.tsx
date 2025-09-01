@@ -14,8 +14,8 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
   // Add cache-busting parameter to images
   const addCacheBuster = (imageUrl: string) => {
     if (!imageUrl) return imageUrl;
-    const separator = imageUrl.includes('?') ? '&' : '?';
-    const version = new Date().toISOString().split('T')[0]; // Use date as version
+    const separator = imageUrl.includes("?") ? "&" : "?";
+    const version = new Date().toISOString().split("T")[0]; // Use date as version
     return `${imageUrl}${separator}v=${version}`;
   };
 
@@ -32,7 +32,9 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      {cacheBustedImage && <meta property="og:image" content={cacheBustedImage} />}
+      {cacheBustedImage && (
+        <meta property="og:image" content={cacheBustedImage} />
+      )}
       <meta property="og:site_name" content="blog.arcbjorn.com" />
 
       {/* Twitter Meta Tags */}
@@ -41,8 +43,10 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
       <meta name="twitter:creator" content="@arcbjorn" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      {cacheBustedImage && <meta name="twitter:image" content={cacheBustedImage} />}
-      
+      {cacheBustedImage && (
+        <meta name="twitter:image" content={cacheBustedImage} />
+      )}
+
       {/* Additional SEO */}
       <meta name="author" content="arcbjorn" />
       <meta name="robots" content="index, follow" />

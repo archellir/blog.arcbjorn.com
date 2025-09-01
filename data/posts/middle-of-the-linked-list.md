@@ -57,26 +57,26 @@ func middleNode(head *ListNode) *ListNode {
 
 ```typescript
 function middleNode(head: ListNode | null): ListNode | null {
-    if (!head.next) {
-        return head;
-    }
+  if (!head.next) {
+    return head;
+  }
 
-    let length = 0;
-    let current = head;
+  let length = 0;
+  let current = head;
 
-    while (current) {
-        current = current.next;
-        length++;
-    }
+  while (current) {
+    current = current.next;
+    length++;
+  }
 
-    current = head;
+  current = head;
 
-    for (let i = 0 ; i < Math.floor(length/2) ; i++){
-        current = current.next; 
-    }
+  for (let i = 0; i < Math.floor(length / 2); i++) {
+    current = current.next;
+  }
 
-    return current;
-};
+  return current;
+}
 ```
 
 #### Array
@@ -87,16 +87,16 @@ function middleNode(head: ListNode | null): ListNode | null {
 ```typescript
 function middleNode(head: ListNode | null): ListNode | null {
   const nodes: ListNode[] = [];
-  
+
   while (head != null) {
-      nodes.push(head);
-      head = head.next;
+    nodes.push(head);
+    head = head.next;
   }
-  
+
   const midIndex = Math.floor(nodes.length / 2);
-  
+
   return nodes[midIndex];
-};
+}
 ```
 
 #### Slow & fast pointers
@@ -108,12 +108,12 @@ function middleNode(head: ListNode | null): ListNode | null {
 function middleNode(head: ListNode | null): ListNode | null {
   let slow = head;
   let fast = head;
-  
-  while (fast && fast.next){
+
+  while (fast && fast.next) {
     slow = slow.next;
     fast = fast.next.next;
   }
-  
+
   return slow;
-};
+}
 ```

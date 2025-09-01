@@ -33,7 +33,7 @@ for (let y = 0; y < height; y += 30) {
 function drawCircuitTrace(x1: number, y1: number, x2: number, y2: number) {
   ctx.beginPath();
   ctx.moveTo(x1, y1);
-  
+
   // Create L-shaped traces like real circuits
   if (Math.abs(x2 - x1) > Math.abs(y2 - y1)) {
     ctx.lineTo(x2, y1);
@@ -43,7 +43,7 @@ function drawCircuitTrace(x1: number, y1: number, x2: number, y2: number) {
     ctx.lineTo(x2, y2);
   }
   ctx.stroke();
-  
+
   // Add connection points
   ctx.beginPath();
   ctx.arc(x1, y1, 4, 0, Math.PI * 2);
@@ -57,18 +57,18 @@ function drawCircuitTrace(x1: number, y1: number, x2: number, y2: number) {
 function drawICChip(x: number, y: number, width: number, height: number) {
   // Main body
   ctx.fillRect(x, y, width, height);
-  
+
   // Pins on sides
   const pinCount = 4;
   const pinWidth = 8;
   const pinHeight = 4;
-  
+
   for (let i = 0; i < pinCount; i++) {
     const pinY = y + (height / (pinCount + 1)) * (i + 1);
     // Left pins
-    ctx.fillRect(x - pinWidth, pinY - pinHeight/2, pinWidth, pinHeight);
+    ctx.fillRect(x - pinWidth, pinY - pinHeight / 2, pinWidth, pinHeight);
     // Right pins
-    ctx.fillRect(x + width, pinY - pinHeight/2, pinWidth, pinHeight);
+    ctx.fillRect(x + width, pinY - pinHeight / 2, pinWidth, pinHeight);
   }
 }
 
@@ -150,18 +150,58 @@ ctx.lineWidth = 2;
 // Middle circuit network - more complex
 drawCircuitTrace(width / 2 - 150, height / 2, width / 2 + 150, height / 2);
 drawCircuitTrace(width / 2, height / 2 - 100, width / 2, height / 2 + 100);
-drawCircuitTrace(width / 2 - 100, height / 2 - 50, width / 2 + 100, height / 2 - 50);
-drawCircuitTrace(width / 2 - 100, height / 2 + 50, width / 2 + 100, height / 2 + 50);
+drawCircuitTrace(
+  width / 2 - 100,
+  height / 2 - 50,
+  width / 2 + 100,
+  height / 2 - 50,
+);
+drawCircuitTrace(
+  width / 2 - 100,
+  height / 2 + 50,
+  width / 2 + 100,
+  height / 2 + 50,
+);
 
 // Additional complex traces
-drawCircuitTrace(width / 2 - 200, height / 2 - 80, width / 2 - 50, height / 2 - 80);
-drawCircuitTrace(width / 2 + 50, height / 2 - 80, width / 2 + 200, height / 2 - 80);
-drawCircuitTrace(width / 2 - 200, height / 2 + 80, width / 2 - 50, height / 2 + 80);
-drawCircuitTrace(width / 2 + 50, height / 2 + 80, width / 2 + 200, height / 2 + 80);
+drawCircuitTrace(
+  width / 2 - 200,
+  height / 2 - 80,
+  width / 2 - 50,
+  height / 2 - 80,
+);
+drawCircuitTrace(
+  width / 2 + 50,
+  height / 2 - 80,
+  width / 2 + 200,
+  height / 2 - 80,
+);
+drawCircuitTrace(
+  width / 2 - 200,
+  height / 2 + 80,
+  width / 2 - 50,
+  height / 2 + 80,
+);
+drawCircuitTrace(
+  width / 2 + 50,
+  height / 2 + 80,
+  width / 2 + 200,
+  height / 2 + 80,
+);
 
 // Vertical connections
-drawCircuitTrace(width / 2 - 200, height / 2 - 80, width / 2 - 200, height / 2 + 80);
-drawCircuitTrace(width / 2 + 200, height / 2 - 80, width / 2 + 200, height / 2 + 80);
+drawCircuitTrace(
+  width / 2 - 200,
+  height / 2 - 80,
+  width / 2 - 200,
+  height / 2 + 80,
+);
+drawCircuitTrace(
+  width / 2 + 200,
+  height / 2 - 80,
+  width / 2 + 200,
+  height / 2 + 80,
+);
 
 // Corner accents - circuit style
 ctx.globalAlpha = 0.4;
@@ -264,10 +304,10 @@ const viaPositions = [
   { x: width - 300, y: 300 },
   { x: width / 2, y: 350 },
   { x: 150, y: 450 },
-  { x: width - 150, y: 450 }
+  { x: width - 150, y: 450 },
 ];
 
-viaPositions.forEach(pos => {
+viaPositions.forEach((pos) => {
   ctx.beginPath();
   ctx.arc(pos.x, pos.y, 6, 0, Math.PI * 2);
   ctx.fill();
@@ -289,4 +329,6 @@ ctx.fillText("grokking...", width / 2, height - 100);
 const buffer = canvas.toBuffer("image/png");
 await Deno.writeFile("./static/images/og-default.png", buffer);
 
-console.log("Generated cyberpunk circuit board OG image at ./static/images/og-default.png");
+console.log(
+  "Generated cyberpunk circuit board OG image at ./static/images/og-default.png",
+);

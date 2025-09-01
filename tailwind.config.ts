@@ -5,4 +5,3 @@ export default {
     "{routes,islands,components}/**/*.{ts,tsx,js,jsx}",
   ],
 } satisfies Config;
-

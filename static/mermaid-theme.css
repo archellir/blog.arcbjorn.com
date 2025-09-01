@@ -15,7 +15,7 @@
 .mermaid .nodeLabel,
 .mermaid .edgeLabel,
 .mermaid svg text {
-  font-family: 'Source Serif Pro', Georgia, 'Times New Roman', serif !important;
+  font-family: "Source Serif Pro", Georgia, "Times New Roman", serif !important;
 }
 
 /* Round corners for Mermaid diagram components */

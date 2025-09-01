@@ -49,20 +49,20 @@ func (this *NumArray) SumRange(left int, right int) int {
 
 ```typescript
 class NumArray {
-    nums: number[];
+  nums: number[];
 
-    constructor(nums: number[]) {
-        this.nums = nums;
+  constructor(nums: number[]) {
+    this.nums = nums;
+  }
+
+  sumRange(left: number, right: number): number {
+    let sum = 0;
+
+    for (let i = left; i <= right; i++) {
+      sum += this.nums[i];
     }
 
-    sumRange(left: number, right: number): number {
-        let sum = 0;
-
-        for (let i = left; i <= right; i++) {
-            sum += this.nums[i];
-        }
-
-        return sum;
-    }
+    return sum;
+  }
 }
 ```

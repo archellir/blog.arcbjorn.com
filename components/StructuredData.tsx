@@ -5,11 +5,13 @@ export interface StructuredDataProps {
   data: Record<string, any>;
 }
 
-const StructuredData: FunctionalComponent<StructuredDataProps> = ({ type, data }) => {
+const StructuredData: FunctionalComponent<StructuredDataProps> = (
+  { type, data },
+) => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": type,
-    ...data
+    ...data,
   };
 
   return (

@@ -7,8 +7,8 @@ leetcode_number: 677
 
 [Leetcode 677 problem.](https://leetcode.com/problems/map-sum-pairs/)
 
-Map implementation with Insert and Sum methods.
-Sum returns a sum of map values, which keys were matched by some prefix.
+Map implementation with Insert and Sum methods. Sum returns a sum of map values,
+which keys were matched by some prefix.
 
 ### Go
 
@@ -73,6 +73,4 @@ func (mapSum *MapSum) Sum(prefix string) int {
  * obj.Insert(key,val);
  * param_2 := obj.Sum(prefix);
  */
-
 ```
-

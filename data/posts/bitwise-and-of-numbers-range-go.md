@@ -48,7 +48,8 @@ func rangeBitwiseAnd(left int, right int) int {
 
 #### Counting solution
 
-- Time complexity: $O(log(n))$ - `n` is a quantity of numbers between 2 given numbers
+- Time complexity: $O(log(n))$ - `n` is a quantity of numbers between 2 given
+  numbers
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```go

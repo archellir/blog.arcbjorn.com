@@ -7,7 +7,8 @@ leetcode_number: 912
 
 [Leetcode 912 problem.](https://leetcode.com/problems/sort-an-array/)
 
-A function, given an array of integers `nums`, sort the array in ascending order and return it.
+A function, given an array of integers `nums`, sort the array in ascending order
+and return it.
 
 ## Go
 
@@ -44,8 +45,8 @@ func sortArray(nums []int) []int {
 
 #### Bubble Sort
 
-- Time complexity: $O(n^{2})$ -  **n** is a length of an array
-- Auxiliary space: $O(1)$  - constant amount of space
+- Time complexity: $O(n^{2})$ - **n** is a length of an array
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 func sortArray(nums []int) []int {
@@ -70,7 +71,7 @@ func sortArray(nums []int) []int {
 #### Insertion Sort
 
 - Time complexity: $O(n^{2})$ - **n** is a length of an array
-- Auxiliary space: $O(1)$  - constant amount of space
+- Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
 func sortArray(items []int) []int {

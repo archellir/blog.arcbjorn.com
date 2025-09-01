@@ -1,4 +1,4 @@
-import { Handlers, FreshContext } from "$fresh/server.ts";
+import { FreshContext, Handlers } from "$fresh/server.ts";
 import { listPosts } from "../api/listPosts.ts";
 import { IPostsResponse } from "../types.ts";
 import { getListLoadParams } from "../utils/getListParams.ts";

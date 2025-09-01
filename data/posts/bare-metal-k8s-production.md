@@ -5,7 +5,9 @@ snippet: "Deploying a production k8s cluster on a single bare metal server."
 tags: ["k8s", "devops"]
 ---
 
-Migrating from a bunch of Docker-compose files setup, I deployed a production Kubernetes cluster on a single bare metal server. Here's what worked, what didn't, and the code that made it happen.
+Migrating from a bunch of Docker-compose files setup, I deployed a production
+Kubernetes cluster on a single bare metal server. Here's what worked, what
+didn't, and the code that made it happen.
 
 ## The Architecture
 
@@ -23,8 +25,8 @@ graph TD
     style E fill:#3c3836,stroke:#a89984,stroke-width:2px,color:#ebdbb2
 ```
 
-
-**Stack**: K8s v1.29.15, single node, 9 services sharing one PostgreSQL, individual Let's Encrypt certs per domain.
+**Stack**: K8s v1.29.15, single node, 9 services sharing one PostgreSQL,
+individual Let's Encrypt certs per domain.
 
 ## Base Setup
 
@@ -37,11 +39,14 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/custom-resources.yaml
 ```
 
-Why Calico? [Their eBPF dataplane](https://docs.tigera.io/calico/latest/about/kubernetes-training/about-ebpf) is fast and the network policies actually work.
+Why Calico?
+[Their eBPF dataplane](https://docs.tigera.io/calico/latest/about/kubernetes-training/about-ebpf)
+is fast and the network policies actually work.
 
 ## Storage: The Local PV Trap
 
-Everyone says "don't use hostPath in production." Here's why they're wrong (sometimes):
+Everyone says "don't use hostPath in production." Here's why they're wrong
+(sometimes):
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -49,7 +54,7 @@ kind: StorageClass
 metadata:
   name: local-storage
 provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer  # Critical for node affinity
+volumeBindingMode: WaitForFirstConsumer # Critical for node affinity
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -59,23 +64,25 @@ spec:
   capacity:
     storage: 512Mi
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   storageClassName: local-storage
   hostPath:
     path: /root/containers/gitea-k8s-data
-  nodeAffinity:  # Ensures pod schedules on same node as data
+  nodeAffinity: # Ensures pod schedules on same node as data
     required:
       nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - your-node-name
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - your-node-name
 ```
 
-The trick? `WaitForFirstConsumer` + node affinity. Without this, your pod might schedule on a different node than your data (learned this the hard way).
+The trick? `WaitForFirstConsumer` + node affinity. Without this, your pod might
+schedule on a different node than your data (learned this the hard way).
 
-For multi-node, check out [Longhorn](https://longhorn.io/) or [OpenEBS](https://openebs.io/).
+For multi-node, check out [Longhorn](https://longhorn.io/) or
+[OpenEBS](https://openebs.io/).
 
 ## Database: StatefulSet vs Deployment
 
@@ -88,41 +95,42 @@ metadata:
   name: postgresql
   namespace: base-infra
 spec:
-  serviceName: postgresql-headless  # Headless service for stable DNS
+  serviceName: postgresql-headless # Headless service for stable DNS
   replicas: 1
   template:
     spec:
       containers:
-      - name: postgresql
-        image: postgres:15
-        env:
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: POSTGRES_PASSWORD
-        - name: PGDATA  # Custom data directory to avoid permission issues
-          value: /var/lib/postgresql/data/pgdata
-        volumeMounts:
-        - name: postgresql-data
-          mountPath: /var/lib/postgresql/data
-        - name: init-scripts
-          mountPath: /docker-entrypoint-initdb.d
-        livenessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - exec pg_isready -U "$POSTGRES_USER" -h 127.0.0.1
-          initialDelaySeconds: 30
-          periodSeconds: 10
+        - name: postgresql
+          image: postgres:15
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: POSTGRES_PASSWORD
+            - name: PGDATA # Custom data directory to avoid permission issues
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: postgresql-data
+              mountPath: /var/lib/postgresql/data
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - exec pg_isready -U "$POSTGRES_USER" -h 127.0.0.1
+            initialDelaySeconds: 30
+            periodSeconds: 10
       volumes:
-      - name: init-scripts
-        configMap:
-          name: postgresql-init-scripts
+        - name: init-scripts
+          configMap:
+            name: postgresql-init-scripts
 ```
 
 Init script with proper permissions:
+
 ```sql
 -- ConfigMap: postgresql-init-scripts
 CREATE DATABASE gitea;
@@ -136,11 +144,13 @@ GRANT ALL PRIVILEGES ON DATABASE gitea TO gitea_user;
 GRANT ALL ON SCHEMA public TO gitea_user;
 ```
 
-Without that schema grant, you'll get permission denied errors that make no sense.
+Without that schema grant, you'll get permission denied errors that make no
+sense.
 
 ## The UFW Bypass
 
-UFW and Kubernetes don't play nice. Docker solved this years ago by bypassing UFW entirely. Here's the same trick:
+UFW and Kubernetes don't play nice. Docker solved this years ago by bypassing
+UFW entirely. Here's the same trick:
 
 ```bash
 # These go BEFORE UFW rules in the iptables chain
@@ -153,6 +163,7 @@ netfilter-persistent save
 ```
 
 Why position 1 matters:
+
 ```
 Chain INPUT (policy ACCEPT)
 1    ACCEPT     tcp  --  0.0.0.0/0    0.0.0.0/0    tcp dpt:443 /* K8S-HTTPS */
@@ -160,11 +171,14 @@ Chain INPUT (policy ACCEPT)
 3    ufw-before-logging-input  all  --  0.0.0.0/0    0.0.0.0/0
 ```
 
-Your rules execute before UFW even sees the packets. [This netfilter flow diagram](https://en.wikipedia.org/wiki/Netfilter#/media/File:Netfilter-packet-flow.svg) shows why.
+Your rules execute before UFW even sees the packets.
+[This netfilter flow diagram](https://en.wikipedia.org/wiki/Netfilter#/media/File:Netfilter-packet-flow.svg)
+shows why.
 
 ## Ingress: Why hostNetwork Changes Everything
 
-Standard nginx-ingress uses NodePort. On bare metal, that means ugly `:30000` URLs. hostNetwork fixes this:
+Standard nginx-ingress uses NodePort. On bare metal, that means ugly `:30000`
+URLs. hostNetwork fixes this:
 
 ```bash
 # Install standard controller
@@ -177,11 +191,13 @@ kubectl patch deployment ingress-nginx-controller -n ingress-nginx --type='json'
 ]'
 ```
 
-The `ClusterFirstWithHostNet` is crucial - without it, your controller can't resolve cluster DNS.
+The `ClusterFirstWithHostNet` is crucial - without it, your controller can't
+resolve cluster DNS.
 
 ## SSL: Individual Certs and ACME Challenges
 
-Multi-domain SAN certificates seem smart until nginx starts serving the wrong cert to the wrong domain. Individual certs fix this:
+Multi-domain SAN certificates seem smart until nginx starts serving the wrong
+cert to the wrong domain. Individual certs fix this:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -191,30 +207,31 @@ metadata:
   namespace: base-infra
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: "50m"  # For Gitea
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m" # For Gitea
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - git.arcbjorn.com
-    secretName: git-arcbjorn-tls  # One cert per domain
-  - hosts:
-    - analytics.arcbjorn.com
-    secretName: analytics-arcbjorn-tls
+    - hosts:
+        - git.arcbjorn.com
+      secretName: git-arcbjorn-tls # One cert per domain
+    - hosts:
+        - analytics.arcbjorn.com
+      secretName: analytics-arcbjorn-tls
   rules:
-  - host: git.arcbjorn.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: gitea
-            port:
-              number: 3000
+    - host: git.arcbjorn.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gitea
+                port:
+                  number: 3000
 ```
 
 The cert-manager webhook timing issue is real. This fixes it:
+
 ```bash
 # Install cert-manager
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml
@@ -243,6 +260,7 @@ If the dry-run fails, your webhook isn't ready. Don't proceed.
 ## Service Patterns
 
 Connection pooling for database-heavy apps:
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -252,25 +270,25 @@ spec:
   template:
     spec:
       containers:
-      - name: umami
-        image: ghcr.io/umami-software/umami:postgresql-latest
-        env:
-        - name: DATABASE_URL
-          value: "postgresql://umami_user:xxx@postgresql:5432/umami?sslmode=disable&poolsize=20"
-        - name: DATABASE_TYPE
-          value: "postgresql"
-        livenessProbe:
-          httpGet:
-            path: /api/heartbeat
-            port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /api/heartbeat
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: umami
+          image: ghcr.io/umami-software/umami:postgresql-latest
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://umami_user:xxx@postgresql:5432/umami?sslmode=disable&poolsize=20"
+            - name: DATABASE_TYPE
+              value: "postgresql"
+          livenessProbe:
+            httpGet:
+              path: /api/heartbeat
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/heartbeat
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ```
 
 That `poolsize=20` prevents connection exhaustion. Default is often too low.
@@ -300,12 +318,14 @@ kubectl exec -it postgresql-0 -n base-infra -- psql -U postgres -c "\l"
 ## The Admission Webhook Nightmare
 
 This error will haunt you:
+
 ```
 Error from server (InternalError): error when creating "ingress.yaml": 
 Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io"
 ```
 
 Fix it properly:
+
 ```bash
 # Nuclear option when webhooks are broken
 kubectl delete validatingwebhookconfigurations --all
@@ -376,7 +396,9 @@ kubectl apply -f k8s/ingress/
 Now that the foundation is solid, here's what I'm adding:
 
 ### Object Storage (S3 Alternative)
-[MinIO](https://min.io/) is the obvious choice. Single binary, S3-compatible API, works great with existing tools:
+
+[MinIO](https://min.io/) is the obvious choice. Single binary, S3-compatible
+API, works great with existing tools:
 
 ```yaml
 apiVersion: apps/v1
@@ -387,49 +409,56 @@ spec:
   template:
     spec:
       containers:
-      - name: minio
-        image: minio/minio:latest
-        args:
-        - server
-        - /data
-        - --console-address
-        - ":9001"
-        env:
-        - name: MINIO_ROOT_USER
-          value: minioadmin
-        - name: MINIO_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: minio-secret
-              key: password
-        volumeMounts:
-        - name: storage
-          mountPath: /data
+        - name: minio
+          image: minio/minio:latest
+          args:
+            - server
+            - /data
+            - --console-address
+            - ":9001"
+          env:
+            - name: MINIO_ROOT_USER
+              value: minioadmin
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: password
+          volumeMounts:
+            - name: storage
+              mountPath: /data
 ```
 
-Pro tip: Use [Garage](https://garagehq.deuxfleurs.fr/) if you want distributed storage across multiple nodes. It's lighter than MinIO's distributed mode.
+Pro tip: Use [Garage](https://garagehq.deuxfleurs.fr/) if you want distributed
+storage across multiple nodes. It's lighter than MinIO's distributed mode.
 
 ### CI/CD Pipeline
-Gitea is already running. Add [Drone CI](https://www.drone.io/) or [Woodpecker CI](https://woodpecker-ci.org/) (Drone fork without the license drama):
+
+Gitea is already running. Add [Drone CI](https://www.drone.io/) or
+[Woodpecker CI](https://woodpecker-ci.org/) (Drone fork without the license
+drama):
 
 ```yaml
 # Woodpecker server talks to Gitea
 env:
-- name: WOODPECKER_GITEA
-  value: "true"
-- name: WOODPECKER_GITEA_URL
-  value: "https://git.arcbjorn.com"
-- name: WOODPECKER_GITEA_CLIENT
-  valueFrom:
-    secretKeyRef:
-      name: woodpecker-secret
-      key: gitea-client-id
+  - name: WOODPECKER_GITEA
+    value: "true"
+  - name: WOODPECKER_GITEA_URL
+    value: "https://git.arcbjorn.com"
+  - name: WOODPECKER_GITEA_CLIENT
+    valueFrom:
+      secretKeyRef:
+        name: woodpecker-secret
+        key: gitea-client-id
 ```
 
 Both integrate directly with Gitea OAuth. Your own GitHub Actions, basically.
 
 ### Media Server
-[Jellyfin](https://jellyfin.org/) for streaming, [PhotoPrism](https://photoprism.app/) for photos. Mount a large disk and let Kubernetes handle the rest:
+
+[Jellyfin](https://jellyfin.org/) for streaming,
+[PhotoPrism](https://photoprism.app/) for photos. Mount a large disk and let
+Kubernetes handle the rest:
 
 ```yaml
 # PhotoPrism with face recognition and AI tagging
@@ -440,8 +469,11 @@ Both integrate directly with Gitea OAuth. Your own GitHub Actions, basically.
 ```
 
 ### Monitoring Stack
+
 The classics still work best:
-- [VictoriaMetrics](https://victoriametrics.com/) instead of Prometheus (uses 10x less RAM)
+
+- [VictoriaMetrics](https://victoriametrics.com/) instead of Prometheus (uses
+  10x less RAM)
 - [Grafana](https://grafana.com/) for dashboards
 - [Loki](https://grafana.com/oss/loki/) for logs
 
@@ -451,16 +483,21 @@ helm install vmagent vm/victoria-metrics-agent -f values.yaml
 ```
 
 ### Serverless Functions
-[OpenFaaS](https://www.openfaas.com/) or [Knative](https://knative.dev/). I prefer OpenFaaS for simplicity:
+
+[OpenFaaS](https://www.openfaas.com/) or [Knative](https://knative.dev/). I
+prefer OpenFaaS for simplicity:
 
 ```bash
 arkade install openfaas
 ```
 
-Yes, [arkade](https://github.com/alexellis/arkade). It makes OpenFaaS installation trivial.
+Yes, [arkade](https://github.com/alexellis/arkade). It makes OpenFaaS
+installation trivial.
 
 ### The Reverse Proxy Problem
-When you add more services, nginx-ingress config gets messy. Consider [Traefik](https://traefik.io/) with its automatic service discovery:
+
+When you add more services, nginx-ingress config gets messy. Consider
+[Traefik](https://traefik.io/) with its automatic service discovery:
 
 ```yaml
 # Traefik picks this up automatically
@@ -470,27 +507,36 @@ annotations:
 ```
 
 ### GPU Workloads
-If you have a GPU, add the [NVIDIA device plugin](https://github.com/NVIDIA/k8s-device-plugin) and run your own:
+
+If you have a GPU, add the
+[NVIDIA device plugin](https://github.com/NVIDIA/k8s-device-plugin) and run your
+own:
+
 - [LocalAI](https://localai.io/) - OpenAI-compatible API for local LLMs
-- [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui) in a container
+- [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+  in a container
 - [Frigate](https://frigate.video/) for security camera AI detection
 
 ```yaml
 resources:
   limits:
-    nvidia.com/gpu: 1  # Request one GPU
+    nvidia.com/gpu: 1 # Request one GPU
 ```
 
 ### The Backup Strategy
-[Velero](https://velero.io/) backs up both Kubernetes resources and persistent volumes:
+
+[Velero](https://velero.io/) backs up both Kubernetes resources and persistent
+volumes:
 
 ```bash
 velero backup create daily-backup --schedule="0 2 * * *"
 ```
 
-Combine with [Restic](https://restic.net/) for deduplication. Ship backups to your MinIO instance or external S3.
+Combine with [Restic](https://restic.net/) for deduplication. Ship backups to
+your MinIO instance or external S3.
 
 ### Service Mesh (When You're Ready)
+
 Start with [Linkerd](https://linkerd.io/). It's simpler than Istio:
 
 ```bash
@@ -498,14 +544,20 @@ linkerd install --crds | kubectl apply -f -
 linkerd install | kubectl apply -f -
 ```
 
-Automatic mTLS between services, circuit breaking, and observability. Worth it when you hit 20+ services.
+Automatic mTLS between services, circuit breaking, and observability. Worth it
+when you hit 20+ services.
 
 ## Resources
 
-- [Kubernetes Network Debugging](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/) - Official guide
-- [nginx-ingress Bare Metal Considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/) - Read this twice
-- [cert-manager Troubleshooting](https://cert-manager.io/docs/troubleshooting/) - Bookmark the ACME section
-- [StatefulSet vs Deployment](https://www.baeldung.com/ops/kubernetes-deployment-vs-statefulset) - When to use what
-- [iptables Deep Dive](https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands) - Understand the chain precedence
-- [Awesome Self-Hosted](https://github.com/awesome-selfhosted/awesome-selfhosted) - For service ideas
-
+- [Kubernetes Network Debugging](https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/) -
+  Official guide
+- [nginx-ingress Bare Metal Considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/) -
+  Read this twice
+- [cert-manager Troubleshooting](https://cert-manager.io/docs/troubleshooting/) -
+  Bookmark the ACME section
+- [StatefulSet vs Deployment](https://www.baeldung.com/ops/kubernetes-deployment-vs-statefulset) -
+  When to use what
+- [iptables Deep Dive](https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands) -
+  Understand the chain precedence
+- [Awesome Self-Hosted](https://github.com/awesome-selfhosted/awesome-selfhosted) -
+  For service ideas

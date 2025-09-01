@@ -7,11 +7,13 @@ leetcode_number: 944
 
 [Leetcode 944 problem.](https://leetcode.com/problems/delete-columns-to-make-sorted/)
 
-A function to **delete** the columns that are **not sorted lexicographically** in a grid of words with `n` length.
+A function to **delete** the columns that are **not sorted lexicographically**
+in a grid of words with `n` length.
 
 ## Go
 
-- Time complexity: $O(n*w)$ - **n** is a number of letter columns, w is a number of words
+- Time complexity: $O(n*w)$ - **n** is a number of letter columns, w is a number
+  of words
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```go

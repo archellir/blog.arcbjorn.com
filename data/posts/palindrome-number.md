@@ -35,7 +35,8 @@ func isPalindrome(x int) bool {
 
 ## Typescript
 
-- Time complexity: $O(n)$ - **n** is a length of a string representation of a number parameter
+- Time complexity: $O(n)$ - **n** is a length of a string representation of a
+  number parameter
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```typescript
@@ -84,7 +85,8 @@ bool isPalindrome(int x) {
 
 #### String solution:
 
-- Time complexity: $O(n/2)$ - **n** is a length of a string representation of a number parameter
+- Time complexity: $O(n/2)$ - **n** is a length of a string representation of a
+  number parameter
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```cpp

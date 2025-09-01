@@ -7,7 +7,8 @@ leetcode_number: 459
 
 [Leetcode 459 problem.](https://leetcode.com/problems/repeated-substring-pattern/)
 
-A function, given a string `s`, to check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
+A function, given a string `s`, to check if it can be constructed by taking a
+substring of it and appending multiple copies of the substring together.
 
 ## Go
 

@@ -7,7 +7,8 @@ leetcode_number: 53
 
 [Leetcode 53 problem.](https://leetcode.com/problems/maximum-subarray/)
 
-A function, given an integer array `nums`, find the subarray with the largest sum, and return _its sum_.
+A function, given an integer array `nums`, find the subarray with the largest
+sum, and return _its sum_.
 
 ## Go
 
@@ -69,15 +70,15 @@ function maxSubArray(nums: number[]): number {
   for (let num of nums) {
     // reset temprorary
     if (sum < 0) {
-        sum = 0
-    };
-    
+      sum = 0;
+    }
+
     sum += num;
 
-	// pick new maximum sum
+    // pick new maximum sum
     if (sum > maximumSum) {
-        maximumSum = sum
-    };
+      maximumSum = sum;
+    }
   }
 
   return maximumSum;

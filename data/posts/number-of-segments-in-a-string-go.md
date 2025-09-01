@@ -7,8 +7,9 @@ leetcode_number: 434
 
 [Leetcode 434 problem.](https://leetcode.com/problems/number-of-segments-in-a-string/)
 
-A function, given a string `s`, to return _the number of segments in the string_.
-A **segment** is defined to be a contiguous sequence of **non-space characters**.
+A function, given a string `s`, to return _the number of segments in the
+string_. A **segment** is defined to be a contiguous sequence of **non-space
+characters**.
 
 ## Go
 

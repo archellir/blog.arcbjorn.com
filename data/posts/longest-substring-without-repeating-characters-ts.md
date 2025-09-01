@@ -14,24 +14,24 @@ leetcode_number: 3
 
 ```typescript
 function lengthOfLongestSubstring(s: string): number {
-    let longestStringLength = 0;
-    let currentPosition = 0;
+  let longestStringLength = 0;
+  let currentPosition = 0;
 
-    let counter = 0
-    let characterSet = new Set();
+  let counter = 0;
+  let characterSet = new Set();
 
-    while (currentPosition < s.length) {
-        if (characterSet.has(s[currentPosition])) {
-            characterSet.delete(s[counter++]);
-        } else {
-            characterSet.add(s[currentPosition++]);
-            longestStringLength = Math.max(
-                longestStringLength,
-                characterSet.size
-            );
-        }
+  while (currentPosition < s.length) {
+    if (characterSet.has(s[currentPosition])) {
+      characterSet.delete(s[counter++]);
+    } else {
+      characterSet.add(s[currentPosition++]);
+      longestStringLength = Math.max(
+        longestStringLength,
+        characterSet.size,
+      );
     }
+  }
 
-    return longestStringLength;
-};
+  return longestStringLength;
+}
 ```

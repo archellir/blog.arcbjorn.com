@@ -7,7 +7,8 @@ leetcode_number: 557
 
 [Leetcode 557 problem.](https://leetcode.com/problems/reverse-words-in-a-string-iii/)
 
-A function, given a string `s`, to reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+A function, given a string `s`, to reverse the order of characters in each word
+within a sentence while still preserving whitespace and initial word order.
 
 ## Go
 

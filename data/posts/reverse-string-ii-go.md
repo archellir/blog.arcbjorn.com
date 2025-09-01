@@ -7,7 +7,8 @@ leetcode_number: 541
 
 [Leetcode 541 problem.](https://leetcode.com/problems/reverse-string-ii/)
 
-Function to, given a string `s` and an integer `k`, reverse the first `k` characters for every `2k` characters counting from the start of the string.
+Function to, given a string `s` and an integer `k`, reverse the first `k`
+characters for every `2k` characters counting from the start of the string.
 
 ## Go
 

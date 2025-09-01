@@ -10,15 +10,15 @@ import { asset } from "$fresh/runtime.ts";
 export function resolveImageUrl(
   imagePath: string | undefined,
   origin: string,
-  fallback: string = "/images/og-default.png"
+  fallback: string = "/images/og-default.png",
 ): string {
   if (!imagePath) {
     return `${origin}${asset(fallback)}`;
   }
-  
-  if (imagePath.startsWith('http')) {
+
+  if (imagePath.startsWith("http")) {
     return imagePath;
   }
-  
+
   return `${origin}${asset(imagePath)}`;
 }

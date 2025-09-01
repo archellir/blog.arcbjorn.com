@@ -26,11 +26,14 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
       >
         {/* Desktop: Date in separate column */}
         <div class="hidden sm:block sm:order-1 sm:w-min sm:shrink-0">
-          <time class="font-plex-mono text-sm sm:text-base">{localizedDate}</time>
+          <time class="font-plex-mono text-sm sm:text-base">
+            {localizedDate}
+          </time>
         </div>
         <div class="order-1 sm:order-2 w-full">
           <h2 class="text-lg sm:text-xl tracking-tight font-plex-mono font-semibold group-hover:underline">
-            {post.title}{post.leetcode_number ? ` #${post.leetcode_number}` : ''}
+            {post.title}
+            {post.leetcode_number ? ` #${post.leetcode_number}` : ""}
           </h2>
           <p class="pt-1 font-plex-sans text-grey-600 hidden sm:block">
             {post.snippet}
@@ -38,11 +41,12 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
           {/* Mobile: Date and tags on same line when possible */}
           <div class="flex flex-wrap items-center gap-2 pt-2 sm:hidden">
             <time class="font-plex-mono text-sm shrink-0">{localizedDate}</time>
-            {post.tags && post.tags.length > 0 && post.tags.map((tag) => (
-              <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
-                {tag}
-              </span>
-            ))}
+            {post.tags && post.tags.length > 0 &&
+              post.tags.map((tag) => (
+                <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
+                  {tag}
+                </span>
+              ))}
           </div>
           {/* Desktop: Tags below snippet */}
           {post.tags && post.tags.length > 0 && (

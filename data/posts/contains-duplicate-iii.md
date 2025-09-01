@@ -13,29 +13,33 @@ leetcode_number: 220
 - Auxiliary space: $O(n)$ - constant amount of space
 
 ```Typescript
-function containsNearbyAlmostDuplicate(nums: number[], indexDiff: number, valueDiff: number): boolean {
-  let left = 0, right = 1
+function containsNearbyAlmostDuplicate(
+  nums: number[],
+  indexDiff: number,
+  valueDiff: number,
+): boolean {
+  let left = 0, right = 1;
 
   while (right <= nums.length) {
-    const currentIndexDiff = Math.abs(left - right)
-    const currentValueDiff = Math.abs(nums[left] - nums[right])
+    const currentIndexDiff = Math.abs(left - right);
+    const currentValueDiff = Math.abs(nums[left] - nums[right]);
 
     if (currentIndexDiff <= indexDiff && currentValueDiff <= valueDiff) {
-      return true
+      return true;
     }
-    
+
     if (right >= nums.length) {
-      left++
-      right = left + 1
+      left++;
+      right = left + 1;
     } else {
-      right++
+      right++;
 
       if (currentIndexDiff > indexDiff) {
-        left++
-        right = left + 1
+        left++;
+        right = left + 1;
       }
     }
   }
-  return false
-};
+  return false;
+}
 ```

@@ -7,7 +7,8 @@ leetcode_number: 912
 
 [Leetcode 912 problem.](https://leetcode.com/problems/sort-an-array/)
 
-A function, given an array of integers `nums`, sort the array in ascending order and return it.
+A function, given an array of integers `nums`, sort the array in ascending order
+and return it.
 
 ## C++
 

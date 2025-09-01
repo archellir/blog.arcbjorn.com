@@ -6,7 +6,8 @@ tags: [leetcode, go]
 
 [Leetcode 290 problem.](https://leetcode.com/problems/word-pattern/)
 
-A full match, such that there is a bijection between a letter in `pattern` and a **non-empty** word in `s`.
+A full match, such that there is a bijection between a letter in `pattern` and a
+**non-empty** word in `s`.
 
 ## Go
 

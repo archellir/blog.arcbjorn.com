@@ -7,7 +7,8 @@ leetcode_number: 2418
 
 [Leetcode 2418 problem.](https://leetcode.com/problems/sort-the-people/)
 
-Given two parallel arrays of names and heights, return a new array of names sorted in descending order based on the corresponding heights.
+Given two parallel arrays of names and heights, return a new array of names
+sorted in descending order based on the corresponding heights.
 
 ## Go
 

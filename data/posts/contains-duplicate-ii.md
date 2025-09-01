@@ -41,7 +41,6 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 }
 ```
 
-
 ## Typescript
 
 - Time complexity: $O(n)$ - **n** is a length of an array of integers
@@ -49,14 +48,14 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 
 ```typescript
 function twoSum(nums: number[], target: number): number[] {
-    const numberIndexHash = {};
+  const numberIndexHash = {};
 
-    return nums.some((num, index) => {
-        if(num in numberIndexHash && Math.abs(index - numberIndexHash[num]) <= k) {
-            return true;
-        }
+  return nums.some((num, index) => {
+    if (num in numberIndexHash && Math.abs(index - numberIndexHash[num]) <= k) {
+      return true;
+    }
 
-        numberIndexHash[num] = index;
-    })
+    numberIndexHash[num] = index;
+  });
 }
 ```

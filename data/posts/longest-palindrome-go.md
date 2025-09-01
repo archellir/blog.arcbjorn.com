@@ -7,7 +7,9 @@ leetcode_number: 409
 
 [Leetcode 409 problem.](https://leetcode.com/problems/longest-palindrome/)
 
-A function, given a string `s` which consists of lowercase or uppercase letters, to return _the length of the **longest palindrome**_ that can be built with those letters.
+A function, given a string `s` which consists of lowercase or uppercase letters,
+to return _the length of the **longest palindrome**_ that can be built with
+those letters.
 
 ## Go
 

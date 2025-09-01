@@ -98,7 +98,11 @@ function parseEsmUrl(u: URL): DepInfo | null {
     if (slashIdx >= 0 && atIdx > slashIdx) {
       const name = combined.slice(0, atIdx); // @scope/name
       const version = combined.slice(atIdx + 1);
-      return { kind: "npm", name, versions: version ? new Set([version]) : new Set() };
+      return {
+        kind: "npm",
+        name,
+        versions: version ? new Set([version]) : new Set(),
+      };
     }
     // No explicit version
     return { kind: "npm", name: combined, versions: new Set() };
@@ -109,7 +113,11 @@ function parseEsmUrl(u: URL): DepInfo | null {
   if (atIdx > 0) {
     const name = s.slice(0, atIdx);
     const version = s.slice(atIdx + 1);
-    return { kind: "npm", name, versions: version ? new Set([version]) : new Set() };
+    return {
+      kind: "npm",
+      name,
+      versions: version ? new Set([version]) : new Set(),
+    };
   }
   return { kind: "npm", name: s, versions: new Set() };
 }
@@ -155,7 +163,10 @@ async function collectFromSources(): Promise<DepInfo[]> {
   async function walk(dir: string) {
     for await (const entry of Deno.readDir(dir)) {
       if (entry.name.startsWith(".")) continue;
-      if (entry.name === "_fresh" || entry.name === "node_modules" || entry.name === ".git") continue;
+      if (
+        entry.name === "_fresh" || entry.name === "node_modules" ||
+        entry.name === ".git"
+      ) continue;
       const path = `${dir}/${entry.name}`;
       if (entry.isDirectory) {
         await walk(path);
@@ -188,7 +199,7 @@ function mergeDeps(infos: DepInfo[]): Map<string, DepInfo> {
     const key = `${info.kind}:${info.name}`;
     const existing = map.get(key);
     if (existing) {
-      info.versions.forEach(v => existing.versions.add(v));
+      info.versions.forEach((v) => existing.versions.add(v));
     } else {
       map.set(key, { ...info, versions: new Set(info.versions) });
     }
@@ -243,7 +254,7 @@ async function main() {
   for (const dep of entries) {
     const current = new Set(
       Array.from(dep.versions)
-        .map(v => v.trim())
+        .map((v) => v.trim())
         .filter(Boolean),
     );
 
@@ -257,16 +268,22 @@ async function main() {
     const latestNorm = latest ? normalizeVersion(latest) : null;
     const currentsNorm = new Set(Array.from(current).map(normalizeVersion));
     const status = latestNorm
-      ? (currentsNorm.size > 0 && currentsNorm.has(latestNorm) ? "up-to-date" : "outdated")
+      ? (currentsNorm.size > 0 && currentsNorm.has(latestNorm)
+        ? "up-to-date"
+        : "outdated")
       : "unknown";
 
     const currentStr = fmtList(current);
     const latestStr = latest ?? "-";
     const kindStr = dep.kind === "deno" ? "deno" : "npm";
-    console.log(`${kindStr}:${dep.name}  current=[${currentStr}]  latest=${latestStr}  ${status}`);
+    console.log(
+      `${kindStr}:${dep.name}  current=[${currentStr}]  latest=${latestStr}  ${status}`,
+    );
   }
 
-  console.log("\nTip: Update imports in deno.json and source files where versions differ.");
+  console.log(
+    "\nTip: Update imports in deno.json and source files where versions differ.",
+  );
 }
 
 if (import.meta.main) {

@@ -1,4 +1,4 @@
-import { FunctionalComponent, ComponentChildren } from "preact";
+import { ComponentChildren, FunctionalComponent } from "preact";
 import { asset } from "$fresh/runtime.ts";
 import { CSS, KATEX_CSS } from "$gfm";
 
@@ -10,15 +10,15 @@ interface BlogLayoutProps {
   includeCodeHighlighting?: boolean;
 }
 
-const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({ 
-  children, 
-  includeCodeHighlighting = false 
+const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({
+  children,
+  includeCodeHighlighting = false,
 }) => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <style dangerouslySetInnerHTML={{ __html: KATEX_CSS }} />
-      
+
       {includeCodeHighlighting && (
         <>
           <link rel="stylesheet" href={asset("/gruvbox-theme.css")} />
@@ -28,7 +28,7 @@ const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({
       )}
 
       <Header />
-      
+
       <main>
         {children}
       </main>

@@ -38,19 +38,19 @@ func arrangeCoins(n int) int {
 
 ```typescript
 function arrangeCoins(n: number): number {
-    let completeRows = 0;
-    let usedCoins = 0;
+  let completeRows = 0;
+  let usedCoins = 0;
 
-    for (let i = 1; i <= n; i++) {
-        usedCoins += i;
+  for (let i = 1; i <= n; i++) {
+    usedCoins += i;
 
-        if (usedCoins <= n) {
-            completeRows++
-        } else {
-            return completeRows
-        }
+    if (usedCoins <= n) {
+      completeRows++;
+    } else {
+      return completeRows;
     }
+  }
 
-    return completeRows
+  return completeRows;
 }
 ```

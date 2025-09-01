@@ -7,7 +7,8 @@ leetcode_number: 344
 
 [Leetcode 344 problem.](https://leetcode.com/problems/reverse-string/)
 
-A function that reverses a string. The input string is given as an array of characters (bytes) `s`.
+A function that reverses a string. The input string is given as an array of
+characters (bytes) `s`.
 
 ## Go
 

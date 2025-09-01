@@ -7,7 +7,9 @@ leetcode_number: 1636
 
 [Leetcode 1636 problem.](https://leetcode.com/problems/sort-array-by-increasing-frequency/)
 
-Given an array of integers nums, sort the array in increasing order based on the frequency of the values. If multiple values have the same frequency, sort them in decreasing order.
+Given an array of integers nums, sort the array in increasing order based on the
+frequency of the values. If multiple values have the same frequency, sort them
+in decreasing order.
 
 ## Go
 

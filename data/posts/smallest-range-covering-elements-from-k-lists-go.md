@@ -7,11 +7,14 @@ leetcode_number: 632
 
 [Leetcode 632 problem.](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/)
 
-`K` lists of sorted integers in **non-decreasing order**. A function, to find the **smallest** range that includes at least one number from each of the `k` lists.
+`K` lists of sorted integers in **non-decreasing order**. A function, to find
+the **smallest** range that includes at least one number from each of the `k`
+lists.
 
 ## Go
 
-- Time complexity: $O(n*log(n) + n*k)$ - **n** is a quantity of all numbers, **k** is a number of lists
+- Time complexity: $O(n*log(n) + n*k)$ - **n** is a quantity of all numbers,
+  **k** is a number of lists
 - Auxiliary space: $O(n)$ - **n** is a quantity of all numbers
 
 ```go

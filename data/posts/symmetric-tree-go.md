@@ -7,12 +7,14 @@ leetcode_number: 101
 
 [Leetcode 101 problem.](https://leetcode.com/problems/symmetric-tree/)
 
-Given the `root` of a binary tree, _check whether it is a mirror of itself_ (i.e., symmetric around its center).
+Given the `root` of a binary tree, _check whether it is a mirror of itself_
+(i.e., symmetric around its center).
 
 ## Go
 
 - Time complexity: $O(n)$ - `n` is a height of a tree
-- Auxiliary space: $O(log(n))$ - `n` is a number of recusrsive calls in the stack
+- Auxiliary space: $O(log(n))$ - `n` is a number of recusrsive calls in the
+  stack
 
 ```go
 /**

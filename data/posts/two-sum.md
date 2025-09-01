@@ -73,20 +73,20 @@ func getMaxCoinNumber(n int) int {
 
 ```typescript
 function twoSum(nums: number[], target: number): number[] {
-	// key is number, value is it's index
-    const numberIndexMap = new Map();
-    
-    for (let i = 0; i < nums.length; i++) {
-	    // difference between current number and target number
-        const difference = target - nums[i];
-        
-        if (numberIndexMap.has(difference)) {
-            return [numberIndexMap.get(difference), i];
-        }
-        
-        numberIndexMap.set(nums[i], i);
+  // key is number, value is it's index
+  const numberIndexMap = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    // difference between current number and target number
+    const difference = target - nums[i];
+
+    if (numberIndexMap.has(difference)) {
+      return [numberIndexMap.get(difference), i];
     }
-    
-    return [];
+
+    numberIndexMap.set(nums[i], i);
+  }
+
+  return [];
 }
 ```

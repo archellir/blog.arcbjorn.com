@@ -7,7 +7,8 @@ leetcode_number: 387
 
 [Leetcode 387 problem.](https://leetcode.com/problems/first-unique-character-in-a-string/)
 
-A function to find the first non-repeating character in it and return its index. If it does not exist, it returns `-1`.
+A function to find the first non-repeating character in it and return its index.
+If it does not exist, it returns `-1`.
 
 ## Go
 

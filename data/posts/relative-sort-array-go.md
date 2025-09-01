@@ -9,7 +9,8 @@ leetcode_number: 1122
 
 ## Go
 
-- Time complexity: $O(n)$ - **n** is a quantity of elements in array with maximum length
+- Time complexity: $O(n)$ - **n** is a quantity of elements in array with
+  maximum length
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```go
@@ -49,4 +50,3 @@ func relativeSortArray(arr1 []int, arr2 []int) []int {
     return result
 }
 ```
-

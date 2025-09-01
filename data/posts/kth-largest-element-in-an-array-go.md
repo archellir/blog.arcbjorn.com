@@ -7,11 +7,13 @@ leetcode_number: 215
 
 [Leetcode 215 problem.](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 
-A function, given an integer array `nums` and an integer `k`, to return _the_ `kth` _largest element in the array_.
+A function, given an integer array `nums` and an integer `k`, to return _the_
+`kth` _largest element in the array_.
 
 ## Go
 
-- Time complexity: $O(k*log(n))$ - **n** is a quantity of numbers, k is a quantity of numbers to return
+- Time complexity: $O(k*log(n))$ - **n** is a quantity of numbers, k is a
+  quantity of numbers to return
 - Auxiliary space: $O(1)$ - constant amount of space
 
 ```go

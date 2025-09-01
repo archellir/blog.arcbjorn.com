@@ -14,20 +14,20 @@ leetcode_number: 26
 
 ```typescript
 function removeDuplicates(nums: number[]): number {
-    let count = 0;
-    
-    for (let i = 0; i < nums.length; i++) {
-	    // skip already registered number
-        if (i < nums.length - 1 && nums[i] == nums[i + 1]) {
-            continue;
-        }
+  let count = 0;
 
-		// register number
-        nums[count] = nums[i];
-        // increment total
-        count++;
+  for (let i = 0; i < nums.length; i++) {
+    // skip already registered number
+    if (i < nums.length - 1 && nums[i] == nums[i + 1]) {
+      continue;
     }
-    
-    return count;
-};
+
+    // register number
+    nums[count] = nums[i];
+    // increment total
+    count++;
+  }
+
+  return count;
+}
 ```

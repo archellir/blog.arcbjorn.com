@@ -147,5 +147,4 @@ func countOfAtoms(s string) string {
 
 	return builder.String()
 }
-
 ```

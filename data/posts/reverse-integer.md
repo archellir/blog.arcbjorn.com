@@ -41,8 +41,10 @@ func reverse(x int) int {
 
 ## Typescript
 
-- Time complexity: $O(n)$ - n is a length of string representation of an input number
-- Auxiliary space: $O(n)$ - n is a length of string representation of an input number
+- Time complexity: $O(n)$ - n is a length of string representation of an input
+  number
+- Auxiliary space: $O(n)$ - n is a length of string representation of an input
+  number
 
 ```typescript
 function reverse(x: number): number {

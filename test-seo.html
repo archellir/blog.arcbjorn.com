@@ -1,55 +1,108 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>SEO Test - Local Preview</title>
     <style>
-        body { font-family: monospace; padding: 20px; background: #1b1d1e; color: #f3f4f6; }
-        .preview { border: 1px solid #374151; padding: 20px; margin: 20px 0; border-radius: 8px; }
-        .preview h3 { margin-top: 0; color: #60a5fa; }
-        .card { background: #111; border-radius: 8px; overflow: hidden; max-width: 500px; }
-        .card img { width: 100%; height: auto; }
-        .card-content { padding: 15px; }
-        .card-title { font-weight: bold; margin-bottom: 5px; }
-        .card-desc { color: #9ca3af; font-size: 14px; }
-        .card-url { color: #60a5fa; font-size: 12px; margin-top: 5px; }
-        code { background: #374151; padding: 2px 5px; border-radius: 3px; }
+      body {
+        font-family: monospace;
+        padding: 20px;
+        background: #1b1d1e;
+        color: #f3f4f6;
+      }
+      .preview {
+        border: 1px solid #374151;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+      }
+      .preview h3 {
+        margin-top: 0;
+        color: #60a5fa;
+      }
+      .card {
+        background: #111;
+        border-radius: 8px;
+        overflow: hidden;
+        max-width: 500px;
+      }
+      .card img {
+        width: 100%;
+        height: auto;
+      }
+      .card-content {
+        padding: 15px;
+      }
+      .card-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .card-desc {
+        color: #9ca3af;
+        font-size: 14px;
+      }
+      .card-url {
+        color: #60a5fa;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+      code {
+        background: #374151;
+        padding: 2px 5px;
+        border-radius: 3px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>SEO & Social Media Preview Test</h1>
-    
+
     <div class="preview">
-        <h3>Quick Local Test</h3>
-        <p>Run your development server and visit these URLs:</p>
-        <ul>
-            <li><code>http://localhost:8000/</code> - Check homepage meta tags</li>
-            <li><code>http://localhost:8000/bare-metal-k8s-production</code> - Check a blog post</li>
-            <li><code>http://localhost:8000/sitemap.xml</code> - Verify sitemap</li>
-        </ul>
-        
-        <p>Then view page source and look for:</p>
-        <ul>
-            <li><code>&lt;meta property="og:image"</code> - Should show your image URL</li>
-            <li><code>&lt;meta name="twitter:card"</code> - Should be "summary_large_image"</li>
-            <li><code>&lt;script type="application/ld+json"</code> - Structured data</li>
-        </ul>
+      <h3>Quick Local Test</h3>
+      <p>Run your development server and visit these URLs:</p>
+      <ul>
+        <li><code>http://localhost:8000/</code> - Check homepage meta tags</li>
+        <li>
+          <code>http://localhost:8000/bare-metal-k8s-production</code> - Check a
+          blog post
+        </li>
+        <li><code>http://localhost:8000/sitemap.xml</code> - Verify sitemap</li>
+      </ul>
+
+      <p>Then view page source and look for:</p>
+      <ul>
+        <li>
+          <code>&lt;meta property="og:image"</code> - Should show your image URL
+        </li>
+        <li>
+          <code>&lt;meta name="twitter:card"</code> - Should be
+          "summary_large_image"
+        </li>
+        <li>
+          <code>&lt;script type="application/ld+json"</code> - Structured data
+        </li>
+      </ul>
     </div>
 
     <div class="preview">
-        <h3>Simulated Twitter Card</h3>
-        <div class="card">
-            <img src="/images/og-default.png" alt="Preview">
-            <div class="card-content">
-                <div class="card-title">Your Blog Post Title</div>
-                <div class="card-desc">This is how your post snippet will appear on social media platforms...</div>
-                <div class="card-url">blog.arcbjorn.com</div>
-            </div>
+      <h3>Simulated Twitter Card</h3>
+      <div class="card">
+        <img src="/images/og-default.png" alt="Preview">
+        <div class="card-content">
+          <div class="card-title">Your Blog Post Title</div>
+          <div class="card-desc">
+            This is how your post snippet will appear on social media
+            platforms...
+          </div>
+          <div class="card-url">blog.arcbjorn.com</div>
         </div>
+      </div>
     </div>
 
     <div class="preview">
-        <h3>Browser Extension</h3>
-        <p>Install "SEO Meta in 1 Click" Chrome extension for instant meta tag inspection</p>
+      <h3>Browser Extension</h3>
+      <p>
+        Install "SEO Meta in 1 Click" Chrome extension for instant meta tag
+        inspection
+      </p>
     </div>
-</body>
+  </body>
 </html>
