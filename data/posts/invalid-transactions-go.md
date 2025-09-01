@@ -1,8 +1,8 @@
 ---
 title: Invalid transactions
 published_at: 2023-02-25 12:01
-snippet: 1169 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 1169
 ---
 
 [Leetcode 1169 problem.](https://leetcode.com/problems/invalid-transactions/)

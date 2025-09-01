@@ -1,8 +1,8 @@
 ---
 title: Kth largest element in an array
 published_at: 2023-02-18 12:01
-snippet: 215 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 215
 ---
 
 [Leetcode 215 problem.](https://leetcode.com/problems/kth-largest-element-in-an-array/)

@@ -1,8 +1,8 @@
 ---
 title: K closest points to origin
 published_at: 2023-02-18 12:00
-snippet: 973 - Go solutions
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 973
 ---
 
 [Leetcode 973 problem.](https://leetcode.com/problems/k-closest-points-to-origin/)

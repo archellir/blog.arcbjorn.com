@@ -1,8 +1,8 @@
 ---
 title: Insert interval
 published_at: 2023-02-26 12:07
-snippet: 57 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 57
 ---
 
 [Leetcode 57 problem.](https://leetcode.com/problems/insert-interval/)

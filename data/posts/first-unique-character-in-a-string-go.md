@@ -1,8 +1,8 @@
 ---
 title: First unique character in a string
 published_at: 2022-12-23 12:00
-snippet: 387 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 387
 ---
 
 [Leetcode 387 problem.](https://leetcode.com/problems/first-unique-character-in-a-string/)

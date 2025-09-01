@@ -1,8 +1,8 @@
 ---
 title: Goat latin
 published_at: 2023-01-05 12:00
-snippet: 824 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 824
 ---
 
 [Leetcode 824 problem.](https://leetcode.com/problems/goat-latin/)

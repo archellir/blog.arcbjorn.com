@@ -1,8 +1,8 @@
 ---
 title: Isomorphic strings
 published_at: 2022-12-18 12:00
-snippet: 205 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 205
 ---
 
 [Leetcode 205 problem.](https://leetcode.com/problems/isomorphic-trings/)

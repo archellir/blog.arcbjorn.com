@@ -1,8 +1,8 @@
 ---
 title: Frequency of the most frequent element
 published_at: 2022-12-8 12:00
-snippet: 1838 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 1838
 ---
 
 [Leetcode 1838 problem.](https://leetcode.com/problems/frequency-of-the-most-frequent-element/)

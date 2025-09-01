@@ -1,8 +1,8 @@
 ---
 title: Find the difference
 published_at: 2022-12-25 12:00
-snippet: 389 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 389
 ---
 
 [Leetcode 389 problem.](https://leetcode.com/problems/find-the-difference/)
