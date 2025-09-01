@@ -24,7 +24,8 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
         href={`/${post.id}`}
         class="p-2 flex flex-col sm:flex-row justify-start items-start gap-y-2 gap-x-4 group"
       >
-        <div class="order-2 sm:order-1 w-full sm:w-min sm:shrink-0">
+        {/* Desktop: Date in separate column */}
+        <div class="hidden sm:block sm:order-1 sm:w-min sm:shrink-0">
           <time class="font-plex-mono text-sm sm:text-base">{localizedDate}</time>
         </div>
         <div class="order-1 sm:order-2 w-full">
@@ -34,8 +35,18 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
           <p class="pt-1 font-plex-sans text-grey-600 hidden sm:block">
             {post.snippet}
           </p>
+          {/* Mobile: Date and tags on same line when possible */}
+          <div class="flex flex-wrap items-center gap-2 pt-2 sm:hidden">
+            <time class="font-plex-mono text-sm shrink-0">{localizedDate}</time>
+            {post.tags && post.tags.length > 0 && post.tags.map((tag) => (
+              <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+          {/* Desktop: Tags below snippet */}
           {post.tags && post.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 pt-2">
+            <div class="hidden sm:flex flex-wrap gap-2 pt-2">
               {post.tags.map((tag) => (
                 <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
                   {tag}
