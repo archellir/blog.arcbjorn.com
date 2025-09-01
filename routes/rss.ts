@@ -33,7 +33,7 @@ ${
 `;
 
 export const handler: Handlers = {
-  async GET(req: Request, ctx: FreshContext) {
+  async GET(_req: Request, _ctx: FreshContext) {
     const postsData: IPostsResponse = await listPosts({ offset: 0, limit: 0 });
     const xmlData = render(postsData.posts);
     const headers = new Headers({

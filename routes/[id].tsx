@@ -29,7 +29,7 @@ interface IPostPageData extends IState {
 type TPostPageProps = PageProps<IPostPageData>;
 
 export const handler: Handlers<IPostPageData, IState> = {
-  async GET(req: Request, ctx: FreshContext<IState>) {
+  async GET(_req: Request, ctx: FreshContext<IState>) {
     const id = ctx.params.id;
     const post = await loadPost(id);
     if (!post) {
@@ -89,7 +89,7 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
 
       <StructuredData type="BlogPosting" data={blogPostData} />
 
-      <BlogLayout includeCodeHighlighting={true}>
+      <BlogLayout includeCodeHighlighting>
         <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
           <p class="text-gray-400">
             {localizedDate}

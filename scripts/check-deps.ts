@@ -24,7 +24,7 @@ function normalizeVersion(v: string): string {
   return v.replace(/^v/, "").trim();
 }
 
-function ensureSet<T>(map: Map<string, Set<T>>, key: string): Set<T> {
+function _ensureSet<T>(map: Map<string, Set<T>>, key: string): Set<T> {
   let s = map.get(key);
   if (!s) {
     s = new Set<T>();

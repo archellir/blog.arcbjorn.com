@@ -2,7 +2,7 @@ import { FunctionalComponent } from "preact";
 
 export interface StructuredDataProps {
   type: "BlogPosting" | "WebPage" | "Organization";
-  data: Record<string, any>;
+  data: Record<string, unknown>;
 }
 
 const StructuredData: FunctionalComponent<StructuredDataProps> = (

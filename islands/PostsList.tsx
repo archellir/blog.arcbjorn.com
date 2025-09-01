@@ -88,13 +88,14 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
             if (index === posts.length - 1) {
               return (
                 <Post
+                  key={post.id}
                   measureRef={measureRef}
                   post={post}
                   locales={props.locales}
                 />
               );
             }
-            return <Post post={post} locales={props.locales} />;
+            return <Post key={post.id} post={post} locales={props.locales} />;
           })}
         </ul>
         {isLoading ? <Loader /> : hasMore

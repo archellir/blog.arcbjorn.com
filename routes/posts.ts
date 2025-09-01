@@ -4,7 +4,7 @@ import { IPostsResponse } from "../types.ts";
 import { getListLoadParams } from "../utils/getListParams.ts";
 
 export const handler: Handlers = {
-  async GET(req: Request, ctx: FreshContext) {
+  async GET(req: Request, _ctx: FreshContext) {
     const listParams = getListLoadParams(req.url);
 
     const postsData: IPostsResponse = await listPosts(listParams);
