@@ -2,7 +2,7 @@
 title: "Running 9 Services on Bare Metal K8s"
 published_at: "2025-08-05 12:00"
 snippet: "Deploying a production k8s cluster on a single bare metal server."
-tags: ["kubernetes", "devops"]
+tags: ["k8s", "devops"]
 ---
 
 Migrating from a bunch of Docker-compose files setup, I deployed a production Kubernetes cluster on a single bare metal server. Here's what worked, what didn't, and the code that made it happen.
