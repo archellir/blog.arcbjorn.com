@@ -22,7 +22,7 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
     >
       <a
         href={`/${post.id}`}
-        class="p-2 flex flex-col sm:flex-row justify-start items-start gap-y-2 gap-x-4 group"
+        class="p-2 flex flex-col sm:flex-row justify-start items-baseline gap-y-2 gap-x-4 group"
       >
         {/* Desktop: Date in separate column */}
         <div class="hidden sm:block sm:order-1 sm:w-min sm:shrink-0">
