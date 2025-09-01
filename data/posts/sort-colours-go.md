@@ -1,8 +1,8 @@
 ---
 title: Sort colours
 published_at: 2023-02-19 12:00
-snippet: 75 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 75
 ---
 
 [Leetcode 75 problem.](https://leetcode.com/problems/sort-colors/)

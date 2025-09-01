@@ -1,8 +1,8 @@
 ---
 title: Top k frequent elements
 published_at: 2023-02-18 12:03
-snippet: 347 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 347
 ---
 
 [Leetcode 347 problem.](https://leetcode.com/problems/top-k-frequent-elements/)

@@ -1,8 +1,8 @@
 ---
 title: Two sum
 published_at: 2023-02-24 12:00
-snippet: 1 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 1
 ---
 
 [Leetcode 1 problem.](https://leetcode.com/problems/two-sum/)

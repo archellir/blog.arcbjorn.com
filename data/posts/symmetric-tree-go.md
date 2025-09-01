@@ -1,8 +1,8 @@
 ---
 title: Symmetric tree
 published_at: 2023-03-04 12:10
-snippet: 101 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 101
 ---
 
 [Leetcode 101 problem.](https://leetcode.com/problems/symmetric-tree/)

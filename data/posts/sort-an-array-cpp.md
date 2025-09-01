@@ -1,8 +1,8 @@
 ---
 title: Sort an array
 published_at: 2023-02-19 12:03
-snippet: 912 - C++ solution
-tags: [leetcode]
+tags: [leetcode, cpp]
+leetcode_number: 912
 ---
 
 [Leetcode 912 problem.](https://leetcode.com/problems/sort-an-array/)

@@ -1,8 +1,8 @@
 ---
 title: Total hamming distance
 published_at: 2023-03-05 12:05
-snippet: 477 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 477
 ---
 
 [Leetcode 477 problem.](https://leetcode.com/problems/total-hamming-distance/)

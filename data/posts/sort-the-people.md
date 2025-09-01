@@ -1,8 +1,8 @@
 ---
 title: Sort the People
 published_at: 2024-07-21 12:00
-snippet: 2418 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 2418
 ---
 
 [Leetcode 2418 problem.](https://leetcode.com/problems/sort-the-people/)

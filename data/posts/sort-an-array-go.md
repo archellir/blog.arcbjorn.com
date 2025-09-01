@@ -1,8 +1,8 @@
 ---
 title: Sort an array
 published_at: 2023-02-15 12:00
-snippet: 912 - Go solutions
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 912
 ---
 
 [Leetcode 912 problem.](https://leetcode.com/problems/sort-an-array/)

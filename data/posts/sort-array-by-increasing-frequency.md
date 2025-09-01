@@ -1,8 +1,8 @@
 ---
 title: Sort array by increasing frequency
 published_at: 2024-07-22 12:00
-snippet: 1636 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 1636
 ---
 
 [Leetcode 1636 problem.](https://leetcode.com/problems/sort-array-by-increasing-frequency/)

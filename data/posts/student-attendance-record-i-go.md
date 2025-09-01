@@ -1,8 +1,8 @@
 ---
 title: Student Attendance Record I
 published_at: 2023-01-02 12:00
-snippet: 551 - Go solutions
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 551
 ---
 
 [Leetcode 551 problem.](https://leetcode.com/problems/student-attendance-record-i/)
