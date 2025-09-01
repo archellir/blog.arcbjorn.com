@@ -1,8 +1,7 @@
 ---
 title: Day_1 - Calorie Counting
 published_at: 2022-12-03 12:00
-snippet: Go solution
-tags: [advent2022]
+tags: [advent2022, go]
 ---
 
 ### Advent of code 2022 - Day_1: [Calorie Counting](https://adventofcode.com/2022/day/1) 

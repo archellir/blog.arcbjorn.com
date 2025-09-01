@@ -1,8 +1,7 @@
 ---
 title: Day_2 - Rock Paper Scissors
 published_at: 2022-12-05 12:00
-snippet: Go solution
-tags: [advent2022]
+tags: [advent2022, go]
 ---
 
 ### Advent of code 2022 - Day_2: [Rock Paper Scissors](https://adventofcode.com/2022/day/2) 
