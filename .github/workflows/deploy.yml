@@ -33,6 +33,6 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: blog.arcbjorn.com
+          project: arcbjorn.deno.dev
           entrypoint: "main.ts"
           root: "."
