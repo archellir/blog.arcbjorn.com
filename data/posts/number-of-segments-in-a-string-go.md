@@ -1,8 +1,8 @@
 ---
 title: Number of segments in a string
 published_at: 2022-12-28 12:00
-snippet: 434 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 434
 ---
 
 [Leetcode 434 problem.](https://leetcode.com/problems/number-of-segments-in-a-string/)

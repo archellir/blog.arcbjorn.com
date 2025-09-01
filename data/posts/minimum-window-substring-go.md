@@ -1,8 +1,8 @@
 ---
 title: Minimum window substring
 published_at: 2023-02-26 12:00
-snippet: 76 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 76
 ---
 
 [Leetcode 76 problem.](https://leetcode.com/problems/minimum-window-substring/)

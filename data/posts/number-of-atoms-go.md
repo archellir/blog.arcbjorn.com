@@ -1,8 +1,8 @@
 ---
 title: Number of atoms
 published_at: 2023-02-27 12:00
-snippet: 726 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 726
 ---
 
 [Leetcode 726 problem.](https://leetcode.com/problems/number-of-atoms/)

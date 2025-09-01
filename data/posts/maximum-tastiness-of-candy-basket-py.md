@@ -1,8 +1,8 @@
 ---
 title: Maximum tastiness of a candy basket
 published_at: 2023-02-23 12:00
-snippet: 2517 - Python solution
-tags: [leetcode]
+tags: [leetcode, python]
+leetcode_number: 2517
 ---
 
 [Leetcode 2517 problem.](https://leetcode.com/problems/maximum-tastiness-of-candy-basket/)

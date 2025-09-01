@@ -1,8 +1,8 @@
 ---
 title: Map with sum of pairs function
 published_at: 2022-12-4 12:00
-snippet: 677 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 677
 ---
 
 [Leetcode 677 problem.](https://leetcode.com/problems/map-sum-pairs/)

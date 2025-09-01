@@ -1,8 +1,8 @@
 ---
 title: Middle of the linked list
 published_at: 2023-03-04 12:02
-snippet: 876 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 876
 ---
 
 [Leetcode 876 problem.](https://leetcode.com/problems/middle-of-the-linked-list/)

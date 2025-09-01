@@ -1,8 +1,8 @@
 ---
 title: Maximum subarray
 published_at: 2023-02-20 12:03
-snippet: 53 - Go, Typescript solutions
-tags: [leetcode]
+tags: [leetcode, go, typescript]
+leetcode_number: 53
 ---
 
 [Leetcode 53 problem.](https://leetcode.com/problems/maximum-subarray/)

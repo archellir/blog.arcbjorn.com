@@ -1,8 +1,8 @@
 ---
 title: Minimum size subarray sum
 published_at: 2023-02-26 12:01
-snippet: 209 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 209
 ---
 
 [Leetcode 209 problem.](https://leetcode.com/problems/minimum-size-subarray-sum/)

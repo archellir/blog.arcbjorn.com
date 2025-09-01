@@ -1,8 +1,8 @@
 ---
 title: Merge intervals
 published_at: 2023-02-23 12:01
-snippet: 56 - Python solution
-tags: [leetcode]
+tags: [leetcode, python]
+leetcode_number: 56
 ---
 
 [Leetcode 56 problem.](https://leetcode.com/problems/merge-intervals/)
