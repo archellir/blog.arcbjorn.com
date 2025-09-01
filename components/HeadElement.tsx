@@ -51,6 +51,8 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
       <meta name="author" content="arcbjorn" />
       <meta name="robots" content="index, follow" />
       <meta property="article:author" content="arcbjorn" />
+      <meta name="theme-color" content="#1b1d1e" />
+      <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss" />
     </Head>
   );
 };

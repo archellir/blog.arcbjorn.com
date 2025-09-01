@@ -88,6 +88,23 @@ const BlogPostPage: FunctionalComponent<TPostPageProps> = (props) => {
       />
 
       <StructuredData type="BlogPosting" data={blogPostData} />
+      
+      <StructuredData type="BreadcrumbList" data={{
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": url.origin
+          },
+          {
+            "@type": "ListItem", 
+            "position": 2,
+            "name": data.post.title,
+            "item": url.href
+          }
+        ]
+      }} />
 
       <BlogLayout includeCodeHighlighting>
         <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
