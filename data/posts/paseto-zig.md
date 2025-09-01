@@ -2,7 +2,7 @@
 title: "Implementating PASETO in Zig"
 published_at: "2025-08-21 12:00"
 snippet: "PASETO v4 in Zig, exploring cryptographic security through type safety and zero-cost abstractions."
-tags: ["zig", "cryptography", "security"]
+tags: ["zig", "crypto", "security"]
 ---
 
 Platform-Agnostic Security Tokens (PASETO) represent a modern alternative to JWT, designed with security as the primary concern. Here is [implementation of PASETO v4 in Zig](https://github.com/archellir/blog.arcbjorn.com) with additional insights about both the protocol's design and Zig's unique strengths for cryptographic software.

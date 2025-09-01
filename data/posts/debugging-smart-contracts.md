@@ -2,7 +2,7 @@
 title: "Debugging Smart Contracts"
 published_at: "2025-08-31 12:00"
 snippet: "Notes from building CrossPay"
-tags: ["solidity", "debugging", "blockchain"]
+tags: ["solidity", "blockchain", "EVM"]
 ---
 
 Seems like it's less about clever code and more about disciplined problem‑solving under uncertainty. Here's some debugging notes when building [CrossPay](https://github.com/arcbjorn/crosspay) during [Aleph Hackathon](https://dorahacks.io/hackathon/aleph-hackathon/detail).
