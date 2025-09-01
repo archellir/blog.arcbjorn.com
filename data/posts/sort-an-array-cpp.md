@@ -1,7 +1,7 @@
 ---
 title: Sort an array
 published_at: 2023-02-19 12:03
-tags: [leetcode, cpp]
+tags: [leetcode, "C++"]
 leetcode_number: 912
 ---
 

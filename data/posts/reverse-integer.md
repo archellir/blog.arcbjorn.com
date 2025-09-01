@@ -1,7 +1,7 @@
 ---
 title: Reverse integer
 published_at: 2022-11-01 12:00
-tags: [leetcode, go, typescript, cpp]
+tags: [leetcode, go, typescript, "C++"]
 leetcode_number: 7
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Single number III
 published_at: 2023-03-05 12:03
-tags: [leetcode, go, cpp]
+tags: [leetcode, go, "C++"]
 leetcode_number: 260
 ---
 
