@@ -49,6 +49,26 @@ ol {
   color: #22c55e !important; /* text-green-500 for hover effect */
 }
 
+/* Markdown body code block scrollbar styling */
+.markdown-body pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.markdown-body pre::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
+.markdown-body pre::-webkit-scrollbar-thumb {
+  background: #555555;
+  border-radius: 4px;
+}
+
+.markdown-body pre::-webkit-scrollbar-thumb:hover {
+  background: #777777;
+}
+
 /* Loading animation */
 .dot-wave {
   --uib-size: 70px;
