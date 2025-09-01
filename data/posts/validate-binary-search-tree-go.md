@@ -1,8 +1,8 @@
 ---
 title: Validate binary search tree
 published_at: 2023-03-05 12:07
-snippet: 98 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 98
 ---
 
 [Leetcode 98 problem.](https://leetcode.com/problems/validate-binary-search-tree/)

@@ -1,8 +1,8 @@
 ---
 title: Valid anagram
 published_at: 2022-12-20 12:00
-snippet: 242 - Go solutions
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 242
 ---
 
 [Leetcode 242 problem.](https://leetcode.com/problems/valid-anagram/)

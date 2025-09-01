@@ -1,8 +1,8 @@
 ---
 title: Valid palindrome
 published_at: 2022-12-17 12:00
-snippet: 125 - Go solution
-tags: [leetcode]
+tags: [leetcode, go]
+leetcode_number: 125
 ---
 
 [Leetcode 125 problem.](https://leetcode.com/problems/valid-palindrome/)
