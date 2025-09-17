@@ -1,7 +1,7 @@
 ---
 title: Running Dokploy in Kubernetes
-published_at: 2025-09-17 13:00
-snippet: A Hybrid Architecture for Modern Deployments
+published_at: 2025-09-17 12:00
+snippet: Hybrid Architecture for Modern Deployments
 tags: [linux, k8s]
 ---
 

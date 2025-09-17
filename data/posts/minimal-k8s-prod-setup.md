@@ -1,6 +1,6 @@
 ---
 title: Minimal K8s Stack for Multi-Tenant SaaS
-published_at: 2025-09-17 12:00
+published_at: 2025-09-16 12:00
 snippet: K3s, Argo CD, KEDA, VictoriaMetrics, cert-manager, and CloudNativePG
 tags: [linux, k8s]
 ---
