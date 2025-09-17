@@ -241,7 +241,7 @@ resources:
 
 ---
 
-## Practical Outcome
+## Flows
 
 * Git push updates desired state → Argo CD syncs → zero-downtime rollout.
 * Traffic spikes → HPA/KEDA scale replicas.
@@ -251,7 +251,5 @@ resources:
 * Upgrades → K3s binary update + Helm chart bumps in Git.
 
 ---
-
-## Conclusion
 
 This stack assembles **lightweight components** that are widely deployed in production and intentionally conservative in design. The result is **predictable reliability** with **minimal day-to-day fuss**: declarative deployments, meaningful autoscaling, automated TLS/DNS, comprehensive telemetry, and robust backups. It fits small servers, scales cleanly, and keeps operations boring—exactly what production infrastructure should be.
