@@ -78,4 +78,5 @@ export const POST_URL_NAMES = [
   "/validate-binary-search-tree-go",
   "/word-pattern-go",
   "/lucky-numbers-in-a-matrix-go",
+  "/k3s-tailscale-mesh-networking",
 ];
