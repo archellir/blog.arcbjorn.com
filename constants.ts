@@ -79,4 +79,5 @@ export const POST_URL_NAMES = [
   "/word-pattern-go",
   "/lucky-numbers-in-a-matrix-go",
   "/k3s-tailscale-mesh-networking",
+  "/metallb-multi-node-ingress",
 ];
