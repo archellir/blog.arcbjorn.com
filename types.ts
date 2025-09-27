@@ -24,10 +24,6 @@ export interface IState {
   locales: string[];
 }
 
-export interface IHomePageData extends IState {
-  postsData: IPostsResponse;
-}
-
 export interface IPostsResponse {
   posts: IPost[];
   all: number;

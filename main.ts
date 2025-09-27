@@ -1,59 +1,60 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-/// <reference lib="dom.asynciterable" />
-/// <reference lib="deno.ns" />
+import { App, staticFiles } from "fresh";
+import { define } from "./fresh.ts";
+import type { IState } from "./types.ts";
 
-import "$std/dotenv/load.ts";
+// Initialize app
+export const app = new App<IState>();
 
-import { start } from "$fresh/server.ts";
-import manifest from "./fresh.gen.ts";
-import config from "./fresh.config.ts";
-import { freshSEOPlugin } from "https://deno.land/x/fresh_seo@1.0.1/mod.ts";
-import { FreshContext } from "$fresh/server.ts";
-import { POST_URL_NAMES } from "./constants.ts";
+// Serve files from ./static at / and enable Vite client
+app.use(staticFiles());
 
-const staticCacheMiddleware = {
-  name: "staticCacheMiddleware",
-  middlewares: [
-    {
-      path: "/",
-      middleware: {
-        handler: async (req: Request, ctx: FreshContext) => {
-          const res = await ctx.next();
-          const url = new URL(req.url);
+// Cache policy for specific static assets
+const staticCacheMiddleware = define.middleware(async (ctx) => {
+  const res = await ctx.next();
+  const url = new URL(ctx.req.url);
 
-          // Cache fonts
-          if (url.pathname.match(/\.(ttf|woff|woff2)$/)) {
-            res.headers.set(
-              "Cache-Control",
-              "public, max-age=31536000, immutable",
-            );
-          }
+  if (url.pathname.match(/\.(ttf|woff|woff2)$/)) {
+    res.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+  }
 
-          // Cache Creative Commons image
-          if (url.pathname.endsWith("/by-nc-sa.svg")) {
-            res.headers.set(
-              "Cache-Control",
-              "public, max-age=31536000, immutable",
-            );
-          }
+  if (url.pathname.endsWith("/by-nc-sa.svg")) {
+    res.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+  }
 
-          return res;
-        },
-      },
-    },
-  ],
-};
-
-// Merge starter config plugins (Tailwind) with project plugins
-await start(manifest, {
-  ...config,
-  plugins: [
-    ...(config.plugins ?? []),
-    staticCacheMiddleware,
-    freshSEOPlugin(manifest, {
-      include: POST_URL_NAMES,
-    }),
-  ],
+  return res;
 });
+app.use(staticCacheMiddleware);
+
+// Locale detection (replaces routes/_middleware.tsx)
+const localesMiddleware = define.middleware((ctx) => {
+  const header = ctx.req.headers.get("accept-language") || undefined;
+  const locales: string[] = [];
+  try {
+    // lightweight parse to keep compatibility if parser is unavailable
+    const parts = (header ?? "").split(",");
+    for (const part of parts) {
+      const token = part.trim().split(";")[0];
+      if (token) locales.push(token);
+    }
+  } catch (_) {
+    // ignore
+  }
+  if (locales.length === 0) locales.push("en");
+  ctx.state.locales = locales;
+  return ctx.next();
+});
+app.use(localesMiddleware);
+
+// Log unexpected errors during SSR/handlers
+const errorLogger = define.middleware(async (ctx) => {
+  try {
+    return await ctx.next();
+  } catch (err) {
+    console.error("Unhandled error:", err);
+    throw err;
+  }
+});
+app.use(errorLogger);
+
+// Register file-system routes
+app.fsRoutes();

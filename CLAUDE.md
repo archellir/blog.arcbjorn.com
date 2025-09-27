@@ -14,23 +14,20 @@ technical explorations.
 
 ### Core Development
 
-- `deno task start` - Start development server with hot reloading
+- `deno task dev` - Start development server (Vite + HMR)
 - `deno task build` - Build the project for production
-- `deno task preview` - Run production build locally
+- `deno task start` - Serve the production build
 
 ### Testing
 
 - `deno task test` - Run all tests with proper permissions
-- `deno test --allow-read --allow-env` - Run tests directly with manual
-  permissions
-- `deno task check` - Type check all TypeScript files
-- `deno task ok` - Alias for check command
+- `deno test --allow-read --allow-env` - Run tests directly with manual permissions
+- `deno task check` - Format, lint, and type check
 - Tests use Deno's built-in testing framework with BDD-style describe/it blocks
 
 ### Dependency Management
 
-- `deno run -A -r https://fresh.deno.dev/update .` - Update Fresh framework and
-  dependencies
+- `deno run -A -r jsr:@fresh/update .` - Update Fresh framework and dependencies
 
 ## Architecture
 
@@ -50,10 +47,11 @@ technical explorations.
   - `[id].tsx` - Dynamic blog post pages
   - `posts.ts` - API endpoint for post data
 - `islands/` - Client-side interactive components (Fresh islands)
-- `components/` - Server-side React components
+- `components/` - Preact components (server-rendered)
 - `api/` - Data access layer for posts
 - `data/posts/` - Markdown blog posts with frontmatter
-- `static/` - Static assets (CSS, fonts, images)
+- `static/` - Static assets (fonts, images, scripts)
+- `assets/` - CSS entry for Tailwind v4, bundled via Vite from `client.ts`
 - `utils/` - Utility functions for URL parsing and pagination
 
 ### Key Architecture Patterns
@@ -92,7 +90,7 @@ frontmatter for categorization and filtering.
    image: "/images/posts/my-post-banner.png"  # optional - for social media previews
    ---
    ```
-3. Add post URL to `POST_URL_NAMES` array in `constants.ts` for SEO plugin
+3. No registry step needed; routes are resolved dynamically.
 
 ### Adding Images to Posts
 
@@ -114,23 +112,21 @@ frontmatter for categorization and filtering.
 
 ### Fresh Framework Specifics
 
-- Uses JSR imports for Fresh core (`jsr:@fresh/core`)
-- Handlers export `GET` functions for server-side logic
+- Uses JSR imports for Fresh core (`jsr:@fresh/core`) and `fresh/runtime`
+- Routes use `define.page` and `define.handlers` (v2 API)
 - Components are functional Preact components
-- Tailwind CSS config in `tailwind.config.ts` for styling
+- Tailwind v4 via `@tailwindcss/vite`; styles loaded from `client.ts`
 
 ### Performance Optimizations
 
 - Static asset caching middleware for fonts and images
-- Uses `asset()` function for cache-friendly asset URLs
 - Pagination system loads posts in sets of 6 (`POSTS_SET_NUMBER`)
 - Concurrent post loading using `Promise.all()`
 - Proper HTML structure in `_app.tsx` for SEO and performance
 
 ### SEO Features
 
-- Uses `fresh_seo` plugin for metadata generation
-- Dynamic meta tags based on post content
+- Dynamic meta tags based on post content (see `components/HeadElement.tsx`)
 - RSS feed generation at `/rss` endpoint
 
 ## Git Conventions
@@ -162,7 +158,7 @@ When adding new features:
 2. Follow Fresh conventions for handlers and components
 3. Use TypeScript interfaces defined in `types.ts`
 4. Maintain the islands architecture - keep interactivity minimal and isolated
-5. Use `asset()` function for static assets to enable proper caching
+5. Reference static assets by absolute paths (e.g., `/images/...`)
 6. Guard client-side code with `IS_BROWSER` checks when needed
 7. Test new API functions in `tests/api_test.ts`
 

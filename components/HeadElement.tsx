@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { Head } from "$fresh/runtime.ts";
+import { Head } from "fresh/runtime";
 
 interface IHeadProps {
   url: URL;

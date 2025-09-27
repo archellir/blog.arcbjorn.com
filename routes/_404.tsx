@@ -1,9 +1,9 @@
-import { FunctionalComponent } from "preact";
-import { PageProps } from "$fresh/server.ts";
+import { define } from "../fresh.ts";
 import Header from "../components/Header.tsx";
 import Footer from "../components/Footer.tsx";
 
-const NotFoundPage: FunctionalComponent<PageProps> = ({ url }) => {
+export default define.page((ctx) => {
+  const { url } = ctx;
   return (
     <>
       <Header />
@@ -24,6 +24,4 @@ const NotFoundPage: FunctionalComponent<PageProps> = ({ url }) => {
       <Footer />
     </>
   );
-};
-
-export default NotFoundPage;
+});

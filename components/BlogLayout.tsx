@@ -1,5 +1,4 @@
 import { ComponentChildren, FunctionalComponent } from "preact";
-import { asset } from "$fresh/runtime.ts";
 import { CSS, KATEX_CSS } from "$gfm";
 
 import Header from "./Header.tsx";
@@ -21,9 +20,9 @@ const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({
 
       {includeCodeHighlighting && (
         <>
-          <link rel="stylesheet" href={asset("/gruvbox-theme.css")} />
-          <link rel="stylesheet" href={asset("/mermaid-theme.css")} />
-          <script src={asset("/copy-buttons.js")}></script>
+          <link rel="stylesheet" href="/gruvbox-theme.css" />
+          <link rel="stylesheet" href="/mermaid-theme.css" />
+          <script src="/copy-buttons.js"></script>
         </>
       )}
 

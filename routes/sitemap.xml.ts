@@ -1,9 +1,9 @@
-import { Handlers } from "$fresh/server.ts";
+import { define } from "../fresh.ts";
 import { listPosts } from "../api/listPosts.ts";
 
-export const handler: Handlers = {
-  async GET(req: Request) {
-    const url = new URL(req.url);
+export const handler = define.handlers({
+  async GET(ctx) {
+    const url = new URL(ctx.req.url);
     const origin = url.origin;
 
     const postsData = await listPosts({ limit: 1000, offset: 0 });
@@ -34,4 +34,4 @@ export const handler: Handlers = {
       },
     });
   },
-};
+});

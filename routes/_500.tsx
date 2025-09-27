@@ -1,9 +1,9 @@
-import { FunctionalComponent } from "preact";
-import { PageProps } from "$fresh/server.ts";
+import { define } from "../fresh.ts";
 import Header from "../components/Header.tsx";
 import Footer from "../components/Footer.tsx";
 
-const InternalErrorPage: FunctionalComponent<PageProps> = ({ error }) => {
+export default define.page((ctx) => {
+  const { error } = ctx;
   return (
     <>
       <Header />
@@ -30,6 +30,4 @@ const InternalErrorPage: FunctionalComponent<PageProps> = ({ error }) => {
       <Footer />
     </>
   );
-};
-
-export default InternalErrorPage;
+});

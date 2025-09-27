@@ -1,17 +1,34 @@
 # arcbjorn's thoughts
 
-### Usage
+### Usage (Fresh 2)
 
-Start the project:
+Development:
 
 ```
+deno task dev
+```
+
+Build and run production server:
+
+```
+deno task build
 deno task start
 ```
 
-Update dependencies
+If you see a Tailwind oxide warning or Vite crashes in dev, allow oxide's install scripts once (required by Tailwind v4):
 
 ```
-deno run -A -r https://fresh.deno.dev/update .
+deno task oxide
 ```
 
-This will watch the project directory and restart as necessary.
+You can temporarily disable Tailwind in dev via:
+
+```
+NO_TAILWIND=1 deno task dev
+```
+
+Update Fresh and deps:
+
+```
+deno task update
+```

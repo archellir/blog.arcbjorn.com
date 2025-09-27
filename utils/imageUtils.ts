@@ -1,4 +1,3 @@
-import { asset } from "$fresh/runtime.ts";
 
 /**
  * Resolves an image path to a full URL
@@ -13,12 +12,12 @@ export function resolveImageUrl(
   fallback: string = "/images/og-default.png",
 ): string {
   if (!imagePath) {
-    return `${origin}${asset(fallback)}`;
+    return `${origin}${fallback}`;
   }
 
   if (imagePath.startsWith("http")) {
     return imagePath;
   }
 
-  return `${origin}${asset(imagePath)}`;
+  return `${origin}${imagePath}`;
 }
