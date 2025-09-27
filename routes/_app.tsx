@@ -23,8 +23,8 @@ export default define.page(function App({ Component }) {
 
         <script
           defer
-          src="https://analytics.arcbjorn.com/script.js"
-          data-website-id="b633e350-4ff3-41d4-803f-13eeaa62e121"
+          src="https://analytics.arcbjorn.com/t.js"
+          data-website-id="98f9ce97-6559-4cf5-90e2-3b059c58bb1a"
         />
       </head>
       <body>
