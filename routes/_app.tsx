@@ -36,6 +36,18 @@ export default define.page(function App({ Component }) {
           src="https://analytics.arcbjorn.com/t.js"
           data-website-id="98f9ce97-6559-4cf5-90e2-3b059c58bb1a"
         />
+
+        {/* PrismJS language definitions for syntax highlighting */}
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-c?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-cpp?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-go?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-yaml?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-zig?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-rust?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-java?no-check" />
+        <script async src="https://esm.sh/prismjs@1.27.0/components/prism-python?no-check" />
       </head>
       <body f-client-nav>
         <div class="container mx-auto h-full animate-appear">

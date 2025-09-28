@@ -9,17 +9,7 @@ import HeadElement from "../components/HeadElement.tsx";
 import BlogLayout from "../components/BlogLayout.tsx";
 import StructuredData from "../components/StructuredData.tsx";
 
-// PrismJS language definitions for syntax highlighting
-import "https://esm.sh/prismjs@1.27.0/components/prism-c?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-cpp?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-typescript?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-go?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-bash?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-yaml?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-zig?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-rust?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-java?no-check";
-import "https://esm.sh/prismjs@1.27.0/components/prism-python?no-check";
+// PrismJS language definitions are loaded via HTML head scripts
 
 export default define.page(async (ctx) => {
   const url = ctx.url;
