@@ -175,11 +175,11 @@ service:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ K3s Control Plane (Shared)                              │
-│ ┌─────────────────┐  ┌─────────────────┐               │
-│ │ MetalLB         │  │ Cert-Manager    │               │
-│ │ Controller      │  │ Operator        │               │
-│ └─────────────────┘  └─────────────────┘               │
+│            K3s Control Plane (Shared)                   │
+│    ┌─────────────────┐  ┌─────────────────┐             │
+│    │ MetalLB         │  │ Cert-Manager    │             │
+│    │ Controller      │  │ Operator        │             │
+│    └─────────────────┘  └─────────────────┘             │
 └─────────────────────────────────────────────────────────┘
                          │
         ┌────────────────┴────────────────┐
@@ -188,16 +188,16 @@ service:
 │ Node A         │              │ Node B           │
 │ 10.0.0.1       │              │ 10.0.0.2         │
 │                │              │                  │
-│ ┌────────────┐ │              │ ┌──────────────┐│
-│ │nginx-a     │ │              │ │nginx-b       ││
-│ │controller  │ │              │ │controller    ││
-│ └────────────┘ │              │ └──────────────┘│
+│ ┌────────────┐ │              │ ┌──────────────┐ │
+│ │nginx-a     │ │              │ │nginx-b       │ │
+│ │controller  │ │              │ │controller    │ │
+│ └────────────┘ │              │ └──────────────┘ │
 │                │              │                  │
-│ ┌────────────┐ │              │ ┌──────────────┐│
-│ │MetalLB     │ │              │ │MetalLB       ││
-│ │Speaker     │ │              │ │Speaker       ││
-│ │(pool-a)    │ │              │ │(pool-b)      ││
-│ └────────────┘ │              │ └──────────────┘│
+│ ┌────────────┐ │              │ ┌──────────────┐ │
+│ │MetalLB     │ │              │ │MetalLB       │ │
+│ │Speaker     │ │              │ │Speaker       │ │
+│ │(pool-a)    │ │              │ │(pool-b)      │ │
+│ └────────────┘ │              │ └──────────────┘ │
 └────────────────┘              └──────────────────┘
   tenant-a.com                    tenant-b.com
 ```
@@ -294,24 +294,24 @@ L2 mode proves sufficient for most bare-metal deployments.
 
 ### Separate Clusters Per Tenant
 
-**Pros**: Maximum isolation **Cons**:
-
+**Pros**: Maximum isolation
+**Cons**:
 - N control planes to manage
 - No shared services (duplicate infrastructure)
 - Complex inter-cluster networking
 
 ### Single Ingress + Host-Based Routing
 
-**Pros**: Simple **Cons**:
-
+**Pros**: Simple
+**Cons**:
 - All traffic through one node (SPOF)
 - No true isolation
 - Resource contention
 
 ### External Load Balancer (HAProxy, etc.)
 
-**Pros**: Functional **Cons**:
-
+**Pros**: Functional
+**Cons**:
 - Additional component management
 - More complex routing rules
 - Extra hop for traffic
