@@ -1,9 +1,29 @@
-import { App, staticFiles } from "fresh";
+import { App, cors, csp, csrf, staticFiles, trailingSlashes } from "fresh";
 import { define } from "./fresh.ts";
 import type { IState } from "./types.ts";
 
 // Initialize app
 export const app = new App<IState>();
+
+// Trailing slashes handling (remove trailing slashes)
+app.use(trailingSlashes("never"));
+
+// CORS policy
+app.use(cors());
+
+// CSRF protection
+app.use(csrf());
+
+// Content Security Policy
+app.use(csp({
+  csp: [
+    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://analytics.arcbjorn.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: https:",
+    "connect-src 'self' https://analytics.arcbjorn.com",
+  ],
+}));
 
 // Serve files from ./static at / and enable Vite client
 app.use(staticFiles());
@@ -84,7 +104,7 @@ app.onError("*", (ctx) => {
 });
 
 // Not found handler
-app.notFound((ctx) => {
+app.notFound((_ctx) => {
   return new Response("Not Found", { status: 404 });
 });
 
