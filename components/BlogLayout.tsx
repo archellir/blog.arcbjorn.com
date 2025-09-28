@@ -2,9 +2,6 @@ import { ComponentChildren, FunctionalComponent } from "preact";
 import { CSS, KATEX_CSS } from "$gfm";
 import { asset } from "fresh/runtime";
 
-import Header from "./Header.tsx";
-import Footer from "./Footer.tsx";
-
 interface BlogLayoutProps {
   children: ComponentChildren;
   includeCodeHighlighting?: boolean;
@@ -27,13 +24,9 @@ const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({
         </>
       )}
 
-      <Header />
-
       <main>
         {children}
       </main>
-
-      <Footer />
     </>
   );
 };
