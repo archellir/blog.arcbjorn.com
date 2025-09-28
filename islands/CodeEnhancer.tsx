@@ -35,6 +35,16 @@ export default function CodeEnhancer() {
 
     Prism.highlightAll();
 
+    // Remove backslashes before dollar signs in code blocks (after Prism highlighting)
+    setTimeout(() => {
+      document.querySelectorAll('.markdown-body pre code').forEach((block) => {
+        const html = block.innerHTML;
+        if (html.includes('\\$')) {
+          block.innerHTML = html.replace(/\\(\$)/g, '$1');
+        }
+      });
+    }, 100);
+
     if (window.mermaid) {
       window.mermaid.initialize({
         startOnLoad: false,
