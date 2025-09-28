@@ -173,33 +173,28 @@ service:
 
 ### Architecture Diagram
 
-```
-┌─────────────────────────────────────────────────────────┐
-│            K3s Control Plane (Shared)                   │
-│    ┌─────────────────┐  ┌─────────────────┐             │
-│    │ MetalLB         │  │ Cert-Manager    │             │
-│    │ Controller      │  │ Operator        │             │
-│    └─────────────────┘  └─────────────────┘             │
-└─────────────────────────────────────────────────────────┘
-                         │
-        ┌────────────────┴────────────────┐
-        │                                 │
-┌───────▼────────┐              ┌─────────▼────────┐
-│ Node A         │              │ Node B           │
-│ 10.0.0.1       │              │ 10.0.0.2         │
-│                │              │                  │
-│ ┌────────────┐ │              │ ┌──────────────┐ │
-│ │nginx-a     │ │              │ │nginx-b       │ │
-│ │controller  │ │              │ │controller    │ │
-│ └────────────┘ │              │ └──────────────┘ │
-│                │              │                  │
-│ ┌────────────┐ │              │ ┌──────────────┐ │
-│ │MetalLB     │ │              │ │MetalLB       │ │
-│ │Speaker     │ │              │ │Speaker       │ │
-│ │(pool-a)    │ │              │ │(pool-b)      │ │
-│ └────────────┘ │              │ └──────────────┘ │
-└────────────────┘              └──────────────────┘
-  tenant-a.com                    tenant-b.com
+```mermaid
+flowchart TB
+    subgraph CP[K3s Control Plane - Shared]
+        Controller[MetalLB Controller]
+        CertMgr[Cert-Manager]
+    end
+
+    CP --> NodeA
+    CP --> NodeB
+
+    subgraph NodeA[Node A - 10.0.0.1]
+        NginxA[NGINX Controller A]
+        SpeakerA[MetalLB Speaker<br/>pool-a]
+    end
+
+    subgraph NodeB[Node B - 10.0.0.2]
+        NginxB[NGINX Controller B]
+        SpeakerB[MetalLB Speaker<br/>pool-b]
+    end
+
+    ClientA[tenant-a.com] -.-> NodeA
+    ClientB[tenant-b.com] -.-> NodeB
 ```
 
 ## Benefits
