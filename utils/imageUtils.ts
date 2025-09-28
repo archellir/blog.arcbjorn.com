@@ -1,4 +1,3 @@
-
 /**
  * Resolves an image path to a full URL
  * @param imagePath - The image path (can be relative or absolute URL)

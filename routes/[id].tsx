@@ -1,7 +1,7 @@
 import { define } from "../fresh.ts";
 import { render } from "$gfm";
 
-import { IPost } from "../types.ts";
+import type { IPost as _IPost } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
 import { resolveImageUrl } from "../utils/imageUtils.ts";
 
@@ -20,7 +20,9 @@ export default define.page(async (ctx) => {
     return new Response("", { status: 303, headers });
   }
 
-  const dateFmt = new Intl.DateTimeFormat(ctx.state.locales, { dateStyle: "full" });
+  const dateFmt = new Intl.DateTimeFormat(ctx.state.locales, {
+    dateStyle: "full",
+  });
   const date = new Date(post.publishedAt);
   const localizedDate = dateFmt.format(date);
 
@@ -62,23 +64,26 @@ export default define.page(async (ctx) => {
       />
 
       <StructuredData type="BlogPosting" data={blogPostData} />
-      
-      <StructuredData type="BreadcrumbList" data={{
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": url.origin
-          },
-          {
-            "@type": "ListItem", 
-            "position": 2,
-            "name": post.title,
-            "item": url.href
-          }
-        ]
-      }} />
+
+      <StructuredData
+        type="BreadcrumbList"
+        data={{
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": url.origin,
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": post.title,
+              "item": url.href,
+            },
+          ],
+        }}
+      />
 
       <BlogLayout includeCodeHighlighting>
         <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
