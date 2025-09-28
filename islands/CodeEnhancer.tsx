@@ -50,6 +50,8 @@ export default function CodeEnhancer() {
           mainBkg: '#282828',
           secondBkg: '#3c3836',
           tertiaryBkg: '#504945',
+          clusterBkg: '#282828',
+          clusterBorder: '#689d6a',
           fontFamily: '"Source Serif Pro", Georgia, serif',
         },
         flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true },
