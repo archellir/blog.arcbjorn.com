@@ -35,6 +35,29 @@ code, pre {
   font-family: "Fira Code", "SF Mono", Monaco, Consolas, monospace !important;
 }
 
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg);
+}
+
 /* List styles */
 ul {
   list-style-type: disc;
