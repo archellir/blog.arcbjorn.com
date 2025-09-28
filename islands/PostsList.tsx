@@ -96,20 +96,22 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
             return <Post key={post.id} post={post} locales={props.locales} />;
           })}
         </ul>
-        {isLoading ? <Loader /> : hasMore
-          ? (
-            <button
-              role="button"
-              type="button"
-              class="mx-auto my-8"
-              onClick={loadMorePosts}
-            >
-              <span class="button_top prevent-select">
-                More posts
-              </span>
-            </button>
-          )
-          : null}
+        <div class="min-h-32 flex items-center justify-center">
+          {isLoading ? <Loader /> : hasMore
+            ? (
+              <button
+                role="button"
+                type="button"
+                class="my-8"
+                onClick={loadMorePosts}
+              >
+                <span class="button_top prevent-select">
+                  More posts
+                </span>
+              </button>
+            )
+            : null}
+        </div>
       </div>
     </>
   );
