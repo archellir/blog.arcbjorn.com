@@ -15,9 +15,9 @@ n8n (nodemation) represents the visual programming paradigm taken seriously. Bui
 
 ```
 ┌──────────────┐     ┌─────────────┐     ┌──────────────┐
-│   Browser    │────▶│  Express    │────▶│  PostgreSQL  │
-│   (Vue.js)   │     │   Server    │     │              │
-└──────────────┘     └─────────────┘     └──────────────┘
+ │   Browser    │────▶│  Express    │────▶│  PostgreSQL  │
+ │   (Vue.js)   │     │   Server    │     │              │
+ └──────────────┘     └─────────────┘     └──────────────┘
                             │
                      ┌──────▼──────┐
                      │  Bull Queue │
@@ -33,9 +33,9 @@ Windmill took a radically different approach. The orchestrator is written in Rus
 
 ```
 ┌─────────────┐
-│ Rust Core   │──────▶ PostgreSQL (Source of Truth)
-└─────────────┘              │
-       │                     │
+ │ Rust Core   │──────▶ PostgreSQL (Source of Truth)
+ └─────────────┘              │
+       │                      │
 ┌──────▼───────────────────────────────┐
 │     Worker Pool (Isolated)           │
 │  ┌────────┐ ┌────────┐ ┌────────┐    │
@@ -53,9 +53,9 @@ Temporal doesn't just handle workflows; it implements the [Virtual Actor pattern
 
 ```
 ┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│   Frontend  │────▶│   Matching   │────▶│   History   │
-│   Service   │     │   Service    │     │   Service   │
-└─────────────┘     └──────────────┘     └─────────────┘
+ │   Frontend  │────▶│   Matching   │────▶│   History   │
+ │   Service   │     │   Service    │     │   Service   │
+ └─────────────┘     └──────────────┘     └─────────────┘
                             │
                     ┌───────▼────────┐
                     │     Workers    │
