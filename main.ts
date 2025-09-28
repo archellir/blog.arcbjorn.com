@@ -17,7 +17,11 @@ app.use(csrf());
 // Content Security Policy
 app.use(csp({
   csp: [
-    "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:",
+    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://analytics.arcbjorn.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com",
+    "img-src 'self' data: https: https://mirrors.creativecommons.org",
+    "connect-src 'self' https://analytics.arcbjorn.com",
   ],
 }));
 
