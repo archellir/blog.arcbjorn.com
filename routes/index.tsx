@@ -1,8 +1,6 @@
 import { define } from "../fresh.ts";
 
 import HeadElement from "../components/HeadElement.tsx";
-import Header from "../components/Header.tsx";
-import Footer from "../components/Footer.tsx";
 import Introduction from "../components/Introduction.tsx";
 import PostsList from "../islands/PostsList.tsx";
 
@@ -25,15 +23,9 @@ export default define.page(async (ctx) => {
         description="Tech explorations"
       />
 
-      <div class="flex flex-col h-full">
-        <Header />
+      <Introduction />
 
-        <Introduction />
-
-        <PostsList postsData={postsData} locales={locales} />
-
-        <Footer classes="mt-auto" />
-      </div>
+      <PostsList postsData={postsData} locales={locales} />
     </>
   );
 });
