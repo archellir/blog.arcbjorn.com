@@ -23,9 +23,11 @@ export default define.page(async (ctx) => {
         description="Tech explorations"
       />
 
-      <Introduction />
+      <div class="flex flex-col flex-grow">
+        <Introduction />
 
-      <PostsList postsData={postsData} locales={locales} />
+        <PostsList postsData={postsData} locales={locales} />
+      </div>
     </>
   );
 });

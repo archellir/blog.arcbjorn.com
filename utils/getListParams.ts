@@ -1,18 +1,22 @@
-import { urlParse } from "url_parse";
-import * as queryString from "querystring";
 import { IListLoadParams, IQueryParams } from "../types.ts";
 import { POSTS_SET_NUMBER } from "../constants.ts";
+import parseQueryParams from "./parseQueryParams.ts";
 
 function getQueryParams(rawUrl: string): IQueryParams {
-  const url = urlParse(rawUrl);
-  return queryString.parse(url.search) as unknown as IQueryParams;
+  const url = new URL(rawUrl);
+  return parseQueryParams(url.search);
 }
 
 export function getListLoadParams(rawUrl: string): IListLoadParams {
   const queryParams = getQueryParams(rawUrl);
 
-  const offset = Number(queryParams.offset);
-  const limit = Number(queryParams.limit);
+  const rawOffset = Number(queryParams.offset);
+  const rawLimit = Number(queryParams.limit);
+
+  const offset = Number.isFinite(rawOffset) && rawOffset > 0 ? rawOffset : 0;
+  const limit = Number.isFinite(rawLimit) && rawLimit > 0
+    ? rawLimit
+    : POSTS_SET_NUMBER;
 
   return { offset, limit, tags: queryParams.tags };
 }
@@ -20,11 +24,10 @@ export function getListLoadParams(rawUrl: string): IListLoadParams {
 export function getFirstLoadListParams(rawUrl: string): IListLoadParams {
   const queryParams = getQueryParams(rawUrl);
 
-  let quantity = Number(queryParams.quantity);
-
-  if (!quantity) {
-    quantity = POSTS_SET_NUMBER;
-  }
+  const rawQuantity = Number(queryParams.quantity);
+  const quantity = Number.isFinite(rawQuantity) && rawQuantity > 0
+    ? rawQuantity
+    : POSTS_SET_NUMBER;
 
   return { offset: 0, limit: quantity, tags: queryParams.tags };
 }

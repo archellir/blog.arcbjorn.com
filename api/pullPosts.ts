@@ -7,7 +7,7 @@ export async function pullPosts(
   tags = "",
 ): Promise<IPostsResponse> {
   const offset = posts.length.toString();
-  const limit = (posts.length + POSTS_SET_NUMBER).toString();
+  const limit = POSTS_SET_NUMBER.toString();
 
   let requestUrl = url + "/posts?" +
     new URLSearchParams({ offset, limit });

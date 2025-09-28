@@ -1,2 +1,15 @@
 @import "tailwindcss";
 @import "../static/app.css";
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-appear {
+  animation: appear 0.3s ease-in;
+}

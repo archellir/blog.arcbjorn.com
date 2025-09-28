@@ -1,6 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { useCallback, useEffect, useRef } from "preact/hooks";
-import { signal } from "@preact/signals";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 
 import Post from "../components/Post.tsx";
 import Loader from "../components/Loader.tsx";
@@ -15,20 +14,21 @@ type IPostsListPageData = IState & {
 };
 
 const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
-  const posts = signal<IPost[]>(props.postsData.posts);
+  const [posts, setPosts] = useState<IPost[]>(props.postsData.posts);
   const loadingTimeoutRef = useRef<number | null>(null);
 
   const all = props.postsData.posts.length === props.postsData.all;
-  const hasMore = signal<boolean>(!all);
-  const isLoading = signal<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(!all);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { measureRef, isIntersecting, observer } = useOnScreen();
-  const isMobile = signal<boolean>(globalThis.innerWidth <= 576);
+  const [isMobile, setIsMobile] = useState<boolean>(
+    globalThis.innerWidth <= 576,
+  );
 
   const loadMorePosts = useCallback(async () => {
-    isLoading.value = true;
+    setIsLoading(true);
 
-    // Clear any existing timeout
     if (loadingTimeoutRef.current) {
       clearTimeout(loadingTimeoutRef.current);
     }
@@ -41,26 +41,21 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
       queryParamsString = `?tags=${queryParams.tags}&`;
     }
 
-    const postsData = await pullPosts(
-      baseOrigin,
-      posts.value,
-      queryParams.tags,
-    );
+    const postsData = await pullPosts(baseOrigin, [...posts], queryParams.tags);
 
-    // Set minimum loading time
     loadingTimeoutRef.current = setTimeout(() => {
       queryParamsString += `quantity=${postsData.posts.length}`;
       const refreshUrl = baseOrigin + queryParamsString;
       globalThis.history.pushState({ path: refreshUrl }, "", refreshUrl);
 
-      const hasMorePosts = postsData.posts.length !== postsData.all;
+      const hasMore = postsData.posts.length !== postsData.all;
 
-      posts.value = [...postsData.posts];
-      hasMore.value = hasMorePosts;
-      isLoading.value = false;
-      isMobile.value = globalThis.innerWidth <= 576;
+      setPosts(postsData.posts);
+      setHasMore(hasMore);
+      setIsLoading(false);
+      setIsMobile(globalThis.innerWidth <= 576);
     }, 750);
-  }, [globalThis.location]);
+  }, [posts]);
 
   useEffect(() => {
     return () => {
@@ -71,24 +66,24 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (!isMobile.value) {
+    if (!isMobile) {
       return;
     }
 
-    if (isIntersecting && hasMore.value) {
+    if (isIntersecting && hasMore) {
       loadMorePosts();
       if (observer) {
         observer.disconnect();
       }
     }
-  }, [isIntersecting, hasMore.value, loadMorePosts]);
+  }, [isIntersecting, hasMore, loadMorePosts]);
 
   return (
     <>
       <div class="flex flex-col max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
         <ul class="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
-          {posts.value.map((post, index) => {
-            if (index === posts.value.length - 1) {
+          {posts.map((post, index) => {
+            if (index === posts.length - 1) {
               return (
                 <Post
                   key={post.id}
@@ -101,7 +96,7 @@ const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
             return <Post key={post.id} post={post} locales={props.locales} />;
           })}
         </ul>
-        {isLoading.value ? <Loader /> : hasMore.value
+        {isLoading ? <Loader /> : hasMore
           ? (
             <button
               role="button"
