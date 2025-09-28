@@ -1,4 +1,5 @@
-import { Ref, useCallback, useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
+import type { Ref } from "preact";
 
 interface IUseOnScreenResult {
   measureRef: Ref<HTMLLIElement>;
