@@ -14,16 +14,20 @@ app.use(cors());
 // CSRF protection
 app.use(csrf());
 
-// Content Security Policy - DISABLED FOR NOW
-// app.use(csp({
-//   csp: [
-//     "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://analytics.arcbjorn.com",
-//     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-//     "font-src 'self' https://fonts.gstatic.com",
-//     "img-src 'self' data: https: https://mirrors.creativecommons.org",
-//     "connect-src 'self' https://analytics.arcbjorn.com",
-//   ],
-// }));
+// Content Security Policy
+app.use(csp({
+  csp: [
+    "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
+    "style-src 'self' 'unsafe-inline' https:",
+    "font-src 'self' https:",
+    "img-src 'self' data: https:",
+    "connect-src 'self' https:",
+    "media-src 'self' https:",
+    "object-src 'none'",
+    "base-uri 'self'",
+  ],
+}));
 
 // Serve files from ./static at / and enable Vite client
 app.use(staticFiles());
