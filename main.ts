@@ -14,20 +14,10 @@ app.use(cors());
 // CSRF protection
 app.use(csrf());
 
-// Content Security Policy - REMOVED FOR NOW
-// app.use(csp({
-//   csp: [
-//     "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:",
-//     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
-//     "style-src 'self' 'unsafe-inline' https:",
-//     "font-src 'self' https:",
-//     "img-src 'self' data: https:",
-//     "connect-src 'self' https:",
-//     "media-src 'self' https:",
-//     "object-src 'none'",
-//     "base-uri 'self'",
-//   ],
-// }));
+// Content Security Policy - VERY PERMISSIVE
+app.use(csp({
+  csp: "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:",
+}));
 
 // Serve files from ./static at / and enable Vite client
 app.use(staticFiles());
