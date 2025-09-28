@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../static/app.css";
+@import "../static/gruvbox-theme.css";
 
 @keyframes appear {
   from {
