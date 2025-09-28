@@ -16,6 +16,23 @@ body {
   height: 100%;
   background-color: var(--bg);
   color: var(--color);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Default to Inter for readability */
+* {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+/* Manrope for headings - geometric and clean */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* Code uses Fira Code */
+code, pre {
+  font-family: "Fira Code", "SF Mono", Monaco, Consolas, monospace !important;
 }
 
 /* List styles */
