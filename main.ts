@@ -14,9 +14,11 @@ app.use(cors());
 // CSRF protection
 app.use(csrf());
 
-// Content Security Policy - VERY PERMISSIVE
+// Content Security Policy
 app.use(csp({
-  csp: "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:",
+  csp: [
+    "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:",
+  ],
 }));
 
 // Serve files from ./static at / and enable Vite client
