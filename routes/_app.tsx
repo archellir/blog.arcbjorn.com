@@ -1,5 +1,5 @@
 import { define } from "../fresh.ts";
-import { asset } from "fresh/runtime";
+import { asset, Partial } from "fresh/runtime";
 
 export default define.page(function App({ Component }) {
   return (
@@ -37,9 +37,11 @@ export default define.page(function App({ Component }) {
           data-website-id="98f9ce97-6559-4cf5-90e2-3b059c58bb1a"
         />
       </head>
-      <body>
+      <body f-client-nav>
         <div class="container mx-auto h-full animate-appear">
-          <Component />
+          <Partial name="body">
+            <Component />
+          </Partial>
         </div>
       </body>
     </html>
