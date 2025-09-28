@@ -52,7 +52,7 @@ export default function CodeEnhancer() {
           tertiaryBkg: '#504945',
           clusterBkg: '#282828',
           clusterBorder: '#689d6a',
-          fontFamily: '"Source Serif Pro", Georgia, serif',
+          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         },
         flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true },
       });
