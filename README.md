@@ -15,7 +15,8 @@ deno task build
 deno task start
 ```
 
-If you see a Tailwind oxide warning or Vite crashes in dev, allow oxide's install scripts once (required by Tailwind v4):
+If you see a Tailwind oxide warning or Vite crashes in dev, allow oxide's
+install scripts once (required by Tailwind v4):
 
 ```
 deno task oxide

@@ -21,7 +21,8 @@ technical explorations.
 ### Testing
 
 - `deno task test` - Run all tests with proper permissions
-- `deno test --allow-read --allow-env` - Run tests directly with manual permissions
+- `deno test --allow-read --allow-env` - Run tests directly with manual
+  permissions
 - `deno task check` - Format, lint, and type check
 - Tests use Deno's built-in testing framework with BDD-style describe/it blocks
 

@@ -5,4 +5,3 @@ export const handler = define.handlers({
     return new Response("ok", { status: 200 });
   },
 });
-
