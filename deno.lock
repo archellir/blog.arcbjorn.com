@@ -1374,6 +1374,7 @@
     "https://esm.sh/v135/@types/sanitize-html@~2.11/index.d.ts": "https://esm.sh/v135/@types/sanitize-html@2.11.0/index.d.ts"
   },
   "remote": {
+    "https://deno.land/std@0.106.0/encoding/base64.ts": "eecae390f1f1d1cae6f6c6d732ede5276bf4b9cd29b1d281678c054dc5cc009e",
     "https://deno.land/std@0.216.0/assert/_constants.ts": "a271e8ef5a573f1df8e822a6eb9d09df064ad66a4390f21b3e31f820a38e0975",
     "https://deno.land/std@0.216.0/assert/_diff.ts": "dcc63d94ca289aec80644030cf88ccbf7acaa6fbd7b0f22add93616b36593840",
     "https://deno.land/std@0.216.0/assert/_format.ts": "0ba808961bf678437fb486b56405b6fefad2cf87b5809667c781ddee8c32aff4",
@@ -1448,6 +1449,15 @@
     "https://deno.land/std@0.216.0/yaml/schema/json.ts": "0fb9268282d266c24d963e75ef77f51accbbb74f40713a99e83ad621a81bc9ae",
     "https://deno.land/std@0.216.0/yaml/schema/mod.ts": "9bf7ff80c2a246f781bdcab979211d0389760831a974cf5883bf2016567e3507",
     "https://deno.land/std@0.216.0/yaml/type.ts": "708dde5f20b01cc1096489b7155b6af79a217d585afb841128e78c3c2391eb5c",
+    "https://deno.land/x/canvas@v1.4.1/deps.ts": "e956026d98094946166e06d7b799290b732db015813870d84e04e33ab88e98f3",
+    "https://deno.land/x/canvas@v1.4.1/mod.ts": "a4e16972647ceafef58612a377a218372454c99d2c9da615a132694597114f80",
+    "https://deno.land/x/canvas@v1.4.1/src/base64.ts": "0928031fdba0c43b617154fbe2eb7578366460c04da1422933ae5e936d3d0349",
+    "https://deno.land/x/canvas@v1.4.1/src/canvas.ts": "58119999b04f68ebeed2627485c5c24c5b0c029707edde0b6568814f9049a3a8",
+    "https://deno.land/x/canvas@v1.4.1/src/canvaskit.ts": "c3d807472cbb3e1d9fc01bb43ff974ef796c4b010178d1595be5fa793cce5e7d",
+    "https://deno.land/x/canvas@v1.4.1/src/color_util.ts": "28f1072f0a5acbe7add7fac2f452311a47b44c080806fc4057de2d2e405c6c1c",
+    "https://deno.land/x/canvas@v1.4.1/src/lib.js": "bb21711589bfbc8997b455cdf53e3150e23289f3b44809188041b1d2fc7924fa",
+    "https://deno.land/x/canvas@v1.4.1/src/types.ts": "67d5800f8f4b0a407e0251676a03ae91b5f50a3ed53e6b72dc5984113cb93128",
+    "https://deno.land/x/canvas@v1.4.1/src/wasm.js": "449d72cc14fc4142a5853f944df49a744d852981d09c5515528ede8aebb0afda",
     "https://deno.land/x/emoji@0.3.1/all.json": "f0553b660db5e44e71ca46f637a06c2ec94f34445a920fcf319858094a91f46b",
     "https://deno.land/x/emoji@0.3.1/emoji.ts": "6fe9e3903d7f23d9a0f2215952cc8cb4be9c94a5e364794b16ea63c6cf082cea",
     "https://deno.land/x/emoji@0.3.1/mod.ts": "9ef5a2fca1a633f29747b6d3254afd19545cef586128a8213a1003ee2808186d",
