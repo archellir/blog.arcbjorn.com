@@ -98,17 +98,17 @@ Monitoring PostgreSQL with `pg_stat_statements` reveals fascinating patterns:
 
 ```sql
 -- n8n: Chatty but lightweight
-UPDATE execution_entity SET data = $1, status = $2 WHERE id = $3;
+UPDATE execution_entity SET data = \$1, status = \$2 WHERE id = \$3;
 -- ~50-100 updates per workflow execution
 
 -- Windmill: Batch-optimized
-INSERT INTO completed_job (id, result, logs) VALUES ($1, $2, $3) 
+INSERT INTO completed_job (id, result, logs) VALUES (\$1, \$2, \$3)
 ON CONFLICT (id) DO UPDATE SET result = EXCLUDED.result;
 -- ~5-10 writes per workflow
 
 -- Temporal: Event sourcing overhead
-INSERT INTO executions_visibility (namespace_id, run_id, workflow_id...) VALUES ($1, $2, $3...);
-INSERT INTO history_node (shard_id, tree_id, branch_id...) VALUES ($1, $2, $3...);
+INSERT INTO executions_visibility (namespace_id, run_id, workflow_id...) VALUES (\$1, \$2, \$3...);
+INSERT INTO history_node (shard_id, tree_id, branch_id...) VALUES (\$1, \$2, \$3...);
 -- ~200+ writes per workflow with multiple activities
 ```
 
