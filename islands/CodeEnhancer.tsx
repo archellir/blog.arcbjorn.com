@@ -64,7 +64,16 @@ export default function CodeEnhancer() {
           clusterBorder: '#689d6a',
           fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         },
-        flowchart: { curve: 'basis', useMaxWidth: true, htmlLabels: true },
+        flowchart: {
+          curve: 'basis',
+          useMaxWidth: true,
+          htmlLabels: true,
+          padding: 20,
+          subGraphTitleMargin: {
+            top: 10,
+            bottom: 10
+          }
+        },
       });
 
       const mermaidBlocks = [...document.querySelectorAll('pre code')]
