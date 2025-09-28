@@ -94,14 +94,19 @@ ol {
   color: #22c55e !important; /* text-green-500 for hover effect */
 }
 
+/* Markdown body table wrapper for horizontal scrolling */
+.markdown-body > table {
+  overflow-x: auto !important;
+  display: block !important;
+}
+
 /* Markdown body table styles - Override GFM defaults */
 .markdown-body table {
   border-collapse: collapse !important;
   margin: 1.5em 0 !important;
-  width: 100% !important;
+  width: auto !important;
   background-color: transparent !important;
   border-radius: 8px !important;
-  overflow: hidden !important;
   border: 1px solid #3a3a3a !important;
   font-size: 0.875rem !important; /* 14px */
 }
