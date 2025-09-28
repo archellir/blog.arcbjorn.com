@@ -56,5 +56,26 @@ const errorLogger = define.middleware(async (ctx) => {
 });
 app.use(errorLogger);
 
+// Security headers middleware
+const securityHeaders = define.middleware(async (ctx) => {
+  const res = await ctx.next();
+  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("X-XSS-Protection", "1; mode=block");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  return res;
+});
+app.use(securityHeaders);
+
+// Performance monitoring middleware
+const performanceMiddleware = define.middleware(async (ctx) => {
+  const start = Date.now();
+  const res = await ctx.next();
+  const duration = Date.now() - start;
+  res.headers.set("X-Response-Time", `${duration}ms`);
+  return res;
+});
+app.use(performanceMiddleware);
+
 // Register file-system routes
 app.fsRoutes();
