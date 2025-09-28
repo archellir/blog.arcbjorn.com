@@ -15,18 +15,15 @@ app.use(cors());
 app.use(csrf());
 
 // Content Security Policy
-const isDev = Deno.env.get("DENO_DEPLOYMENT_ID") === undefined;
-if (!isDev) {
-  app.use(csp({
-    csp: [
-      "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://analytics.arcbjorn.com",
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: https: https://mirrors.creativecommons.org",
-      "connect-src 'self' https://analytics.arcbjorn.com",
-    ],
-  }));
-}
+app.use(csp({
+  csp: [
+    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://analytics.arcbjorn.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: https: https://mirrors.creativecommons.org",
+    "connect-src 'self' https://analytics.arcbjorn.com",
+  ],
+}));
 
 // Serve files from ./static at / and enable Vite client
 app.use(staticFiles());
