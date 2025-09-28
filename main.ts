@@ -80,12 +80,12 @@ app.use(performanceMiddleware);
 // Global error handler
 app.onError("*", (ctx) => {
   console.error(`[Error] ${ctx.error}`);
-  return ctx.render();
+  return new Response("Internal Server Error", { status: 500 });
 });
 
 // Not found handler
 app.notFound((ctx) => {
-  return ctx.render();
+  return new Response("Not Found", { status: 404 });
 });
 
 // Register file-system routes

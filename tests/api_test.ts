@@ -29,5 +29,27 @@ describe("api", () => {
       assert(firstPost.title);
       assert(firstPost.publishedAt);
     });
+
+    it("respects limit parameter", async () => {
+      const postsData = await listPosts({ offset: 0, limit: 3 });
+      assert(postsData.posts.length <= 3);
+    });
+
+    it("filters by tags", async () => {
+      const postsData = await listPosts({ offset: 0, limit: 100, tags: "leetcode" });
+      for (const post of postsData.posts) {
+        assert(post.tags);
+        assert(post.tags.some((tag: string) => tag === "leetcode"));
+      }
+    });
+
+    it("returns posts sorted by date descending", async () => {
+      const postsData = await listPosts({ offset: 0, limit: 10 });
+      if (postsData.posts.length > 1) {
+        const firstDate = new Date(postsData.posts[0].publishedAt);
+        const secondDate = new Date(postsData.posts[1].publishedAt);
+        assert(firstDate >= secondDate);
+      }
+    });
   });
 });
