@@ -36,7 +36,11 @@ describe("api", () => {
     });
 
     it("filters by tags", async () => {
-      const postsData = await listPosts({ offset: 0, limit: 100, tags: "leetcode" });
+      const postsData = await listPosts({
+        offset: 0,
+        limit: 100,
+        tags: "leetcode",
+      });
       for (const post of postsData.posts) {
         assert(post.tags);
         assert(post.tags.some((tag: string) => tag === "leetcode"));
