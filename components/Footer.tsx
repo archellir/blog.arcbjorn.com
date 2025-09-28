@@ -9,7 +9,7 @@ const Footer: FunctionalComponent<IFooterProps> = ({ classes }) => {
     <div class={classes + " flex justify-center p-8"}>
       <a
         rel="license"
-        href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"
+        href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"
       >
         <img
           alt="Creative Commons Licence"
