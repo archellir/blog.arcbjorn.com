@@ -77,5 +77,16 @@ const performanceMiddleware = define.middleware(async (ctx) => {
 });
 app.use(performanceMiddleware);
 
+// Global error handler
+app.onError("*", (ctx) => {
+  console.error(`[Error] ${ctx.error}`);
+  return ctx.render();
+});
+
+// Not found handler
+app.notFound((ctx) => {
+  return ctx.render();
+});
+
 // Register file-system routes
 app.fsRoutes();
