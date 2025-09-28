@@ -49,6 +49,75 @@ ol {
   color: #22c55e !important; /* text-green-500 for hover effect */
 }
 
+/* Markdown body table styles - Override GFM defaults */
+.markdown-body table {
+  border-collapse: collapse !important;
+  margin: 1.5em 0 !important;
+  width: 100% !important;
+  background-color: transparent !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: 1px solid #3a3a3a !important;
+  font-size: 0.875rem !important; /* 14px */
+}
+
+.markdown-body th,
+.markdown-body td {
+  padding: 12px 16px !important;
+  text-align: left !important;
+  border-right: 1px solid #3a3a3a !important;
+  vertical-align: top !important;
+  background-color: transparent !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+.markdown-body th:last-child,
+.markdown-body td:last-child {
+  border-right: none !important;
+}
+
+.markdown-body th {
+  background-color: #252626 !important;
+  color: #f9f5ef !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #4ade80 !important;
+}
+
+.markdown-body tbody tr {
+  border-bottom: 1px solid #3a3a3a !important;
+  background-color: transparent !important;
+}
+
+.markdown-body tbody tr:last-child {
+  border-bottom: none !important;
+}
+
+.markdown-body tbody tr:hover {
+  background-color: #252626 !important;
+}
+
+.markdown-body tbody tr:nth-child(even) {
+  background-color: #212222 !important;
+}
+
+.markdown-body tbody tr:nth-child(even):hover {
+  background-color: #2a2b2b !important;
+}
+
+/* Responsive table styles */
+@media (max-width: 768px) {
+  .markdown-body table {
+    font-size: 14px;
+  }
+
+  .markdown-body th,
+  .markdown-body td {
+    padding: 8px 12px;
+  }
+}
+
 /* Markdown body code block scrollbar styling */
 .markdown-body pre::-webkit-scrollbar {
   width: 8px;
