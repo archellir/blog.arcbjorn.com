@@ -13,16 +13,11 @@ Most workflow automation starts simple: replacing a cron job. Six months later, 
 
 n8n (nodemation) represents the visual programming paradigm taken seriously. Built on Node.js with a Vue.js frontend, it stores workflow definitions as JSON graphs in PostgreSQL/SQLite/MySQL. The architecture is deceptively simple:
 
-```
-┌──────────────┐     ┌─────────────┐     ┌──────────────┐
-│   Browser    │────▶│  Express    │────▶│  PostgreSQL  │
-│   (Vue.js)    │     │   Server    │     │              │
-└──────────────┘     └─────────────┘     └──────────────┘
-                            │
-                     ┌──────▼──────┐
-                     │  Bull Queue │
-                     │   (Redis)    │
-                     └─────────────┘
+```mermaid
+graph LR
+    A[Browser<br/>Vue.js] --> B[Express<br/>Server]
+    B --> C[PostgreSQL]
+    B --> D[Bull Queue<br/>Redis]
 ```
 
 The killer detail: n8n runs ALL workflow nodes in the main process by default. The [`Worker`](https://docs.n8n.io/hosting/scaling/queue-mode/) class spawns Node.js worker threads, but memory isn't truly isolated. A memory leak in one workflow affects everything. Workflows are JSON-serializable graphs of "nodes"—each node is a self-contained action. The [plugin system](https://jimmysong.io/en/blog/n8n-deep-dive/) allows "fair-code" extensions without forking the core, enabling custom nodes for obscure APIs (integrating with legacy COBOL systems via sockets is actually happening in production). State management defaults to ephemeral but supports [Postgres for persistence](https://docs.n8n.io/hosting/), enabling temporal queries on past runs.
@@ -31,18 +26,16 @@ The killer detail: n8n runs ALL workflow nodes in the main process by default. T
 
 Windmill took a radically different approach. The orchestrator is written in Rust, achieving [sub-millisecond scheduling latency](https://www.windmill.dev/docs/misc/benchmarks/), while workflows run in language-specific workers:
 
-```
-┌─────────────┐
-│ Rust Core   │──────▶ PostgreSQL (Source of Truth)
-└─────────────┘              │
-       │                     │
-┌──────▼───────────────────────────────┐
-│      Worker Pool (Isolated)           │
-│  ┌────────┐ ┌────────┐ ┌────────┐    │
-│  │ Python │ │   Go   │ │   TS   │    │
-│  │ Worker │ │ Worker │ │ Worker │    │
-│  └────────┘ └────────┘ └────────┘    │
-└──────────────────────────────────────┘
+```mermaid
+flowchart LR
+    A[Rust Core] --> B[(PostgreSQL<br/>Source of Truth)]
+    A --> Pool
+    B --> Pool
+    subgraph Pool[Worker Pool - Isolated]
+        C[Python Worker]
+        D[Go Worker]
+        E[TS Worker]
+    end
 ```
 
 The genius move: Workers are actual OS processes with cgroup isolation. Python data science workflows can't OOM-kill the orchestrator. Windmill uses [Deno](https://deno.land/) for TypeScript execution, getting V8 isolates for free. Flows are [OpenFlow JSON objects](https://www.windmill.dev/docs/flows/architecture) with input specs and linear steps, where dependencies are auto-managed via lockfiles—like npm but for any language. The [CLI integration](https://www.windmill.dev/docs/core_concepts) enables git sync, treating workflows as code in repos for CI/CD pipelines—particularly useful for embedding in monorepos. Smart input parsing uses JSON schemas to infer types, reducing boilerplate significantly.
@@ -51,16 +44,11 @@ The genius move: Workers are actual OS processes with cgroup isolation. Python d
 
 Temporal doesn't just handle workflows; it implements the [Virtual Actor pattern](https://www.microsoft.com/en-us/research/project/orleans-virtual-actors/) with event sourcing. Every workflow execution is a deterministic state machine:
 
-```
-┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│   Frontend  │────▶│   Matching   │────▶│   History   │
-│   Service   │     │   Service    │     │   Service   │
-└─────────────┘     └──────────────┘     └─────────────┘
-                            │
-                    ┌───────▼────────┐
-                    │     Workers    │
-                    │   (Your Code)   │
-                    └────────────────┘
+```mermaid
+graph LR
+    A[Frontend<br/>Service] --> B[Matching<br/>Service]
+    B --> C[History<br/>Service]
+    B --> D[Workers<br/>Your Code]
 ```
 
 The mind-bending part: Temporal workers don't execute workflows - they replay them. The [event history](https://docs.temporal.io/concepts/what-is-event-history) is the workflow. This enables time-travel debugging but comes with a cost: every state change generates multiple database writes. Temporal implements [CQRS for read/write separation](https://community.temporal.io/t/cqrs-eventsourcing-temporal/5984), enabling temporal queries like "What was the state at timestamp X?"—perfect for audits. Workflows are deterministic code that replay events from an append-only log to reconstruct state—essentially Git for application logic. This enables "eternal" executions: if a server crashes mid-workflow, it replays from the last checkpoint without data loss.
