@@ -1,2 +1,2 @@
-// Import CSS for HMR and bundling via Vite
 import "./assets/styles.css";
+import 'prismjs/themes/prism-dark.css';

@@ -9,7 +9,7 @@ import HeadElement from "../components/HeadElement.tsx";
 import BlogLayout from "../components/BlogLayout.tsx";
 import StructuredData from "../components/StructuredData.tsx";
 
-// PrismJS language definitions are loaded via HTML head scripts
+// PrismJS language definitions are now loaded client-side via CSS/JS in BlogLayout
 
 export default define.page(async (ctx) => {
   const url = ctx.url;

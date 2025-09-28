@@ -1,6 +1,7 @@
 import { ComponentChildren, FunctionalComponent } from "preact";
 import { CSS, KATEX_CSS } from "$gfm";
 import { asset } from "fresh/runtime";
+import CodeEnhancer from "../islands/CodeEnhancer.tsx";
 
 interface BlogLayoutProps {
   children: ComponentChildren;
@@ -17,16 +18,14 @@ const BlogLayout: FunctionalComponent<BlogLayoutProps> = ({
       <style dangerouslySetInnerHTML={{ __html: KATEX_CSS }} />
 
       {includeCodeHighlighting && (
-        <>
-          <link rel="stylesheet" href={asset("/gruvbox-theme.css")} />
-          <link rel="stylesheet" href={asset("/mermaid-theme.css")} />
-          <script src={asset("/copy-buttons.js")}></script>
-        </>
+        <link rel="stylesheet" href={asset("/mermaid-theme.css")} />
       )}
 
       <main>
         {children}
       </main>
+
+      {includeCodeHighlighting && <CodeEnhancer />}
     </>
   );
 };
