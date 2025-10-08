@@ -421,8 +421,7 @@ and SVG generation
 
 **Winner: Mistral Medium 3**
 
-- $0.40/$2 per million tokens
-- 90% of frontier performance
+- 90% of frontier performance at significantly lower cost
 - Deployable on 4 GPUs
 
 ### Open-Source & Customization
