@@ -239,7 +239,8 @@ automatic model switching.
 
 **Pricing:**
 
-- $3 per million input tokens, $15 per million output tokens
+- Input: $3 per million tokens
+- Output: $15 per million tokens
 - Details: [Anthropic pricing page](https://docs.claude.com/en/docs/about-claude/pricing)
 
 **Best For:** Software development, agentic workflows, desktop automation,
