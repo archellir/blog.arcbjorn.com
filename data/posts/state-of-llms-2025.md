@@ -28,17 +28,18 @@ capabilities and "personality" is essential:
 
 ### 1. Architecture
 
-All modern LLMs are built on the **Transformer architecture**, which
+All modern LLMs are built on the
+[**Transformer architecture**](https://arxiv.org/abs/1706.03762), which
 revolutionized AI by processing entire sequences in parallel. The magic lies in
 the **self-attention mechanism**—it weighs the importance of different words in
 context, understanding complex relationships across long passages.
 
 **Key architectural variations:**
 
-- **Dense vs. Mixture-of-Experts (MoE)**: Dense models (GPT, Claude) activate
-  all parameters for every input. MoE models (Gemini, Mistral, Llama 4)
-  selectively activate "expert" sub-networks, enabling massive scale with lower
-  compute per query.
+- **Dense vs. [Mixture-of-Experts (MoE)](https://huggingface.co/blog/moe)**:
+  Dense models (GPT, Claude) activate all parameters for every input. MoE
+  models (Gemini, Mistral, Llama 4) selectively activate "expert" sub-networks,
+  enabling massive scale with lower compute per query.
 
 - **Unified Systems**: GPT-5 introduces router-based architecture that
   automatically switches between models based on task complexity—a major 2025
@@ -80,14 +81,14 @@ processes in 2025:
 - Example: "Summarize this document" → [ideal summary]
 - Teaches following instructions and task-specific behavior
 
-**Reinforcement Learning from Human Feedback (RLHF):**
+**[Reinforcement Learning from Human Feedback (RLHF)](https://arxiv.org/abs/2203.02155):**
 
 - Human reviewers rank multiple model outputs
 - Model learns to prefer highly-rated responses
 - Aligns behavior with human values and preferences
 - Grok 4 uses 10x more RL compute than competitors
 
-**Direct Preference Optimization (DPO):**
+**[Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290):**
 
 - Newer, more stable alternative to RLHF
 - Optimizes directly on preference data without separate reward model
@@ -96,8 +97,9 @@ processes in 2025:
 
 **Different alignment philosophies:**
 
-- **Anthropic's Constitutional AI** (Claude): Model learns from ethical
-  principles, making it cautious and safety-focused
+- **Anthropic's [Constitutional AI](https://arxiv.org/abs/2212.08073)**
+  (Claude): Model learns from ethical principles, making it cautious and
+  safety-focused
 - **OpenAI's unified approach** (GPT-5): Router system automatically selecting
   between models based on complexity
 - **xAI's minimal intervention** (Grok): Less filtered, more "natural" responses
@@ -139,8 +141,9 @@ multi-step tasks
 **What it is:** Claude can control a computer—moving the mouse, clicking
 buttons, typing text.
 
-**Performance:** Claude Sonnet 4.5 leads at 61.4% on OSWorld benchmark for
-real-world computer tasks, up from 42.2% previously
+**Performance:** Claude Sonnet 4.5 leads at 61.4% on
+[OSWorld benchmark](https://os-world.github.io/) for real-world computer tasks,
+up from 42.2% previously
 
 **Status:** Beta (as of Oct 2025), but represents a major leap toward autonomous
 AI assistants.
@@ -170,7 +173,7 @@ with native multimodal capabilities
 
 Here's a breakdown of major players as of October 2025, with the latest updates:
 
-### GPT-5 (OpenAI): The Unified Intelligence System
+### [GPT-5](https://openai.com/index/introducing-gpt-5/) (OpenAI): The Unified Intelligence System
 
 **Released:** August 7, 2025
 
@@ -199,6 +202,7 @@ Here's a breakdown of major players as of October 2025, with the latest updates:
 
 - Free tier: 10 messages every 5 hours; Plus tier: 160 messages every 3 hours
 - Pro and Business tiers offer unlimited access with abuse guardrails
+- API pricing: See [OpenAI pricing page](https://openai.com/api/pricing/)
 
 **Best For:** General-purpose AI, creative tasks, health queries, coding with
 aesthetic considerations
@@ -208,7 +212,7 @@ automatic model switching.
 
 ---
 
-### Claude Sonnet 4.5 (Anthropic): The Coding Champion
+### [Claude Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5) (Anthropic): The Coding Champion
 
 **Released:** September 29, 2025
 
@@ -220,9 +224,11 @@ automatic model switching.
 
 **Performance Metrics:**
 
-- 77.2% on SWE-bench Verified (world's best)
+- 77.2% on [SWE-bench Verified](https://www.swebench.com/) (world's best)
 - Can maintain focus for 30+ hours on complex tasks
-- Now integrated into GitHub Copilot as public preview
+- Now integrated into
+  [GitHub Copilot](https://github.blog/changelog/2025-09-30-anthropic-claude-sonnet-4-5-is-in-public-preview-for-copilot-coding-agent/)
+  as public preview
 
 **Why It Excels:**
 
@@ -234,6 +240,7 @@ automatic model switching.
 **Pricing:**
 
 - $3 per million input tokens, $15 per million output tokens
+- Details: [Anthropic pricing page](https://docs.claude.com/en/docs/about-claude/pricing)
 
 **Best For:** Software development, agentic workflows, desktop automation,
 technical documentation
@@ -242,7 +249,7 @@ technical documentation
 
 ---
 
-### Llama 4 (Meta): The Open Multimodal Pioneer
+### [Llama 4](https://ai.meta.com/blog/llama-4-multimodal-intelligence/) (Meta): The Open Multimodal Pioneer
 
 **Released:** April 5, 2025
 
@@ -262,7 +269,8 @@ technical documentation
 
 **Why It Excels:**
 
-- Fully open-source under modified license
+- Fully open-source under modified license ([Hugging
+  Face](https://huggingface.co/collections/meta-llama/llama-4-67f0c30d9fe03840bc9d0164))
 - Scout fits on single H100 GPU with Int4 quantization
 - Massive 10M token context for Scout variant
 - Strong multilingual support (12 languages)
@@ -275,7 +283,7 @@ users
 
 ---
 
-### Grok 4 (xAI): The Reasoning Powerhouse
+### [Grok 4](https://x.ai/news/grok-4-fast) (xAI): The Reasoning Powerhouse
 
 **Released:** July 9, 2025
 
@@ -287,8 +295,9 @@ users
 
 **Performance:**
 
-- 100% on AIME 2025 with Python, 75% on SWE-bench
-- 88% on GPQA Diamond (highest score)
+- 100% on [AIME 2025](https://artificialanalysis.ai/evaluations/aime-2025) with
+  Python, 75% on SWE-bench
+- 88% on [GPQA Diamond](https://arxiv.org/abs/2311.12022) (highest score)
 - Trained with 10x more RL compute than competitors
 
 **Why It Excels:**
@@ -311,12 +320,13 @@ users
 
 ### Mistral's Efficiency Leaders
 
-**Mistral Medium 3** (May 2025):
+**[Mistral Medium 3](https://mistral.ai/news/mistral-medium-3)** (May 2025):
 
 - Delivers 90% of Claude Sonnet 3.7 performance at $0.40/$2 per million tokens
 - Can be deployed on 4 GPUs
 
-**Mistral Small 3.1** (March 2025):
+**[Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1)** (March
+2025):
 
 - 24B parameters, Apache 2.0 license
 - 128K context window, 150 tokens/second
@@ -324,7 +334,7 @@ users
 
 ---
 
-### Gemini 2.5 Pro (Google): Current Data Master
+### [Gemini 2.5 Pro](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/) (Google): Current Data Master
 
 **Current Status:** 2.5 Pro is latest available version
 
@@ -576,6 +586,48 @@ Watch for:
 The LLM landscape evolves weekly. What works today will be surpassed tomorrow.
 Continuous testing is essential: **there's no universal "best"—only the best
 tool for each specific job.**
+
+---
+
+## Resources & Further Reading
+
+### Official Model Pages
+
+- [GPT-5 (OpenAI)](https://openai.com/index/introducing-gpt-5/)
+- [Claude Sonnet 4.5 (Anthropic)](https://www.anthropic.com/news/claude-sonnet-4-5)
+- [Llama 4 (Meta)](https://ai.meta.com/blog/llama-4-multimodal-intelligence/)
+- [Grok 4 (xAI)](https://x.ai/news/grok-4-fast)
+- [Mistral Models](https://mistral.ai/news/mistral-medium-3)
+- [Gemini 2.5 Pro (Google)](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/)
+
+### Benchmarks & Leaderboards
+
+- [SWE-bench](https://www.swebench.com/) - Software engineering tasks
+- [OSWorld](https://os-world.github.io/) - Computer use capabilities
+- [AIME 2025](https://artificialanalysis.ai/evaluations/aime-2025) - Math
+  reasoning
+- [GPQA Diamond](https://arxiv.org/abs/2311.12022) - Graduate-level science
+- [Artificial Analysis](https://artificialanalysis.ai/models) - Comprehensive
+  model comparison
+
+### Research Papers
+
+- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) - Transformer
+  architecture
+- [Constitutional AI](https://arxiv.org/abs/2212.08073) - Anthropic's alignment
+  approach
+- [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) - DPO
+  paper
+- [RLHF Training](https://arxiv.org/abs/2203.02155) - Reinforcement learning
+  from human feedback
+- [Mixture of Experts](https://huggingface.co/blog/moe) - MoE architecture
+  explained
+
+### Model Access & Pricing
+
+- [OpenAI API Pricing](https://openai.com/api/pricing/)
+- [Anthropic API Pricing](https://docs.claude.com/en/docs/about-claude/pricing)
+- [Llama 4 on Hugging Face](https://huggingface.co/collections/meta-llama/llama-4-67f0c30d9fe03840bc9d0164)
 
 ---
 
