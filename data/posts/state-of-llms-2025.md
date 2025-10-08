@@ -202,7 +202,7 @@ Here's a breakdown of major players as of October 2025, with the latest updates:
 
 - Free tier: 10 messages every 5 hours; Plus tier: 160 messages every 3 hours
 - Pro and Business tiers offer unlimited access with abuse guardrails
-- API pricing: See [OpenAI pricing page](https://openai.com/api/pricing/)
+- See [OpenAI pricing page](https://openai.com/api/pricing/) for API costs
 
 **Best For:** General-purpose AI, creative tasks, health queries, coding with
 aesthetic considerations
@@ -239,9 +239,8 @@ automatic model switching.
 
 **Pricing:**
 
-- Input: $3 per million tokens
-- Output: $15 per million tokens
-- Details: [Anthropic pricing page](https://docs.claude.com/en/docs/about-claude/pricing)
+- See [Anthropic pricing page](https://docs.claude.com/en/docs/about-claude/pricing) for current rates
+- Higher cost than most competitors
 
 **Best For:** Software development, agentic workflows, desktop automation,
 technical documentation
@@ -323,7 +322,7 @@ users
 
 **[Mistral Medium 3](https://mistral.ai/news/mistral-medium-3)** (May 2025):
 
-- Delivers 90% of Claude Sonnet 3.7 performance at $0.40/$2 per million tokens
+- Delivers 90% of Claude Sonnet 3.7 performance at significantly lower cost
 - Can be deployed on 4 GPUs
 
 **[Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1)** (March
