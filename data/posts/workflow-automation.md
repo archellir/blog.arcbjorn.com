@@ -7,9 +7,9 @@ tags: ["devops", "automation"]
 
 Most workflow automation starts simple: replacing a cron job. Six months later, that "simple" workflow handles payment reconciliation across three external APIs with exactly-once delivery guarantees. This analysis compares three fundamentally different orchestration approaches for 1-2 server deployments, examining memory footprints, database pressure patterns, failure recovery mechanisms, and implementation details often missing from documentation.
 
-## The Contenders: Architectural Philosophy Matters
+## Architectural Philosophy
 
-### n8n: The Node-RED That Grew Up
+### n8n: The Node-RED
 
 n8n (nodemation) represents the visual programming paradigm taken seriously. Built on Node.js with a Vue.js frontend, it stores workflow definitions as JSON graphs in PostgreSQL/SQLite/MySQL. The architecture is deceptively simple:
 
