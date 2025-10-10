@@ -7,11 +7,11 @@ tags: ["security", "mobile"]
 
 [GrapheneOS](https://grapheneos.org/) deployed [MTE](https://grapheneos.org/features#memory-safety) to production in November 2023, while Apple announced [MIE](https://security.apple.com/blog/memory-integrity-enforcement) in September 2025. This two-year gap is technically interesting—GrapheneOS proved production memory tagging was viable on existing ARM hardware before Apple's custom silicon approach shipped.
 
-## Timeline Quirk: The Two-Year Gap
+## Two-Year Gap
 
 GrapheneOS deployed MTE to production in November 2023, while Apple announced MIE in September 2025. This two-year gap is technically interesting—GrapheneOS proved production memory tagging was viable on existing ARM hardware before Apple's custom silicon approach shipped. GrapheneOS operates on approximately 200,000 devices globally, while Apple's implementation will reach billions.
 
-## Synchronous vs Asynchronous: A Technical Divide
+## Synchronous vs Asynchronous
 
 [ARM's MTE](https://newsroom.arm.com/blog/memory-safety-arm-memory-tagging-extension) supports two modes: synchronous (immediate trap on violation) and asynchronous (deferred reporting). These modes represent different engineering trade-offs.
 
