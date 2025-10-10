@@ -51,7 +51,7 @@ graph LR
     B --> D[Workers<br/>Your Code]
 ```
 
-The mind-bending part: Temporal workers don't execute workflows - they replay them. The [event history](https://docs.temporal.io/concepts/what-is-event-history) is the workflow. This enables time-travel debugging but comes with a cost: every state change generates multiple database writes. Temporal implements [CQRS for read/write separation](https://community.temporal.io/t/cqrs-eventsourcing-temporal/5984), enabling temporal queries like "What was the state at timestamp X?"—perfect for audits. Workflows are deterministic code that replay events from an append-only log to reconstruct state—essentially Git for application logic. This enables "eternal" executions: if a server crashes mid-workflow, it replays from the last checkpoint without data loss.
+The mind-bending part: Temporal workers don't execute workflows - they replay them. The [event history](https://docs.temporal.io/encyclopedia/event-history) is the workflow. This enables time-travel debugging but comes with a cost: every state change generates multiple database writes. Temporal implements [CQRS for read/write separation](https://community.temporal.io/t/cqrs-eventsourcing-temporal/5984), enabling temporal queries like "What was the state at timestamp X?"—perfect for audits. Workflows are deterministic code that replay events from an append-only log to reconstruct state—essentially Git for application logic. This enables "eternal" executions: if a server crashes mid-workflow, it replays from the last checkpoint without data loss.
 
 ## Memory Economics: The Numbers Nobody Talks About
 
@@ -88,7 +88,7 @@ The real differentiation happens under pressure:
 
 **Windmill** maintains constant orchestrator memory (~150MB) regardless of load. Workers are terminated after execution, preventing memory leaks. The Rust core uses [jemalloc](http://jemalloc.net/) which fragments less than Node's default allocator.
 
-**Temporal** shows sawtooth memory patterns due to its caching layer. The [workflow cache](https://docs.temporal.io/concepts/what-is-a-workflow-cache) aggressively caches execution state, trading memory for replay performance.
+**Temporal** shows sawtooth memory patterns due to its caching layer. The [workflow cache](https://docs.temporal.io/develop/worker-performance) aggressively caches execution state, trading memory for replay performance.
 
 ## Database Pressure: The Hidden Bottleneck
 
@@ -143,7 +143,7 @@ What happens when `kill -9` hits the main process mid-workflow?
 
 **Windmill**: Workflow automatically retries from last checkpoint. The [job state machine](https://github.com/windmill-labs/windmill/blob/main/backend/windmill-worker/src/worker.rs) persists state before each script execution. Recovery happens in under 5 seconds.
 
-**Temporal**: Workflow continues exactly where it left off, even mid-function. The [deterministic replay](https://docs.temporal.io/concepts/what-is-a-workflow-replay) mechanism treats the crash as a non-event. Recovery is immediate after worker restart.
+**Temporal**: Workflow continues exactly where it left off, even mid-function. The [deterministic replay](https://docs.temporal.io/workflows) mechanism treats the crash as a non-event. Recovery is immediate after worker restart.
 
 ### Network Partition Behavior
 
@@ -279,7 +279,7 @@ How each system handles file uploads in workflows:
 
 ### Code Execution Isolation
 
-**n8n**: The [Function node](https://docs.n8n.io/builtin/core-nodes/n8n-nodes-base.function/) runs arbitrary JavaScript in the main process with `vm2`. Despite sandboxing attempts, VM escapes exist:
+**n8n**: The [Code node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code/) runs arbitrary JavaScript in the main process with `vm2`. Despite sandboxing attempts, VM escapes exist:
 
 ```javascript
 // Historical VM escape (patched)
@@ -327,7 +327,7 @@ n8n_workflow_execution_duration_seconds
 Custom instrumentation required for anything useful:
 
 ```javascript
-// Custom metrics in Function node
+// Custom metrics in Code node
 const prometheus = require('prom-client');
 const counter = new prometheus.Counter({
     name: 'api_calls_total',
@@ -492,16 +492,16 @@ services:
 ### Architecture Deep Dives
 - [Temporal's event sourcing implementation](https://temporal.io/blog/workflow-engine-principles)
 - [Windmill's Rust worker implementation](https://github.com/windmill-labs/windmill/tree/main/backend/windmill-worker)
-- [n8n's execution model](https://github.com/n8n-io/n8n/blob/master/packages/core/src/WorkflowExecute.ts)
+- [n8n's execution model](https://github.com/n8n-io/n8n/blob/master/packages/core/src/execution-engine/workflow-execute.ts)
 
 ### Production Stories
-- [Uber's migration to Temporal](https://eng.uber.com/cadence-to-temporal/)
-- [How Windmill achieves sub-ms latency](https://www.windmill.dev/blog/1ms-scheduling)
+- [Uber vs Temporal: Cadence comparison](https://temporal.io/temporal-versus/cadence)
+- [How Windmill achieves sub-ms latency](https://www.windmill.dev/blog/launch-week-1/fastest-workflow-engine)
 - [n8n at scale case studies](https://n8n.io/case-studies/)
 
 ### Advanced Topics
-- [Building financial systems with Temporal](https://temporal.io/blog/building-financial-systems)
-- [Windmill's approach to polyglot workflows](https://www.windmill.dev/docs/core_concepts/multilanguage)
+- [Building financial systems with Temporal](https://temporal.io/blog/designing-high-performance-financial-ledgers-with-temporal)
+- [Windmill's approach to polyglot workflows](https://www.windmill.dev/docs/getting_started/scripts_quickstart)
 - [n8n custom node development](https://docs.n8n.io/integrations/creating-nodes/)
 
 ## Closing thoughts
