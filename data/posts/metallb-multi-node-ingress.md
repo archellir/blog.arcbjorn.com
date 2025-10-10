@@ -47,7 +47,7 @@ service:
 controllers. ServiceLB doesn't support dedicated IPs per node - it NATs through
 whatever node port it selects.
 
-**Result:** ❌ Both domains pointed to same IP, ingress controllers competing
+**Result:** Both domains pointed to same IP, ingress controllers competing
 for traffic. Isolation broken.
 
 ## Attempt 2: Traefik + K3s ServiceLB
@@ -83,7 +83,7 @@ Attempted solutions:
 None solved the fundamental limitation: **ServiceLB cannot assign different
 public IPs to different nodes.**
 
-**Result:** ❌ Same IP conflict, no isolation.
+**Result:** Same IP conflict, no isolation.
 
 ## Attempt 3: NGINX Ingress + MetalLB
 
