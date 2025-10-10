@@ -53,7 +53,7 @@ graph LR
 
 The mind-bending part: Temporal workers don't execute workflows - they replay them. The [event history](https://docs.temporal.io/encyclopedia/event-history) is the workflow. This enables time-travel debugging but comes with a cost: every state change generates multiple database writes. Temporal implements [CQRS for read/write separation](https://community.temporal.io/t/cqrs-eventsourcing-temporal/5984), enabling temporal queries like "What was the state at timestamp X?"—perfect for audits. Workflows are deterministic code that replay events from an append-only log to reconstruct state—essentially Git for application logic. This enables "eternal" executions: if a server crashes mid-workflow, it replays from the last checkpoint without data loss.
 
-## Memory Economics: The Numbers Nobody Talks About
+## Memory Economics
 
 Running all three on a Hetzner CPX21 (3 vCPU, 4GB RAM) for 30 days with production-like workloads reveals actual consumption:
 
@@ -90,7 +90,7 @@ The real differentiation happens under pressure:
 
 **Temporal** shows sawtooth memory patterns due to its caching layer. The [workflow cache](https://docs.temporal.io/develop/worker-performance) aggressively caches execution state, trading memory for replay performance.
 
-## Database Pressure: The Hidden Bottleneck
+## Database Pressure
 
 ### Write Amplification Patterns
 
@@ -133,7 +133,7 @@ ALTER TABLE history_node SET (autovacuum_vacuum_scale_factor = 0.01);
 ALTER TABLE history_node SET (autovacuum_vacuum_cost_limit = 10000);
 ```
 
-## Failure Recovery: When Everything Goes Wrong
+## Failure Recovery
 
 ### The Kill -9 Test
 
@@ -160,7 +160,7 @@ iptables -A OUTPUT -p tcp --dport 5432 -j DROP
 
 **Temporal**: Continues processing cached workflows (!), buffers new submissions in memory up to `maxWorkflowCacheSize`. This behavior is both insane and beautiful.
 
-## Performance Architecture: How Speed Happens
+## Performance Architecture
 
 ### The Scheduler Battle
 
@@ -229,7 +229,7 @@ rand.Float64()     // BREAKS REPLAY!
 
 The [deterministic constraints](https://docs.temporal.io/workflows#constraints) are brutal. Use `workflow.SideEffect` for non-deterministic operations. The compute overhead of replays can strain low-end hardware, particularly with complex workflow histories.
 
-## Storage Patterns: Where Bytes Go To Die
+## Storage Patterns
 
 ### Execution History Retention
 
@@ -275,7 +275,7 @@ How each system handles file uploads in workflows:
 
 **Temporal**: Payloads limited to 4MB by default. Use [external storage](https://docs.temporal.io/concepts/what-is-a-data-converter#payload-size-limits) for large data. Most implementations use a claim-check pattern.
 
-## Security Considerations: The Attack Surface
+## Security Considerations
 
 ### Code Execution Isolation
 
@@ -313,7 +313,7 @@ spec:
   - Egress
 ```
 
-## Monitoring: Observability Reality Check
+## Monitoring - Observability
 
 ### Metrics That Matter
 
@@ -369,7 +369,7 @@ temporal_workflow_task_replay_latency
 
 **Credential survivability**: Explicitly set and back up `N8N_ENCRYPTION_KEY`. Losing this key means re-entering all credentials post-upgrade. In queue mode, **every worker must have the same key** or decryption fails catastrophically.
 
-### Windmill Database-as-Queue Reality
+### Windmill Database-as-Queue
 
 Postgres IS the queue—monitor vacuums religiously. Autovacuum tuning becomes critical:
 ```sql
@@ -389,7 +389,7 @@ time.Now()
 workflow.Now(ctx)
 ```
 
-## Production Deployment: Real Configurations
+## Production Deployment: Sample Configs
 
 ### Single Server Setup (4GB RAM)
 
