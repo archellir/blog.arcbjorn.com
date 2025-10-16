@@ -1,10 +1,10 @@
 import { useEffect } from "preact/hooks";
-import Prism from 'prismjs';
-import 'prismjs/components/prism-go';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-rust';
-import 'prismjs/components/prism-bash';
+import Prism from "prismjs";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-rust";
+import "prismjs/components/prism-bash";
 
 declare global {
   interface Window {
@@ -14,22 +14,22 @@ declare global {
 
 export default function CodeEnhancer() {
   useEffect(() => {
-    document.querySelectorAll('pre code').forEach((block) => {
-      if (block.className.includes('language-')) return;
+    document.querySelectorAll("pre code").forEach((block) => {
+      if (block.className.includes("language-")) return;
 
-      const code = block.textContent || '';
-      if (code.includes('func ') || code.includes('package ')) {
-        block.className = 'language-go';
-      } else if (code.includes('def ') || code.includes('import ')) {
-        block.className = 'language-python';
-      } else if (code.includes('fn ') || code.includes('let mut')) {
-        block.className = 'language-rust';
-      } else if (code.includes('function ') || code.includes('const ')) {
-        block.className = 'language-typescript';
-      } else if (code.includes('echo ') || code.includes('sudo ')) {
-        block.className = 'language-bash';
+      const code = block.textContent || "";
+      if (code.includes("func ") || code.includes("package ")) {
+        block.className = "language-go";
+      } else if (code.includes("def ") || code.includes("import ")) {
+        block.className = "language-python";
+      } else if (code.includes("fn ") || code.includes("let mut")) {
+        block.className = "language-rust";
+      } else if (code.includes("function ") || code.includes("const ")) {
+        block.className = "language-typescript";
+      } else if (code.includes("echo ") || code.includes("sudo ")) {
+        block.className = "language-bash";
       } else {
-        block.className = 'language-go';
+        block.className = "language-go";
       }
     });
 
@@ -37,10 +37,10 @@ export default function CodeEnhancer() {
 
     // Remove backslashes before dollar signs in code blocks (after Prism highlighting)
     setTimeout(() => {
-      document.querySelectorAll('.markdown-body pre code').forEach((block) => {
+      document.querySelectorAll(".markdown-body pre code").forEach((block) => {
         const html = block.innerHTML;
-        if (html.includes('\\$')) {
-          block.innerHTML = html.replace(/\\(\$)/g, '$1');
+        if (html.includes("\\$")) {
+          block.innerHTML = html.replace(/\\(\$)/g, "$1");
         }
       });
     }, 100);
@@ -48,42 +48,47 @@ export default function CodeEnhancer() {
     if (window.mermaid) {
       window.mermaid.initialize({
         startOnLoad: false,
-        theme: 'dark',
+        theme: "dark",
         themeVariables: {
-          primaryColor: '#689d6a',
-          primaryTextColor: '#ebdbb2',
-          primaryBorderColor: '#3c3836',
-          lineColor: '#a89984',
-          secondaryColor: '#3c3836',
-          tertiaryColor: '#282828',
-          background: '#1b1d1e',
-          mainBkg: '#282828',
-          secondBkg: '#3c3836',
-          tertiaryBkg: '#504945',
-          clusterBkg: '#282828',
-          clusterBorder: '#689d6a',
-          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          primaryColor: "#689d6a",
+          primaryTextColor: "#ebdbb2",
+          primaryBorderColor: "#3c3836",
+          lineColor: "#a89984",
+          secondaryColor: "#3c3836",
+          tertiaryColor: "#282828",
+          background: "#1b1d1e",
+          mainBkg: "#282828",
+          secondBkg: "#3c3836",
+          tertiaryBkg: "#504945",
+          clusterBkg: "#282828",
+          clusterBorder: "#689d6a",
+          fontFamily:
+            'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         },
         flowchart: {
-          curve: 'basis',
+          curve: "basis",
           useMaxWidth: true,
           htmlLabels: true,
           padding: 20,
           subGraphTitleMargin: {
             top: 10,
-            bottom: 10
-          }
+            bottom: 10,
+          },
         },
       });
 
-      const mermaidBlocks = [...document.querySelectorAll('pre code')]
-        .filter((block) => /^(graph |flowchart|sequenceDiagram|classDiagram)/.test(block.textContent?.trim() || ''))
+      const mermaidBlocks = [...document.querySelectorAll("pre code")]
+        .filter((block) =>
+          /^(graph |flowchart|sequenceDiagram|classDiagram)/.test(
+            block.textContent?.trim() || "",
+          )
+        )
         .map((block, index) => {
-          const pre = block.closest('pre');
-          const container = document.createElement('div');
-          container.className = 'mermaid';
+          const pre = block.closest("pre");
+          const container = document.createElement("div");
+          container.className = "mermaid";
           container.id = `mermaid-${index}`;
-          container.innerHTML = block.textContent || '';
+          container.innerHTML = block.textContent || "";
           pre?.replaceWith(container);
           return container;
         });
@@ -93,13 +98,14 @@ export default function CodeEnhancer() {
       }
     }
 
-    document.querySelectorAll('.markdown-body pre:not(.mermaid)').forEach((pre) => {
-      if (pre.querySelector('.copy-button')) return;
+    document.querySelectorAll(".markdown-body pre:not(.mermaid)").forEach(
+      (pre) => {
+        if (pre.querySelector(".copy-button")) return;
 
-      const button = document.createElement('button');
-      button.className = 'copy-button';
-      button.textContent = 'copy';
-      button.style.cssText = `
+        const button = document.createElement("button");
+        button.className = "copy-button";
+        button.textContent = "copy";
+        button.style.cssText = `
         position: absolute;
         top: 8px;
         right: 8px;
@@ -113,21 +119,22 @@ export default function CodeEnhancer() {
         z-index: 10;
       `;
 
-      button.onclick = async () => {
-        const code = pre.querySelector('code') || pre;
-        try {
-          await navigator.clipboard.writeText(code.textContent || '');
-          button.textContent = 'copied!';
-          setTimeout(() => button.textContent = 'copy', 2000);
-        } catch (err) {
-          button.textContent = 'error';
-          setTimeout(() => button.textContent = 'copy', 2000);
-        }
-      };
+        button.onclick = async () => {
+          const code = pre.querySelector("code") || pre;
+          try {
+            await navigator.clipboard.writeText(code.textContent || "");
+            button.textContent = "copied!";
+            setTimeout(() => button.textContent = "copy", 2000);
+          } catch (err) {
+            button.textContent = "error";
+            setTimeout(() => button.textContent = "copy", 2000);
+          }
+        };
 
-      (pre as HTMLElement).style.position = 'relative';
-      pre.appendChild(button);
-    });
+        (pre as HTMLElement).style.position = "relative";
+        pre.appendChild(button);
+      },
+    );
   }, []);
 
   return null;

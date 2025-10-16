@@ -14,7 +14,6 @@ app.use(cors());
 // CSRF protection
 app.use(csrf());
 
-
 // Serve files from ./static at / and enable Vite client
 app.use(staticFiles());
 
