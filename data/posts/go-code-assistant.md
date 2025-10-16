@@ -1,6 +1,6 @@
 ---
 title: "Go-Specific Code Assistant"
-published_at: "2025-01-15 12:00"
+published_at: "2025-10-16 12:00"
 snippet: "Fine-tuning Qwen2.5-Coder-7B-Instruct"
 tags: ["ai", "go", "machine-learning", "code-assistant"]
 ---
