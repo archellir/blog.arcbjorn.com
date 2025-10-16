@@ -2,7 +2,7 @@
 title: "Go-Specific Code Assistant"
 published_at: "2025-10-16 12:00"
 snippet: "Fine-tuning Qwen2.5-Coder-7B-Instruct"
-tags: ["ai", "go", "machine-learning", "code-assistant"]
+tags: ["ai", "go", "machine-learning"]
 ---
 
 Adapting compact open-source language models for domain-specific programming tasks presents unique challenges in balancing computational efficiency with specialized capabilities. This implementation demonstrates a streamlined approach to fine-tuning Qwen2.5-Coder-7B-Instruct specifically for Go programming, emphasizing practical deployment on consumer-grade hardware.
