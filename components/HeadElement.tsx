@@ -1,6 +1,8 @@
 import { FunctionalComponent } from "preact";
 import { Head } from "fresh/runtime";
 
+const CANONICAL_DOMAIN = "https://blog.arcbjorn.com";
+
 interface IHeadProps {
   url: URL;
   title: string;
@@ -10,6 +12,9 @@ interface IHeadProps {
 
 const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
   const { description, image, title, url } = props;
+
+  // Build canonical URL using the canonical domain
+  const canonicalUrl = `${CANONICAL_DOMAIN}${url.pathname}${url.search}`;
 
   // Add cache-busting parameter to images
   const addCacheBuster = (imageUrl: string) => {
@@ -25,10 +30,10 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={url.href} />
+      <link rel="canonical" href={canonicalUrl} />
 
       {/* Facebook Meta Tags */}
-      <meta property="og:url" content={url.href} />
+      <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />

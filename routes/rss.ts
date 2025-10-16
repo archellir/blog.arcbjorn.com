@@ -2,7 +2,7 @@ import { define } from "../fresh.ts";
 import { listPosts } from "../api/listPosts.ts";
 import { IPost, IPostsResponse } from "../types.ts";
 
-const siteURL = "https://blog.arcbjorn.com";
+const CANONICAL_DOMAIN = "https://blog.arcbjorn.com";
 const siteTitle = "Arcbjorn's thoughtbook";
 const siteDescription = "Tech explorations";
 
@@ -12,16 +12,16 @@ const render = (posts: IPost[]) =>
 <channel>
 <title>${siteTitle}</title>
 <description>${siteDescription}</description>
-<link>${siteURL}</link>
-<atom:link href="${siteURL}/rss" rel="self" type="application/rss+xml"/>
+<link>${CANONICAL_DOMAIN}</link>
+<atom:link href="${CANONICAL_DOMAIN}/rss" rel="self" type="application/rss+xml"/>
 ${
     posts
       .map(
         (post) =>
           `<item>
-<guid isPermaLink="true">${siteURL}/${post.id}</guid>
+<guid isPermaLink="true">${CANONICAL_DOMAIN}/${post.id}</guid>
 <title>${post.title}</title>
-<link>${siteURL}/${post.id}</link>
+<link>${CANONICAL_DOMAIN}/${post.id}</link>
 <description>${post.snippet}</description>
 <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>
 </item>`,
