@@ -50,24 +50,28 @@ Early projects already live on testnet include perpetual DEXs with sub-10 ms fil
 ## Technical resources & security
 
 **Official Documentation:**
-1. [MegaETH Official Documentation](https://docs.megaeth.com/) – Architecture, API, and technical specifications
-2. [MegaETH Research Page](https://www.megaeth.com/research) – Technical deep dives and performance benchmarks
-3. [MegaETH MiCA Whitepaper](https://static.megaeth.com/MEGA%20MiCA%20Whitepaper.pdf) – Tokenomics & regulatory framework (Sept 2025)
-4. [Realtime API & Mini-block Streaming](https://docs.megaeth.com/realtime-api) – WebSocket subscription specification
-5. [Mini Blocks Documentation](https://docs.megaeth.com/miniblocks) – Micro-block architecture details
-6. [Public Testnet Dashboard](https://testnet.megaeth.com/) – Live performance metrics
-7. [MegaETH GitHub](https://github.com/megaeth-labs) – Open source repositories
+
+- [MegaETH Official Documentation](https://docs.megaeth.com/) – Architecture, API, and technical specifications
+- [MegaETH Research Page](https://www.megaeth.com/research) – Technical deep dives and performance benchmarks
+- [MegaETH MiCA Whitepaper](https://static.megaeth.com/MEGA%20MiCA%20Whitepaper.pdf) – Tokenomics & regulatory framework (Sept 2025)
+- [Realtime API & Mini-block Streaming](https://docs.megaeth.com/realtime-api) – WebSocket subscription specification
+- [Mini Blocks Documentation](https://docs.megaeth.com/miniblocks) – Micro-block architecture details
+- [Public Testnet Dashboard](https://testnet.megaeth.com/) – Live performance metrics
+- [MegaETH GitHub](https://github.com/megaeth-labs) – Open source repositories
 
 **Partner Infrastructure:**
-8. [Pi Squared Network](https://docs.pi2.network) – Dual validation partner documentation
-9. [EigenDA](https://www.eigenda.xyz/) – Data availability layer
+
+- [Pi Squared Network](https://docs.pi2.network) – Dual validation partner documentation
+- [EigenDA](https://www.eigenda.xyz/) – Data availability layer
 
 **Technical Analysis:**
-10. [Node Specialization Overview](https://x.com/megaeth_labs/status/1853459318324224201) – Heterogeneous blockchain architecture
-11. [Mega Intro to MegaETH](https://fraxcesco.substack.com/p/mega-intro-to-megaeth-8e6) – Comprehensive technical analysis
-12. [MegaETH Deep Dive](https://globalcoinresearch.com/research/megaeth-deep-dive) – Architecture and performance analysis
+
+- [Node Specialization Overview](https://x.com/megaeth_labs/status/1853459318324224201) – Heterogeneous blockchain architecture
+- [Mega Intro to MegaETH](https://fraxcesco.substack.com/p/mega-intro-to-megaeth-8e6) – Comprehensive technical analysis
+- [MegaETH Deep Dive](https://globalcoinresearch.com/research/megaeth-deep-dive) – Architecture and performance analysis
 
 **Security Audits:**
+
 - [Sherlock](https://sherlock.xyz/) – Auditing SONAR smart contracts (reports to be published before mainnet)
 - [Spearbit](https://spearbit.com/) – Auditing protocol and auction contracts
 - [CertiK](https://skynet.certik.com/projects/megaeth) – Completed audit (Security Score: 80.28, Grade A)
