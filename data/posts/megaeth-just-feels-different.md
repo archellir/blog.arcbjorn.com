@@ -1,7 +1,7 @@
 ---
 title: "MegaETH Just Feels Different"
 published_at: 2025-11-24 12:00
-snippet: "A real-time blockchain that behaves like regular internet: instant clicks, sub-10ms confirmations, full EVM compatibility."
+snippet: "Real-time blockchain: sub-10ms blocks, full EVM compatibility."
 tags: ["blockchain", "ethereum"]
 ---
 
