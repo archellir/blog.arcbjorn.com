@@ -26,7 +26,7 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
       >
         {/* Desktop: Date in separate column */}
         <div class="hidden sm:block sm:order-1 sm:w-min sm:shrink-0">
-          <time class="font-plex-mono text-sm sm:text-base">
+          <time class="font-plex-mono text-sm sm:text-base tracking-wider">
             {localizedDate}
           </time>
         </div>
@@ -40,7 +40,7 @@ const Post: FunctionalComponent<IPostProps> = memo(({ post, measureRef }) => {
           </p>
           {/* Mobile: Date and tags on same line when possible */}
           <div class="flex flex-wrap items-center gap-2 pt-2 sm:hidden">
-            <time class="font-plex-mono text-sm shrink-0">{localizedDate}</time>
+            <time class="font-plex-mono text-sm shrink-0 tracking-wider">{localizedDate}</time>
             {post.tags && post.tags.length > 0 &&
               post.tags.map((tag) => (
                 <span class="bg-gray-300 text-center text-black font-plex-mono text-sm px-2 py-1 rounded-full">
