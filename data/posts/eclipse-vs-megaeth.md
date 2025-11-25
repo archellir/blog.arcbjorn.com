@@ -9,7 +9,7 @@ Eclipse and MegaETH represent fundamentally different philosophies for scaling E
 
 ## Architecture Overview
 
-### Eclipse
+### Eclipse: Modular SVM Stack
 
 [Eclipse](https://www.eclipse.xyz/) combines components from multiple ecosystems:
 
@@ -20,7 +20,7 @@ Eclipse and MegaETH represent fundamentally different philosophies for scaling E
 
 The SVM enables parallel transaction execution through [Sealevel runtime](https://docs.eclipse.xyz/). Transactions declare state dependencies upfront, allowing the scheduler to execute non-overlapping transactions simultaneously across CPU cores. This scales naturally with hardware improvements.
 
-### MegaETH
+### MegaETH: Vertical EVM Scaling
 
 [MegaETH](https://www.megaeth.com/) keeps the EVM but redesigns execution infrastructure:
 
@@ -33,7 +33,7 @@ MegaETH eliminates disk I/O entirely. The entire world state lives in memory, ac
 
 ## Execution Models
 
-### Declared Parallelism (Eclipse)
+### Eclipse: Declared Parallelism
 
 The SVM requires transactions to specify all state they will access before execution. This explicit declaration enables optimal parallelization without speculation or re-execution:
 
@@ -55,7 +55,7 @@ Benefits:
 - No wasted computation from speculative execution
 - Predictable scheduling
 
-### Micro-VM Architecture (MegaETH)
+### MegaETH: Micro-VM Architecture
 
 MegaETH implements a [Micro-VM architecture](https://fraxcesco.substack.com/p/mega-intro-to-megaeth-8e6) with State Dependency DAG scheduling:
 
@@ -68,7 +68,7 @@ The in-memory state makes conflict detection and re-execution cheap (microsecond
 
 ## Fee Market Design
 
-### Local Fee Markets (Eclipse)
+### Eclipse: Local Fee Markets
 
 SVM's parallel execution enables [local fee markets](https://www.eclipse.xyz/articles/introducing-eclipse-mainnet-the-ethereum-svm-l2) where fees are determined per-application rather than globally:
 
@@ -78,7 +78,7 @@ SVM's parallel execution enables [local fee markets](https://www.eclipse.xyz/art
 
 This requires the parallelized runtime to function correctly. EVM-based chains struggle to implement this without introducing attack vectors.
 
-### Global Fees via Capacity (MegaETH)
+### MegaETH: Global Fees via Capacity
 
 MegaETH maintains global fee markets but targets capacity high enough that contention rarely matters. With 100,000+ TPS headroom and sub-cent fees even under load, the global market effectively behaves like isolated capacity for most applications.
 
@@ -97,7 +97,7 @@ MegaETH's testnet demonstrates real-time responsiveness: Fibonacci(10^6) complet
 
 ## Data Availability Trade-offs
 
-### Celestia (Eclipse)
+### Eclipse: Celestia
 
 [Celestia](https://www.eclipse.xyz/articles/celestia-vs-eip-4844-the-data-availability-showdown-for-next-gen-l2s) provides ~40x more bandwidth than Ethereum's EIP-4844 blobspace:
 
@@ -107,7 +107,7 @@ MegaETH's testnet demonstrates real-time responsiveness: Fibonacci(10^6) complet
 
 Eclipse argues Ethereum's ~0.375 MB average blobspace cannot support their throughput targets.
 
-### EigenDA (MegaETH)
+### MegaETH: EigenDA
 
 [EigenDA](https://blog.eigencloud.xyz/introducing-eigenda-v2-on-mainnet-at-100-mb-s/) offers 10 MB/s mainnet throughput (100 MB/s with V2) through EigenLayer's restaking security model. MegaETH is currently testing with EigenDA V2. Fraud proofs are generated from the same in-memory state used for execution.
 
@@ -117,11 +117,11 @@ Both approaches trade Ethereum's native DA security for external systems. Celest
 
 This is where the philosophical divide becomes sharpest.
 
-### Distributed Sequencers (Eclipse)
+### Eclipse: Distributed Sequencers
 
 Eclipse maintains multiple sequencers for short-term censorship resistance. While not fully decentralized, the design prioritizes preventing single points of failure for transaction inclusion.
 
-### Centralized Sequencer (MegaETH)
+### MegaETH: Centralized Sequencer
 
 MegaETH [has no plans to decentralize the sequencer](https://cointelegraph.com/magazine/megaeth-launch-could-save-ethereum-but-at-what-cost/). The architecture depends on a single high-spec machine to achieve real-time performance. Replica nodes verify execution cheaply (a MacBook Air suffices), but ordering remains centralized.
 
