@@ -37,14 +37,18 @@ MegaETH eliminates disk I/O entirely. The entire world state lives in memory, ac
 
 The SVM requires transactions to specify all state they will access before execution. This explicit declaration enables optimal parallelization without speculation or re-execution:
 
+```mermaid
+graph LR
+    subgraph Parallel
+        A[Tx A: read X, write Y]
+        B[Tx B: read Z, write W]
+    end
+    subgraph Sequential
+        A --> C[Tx C: read Y]
+    end
 ```
-Transaction A: reads account X, writes account Y
-Transaction B: reads account Z, writes account W
-→ Execute in parallel (no overlap)
 
-Transaction C: reads account Y
-→ Must wait for Transaction A
-```
+Transactions A and B touch disjoint state, so they execute in parallel. Transaction C reads account Y (written by A), so it must wait.
 
 Benefits:
 - Direct hardware scaling as cores increase
