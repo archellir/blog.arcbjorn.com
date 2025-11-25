@@ -159,7 +159,7 @@ MegaETH's pitch: keep your existing code, get 1000x performance.
 ### MegaETH
 
 - Public testnet running since March 2025
-- $57M total raised ($20M seed from Dragonfly + Vitalik, $10M Echo raise, $27.7M NFT mint)
+- $57M total raised from Dragonfly, Vitalik Buterin, Echo community raise, and NFT mint
 - Mainnet beta "Frontier" launching December 2025
 - TGE planned January 2026
 
