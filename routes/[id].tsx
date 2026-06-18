@@ -11,6 +11,17 @@ import StructuredData from "../components/StructuredData.tsx";
 
 // PrismJS language definitions are now loaded client-side via CSS/JS in BlogLayout
 
+// Open external links (http/https) in a new tab; leave internal/anchor links alone.
+function openExternalLinksInNewTab(html: string): string {
+  return html.replace(
+    /<a\s+([^>]*\bhref=["']https?:\/\/[^>]*)>/gi,
+    (match, attrs) =>
+      /\btarget=/.test(attrs)
+        ? match
+        : `<a ${attrs} target="_blank" rel="noopener noreferrer">`,
+  );
+}
+
 export default define.page(async (ctx) => {
   const url = ctx.url;
   const id = ctx.params.id;
@@ -26,9 +37,9 @@ export default define.page(async (ctx) => {
   const date = new Date(post.publishedAt);
   const localizedDate = dateFmt.format(date);
 
-  const html = render(post.content, {
+  const html = openExternalLinksInNewTab(render(post.content, {
     allowMath: true,
-  });
+  }));
 
   const blogPostData = {
     "headline": post.title,
