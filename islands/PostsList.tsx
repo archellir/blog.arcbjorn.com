@@ -1,120 +1,99 @@
-import { FunctionalComponent } from "preact";
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
+import { IS_BROWSER } from "fresh/runtime";
 
-import Post from "../components/Post.tsx";
-import Loader from "../components/Loader.tsx";
-
+import PostRow from "../components/PostRow.tsx";
+import { PlusIcon } from "../components/Icons.tsx";
 import { pullPosts } from "../api/pullPosts.ts";
-import { IPost, IPostsResponse, IState } from "../types.ts";
-import parseQueryParams from "../utils/parseQueryParams.ts";
-import useOnScreen from "../utils/useOnScreen.tsx";
+import type { IPostSummary } from "../types.ts";
 
-type IPostsListPageData = IState & {
-  postsData: IPostsResponse;
-};
+interface PostsListProps {
+  posts: IPostSummary[];
+  all: number;
+  tags?: string;
+}
 
-const PostsList: FunctionalComponent<IPostsListPageData> = (props) => {
-  const [posts, setPosts] = useState<IPost[]>(props.postsData.posts);
-  const loadingTimeoutRef = useRef<number | null>(null);
+// Keep the number of loaded posts in the URL so a reload shows the same list.
+function rememberQuantity(quantity: number) {
+  const url = new URL(globalThis.location.href);
+  url.searchParams.set("quantity", String(quantity));
+  globalThis.history.replaceState(globalThis.history.state, "", url);
+}
 
-  const all = props.postsData.posts.length === props.postsData.all;
-  const [hasMore, setHasMore] = useState<boolean>(!all);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+export default function PostsList(
+  { posts: initialPosts, all, tags }: PostsListProps,
+) {
+  const [posts, setPosts] = useState<IPostSummary[]>(initialPosts);
+  const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const moreRef = useRef<HTMLButtonElement>(null);
 
-  const { measureRef, isIntersecting, observer } = useOnScreen();
-  const [isMobile, setIsMobile] = useState<boolean>(
-    globalThis.innerWidth <= 576,
-  );
+  const remaining = Math.max(0, all - posts.length);
 
-  const loadMorePosts = useCallback(async () => {
-    setIsLoading(true);
-
-    if (loadingTimeoutRef.current) {
-      clearTimeout(loadingTimeoutRef.current);
+  const loadMore = useCallback(async () => {
+    if (loading) return;
+    setLoading(true);
+    setFailed(false);
+    try {
+      const page = await pullPosts(posts.length, tags);
+      const next = [...posts, ...page.posts];
+      setPosts(next);
+      rememberQuantity(next.length);
+    } catch {
+      setFailed(true);
+    } finally {
+      setLoading(false);
     }
+  }, [loading, posts, tags]);
 
-    const baseOrigin = globalThis.location.origin;
-    const queryParams = parseQueryParams(globalThis.location.search);
-
-    let queryParamsString = "?";
-    if (queryParams.tags) {
-      queryParamsString = `?tags=${queryParams.tags}&`;
-    }
-
-    const postsData = await pullPosts(baseOrigin, [...posts], queryParams.tags);
-
-    loadingTimeoutRef.current = setTimeout(() => {
-      queryParamsString += `quantity=${postsData.posts.length}`;
-      const refreshUrl = baseOrigin + queryParamsString;
-      globalThis.history.pushState({ path: refreshUrl }, "", refreshUrl);
-
-      const hasMore = postsData.posts.length !== postsData.all;
-
-      setPosts(postsData.posts);
-      setHasMore(hasMore);
-      setIsLoading(false);
-      setIsMobile(globalThis.innerWidth <= 576);
-    }, 750);
-  }, [posts]);
-
+  // On narrow screens the next page loads as the control scrolls into view.
   useEffect(() => {
-    return () => {
-      if (loadingTimeoutRef.current) {
-        clearTimeout(loadingTimeoutRef.current);
-      }
-    };
-  }, []);
+    const control = moreRef.current;
+    if (!IS_BROWSER || !control || remaining === 0 || failed) return;
+    if (!globalThis.matchMedia("(max-width: 39.99rem)").matches) return;
 
-  useEffect(() => {
-    if (!isMobile) {
-      return;
-    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) loadMore();
+    }, { rootMargin: "240px" });
+    observer.observe(control);
+    return () => observer.disconnect();
+  }, [remaining, failed, loadMore]);
 
-    if (isIntersecting && hasMore) {
-      loadMorePosts();
-      if (observer) {
-        observer.disconnect();
-      }
-    }
-  }, [isIntersecting, hasMore, loadMorePosts]);
+  if (posts.length === 0) {
+    return (
+      <p class="emptyState">
+        No posts carry these tags yet.{" "}
+        <a class="inlineLink" href="/">See all posts</a>.
+      </p>
+    );
+  }
+
+  const label = failed
+    ? "Could not load more, try again"
+    : loading
+    ? "Loading"
+    : "More posts";
 
   return (
     <>
-      <div class="flex flex-col max-w-screen-lg self-center flex-grow pt-8 sm:pt-16">
-        <ul class="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
-          {posts.map((post, index) => {
-            if (index === posts.length - 1) {
-              return (
-                <Post
-                  key={post.id}
-                  measureRef={measureRef}
-                  post={post}
-                  locales={props.locales}
-                />
-              );
-            }
-            return <Post key={post.id} post={post} locales={props.locales} />;
-          })}
-        </ul>
-        <div class="min-h-32 flex items-center justify-center">
-          {isLoading ? <Loader /> : hasMore
-            ? (
-              <button
-                role="button"
-                type="button"
-                class="my-8"
-                onClick={loadMorePosts}
-              >
-                <span class="button_top prevent-select">
-                  More posts
-                </span>
-              </button>
-            )
-            : null}
-        </div>
-      </div>
+      <ul class="postRows">
+        {posts.map((post) => <PostRow key={post.id} post={post} />)}
+      </ul>
+      {remaining > 0 && (
+        <button
+          ref={moreRef}
+          type="button"
+          class="moreButton"
+          onClick={loadMore}
+          disabled={loading}
+          aria-busy={loading}
+        >
+          <span class="moreLabel">
+            {label}
+            <span class="totalCount">{remaining}</span>
+          </span>
+          <PlusIcon />
+        </button>
+      )}
     </>
   );
-};
-
-export default PostsList;
+}
