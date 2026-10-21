@@ -1,26 +1,25 @@
 import { FunctionalComponent } from "preact";
 
-interface IFooterProps {
-  classes?: string;
-}
+import { ArrowUpRight } from "./Icons.tsx";
+import { AUTHOR, LICENSE_NAME, LICENSE_URL } from "../constants.ts";
 
-const Footer: FunctionalComponent<IFooterProps> = ({ classes }) => {
-  return (
-    <div class={classes + " flex justify-center p-8"}>
+// Closes the content pane: who wrote this, under which licence, and the feed.
+const Footer: FunctionalComponent = () => (
+  <footer class="footer">
+    <p class="footerLine">
+      <span>{AUTHOR}</span>
       <a
-        rel="license"
-        href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"
+        class="footerLink"
+        href={LICENSE_URL}
+        target="_blank"
+        rel="license noopener noreferrer"
       >
-        <img
-          alt="Creative Commons Licence"
-          style="border-width:0"
-          src="https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-nc-sa.svg"
-          width="80"
-          height="15"
-        />
+        {LICENSE_NAME}
+        <ArrowUpRight class="linkIcon" />
       </a>
-    </div>
-  );
-};
+      <a class="footerLink" href="/rss">RSS</a>
+    </p>
+  </footer>
+);
 
 export default Footer;

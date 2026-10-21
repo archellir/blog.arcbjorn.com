@@ -1,0 +1,78 @@
+/* Two panes on lg+: a sticky letter on the left, the content on the right.
+   One column below that. */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem 2.5rem;
+}
+
+.intro {
+  margin-top: 3rem;
+}
+
+/* The content pane is the query container for everything inside it, so
+   sections lay out by the room they actually get, not the viewport. */
+.main {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-top: 1px solid var(--lineColor);
+  animation: fadein 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .aside {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    display: grid;
+    grid-template-columns: minmax(22rem, 30%) minmax(0, 1fr);
+  }
+
+  .aside {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 2.25rem 2.5rem 2.5rem;
+  }
+
+  .aside::-webkit-scrollbar {
+    display: none;
+  }
+
+  .intro {
+    margin-top: 3.5rem;
+  }
+
+  .main {
+    min-height: 100vh;
+    min-height: 100dvh;
+    border-top: 0;
+    border-left: 1px solid var(--lineColor);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
