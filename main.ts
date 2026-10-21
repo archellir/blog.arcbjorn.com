@@ -1,4 +1,11 @@
-import { App, cors, csp, csrf, staticFiles, trailingSlashes } from "fresh";
+import {
+  App,
+  cors,
+  csrf,
+  HttpError,
+  staticFiles,
+  trailingSlashes,
+} from "fresh";
 import { define } from "./fresh.ts";
 import type { IState } from "./types.ts";
 
@@ -26,40 +33,31 @@ const staticCacheMiddleware = define.middleware(async (ctx) => {
     res.headers.set("Cache-Control", "public, max-age=31536000, immutable");
   }
 
-  if (url.pathname.endsWith("/by-nc-sa.svg")) {
-    res.headers.set("Cache-Control", "public, max-age=31536000, immutable");
-  }
-
   return res;
 });
 app.use(staticCacheMiddleware);
 
-// Locale detection (replaces routes/_middleware.tsx)
+// Locale detection from the Accept-Language header
 const localesMiddleware = define.middleware((ctx) => {
-  const header = ctx.req.headers.get("accept-language") || undefined;
-  const locales: string[] = [];
-  try {
-    // lightweight parse to keep compatibility if parser is unavailable
-    const parts = (header ?? "").split(",");
-    for (const part of parts) {
-      const token = part.trim().split(";")[0];
-      if (token) locales.push(token);
-    }
-  } catch (_) {
-    // ignore
-  }
-  if (locales.length === 0) locales.push("en");
-  ctx.state.locales = locales;
+  const header = ctx.req.headers.get("accept-language") ?? "";
+  const locales = header
+    .split(",")
+    .map((part) => part.trim().split(";")[0])
+    .filter((token) => token && token !== "*");
+  ctx.state.locales = locales.length ? locales : ["en"];
   return ctx.next();
 });
 app.use(localesMiddleware);
 
-// Log unexpected errors during SSR/handlers
+// Log unexpected errors during SSR/handlers; expected HTTP errors (404s)
+// pass through to the error page quietly.
 const errorLogger = define.middleware(async (ctx) => {
   try {
     return await ctx.next();
   } catch (err) {
-    console.error("Unhandled error:", err);
+    if (!(err instanceof HttpError)) {
+      console.error("Unhandled error:", err);
+    }
     throw err;
   }
 });
@@ -70,7 +68,6 @@ const securityHeaders = define.middleware(async (ctx) => {
   const res = await ctx.next();
   res.headers.set("X-Frame-Options", "DENY");
   res.headers.set("X-Content-Type-Options", "nosniff");
-  res.headers.set("X-XSS-Protection", "1; mode=block");
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   return res;
 });
@@ -86,16 +83,5 @@ const performanceMiddleware = define.middleware(async (ctx) => {
 });
 app.use(performanceMiddleware);
 
-// Global error handler
-app.onError("*", (ctx) => {
-  console.error(`[Error] ${ctx.error}`);
-  return new Response("Internal Server Error", { status: 500 });
-});
-
-// Not found handler
-app.notFound((_ctx) => {
-  return new Response("Not Found", { status: 404 });
-});
-
-// Register file-system routes
+// Register file-system routes; routes/_error.tsx handles 404s and failures.
 app.fsRoutes();
