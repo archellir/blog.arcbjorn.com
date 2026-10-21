@@ -1,26 +1,42 @@
 import { FunctionalComponent } from "preact";
 import { Head } from "fresh/runtime";
 
-const CANONICAL_DOMAIN = "https://blog.arcbjorn.com";
+import { AUTHOR, AUTHOR_HANDLE, SITE_NAME, SITE_URL } from "../constants.ts";
 
 interface IHeadProps {
   url: URL;
   title: string;
   description: string;
   image?: string;
+  type?: "website" | "article";
+  // ISO date; only for articles.
+  publishedAt?: string;
+  noindex?: boolean;
 }
 
 const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
-  const { description, image, title, url } = props;
+  const {
+    description,
+    image,
+    title,
+    url,
+    type = "website",
+    publishedAt,
+    noindex = false,
+  } = props;
 
-  // Build canonical URL using the canonical domain
-  const canonicalUrl = `${CANONICAL_DOMAIN}${url.pathname}${url.search}`;
+  // Canonical URL on the canonical domain; of the query only the tag filter
+  // identifies a distinct page.
+  const canonical = new URL(url.pathname, SITE_URL);
+  const tags = url.searchParams.get("tags");
+  if (tags) canonical.searchParams.set("tags", tags);
+  const canonicalUrl = canonical.toString();
 
-  // Add cache-busting parameter to images
+  // Social scrapers cache images hard; a daily version lets a new banner
+  // show up within a day.
   const addCacheBuster = (imageUrl: string) => {
-    if (!imageUrl) return imageUrl;
     const separator = imageUrl.includes("?") ? "&" : "?";
-    const version = new Date().toISOString().split("T")[0]; // Use date as version
+    const version = new Date().toISOString().split("T")[0];
     return `${imageUrl}${separator}v=${version}`;
   };
 
@@ -31,38 +47,41 @@ const HeadElement: FunctionalComponent<IHeadProps> = (props) => {
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonicalUrl} />
+      <meta name="author" content={AUTHOR} />
+      <meta
+        name="robots"
+        content={noindex ? "noindex, follow" : "index, follow"}
+      />
 
-      {/* Facebook Meta Tags */}
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={type} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
+      <meta property="og:site_name" content={SITE_NAME} />
       {cacheBustedImage && (
         <meta property="og:image" content={cacheBustedImage} />
       )}
-      <meta property="og:site_name" content="blog.arcbjorn.com" />
+      {type === "article" && (
+        <meta
+          property="article:author"
+          content={AUTHOR}
+        />
+      )}
+      {type === "article" && publishedAt && (
+        <meta property="article:published_time" content={publishedAt} />
+      )}
 
-      {/* Twitter Meta Tags */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@arcbjorn" />
-      <meta name="twitter:creator" content="@arcbjorn" />
+      <meta
+        name="twitter:card"
+        content={cacheBustedImage ? "summary_large_image" : "summary"}
+      />
+      <meta name="twitter:site" content={`@${AUTHOR_HANDLE}`} />
+      <meta name="twitter:creator" content={`@${AUTHOR_HANDLE}`} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {cacheBustedImage && (
         <meta name="twitter:image" content={cacheBustedImage} />
       )}
-
-      {/* Additional SEO */}
-      <meta name="author" content="arcbjorn" />
-      <meta name="robots" content="index, follow" />
-      <meta property="article:author" content="arcbjorn" />
-      <meta name="theme-color" content="#1b1d1e" />
-      <link
-        rel="alternate"
-        type="application/rss+xml"
-        title="RSS Feed"
-        href="/rss"
-      />
     </Head>
   );
 };

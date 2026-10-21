@@ -1,119 +1,130 @@
 import { define } from "../fresh.ts";
-import { render } from "$gfm";
+import { HttpError } from "fresh";
+import { Head } from "fresh/runtime";
+import { KATEX_CSS } from "$gfm";
 
-import type { IPost as _IPost } from "../types.ts";
 import { loadPost } from "../api/loadPost.ts";
-import { resolveImageUrl } from "../utils/imageUtils.ts";
+import { listPosts } from "../api/listPosts.ts";
+import { renderMarkdown } from "../api/renderMarkdown.ts";
 
 import HeadElement from "../components/HeadElement.tsx";
-import BlogLayout from "../components/BlogLayout.tsx";
+import Shell from "../components/Shell.tsx";
+import PostIntro from "../components/PostIntro.tsx";
+import PostNav from "../components/PostNav.tsx";
 import StructuredData from "../components/StructuredData.tsx";
+import PostEnhancer from "../islands/PostEnhancer.tsx";
 
-// PrismJS language definitions are now loaded client-side via CSS/JS in BlogLayout
-
-// Open external links (http/https) in a new tab; leave internal/anchor links alone.
-function openExternalLinksInNewTab(html: string): string {
-  return html.replace(
-    /<a\s+([^>]*\bhref=["']https?:\/\/[^>]*)>/gi,
-    (match, attrs) =>
-      /\btarget=/.test(attrs)
-        ? match
-        : `<a ${attrs} target="_blank" rel="noopener noreferrer">`,
-  );
-}
+import { formatDate, isoDate } from "../utils/dates.ts";
+import { describePost } from "../utils/describePost.ts";
+import { readingTime } from "../utils/readingTime.ts";
+import { resolveImageUrl } from "../utils/imageUtils.ts";
+import { AUTHOR, AUTHOR_URL, SITE_NAME, SITE_URL } from "../constants.ts";
 
 export default define.page(async (ctx) => {
   const url = ctx.url;
-  const id = ctx.params.id;
-  const post = await loadPost(id);
-  if (!post) {
-    const headers = new Headers({ Location: "/" });
-    return new Response("", { status: 303, headers });
-  }
+  const post = await loadPost(ctx.params.id);
+  if (!post) throw new HttpError(404);
 
-  const dateFmt = new Intl.DateTimeFormat(ctx.state.locales, {
-    dateStyle: "full",
-  });
-  const date = new Date(post.publishedAt);
-  const localizedDate = dateFmt.format(date);
+  // Neighbours in publication order, for the links at the end.
+  const { posts } = await listPosts({ offset: 0, limit: 0 });
+  const index = posts.findIndex((item) => item.id === post.id);
+  const newer = index > 0 ? posts[index - 1] : undefined;
+  const older = index >= 0 && index < posts.length - 1
+    ? posts[index + 1]
+    : undefined;
 
-  const html = openExternalLinksInNewTab(render(post.content, {
-    allowMath: true,
-  }));
+  const rendered = renderMarkdown(post.content);
+  const date = formatDate(post.publishedAt, ctx.state.locales);
+  const published = isoDate(post.publishedAt);
+  const minutes = readingTime(post.content);
+  const description = describePost(post);
+  const image = resolveImageUrl(post.image, url.origin);
 
   const blogPostData = {
-    "headline": post.title,
-    "description": post.snippet,
-    "datePublished": post.publishedAt,
-    "dateModified": post.publishedAt,
-    "author": {
+    headline: post.title,
+    description,
+    datePublished: published,
+    dateModified: published,
+    keywords: post.tags?.join(", "),
+    author: {
       "@type": "Person",
-      "name": "arcbjorn",
+      name: AUTHOR,
+      url: AUTHOR_URL,
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "blog.arcbjorn.com",
-      "logo": {
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: {
         "@type": "ImageObject",
-        "url": `${url.origin}/images/og-default.png`,
+        url: `${url.origin}/images/og-default.png`,
       },
     },
-    "mainEntityOfPage": {
+    mainEntityOfPage: {
       "@type": "WebPage",
       "@id": url.href,
     },
-    "image": resolveImageUrl(post.image, url.origin),
+    image,
   };
 
   return (
     <>
       <HeadElement
         url={url}
-        title={post.title}
-        description={post.snippet}
-        image={resolveImageUrl(post.image, url.origin)}
+        title={`${post.title} · ${SITE_NAME}`}
+        description={description}
+        image={image}
+        type="article"
+        publishedAt={published}
       />
+      {rendered.hasMath && (
+        <Head>
+          <style dangerouslySetInnerHTML={{ __html: KATEX_CSS }} />
+        </Head>
+      )}
 
       <StructuredData type="BlogPosting" data={blogPostData} />
-
       <StructuredData
         type="BreadcrumbList"
         data={{
-          "itemListElement": [
+          itemListElement: [
             {
               "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": url.origin,
+              position: 1,
+              name: SITE_NAME,
+              item: url.origin,
             },
             {
               "@type": "ListItem",
-              "position": 2,
-              "name": post.title,
-              "item": url.href,
+              position: 2,
+              name: post.title,
+              item: url.href,
             },
           ],
         }}
       />
 
-      <BlogLayout includeCodeHighlighting>
-        <div class="px-4 sm:px-8 py-8 mx-auto max-w-screen-lg border-t border-dashed border-gray-400">
-          <p class="text-gray-400">
-            {localizedDate}
-          </p>
-
-          <h1 class="text-3xl py-8 font-semibold">
-            {post.title}
-          </h1>
-          <div
-            style={{ backgroundColor: "#1b1d1e" }}
-            class="markdown-body"
-            data-color-mode="dark"
-            data-dark-theme="dark"
-            dangerouslySetInnerHTML={{ __html: html }}
+      <Shell
+        url={url}
+        aside={
+          <PostIntro
+            post={post}
+            date={date}
+            minutes={minutes}
+            headings={rendered.headings}
           />
-        </div>
-      </BlogLayout>
+        }
+      >
+        <article class="article">
+          <div
+            class="prose"
+            f-client-nav={false}
+            dangerouslySetInnerHTML={{ __html: rendered.html }}
+          />
+          <PostNav newer={newer} older={older} />
+        </article>
+        <PostEnhancer mermaid={rendered.hasMermaid} />
+      </Shell>
     </>
   );
 });

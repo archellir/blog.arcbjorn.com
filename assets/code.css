@@ -1,0 +1,188 @@
+/* --- code: blocks with a language label and a copy button, inline spans ------ */
+
+.codeBlock {
+  position: relative;
+}
+
+.prose pre {
+  margin: 0;
+  padding: 1rem 1.125rem;
+  overflow-x: auto;
+  background-color: var(--surface);
+  border: 1px solid var(--lineColor);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.prose pre code {
+  display: block;
+  padding: 0;
+  background: none;
+  font-size: inherit;
+  white-space: pre;
+  color: var(--color);
+}
+
+.prose :not(pre) > code {
+  padding: 0.1em 0.4em;
+  font-size: 0.9em;
+  background-color: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+/* Language label in the corner; the copy button takes its place on hover */
+.codeBlock[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mutedColor);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.codeBlock:hover::before,
+.codeBlock:focus-within::before {
+  opacity: 0;
+}
+
+.copyButton {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mutedColor);
+  background-color: var(--bg);
+  border: 1px solid var(--lineColor);
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.codeBlock:hover .copyButton,
+.copyButton:focus-visible {
+  opacity: 1;
+}
+
+.copyButton:hover {
+  color: var(--focusColor);
+  border-color: var(--focusColor);
+}
+
+.copyButton[data-state="copied"] {
+  opacity: 1;
+  color: var(--titleColor);
+  border-color: var(--titleColor);
+}
+
+.copyButton[data-state="failed"] {
+  opacity: 1;
+  color: var(--focusColor);
+  border-color: var(--focusColor);
+}
+
+/* No hover on touch screens: keep the button, drop the label */
+@media (hover: none) {
+  .copyButton {
+    opacity: 1;
+  }
+
+  .codeBlock[data-lang]::before {
+    opacity: 0;
+  }
+}
+
+/* --- syntax: gruvbox, light and dark variants from the palette --------------- */
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--synComment);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--synPunctuation);
+}
+
+.token.keyword,
+.token.atrule,
+.token.important {
+  color: var(--synKeyword);
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.inserted {
+  color: var(--synString);
+}
+
+.token.number,
+.token.boolean,
+.token.constant,
+.token.symbol {
+  color: var(--synNumber);
+}
+
+.token.function,
+.token.class-name,
+.token.attr-name,
+.token.tag {
+  color: var(--synFunction);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.deleted,
+.token.variable {
+  color: var(--synOperator);
+}
+
+.token.builtin,
+.token.property,
+.token.selector,
+.token.regex,
+.token.type-definition {
+  color: var(--synType);
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.bold {
+  font-weight: 600;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* --- diagrams: the source shows until mermaid draws it ----------------------- */
+
+.prose pre.mermaid {
+  text-align: center;
+}
+
+.prose pre.mermaid:not([data-processed]) {
+  text-align: left;
+  white-space: pre;
+  color: var(--mutedColor);
+}
+
+.prose pre.mermaid svg {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
