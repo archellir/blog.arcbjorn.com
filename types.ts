@@ -1,31 +1,29 @@
-export enum ETag {
-  LINUX = "linux",
-  LEETCODE = "leetcode",
-  ADVENT_OF_CODE = "advent",
-}
-
 export interface IPost {
   id: string;
   title: string;
   publishedAt: string;
-  snippet: string;
-  tags?: ETag[];
+  snippet?: string;
+  tags?: string[];
   content: string;
   image?: string;
   leetcode_number?: number;
 }
 
-export type TMarkdownMetadata = Omit<IPost, "content" | "publishedAt"> & {
-  published_at: string;
-  image?: string;
-};
+// What lists and feeds need: everything but the body.
+export type IPostSummary = Omit<IPost, "content">;
+
+export type TMarkdownMetadata =
+  & Omit<IPost, "id" | "content" | "publishedAt">
+  & {
+    published_at: string;
+  };
 
 export interface IState {
   locales: string[];
 }
 
 export interface IPostsResponse {
-  posts: IPost[];
+  posts: IPostSummary[];
   all: number;
 }
 
@@ -40,4 +38,9 @@ export interface IQueryParams {
   limit?: string;
   quantity?: string;
   tags?: string;
+}
+
+export interface IHeading {
+  id: string;
+  text: string;
 }

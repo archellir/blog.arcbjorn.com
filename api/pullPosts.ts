@@ -1,25 +1,20 @@
-import { IPost, IPostsResponse } from "../types.ts";
+import { IPostsResponse } from "../types.ts";
 import { POSTS_SET_NUMBER } from "../constants.ts";
 
+// Fetches the next page of posts from the JSON endpoint (browser side).
 export async function pullPosts(
-  url: string,
-  posts: IPost[],
+  offset: number,
   tags = "",
 ): Promise<IPostsResponse> {
-  const offset = posts.length.toString();
-  const limit = POSTS_SET_NUMBER.toString();
+  const params = new URLSearchParams({
+    offset: String(offset),
+    limit: String(POSTS_SET_NUMBER),
+  });
+  if (tags) params.set("tags", tags);
 
-  let requestUrl = url + "/posts?" +
-    new URLSearchParams({ offset, limit });
-
-  if (tags) {
-    requestUrl += `&tags=${tags}`;
+  const response = await fetch(`/posts?${params}`);
+  if (!response.ok) {
+    throw new Error(`Loading posts failed with ${response.status}`);
   }
-
-  const response = await fetch(requestUrl);
-  const postsData = await response.json() as IPostsResponse;
-
-  posts.push(...postsData.posts);
-
-  return { posts, all: postsData.all };
+  return await response.json() as IPostsResponse;
 }

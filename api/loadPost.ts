@@ -22,9 +22,9 @@ export async function loadPost(id: string): Promise<IPost | null> {
   return {
     id,
     title: attrs.title,
-    publishedAt: attrs.published_at,
+    publishedAt: String(attrs.published_at),
     snippet: attrs.snippet,
-    tags: attrs.tags,
+    tags: attrs.tags?.map(String),
     content: body,
     image: attrs.image,
     leetcode_number: attrs.leetcode_number,
