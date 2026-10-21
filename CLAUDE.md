@@ -44,16 +44,30 @@ technical explorations.
 ### Directory Structure
 
 - `routes/` - File-based routing (Fresh convention)
-  - `index.tsx` - Homepage with paginated post list
-  - `[id].tsx` - Dynamic blog post pages
-  - `posts.ts` - API endpoint for post data
+  - `_app.tsx` - HTML skeleton: theme-init script, inlined font faces, preloads,
+    analytics
+  - `index.tsx` - Homepage with the paginated, tag-filterable post list
+  - `[id].tsx` - Post pages; throws `HttpError(404)` for unknown ids
+  - `_error.tsx` - One error page for 404s and failures, rendered with the real
+    status
+  - `posts.ts` - JSON endpoint for the next page of posts
+  - `rss.ts`, `sitemap.xml.ts` - Feeds
 - `islands/` - Client-side interactive components (Fresh islands)
+  - `ThemeToggle.tsx` - Light/dark switch in the brand row
+  - `PostsList.tsx` - Post rows plus the "More posts" control
+  - `PostEnhancer.tsx` - Copy buttons and lazy, theme-aware mermaid
 - `components/` - Preact components (server-rendered)
-- `api/` - Data access layer for posts
+  - `Shell.tsx` - Two-pane layout; every route renders it with an `aside`
+  - `HomeIntro.tsx`, `PostIntro.tsx`, `PageIntro.tsx` - Left-pane letters
+  - `Section.tsx`, `PostRow.tsx`, `PostNav.tsx`, `Footer.tsx`, `Nav.tsx`
+- `api/` - Data access and rendering (`listPosts`, `loadPost`, `renderMarkdown`)
 - `data/posts/` - Markdown blog posts with frontmatter
-- `static/` - Static assets (fonts, images, scripts)
-- `assets/` - CSS entry for Tailwind v4, bundled via Vite from `client.ts`
-- `utils/` - Utility functions for URL parsing and pagination
+- `static/` - Static assets (self-hosted woff2 fonts, images)
+- `assets/` - Stylesheets, bundled via Vite from `client.ts`; `styles.css`
+  imports Tailwind v4 and one file per concern (`base`, `layout`, `aside`,
+  `section`, `posts`, `article`, `code`)
+- `utils/` - Dates, tags, topics, reading time, headings, theme and font
+  constants, URL parsing
 
 ### Key Architecture Patterns
 
@@ -69,12 +83,27 @@ snippet, tags). The system reads these files at runtime.
 
 1. `api/loadPost.ts` - Loads individual posts from filesystem, extracts
    frontmatter
-2. `api/listPosts.ts` - Loads all posts, sorts by date, handles pagination and
-   tag filtering
-3. Posts are cached in memory and sorted by publication date (newest first)
+2. `api/listPosts.ts` - Loads every `.md` file, sorts by date, filters by tags
+   and paginates; returns summaries without the body
+3. `api/renderMarkdown.ts` - Renders a post with a custom deno-gfm renderer:
+   Prism highlighting at render time (`.codeBlock[data-lang]`), mermaid fences
+   left as `pre.mermaid` for the client, heading permalinks, wrapped tables,
+   external links in a new tab. Posts are first-party, so the HTML is not
+   sanitized.
 
-**Tag System**: Posts can have tags (linux, leetcode, advent) defined in
-frontmatter for categorization and filtering.
+**Tag System**: Tags are free-form strings in frontmatter. `?tags=a,b` filters
+the list (exact, case-insensitive). `utils/topics.ts` defines the nav topics,
+each a group of tags.
+
+**Shell and Theme**: `components/Shell.tsx` ports the arcbjorn.com layout: a
+sticky left pane (brand row, intro, topic nav) and a content pane that is a CSS
+container. The palette lives in `assets/base.css` as `--bg`, `--color`,
+`--focusColor` (orange), `--titleColor` (teal), with `--mutedColor`,
+`--lineColor` and `--surface` derived via `color-mix`. The theme class
+(`dark`/`light`) is set on `<html>` by the inline script in `utils/theme.ts`
+before paint; without a stored choice the system preference and then the time of
+day decide. IBM Plex Mono is the only text face, self-hosted from
+`static/fonts/` and declared in `utils/fonts.ts`.
 
 ## Content Management
 
@@ -105,8 +134,15 @@ frontmatter for categorization and filtering.
 
 ### Post Metadata
 
-- Posts support math rendering (KaTeX)
-- Syntax highlighting for multiple languages (Go, TypeScript, C/C++, Python)
+- Posts support math rendering (KaTeX); its stylesheet is included only on pages
+  that use it
+- Syntax highlighting at render time for Go, TypeScript, JavaScript, Python,
+  Bash, YAML, Zig, SQL, C, C++, Rust, TOML, JSON, Java and Dockerfiles; add a
+  language by importing its Prism component in `api/renderMarkdown.ts`
+- Mermaid diagrams in `` ```mermaid `` fences; the library loads from the CDN
+  only on posts that have one and redraws on theme change
+- Posts escape `$` in code as `\$` so the math pass leaves it alone; the
+  renderer shows the bare `$`
 - GitHub Flavored Markdown rendering
 
 ## Development Notes
@@ -116,14 +152,18 @@ frontmatter for categorization and filtering.
 - Uses JSR imports for Fresh core (`jsr:@fresh/core`) and `fresh/runtime`
 - Routes use `define.page` and `define.handlers` (v2 API)
 - Components are functional Preact components
-- Tailwind v4 via `@tailwindcss/vite`; styles loaded from `client.ts`
+- Tailwind v4 via `@tailwindcss/vite`; styles loaded from `client.ts`. The
+  design is plain CSS with semantic class names; Tailwind provides the reset
+- There is no `_layout.tsx`: each route renders `Shell` so it can pass its own
+  left-pane content
 
 ### Performance Optimizations
 
-- Static asset caching middleware for fonts and images
-- Pagination system loads posts in sets of 6 (`POSTS_SET_NUMBER`)
+- Static asset caching middleware for fonts
+- Pagination system loads posts in sets of 10 (`POSTS_SET_NUMBER`)
 - Concurrent post loading using `Promise.all()`
-- Proper HTML structure in `_app.tsx` for SEO and performance
+- Lists and the JSON endpoint carry post summaries, never bodies
+- Fonts are preloaded and declared inline; no third-party font requests
 
 ### SEO Features
 
@@ -145,11 +185,10 @@ Follow the existing commit style seen in the repository history.
 
 ## Error Handling
 
-The project includes proper error pages:
-
-- `routes/_404.tsx` - Custom 404 Not Found page
-- `routes/_500.tsx` - Custom 500 Internal Server Error page
-- Both pages maintain the site's design consistency
+`routes/_error.tsx` renders every error inside the shell. Fresh passes the
+thrown error as `ctx.error`; an `HttpError` keeps its status (404 for unknown
+paths and post ids), anything else is a 500. `main.ts` registers no plain
+`notFound`/`onError` handlers so the page is always used.
 
 ## Common Development Patterns
 
@@ -161,7 +200,8 @@ When adding new features:
 4. Maintain the islands architecture - keep interactivity minimal and isolated
 5. Reference static assets by absolute paths (e.g., `/images/...`)
 6. Guard client-side code with `IS_BROWSER` checks when needed
-7. Test new API functions in `tests/api_test.ts`
+7. Test new API functions and utilities in `tests/api_test.ts`
+8. Use the palette variables, never literal colours, so both themes follow
 
 The codebase follows functional programming patterns with TypeScript,
 emphasizing immutability and pure functions where possible.
