@@ -1,0 +1,179 @@
+/* Palette and type. Four base colours per theme; the rest is derived with
+   color-mix so both themes follow automatically. The theme class is set on
+   <html> before paint; without it the system preference applies. */
+
+:root {
+  color-scheme: light;
+
+  --bg: #f9f5ef;
+  --color: #1b1d1e;
+  --focusColor: #f15025;
+  --titleColor: #008080;
+  --onFocusColor: #1b1d1e;
+
+  --mutedColor: color-mix(in srgb, var(--color) 62%, var(--bg));
+  --lineColor: color-mix(in srgb, var(--color) 14%, var(--bg));
+  --surface: color-mix(in srgb, var(--color) 4%, var(--bg));
+
+  /* Syntax: gruvbox light */
+  --synComment: #928374;
+  --synKeyword: #9d0006;
+  --synString: #79740e;
+  --synNumber: #8f3f71;
+  --synFunction: #b57614;
+  --synOperator: #af3a03;
+  --synType: #427b58;
+  --synPunctuation: #7c6f64;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+
+    --bg: #1b1d1e;
+    --color: #dddddd;
+    --focusColor: #f58a07;
+    --titleColor: #01dae0;
+    --surface: color-mix(in srgb, var(--color) 6%, var(--bg));
+
+    /* Syntax: gruvbox dark */
+    --synComment: #928374;
+    --synKeyword: #fb4934;
+    --synString: #b8bb26;
+    --synNumber: #d3869b;
+    --synFunction: #fabd2f;
+    --synOperator: #fe8019;
+    --synType: #8ec07c;
+    --synPunctuation: #a89984;
+  }
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  --bg: #1b1d1e;
+  --color: #dddddd;
+  --focusColor: #f58a07;
+  --titleColor: #01dae0;
+  --surface: color-mix(in srgb, var(--color) 6%, var(--bg));
+
+  --synComment: #928374;
+  --synKeyword: #fb4934;
+  --synString: #b8bb26;
+  --synNumber: #d3869b;
+  --synFunction: #fabd2f;
+  --synOperator: #fe8019;
+  --synType: #8ec07c;
+  --synPunctuation: #a89984;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg);
+  color: var(--color);
+}
+
+/* Thin, themed scrollbars; the page keeps one so long posts show position */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--lineColor) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--lineColor);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::selection {
+  background-color: var(--focusColor);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focusColor);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.inlineLink {
+  color: var(--color);
+  text-decoration: underline;
+  text-decoration-color: var(--lineColor);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.inlineLink:hover {
+  color: var(--focusColor);
+  text-decoration-color: currentColor;
+}
+
+/* Keyboard users can jump past the letter straight to the content */
+.skipLink {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--onFocusColor);
+  background-color: var(--focusColor);
+}
+
+.skipLink:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
