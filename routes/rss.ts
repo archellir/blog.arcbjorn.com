@@ -1,28 +1,37 @@
 import { define } from "../fresh.ts";
 import { listPosts } from "../api/listPosts.ts";
-import { IPost, IPostsResponse } from "../types.ts";
+import { IPostsResponse, IPostSummary } from "../types.ts";
+import { describePost } from "../utils/describePost.ts";
+import { AUTHOR, SITE_DESCRIPTION, SITE_URL } from "../constants.ts";
 
-const CANONICAL_DOMAIN = "https://blog.arcbjorn.com";
-const siteTitle = "Arcbjorn's thoughtbook";
-const siteDescription = "Tech explorations";
+const siteTitle = `${AUTHOR}'s thoughtbook`;
 
-const render = (posts: IPost[]) =>
+function escapeXml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+const render = (posts: IPostSummary[]) =>
   `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<title>${siteTitle}</title>
-<description>${siteDescription}</description>
-<link>${CANONICAL_DOMAIN}</link>
-<atom:link href="${CANONICAL_DOMAIN}/rss" rel="self" type="application/rss+xml"/>
+<title>${escapeXml(siteTitle)}</title>
+<description>${escapeXml(SITE_DESCRIPTION)}</description>
+<link>${SITE_URL}</link>
+<language>en</language>
+<atom:link href="${SITE_URL}/rss" rel="self" type="application/rss+xml"/>
 ${
     posts
       .map(
         (post) =>
           `<item>
-<guid isPermaLink="true">${CANONICAL_DOMAIN}/${post.id}</guid>
-<title>${post.title}</title>
-<link>${CANONICAL_DOMAIN}/${post.id}</link>
-<description>${post.snippet}</description>
+<guid isPermaLink="true">${SITE_URL}/${post.id}</guid>
+<title>${escapeXml(post.title)}</title>
+<link>${SITE_URL}/${post.id}</link>
+<description>${escapeXml(describePost(post))}</description>
 <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>
 </item>`,
       )
