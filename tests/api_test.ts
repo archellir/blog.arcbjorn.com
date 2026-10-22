@@ -109,8 +109,27 @@ describe("api", () => {
         "```mermaid\ngraph LR\n  A --> B\n```",
       );
       assert(hasMermaid);
-      assertStringIncludes(html, '<pre class="mermaid">graph LR');
+      assertStringIncludes(html, '<pre class="mermaid" tabindex="0">graph LR');
       assertStringIncludes(html, "A --&gt; B");
+    });
+
+    it("starts content headings at h2 and never skips a level", () => {
+      const { html, headings } = renderMarkdown(
+        "# Top\n\n## Go\n\n#### Array iteration\n\n### Back up\n",
+      );
+      assertStringIncludes(html, '<h2 id="top">');
+      assertStringIncludes(html, '<h2 id="go">');
+      assertStringIncludes(html, '<h3 id="array-iteration">');
+      assertStringIncludes(html, '<h3 id="back-up">');
+      assertEquals(headings.map((heading) => heading.text), ["Top", "Go"]);
+    });
+
+    it("makes scrollable code focusable", () => {
+      const { html } = renderMarkdown("```go\nx := 1\n```");
+      assertStringIncludes(
+        html,
+        '<pre tabindex="0"><code class="language-go">',
+      );
     });
 
     it("adds permalinks to headings and lists them", () => {
@@ -140,7 +159,10 @@ describe("api", () => {
 
     it("wraps tables for horizontal scrolling", () => {
       const { html } = renderMarkdown("| a | b |\n|---|---|\n| 1 | 2 |\n");
-      assertStringIncludes(html, '<div class="tableWrap"><table>');
+      assertStringIncludes(
+        html,
+        '<div class="tableWrap" tabindex="0"><table>',
+      );
     });
 
     it("renders inline math and reports it", () => {

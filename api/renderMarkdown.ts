@@ -53,12 +53,17 @@ function grammarFor(language: string): Prism.Grammar | undefined {
 // permalinks on headings, scrollable tables and external links in a new tab.
 export class PostRenderer extends Renderer {
   #slugger = new GitHubSlugger();
+  // The page title is the h1, so content headings start at h2 and never
+  // skip a level, whatever the markdown says.
+  #lastLevel = 1;
 
   constructor() {
     super({ allowMath: true });
   }
 
-  override heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string) {
+  override heading(text: string, depth: 1 | 2 | 3 | 4 | 5 | 6, raw: string) {
+    const level = Math.max(2, Math.min(depth, this.#lastLevel + 1));
+    this.#lastLevel = level;
     const id = this.#slugger.slug(raw);
     return `<h${level} id="${id}">${text}<a class="anchor" href="#${id}" aria-label="Link to this section">#</a></h${level}>\n`;
   }
@@ -73,7 +78,7 @@ export class PostRenderer extends Renderer {
 
     if (lang === "math") return super.code(source, lang);
     if (lang === "mermaid") {
-      return `<pre class="mermaid">${escapeHtml(source)}</pre>\n`;
+      return `<pre class="mermaid" tabindex="0">${escapeHtml(source)}</pre>\n`;
     }
 
     const grammar = lang ? grammarFor(lang) : undefined;
@@ -82,11 +87,14 @@ export class PostRenderer extends Renderer {
       : escapeHtml(source);
     const label = lang ? ` data-lang="${escapeHtml(lang)}"` : "";
     const codeClass = lang ? ` class="language-${escapeHtml(lang)}"` : "";
-    return `<div class="codeBlock"${label}><pre><code${codeClass}>${body}</code></pre></div>\n`;
+    // Scrollable regions take focus so keyboard users can scroll them.
+    return `<div class="codeBlock"${label}><pre tabindex="0"><code${codeClass}>${body}</code></pre></div>\n`;
   }
 
   override table(header: string, body: string) {
-    return `<div class="tableWrap">${super.table(header, body)}</div>\n`;
+    return `<div class="tableWrap" tabindex="0">${
+      super.table(header, body)
+    }</div>\n`;
   }
 
   override link(href: string, title: string | null, text: string) {
@@ -123,7 +131,7 @@ export function renderMarkdown(markdown: string): IRenderedPost {
 
   return {
     html,
-    hasMermaid: html.includes('<pre class="mermaid">'),
+    hasMermaid: html.includes('<pre class="mermaid"'),
     hasMath: html.includes('class="katex'),
     headings: extractHeadings(html),
   };
