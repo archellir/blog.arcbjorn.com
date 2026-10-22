@@ -1,35 +1,52 @@
-# arcbjorn's thoughts
+# Thoughtbook
 
-### Usage (Fresh 2)
+The blog at [blog.arcbjorn.com](https://blog.arcbjorn.com): notes on systems,
+algorithms, infrastructure, security, blockchain and AI tooling, next to
+Leetcode solutions in Go, TypeScript, Python and C++.
 
-Development:
+Built with [Fresh](https://fresh.deno.dev) on Deno, rendered on the server with
+a few Preact islands, styled after [arcbjorn.com](https://arcbjorn.com).
 
-```
-deno task dev
-```
+## Develop
 
-Build and run production server:
-
-```
-deno task build
-deno task start
-```
-
-If you see a Tailwind oxide warning or Vite crashes in dev, allow oxide's
-install scripts once (required by Tailwind v4):
-
-```
-deno task oxide
+```sh
+deno task dev     # Vite dev server with HMR at http://localhost:5173
+deno task check   # format, lint and type-check
+deno task test    # unit tests
+deno task build   # production build into _fresh/
+deno task start   # serve the production build on :8000
 ```
 
-You can temporarily disable Tailwind in dev via:
+Tailwind v4 needs its native binary once; if the dev server complains about
+oxide, run `deno task oxide`. `NO_TAILWIND=1 deno task dev` skips it.
 
-```
-NO_TAILWIND=1 deno task dev
+## Write
+
+Posts are Markdown files in `data/posts/` with front matter:
+
+```yaml
+---
+title: "Post title"
+published_at: "2026-07-04"
+snippet: "One line under the title in the index and in previews."
+tags: ["ai", "agents"]            # optional; Leetcode posts also set leetcode_number
+image: "/images/posts/banner.png" # optional social preview, 1200x630
+---
 ```
 
-Update Fresh and deps:
+The file name is the URL. Code fences are highlighted at render time, `mermaid`
+fences become diagrams, and `$` inside code is written as `\$`.
 
-```
-deno task update
-```
+## Layout
+
+- `routes/` pages and endpoints: the index, `[id]` for posts, `rss`,
+  `sitemap.xml`, the error page
+- `components/` server-rendered Preact; `islands/` the interactive parts
+- `api/` reading and rendering posts; `utils/` dates, tags, topics
+- `assets/` the stylesheets, one per concern, on the palette in `base.css`
+- `static/` fonts and images
+
+## Deploy
+
+`docker compose up --build` builds and serves the site on port 8000. The
+production site runs on Deno Deploy from the `master` branch.
