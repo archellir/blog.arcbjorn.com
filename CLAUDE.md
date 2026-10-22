@@ -190,11 +190,11 @@ Follow the existing commit style seen in the repository history.
 
 ## Headers
 
-`main.ts` sets the security headers, among them a Content Security Policy
-that names the only third parties the site uses: the analytics host and the
-CDN that serves mermaid and the KaTeX fonts. A new external script, font or
-image host must be added there, or the browser blocks it. Pages and the posts
-JSON carry edge cache headers.
+`main.ts` sets the security headers, among them a Content Security Policy that
+names the only third parties the site uses: the analytics host and the CDN that
+serves mermaid and the KaTeX fonts. A new external script, font or image host
+must be added there, or the browser blocks it. Pages and the posts JSON carry
+edge cache headers.
 
 ## Error Handling
 
