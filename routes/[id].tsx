@@ -1,7 +1,7 @@
 import { define } from "../fresh.ts";
 import { HttpError } from "fresh";
 import { Head } from "fresh/runtime";
-import { KATEX_CSS } from "$gfm";
+import { KATEX_CSS } from "@deno/gfm";
 
 // KaTeX fonts arrive from the CDN after the text; show the fallback meanwhile.
 const MATH_CSS = KATEX_CSS.replace(

@@ -1,4 +1,4 @@
-import { render, Renderer } from "$gfm";
+import { Marked, render, Renderer } from "@deno/gfm";
 import GitHubSlugger from "github-slugger";
 import Prism from "prismjs";
 import "prismjs/components/prism-go.js";
@@ -61,22 +61,24 @@ export class PostRenderer extends Renderer {
     super({ allowMath: true });
   }
 
-  override heading(text: string, depth: 1 | 2 | 3 | 4 | 5 | 6, raw: string) {
+  override heading({ tokens, depth, text: raw }: Marked.Tokens.Heading) {
+    const text = this.parser.parseInline(tokens);
     const level = Math.max(2, Math.min(depth, this.#lastLevel + 1));
     this.#lastLevel = level;
     const id = this.#slugger.slug(raw);
     return `<h${level} id="${id}">${text}<a class="anchor" href="#${id}" aria-label="Link to this section">#</a></h${level}>\n`;
   }
 
-  override code(code: string, language?: string) {
-    const requested = (language ?? "").trim().split(/[\s,]+/)[0].toLowerCase();
+  override code(token: Marked.Tokens.Code) {
+    const requested = (token.lang ?? "").trim().split(/[\s,]+/)[0]
+      .toLowerCase();
     const lang = LANGUAGE_ALIASES[requested] ?? requested;
 
     // Posts write "\$" inside code so the math pass leaves the dollar alone;
     // readers should see the bare "$".
-    const source = code.replace(/\\\$/g, "$");
+    const source = token.text.replace(/\\\$/g, "$");
 
-    if (lang === "math") return super.code(source, lang);
+    if (lang === "math") return super.code({ ...token, text: source, lang });
     if (lang === "mermaid") {
       return `<pre class="mermaid" tabindex="0">${escapeHtml(source)}</pre>\n`;
     }
@@ -91,13 +93,12 @@ export class PostRenderer extends Renderer {
     return `<div class="codeBlock"${label}><pre tabindex="0"><code${codeClass}>${body}</code></pre></div>\n`;
   }
 
-  override table(header: string, body: string) {
-    return `<div class="tableWrap" tabindex="0">${
-      super.table(header, body)
-    }</div>\n`;
+  override table(token: Marked.Tokens.Table) {
+    return `<div class="tableWrap" tabindex="0">${super.table(token)}</div>\n`;
   }
 
-  override link(href: string, title: string | null, text: string) {
+  override link({ href, title, tokens }: Marked.Tokens.Link) {
+    const text = this.parser.parseInline(tokens);
     const titleAttr = title ? ` title="${escapeHtml(title)}"` : "";
     if (/^https?:\/\//i.test(href)) {
       return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
@@ -105,10 +106,10 @@ export class PostRenderer extends Renderer {
     return `<a href="${href}"${titleAttr}>${text}</a>`;
   }
 
-  override image(src: string, title: string | null, alt: string) {
+  override image({ href, title, text }: Marked.Tokens.Image) {
     const titleAttr = title ? ` title="${escapeHtml(title)}"` : "";
-    return `<img src="${src}" alt="${
-      escapeHtml(alt)
+    return `<img src="${href}" alt="${
+      escapeHtml(text)
     }"${titleAttr} loading="lazy" decoding="async" />`;
   }
 }

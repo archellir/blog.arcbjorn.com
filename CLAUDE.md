@@ -29,6 +29,7 @@ technical explorations.
 ### Dependency Management
 
 - `deno run -A -r jsr:@fresh/update .` - Update Fresh framework and dependencies
+- `deno outdated` - List dependencies with newer versions
 
 ## Architecture
 
@@ -155,7 +156,8 @@ self-hosted from `static/fonts/` and declared in `utils/fonts.ts`.
 
 ### Fresh Framework Specifics
 
-- Uses JSR imports for Fresh core (`jsr:@fresh/core`) and `fresh/runtime`
+- Uses JSR imports for Fresh core (`jsr:@fresh/core`), `@deno/gfm` and `@std/*`;
+  npm for the rest. Nothing comes from deno.land/x or esm.sh
 - Routes use `define.page` and `define.handlers` (v2 API)
 - Components are functional Preact components
 - Tailwind v4 via `@tailwindcss/vite`; styles loaded from `client.ts`. The

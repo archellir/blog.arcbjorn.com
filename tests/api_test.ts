@@ -2,12 +2,8 @@ import { loadPost } from "../api/loadPost.ts";
 import { listPosts } from "../api/listPosts.ts";
 import { renderMarkdown } from "../api/renderMarkdown.ts";
 
-import {
-  assert,
-  assertEquals,
-  assertStringIncludes,
-} from "$std/testing/asserts.ts";
-import { describe, it } from "$std/testing/bdd.ts";
+import { assert, assertEquals, assertStringIncludes } from "@std/assert";
+import { describe, it } from "@std/testing/bdd";
 
 import { parseTags, tagHref } from "../utils/tags.ts";
 import {

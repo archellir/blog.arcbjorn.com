@@ -22,7 +22,7 @@
 - `deno task start` — start the production server.
 - `deno task test` — run Deno tests.
 - `deno task check` — format check, lint, and type-check.
-- `deno task update` — update Fresh and dependencies.
+- `deno task update` — update Fresh; `deno outdated` lists the rest.
 
 ## Coding Style & Naming Conventions
 
@@ -32,12 +32,13 @@
   names (`sitemap.xml.ts`, `[id].tsx`).
 - Symbols: camelCase for functions/vars; UPPER_SNAKE_CASE for constants; hooks
   as `useX`.
-- Imports: use `fresh` (core) and `fresh/runtime` for `Head`; `$std/` and npm
-  deps via `deno.json`.
+- Imports: use `fresh` (core) and `fresh/runtime` for `Head`; `@std/*` and
+  `@deno/gfm` from JSR and npm packages, all mapped in `deno.json`. Nothing
+  comes from deno.land/x or esm.sh.
 
 ## Testing Guidelines
 
-- Framework: Deno test with `$std/testing` asserts and BDD (`describe`, `it`).
+- Framework: Deno test with `@std/assert` and BDD from `@std/testing/bdd`.
 - Location: `tests/` or colocated as `*_test.ts`.
 - Scope: cover `api/` helpers and route handlers (happy paths + error cases).
 - Run: `deno task test` and ensure `deno task check` passes before pushing.
@@ -51,8 +52,7 @@
 
 ## Security & Configuration Tips
 
-- Environment: `.env` is loaded via `$std/dotenv/load.ts` — never commit
-  secrets.
+- Never commit secrets; the site needs no environment variables.
 - Static caching is configured in `main.ts`; keep cache headers in mind for new
   assets.
 - Do not modify generated `_fresh/` output; regenerate via
