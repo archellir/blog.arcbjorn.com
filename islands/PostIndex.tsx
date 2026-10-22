@@ -4,9 +4,10 @@ import { IS_BROWSER } from "fresh/runtime";
 import PostRow from "../components/PostRow.tsx";
 import { PlusIcon } from "../components/Icons.tsx";
 import { pullPosts } from "../api/pullPosts.ts";
+import { groupByYear } from "../utils/groupPosts.ts";
 import type { IPostSummary } from "../types.ts";
 
-interface PostsListProps {
+interface PostIndexProps {
   posts: IPostSummary[];
   all: number;
   tags?: string;
@@ -19,8 +20,10 @@ function rememberQuantity(quantity: number) {
   globalThis.history.replaceState(globalThis.history.state, "", url);
 }
 
-export default function PostsList(
-  { posts: initialPosts, all, tags }: PostsListProps,
+// The post index: the loaded posts grouped by year, then a row that loads
+// the next page until every post is in.
+export default function PostIndex(
+  { posts: initialPosts, all, tags }: PostIndexProps,
 ) {
   const [posts, setPosts] = useState<IPostSummary[]>(initialPosts);
   const [loading, setLoading] = useState(false);
@@ -75,24 +78,35 @@ export default function PostsList(
 
   return (
     <>
-      <ul class="postRows">
-        {posts.map((post) => <PostRow key={post.id} post={post} />)}
-      </ul>
-      {remaining > 0 && (
-        <button
-          ref={moreRef}
-          type="button"
-          class="moreButton"
-          onClick={loadMore}
-          disabled={loading}
-          aria-busy={loading}
+      {groupByYear(posts).map((group) => (
+        <section
+          key={group.year}
+          class="yearGroup"
+          aria-labelledby={`year-${group.year}`}
         >
-          <span class="moreLabel">
-            {label}
-            <span class="totalCount">{remaining}</span>
-          </span>
-          <PlusIcon />
-        </button>
+          <h2 id={`year-${group.year}`} class="year">{group.year}</h2>
+          <ul class="rows">
+            {group.posts.map((post) => <PostRow key={post.id} post={post} />)}
+          </ul>
+        </section>
+      ))}
+      {remaining > 0 && (
+        <div class="moreGroup">
+          <button
+            ref={moreRef}
+            type="button"
+            class="moreButton"
+            onClick={loadMore}
+            disabled={loading}
+            aria-busy={loading}
+          >
+            <span class="moreLabel">
+              {label}
+              <span class="totalCount">{remaining}</span>
+            </span>
+            <PlusIcon />
+          </button>
+        </div>
       )}
     </>
   );

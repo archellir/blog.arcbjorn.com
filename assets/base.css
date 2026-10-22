@@ -12,7 +12,7 @@
   --onFocusColor: #1b1d1e;
 
   /* The content column: a comfortable line in the mono face */
-  --column: 48rem;
+  --column: 46rem;
 
   --mutedColor: color-mix(in srgb, var(--color) 62%, var(--bg));
   --lineColor: color-mix(in srgb, var(--color) 14%, var(--bg));

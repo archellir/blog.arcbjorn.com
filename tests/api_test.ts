@@ -10,11 +10,16 @@ import {
 import { describe, it } from "$std/testing/bdd.ts";
 
 import { parseTags, tagHref } from "../utils/tags.ts";
-import { activeTopic, postsSectionTitle } from "../utils/topics.ts";
+import {
+  activeTopic,
+  countTopics,
+  postsSectionTitle,
+} from "../utils/topics.ts";
+import { groupByYear } from "../utils/groupPosts.ts";
 import { readingTime } from "../utils/readingTime.ts";
 import { extractHeadings } from "../utils/headings.ts";
 import { describePost } from "../utils/describePost.ts";
-import { formatDate, isoDate } from "../utils/dates.ts";
+import { formatDate, isoDate, shortDate, yearOf } from "../utils/dates.ts";
 
 describe("api", () => {
   describe("load post", () => {
@@ -206,8 +211,27 @@ describe("utils", () => {
     );
   });
 
+  it("counts posts per topic and groups them by year", () => {
+    const posts = [
+      { id: "a", title: "A", publishedAt: "2026-07-04", tags: ["ai", "go"] },
+      { id: "b", title: "B", publishedAt: "2025-11-25", tags: ["Leetcode"] },
+      { id: "c", title: "C", publishedAt: "2025-03-05", tags: ["linux"] },
+      { id: "d", title: "D", publishedAt: "2023-02-24" },
+    ];
+    // All, Leetcode, Infra, AI, Security, Blockchain
+    assertEquals(countTopics(posts), [4, 1, 1, 1, 0, 0]);
+    assertEquals(
+      groupByYear(posts).map((group) => [group.year, group.posts.length]),
+      [["2026", 1], ["2025", 2], ["2023", 1]],
+    );
+  });
+
   it("formats dates and survives bad locales", () => {
     assertEquals(isoDate("2026-07-04 12:00"), "2026-07-04");
+    assertEquals(yearOf("2026-07-04 12:00"), "2026");
+    assertEquals(shortDate("2026-07-04"), "04 Jul");
+    assertEquals(shortDate("2025-09-28 10:00"), "28 Sep");
+    assertEquals(shortDate("not a date"), "not a date");
     assertEquals(formatDate("2026-07-04 12:00", ["*", "en-GB"]), "4 July 2026");
     assertEquals(formatDate("not a date", ["en"]), "not a date");
   });

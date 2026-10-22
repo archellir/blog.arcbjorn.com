@@ -20,7 +20,6 @@
 /* Prose: a readable measure in the mono face, quiet links, accent markers. */
 .prose {
   max-width: var(--column);
-  margin-inline: auto;
   font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
   line-height: 1.7;
   color: var(--color);
@@ -318,7 +317,6 @@
   display: grid;
   gap: 1.5rem;
   max-width: var(--column);
-  margin-inline: auto;
   margin-top: 4rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--lineColor);
@@ -399,7 +397,6 @@
 .footerLine {
   display: flex;
   max-width: var(--column);
-  margin-inline: auto;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 1.5rem;
