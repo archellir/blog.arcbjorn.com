@@ -33,7 +33,7 @@ const PostHeader: FunctionalComponent<PostHeaderProps> = (
     </p>
 
     {post.tags && post.tags.length > 0 && (
-      <ul class="tags" aria-label="Tags">
+      <ul class="tags">
         {post.tags.map((tag) => (
           <li key={tag}>
             <a class="tag" href={tagHref(tag)}>
