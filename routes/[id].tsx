@@ -34,7 +34,8 @@ export default define.page(async (ctx) => {
     : undefined;
 
   const rendered = renderMarkdown(post.content);
-  const date = formatDate(post.publishedAt, ctx.state.locales);
+  // One English date format throughout, to match the index.
+  const date = formatDate(post.publishedAt, ["en-GB"]);
   const published = isoDate(post.publishedAt);
   const minutes = readingTime(post.content);
   const description = describePost(post);

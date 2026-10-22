@@ -30,6 +30,7 @@ export default function ThemeToggle() {
       class="themeToggle"
       onClick={toggle}
       aria-label="Toggle light and dark theme"
+      title="Toggle theme"
     >
       <SunIcon class="themeIcon themeIconSun" />
       <MoonIcon class="themeIcon themeIconMoon" />
