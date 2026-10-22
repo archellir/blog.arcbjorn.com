@@ -14,7 +14,7 @@ import {
   countTopics,
   postsSectionTitle,
 } from "../utils/topics.ts";
-import { SITE_DESCRIPTION, SITE_NAME } from "../constants.ts";
+import { AUTHOR, SITE_DESCRIPTION, SITE_NAME } from "../constants.ts";
 
 export default define.page(async (ctx) => {
   const url = ctx.url;
@@ -36,7 +36,7 @@ export default define.page(async (ctx) => {
     <>
       <HeadElement
         url={url}
-        title={tags ? `${title} · ${SITE_NAME}` : SITE_NAME}
+        title={tags ? `${title} · ${SITE_NAME}` : `${SITE_NAME} · ${AUTHOR}`}
         description={SITE_DESCRIPTION}
         image={`${url.origin}/images/og-default.png`}
       />
