@@ -63,6 +63,23 @@ const errorLogger = define.middleware(async (ctx) => {
 });
 app.use(errorLogger);
 
+// Pages and the posts JSON are the same for every reader: the edge may keep
+// them for ten minutes and serve stale copies while it refreshes.
+const edgeCache = define.middleware(async (ctx) => {
+  const res = await ctx.next();
+  if (ctx.req.method !== "GET" || res.status !== 200) return res;
+  if (res.headers.has("Cache-Control")) return res;
+  const type = res.headers.get("Content-Type") ?? "";
+  if (type.startsWith("text/html") || type.startsWith("application/json")) {
+    res.headers.set(
+      "Cache-Control",
+      "public, max-age=0, s-maxage=600, stale-while-revalidate=86400",
+    );
+  }
+  return res;
+});
+app.use(edgeCache);
+
 // Security headers middleware
 const securityHeaders = define.middleware(async (ctx) => {
   const res = await ctx.next();
