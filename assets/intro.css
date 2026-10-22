@@ -24,9 +24,11 @@
   text-wrap: balance;
 }
 
+/* Post titles fill each line; balancing would break them early */
 .pageTitle {
   font-size: clamp(1.625rem, 2.2vw, 2.25rem);
   line-height: 1.2;
+  text-wrap: pretty;
 }
 
 .titleNumber {
