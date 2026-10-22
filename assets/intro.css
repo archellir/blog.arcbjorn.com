@@ -34,19 +34,6 @@
   color: var(--mutedColor);
 }
 
-/* How the name is said, in the accent, as on arcbjorn.com */
-.pronunciation {
-  color: var(--focusColor);
-}
-
-.lead {
-  margin: 1.25rem 0 0;
-  font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
-  line-height: 1.5;
-  color: var(--color);
-  text-wrap: pretty;
-}
-
 .standfirst {
   margin: 1.25rem 0 0;
   font-size: var(--text-lg);
