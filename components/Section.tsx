@@ -8,8 +8,8 @@ interface SectionProps {
   children: ComponentChildren;
 }
 
-// One row of the content pane: the heading on the left, the section's items
-// on the right once the pane is wide enough.
+// One block of the content column: the heading, a line under it, then the
+// section's items.
 const Section: FunctionalComponent<SectionProps> = (
   { id, title, meta, children },
 ) => (

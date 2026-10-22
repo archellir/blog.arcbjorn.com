@@ -97,7 +97,8 @@ each a group of tags.
 
 **Shell and Theme**: `components/Shell.tsx` ports the arcbjorn.com layout: a
 sticky left pane (brand row, intro, topic nav) and a content pane that is a CSS
-container. The palette lives in `assets/base.css` as `--bg`, `--color`,
+container. Content sits in one centred column, `--column` wide (list, prose,
+footer line alike). The palette lives in `assets/base.css` as `--bg`, `--color`,
 `--focusColor` (orange), `--titleColor` (teal), with `--mutedColor`,
 `--lineColor` and `--surface` derived via `color-mix`. The theme class
 (`dark`/`light`) is set on `<html>` by the inline script in `utils/theme.ts`

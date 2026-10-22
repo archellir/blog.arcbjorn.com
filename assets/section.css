@@ -1,5 +1,5 @@
-/* Content pane: titled sections stacked down the page. Two columns
-   (heading | items) only once the pane is wide enough to hold both. */
+/* Content pane: one centred column, as wide as a comfortable line of text
+   (--column), with the section heading above its items. */
 
 .sections {
   display: flex;
@@ -11,29 +11,20 @@
 @container (min-width: 40rem) {
   .sections {
     gap: 5.5rem;
-    padding-inline: 2.5rem;
+    padding: 3rem 2.5rem 5rem;
   }
 }
 
 .section {
-  display: grid;
-  gap: 1.5rem;
+  width: 100%;
+  max-width: var(--column);
   min-width: 0;
+  margin-inline: auto;
   scroll-margin-top: 1.5rem;
 }
 
-/* 15rem heading + 3rem gap + 52rem items + 5rem pane padding */
-@container (min-width: 75rem) {
-  .section {
-    grid-template-columns: minmax(15rem, 1fr) minmax(52rem, 3fr);
-    column-gap: 3rem;
-  }
-
-  .sectionHeader {
-    position: sticky;
-    top: 2.25rem;
-    align-self: start;
-  }
+.sectionHeader {
+  margin-bottom: 1.5rem;
 }
 
 .sectionTitle {
@@ -53,6 +44,7 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Query container for the rows inside */
 .sectionBody {
   container-type: inline-size;
   min-width: 0;
