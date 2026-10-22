@@ -55,11 +55,12 @@
   text-wrap: pretty;
 }
 
-/* Metadata in the title accent */
+/* Metadata in the title accent, the tags among it in the muted tone */
 .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.625rem;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
   margin: 1rem 0 0;
   font-size: var(--text-md);
   line-height: 1.5;
@@ -67,17 +68,8 @@
   font-variant-numeric: tabular-nums;
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem 0.875rem;
-  margin: 0.625rem 0 0;
-  padding: 0;
-  list-style: none;
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
+.metaDot {
+  color: var(--mutedColor);
 }
 
 .tag {
@@ -133,24 +125,48 @@
   background-color: var(--surface);
 }
 
-/* --- table of contents: the article's sections ------------------------------ */
+/* --- table of contents: the article's sections, folded until asked -------- */
 
 .toc {
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
   max-width: 100%;
 }
 
 .tocLabel {
-  margin: 0 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
   font-size: var(--text-xs);
   font-weight: 500;
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   color: var(--mutedColor);
+  transition: color 0.2s ease;
+}
+
+.tocLabel::-webkit-details-marker {
+  display: none;
+}
+
+.tocLabel::after {
+  content: "+";
+  font-size: var(--text-md);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.toc[open] .tocLabel::after {
+  content: "\2013";
+}
+
+.tocLabel:hover {
+  color: var(--focusColor);
 }
 
 .tocList {
-  margin: 0;
+  margin: 0.625rem 0 0;
   padding: 0;
   list-style: none;
 }

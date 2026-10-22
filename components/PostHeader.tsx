@@ -14,8 +14,11 @@ interface PostHeaderProps {
 // Show a table of contents only when there is enough to navigate.
 const TOC_MIN_HEADINGS = 3;
 
-// The head of a post: title, when and how long, tags, the snippet, and the
-// sections of the article when there are a few.
+const Separator = () => <span class="metaDot" aria-hidden="true">·</span>;
+
+// The head of a post: title, then one line with the date, the reading time
+// and the tags, the snippet, and a folded list of the article's sections
+// when there are a few.
 const PostHeader: FunctionalComponent<PostHeaderProps> = (
   { post, date, minutes, headings },
 ) => (
@@ -28,28 +31,30 @@ const PostHeader: FunctionalComponent<PostHeaderProps> = (
     </h1>
     <p class="meta">
       <time dateTime={isoDate(post.publishedAt)}>{date}</time>
-      <span aria-hidden="true">·</span>
+      <Separator />
       <span>{minutes} min read</span>
+      {post.tags && post.tags.length > 0 && (
+        <>
+          <Separator />
+          <span class="srOnly">Tagged</span>
+          {post.tags.map((tag, index) => (
+            <>
+              {index > 0 && <Separator />}
+              <a key={tag} class="tag" href={tagHref(tag)}>
+                <span aria-hidden="true">#</span>
+                {tag}
+              </a>
+            </>
+          ))}
+        </>
+      )}
     </p>
-
-    {post.tags && post.tags.length > 0 && (
-      <ul class="tags">
-        {post.tags.map((tag) => (
-          <li key={tag}>
-            <a class="tag" href={tagHref(tag)}>
-              <span class="srOnly">Posts tagged</span>
-              {tag}
-            </a>
-          </li>
-        ))}
-      </ul>
-    )}
 
     {post.snippet && <p class="standfirst">{post.snippet}</p>}
 
     {headings.length >= TOC_MIN_HEADINGS && (
-      <nav class="toc" aria-label="Contents" f-client-nav={false}>
-        <p class="tocLabel">Contents</p>
+      <details class="toc" f-client-nav={false}>
+        <summary class="tocLabel">Contents</summary>
         <ol class="tocList">
           {headings.map((heading) => (
             <li key={heading.id}>
@@ -57,7 +62,7 @@ const PostHeader: FunctionalComponent<PostHeaderProps> = (
             </li>
           ))}
         </ol>
-      </nav>
+      </details>
     )}
   </header>
 );
