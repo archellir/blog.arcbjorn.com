@@ -1,11 +1,4 @@
-import {
-  App,
-  cors,
-  csrf,
-  HttpError,
-  staticFiles,
-  trailingSlashes,
-} from "fresh";
+import { App, csrf, HttpError, staticFiles, trailingSlashes } from "fresh";
 import { define } from "./fresh.ts";
 import type { IState } from "./types.ts";
 
@@ -14,9 +7,6 @@ export const app = new App<IState>();
 
 // Trailing slashes handling (remove trailing slashes)
 app.use(trailingSlashes("never"));
-
-// CORS policy
-app.use(cors());
 
 // CSRF protection
 app.use(csrf());
@@ -36,18 +26,6 @@ const staticCacheMiddleware = define.middleware(async (ctx) => {
   return res;
 });
 app.use(staticCacheMiddleware);
-
-// Locale detection from the Accept-Language header
-const localesMiddleware = define.middleware((ctx) => {
-  const header = ctx.req.headers.get("accept-language") ?? "";
-  const locales = header
-    .split(",")
-    .map((part) => part.trim().split(";")[0])
-    .filter((token) => token && token !== "*");
-  ctx.state.locales = locales.length ? locales : ["en"];
-  return ctx.next();
-});
-app.use(localesMiddleware);
 
 // Log unexpected errors during SSR/handlers; expected HTTP errors (404s)
 // pass through to the error page quietly.

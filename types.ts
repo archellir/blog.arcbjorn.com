@@ -18,9 +18,8 @@ export type TMarkdownMetadata =
     published_at: string;
   };
 
-export interface IState {
-  locales: string[];
-}
+// Nothing travels on the request context yet.
+export type IState = Record<string, never>;
 
 export interface IPostsResponse {
   posts: IPostSummary[];
