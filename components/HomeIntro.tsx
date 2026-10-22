@@ -1,29 +1,28 @@
 import { FunctionalComponent } from "preact";
 
 import { ArrowUpRight } from "./Icons.tsx";
-import {
-  AUTHOR,
-  AUTHOR_HANDLE,
-  AUTHOR_URL,
-  GITHUB_URL,
-  SITE_NAME,
-} from "../constants.ts";
+import { AUTHOR_HANDLE, AUTHOR_URL, SITE_NAME } from "../constants.ts";
 
-// The letter in the left pane of the home page: what this is, whose it is,
-// and where else to find them.
+// The letter in the left pane of the home page: the blog's name, whose it
+// is and what it covers, in the blog's own original words, then the links.
 const HomeIntro: FunctionalComponent = () => (
   <div class="letter">
     <h1 class="title">{SITE_NAME}</h1>
-    <p class="tagline">
-      Notes by {AUTHOR}, @{AUTHOR_HANDLE}
-    </p>
     <p class="lead">
-      Explorations of system design, algorithms, networks, databases, operating
-      systems, blockchain, programming languages and the web.
+      My name is Oleg{" "}
+      <span class="pronunciation">[al'eg]</span>. Online handle is @<a
+        class="inlineLink"
+        href={AUTHOR_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {AUTHOR_HANDLE}
+      </a>.
     </p>
     <p class="summary">
-      Long-form notes on infrastructure, security, blockchain and AI tooling,
-      next to Leetcode solutions in Go, TypeScript, Python and C++.
+      Here I share my explorations of system design, algorithms, math, networks,
+      databases, operational systems, blockchain, programming languages &amp;
+      patterns, web related tech.
     </p>
 
     <ul class="links">
@@ -35,17 +34,6 @@ const HomeIntro: FunctionalComponent = () => (
           rel="noopener noreferrer"
         >
           arcbjorn.com
-          <ArrowUpRight class="linkIcon" />
-        </a>
-      </li>
-      <li>
-        <a
-          class="link"
-          href={GITHUB_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
           <ArrowUpRight class="linkIcon" />
         </a>
       </li>

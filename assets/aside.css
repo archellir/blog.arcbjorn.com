@@ -140,10 +140,8 @@
   color: var(--mutedColor);
 }
 
-.tagline {
-  margin: 0.875rem 0 0;
-  font-size: 0.875rem;
-  line-height: 1.4;
+/* How the name is said, in the accent, as on arcbjorn.com */
+.pronunciation {
   color: var(--focusColor);
 }
 
