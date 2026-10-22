@@ -22,9 +22,9 @@
   list-style: none;
   overflow-x: auto;
   scrollbar-width: none;
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -66,7 +66,7 @@
 }
 
 .topicCount {
-  font-size: 0.6875rem;
+  font-size: var(--text-xs);
   font-weight: 400;
   letter-spacing: 0;
   color: var(--mutedColor);
@@ -121,7 +121,7 @@
 }
 
 .rowDate {
-  font-size: 0.8125rem;
+  font-size: var(--text-md);
   color: var(--titleColor);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -163,7 +163,7 @@
 
 .rowSnippet {
   margin: 0.25rem 0 0;
-  font-size: 0.8125rem;
+  font-size: var(--text-md);
   line-height: 1.6;
   color: var(--mutedColor);
   text-wrap: pretty;
@@ -175,9 +175,9 @@
   flex-wrap: wrap;
   gap: 0.25rem 1.25rem;
   margin: -0.5rem 0 0;
-  font-size: 0.6875rem;
+  font-size: var(--text-xs);
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   color: var(--mutedColor);
 }
@@ -206,7 +206,7 @@
 
 .emptyState {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: var(--text-base);
   line-height: 1.6;
   color: var(--mutedColor);
 }
@@ -240,7 +240,7 @@
 
 .totalCount {
   margin-left: 0.5rem;
-  font-size: 0.8125rem;
+  font-size: var(--text-md);
   letter-spacing: 0;
   color: var(--mutedColor);
 }

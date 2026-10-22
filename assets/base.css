@@ -15,6 +15,15 @@
   --column: 46rem;
   --gutter: 1.25rem;
 
+  /* Type scale: six steps under the body size, one tracking for capitals */
+  --text-2xs: 0.625rem;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.75rem;
+  --text-md: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1rem;
+  --tracking-caps: 0.12em;
+
   --mutedColor: color-mix(in srgb, var(--color) 62%, var(--bg));
   --lineColor: color-mix(in srgb, var(--color) 14%, var(--bg));
   --surface: color-mix(in srgb, var(--color) 4%, var(--bg));
@@ -92,7 +101,7 @@ html {
 body {
   font-family:
     "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 1rem;
+  font-size: var(--text-lg);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -165,9 +174,9 @@ button {
   left: 1rem;
   z-index: 100;
   padding: 0.5rem 0.75rem;
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   color: var(--onFocusColor);
   background-color: var(--focusColor);

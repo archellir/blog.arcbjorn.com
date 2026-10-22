@@ -66,8 +66,9 @@ technical explorations.
 - `data/posts/` - Markdown blog posts with frontmatter
 - `static/` - Static assets (self-hosted woff2 fonts, images)
 - `assets/` - Stylesheets, bundled via Vite from `client.ts`; `styles.css`
-  imports Tailwind v4 and one file per concern (`base`, `layout`, `aside`,
-  `intro`, `index`, `article`, `code`)
+  imports Tailwind v4 and one file per concern (`base`, `layout`, `intro`,
+  `index`, `article`, `code`). `base.css` holds the palette, the type scale
+  (`--text-*`, `--tracking-caps`) and the column tokens
 - `utils/` - Dates, tags, topics, reading time, headings, theme and font
   constants, URL parsing
 
@@ -99,10 +100,10 @@ each a group of tags.
 
 **Shell and Theme**: `components/Shell.tsx` is one centred column, `--column`
 wide with `--gutter` at the sides, in the visual language of arcbjorn.com:
-wordmark, site links and theme toggle on top, the page, a footer line. The home page is the
-intro, a row of topics with post counts, then the posts grouped by year with the
-day in a column of its own. A post page is its header (title, date, reading
-time, tags, snippet, contents) and the prose. The palette lives in
+wordmark, site links and theme toggle on top, the page, a footer line. The home
+page is the intro, a row of topics with post counts, then the posts grouped by
+year with the day in a column of its own. A post page is its header (title,
+date, reading time, tags, snippet, contents) and the prose. The palette lives in
 `assets/base.css` as `--bg`, `--color`, `--focusColor` (orange), `--titleColor`
 (teal), with `--mutedColor`, `--lineColor` and `--surface` derived via
 `color-mix`. The theme class (`dark`/`light`) is set on `<html>` by the inline
@@ -205,7 +206,8 @@ When adding new features:
 5. Reference static assets by absolute paths (e.g., `/images/...`)
 6. Guard client-side code with `IS_BROWSER` checks when needed
 7. Test new API functions and utilities in `tests/api_test.ts`
-8. Use the palette variables, never literal colours, so both themes follow
+8. Use the palette variables, never literal colours, so both themes follow;
+   sizes below the body size come from the `--text-*` scale
 
 The codebase follows functional programming patterns with TypeScript,
 emphasizing immutability and pure functions where possible.
