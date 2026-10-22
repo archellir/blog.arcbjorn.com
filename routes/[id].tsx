@@ -9,7 +9,7 @@ import { renderMarkdown } from "../api/renderMarkdown.ts";
 
 import HeadElement from "../components/HeadElement.tsx";
 import Shell from "../components/Shell.tsx";
-import PostIntro from "../components/PostIntro.tsx";
+import PostHeader from "../components/PostHeader.tsx";
 import PostNav from "../components/PostNav.tsx";
 import StructuredData from "../components/StructuredData.tsx";
 import PostEnhancer from "../islands/PostEnhancer.tsx";
@@ -18,7 +18,6 @@ import { formatDate, isoDate } from "../utils/dates.ts";
 import { describePost } from "../utils/describePost.ts";
 import { readingTime } from "../utils/readingTime.ts";
 import { resolveImageUrl } from "../utils/imageUtils.ts";
-import { countTopics } from "../utils/topics.ts";
 import { AUTHOR, AUTHOR_URL, SITE_NAME, SITE_URL } from "../constants.ts";
 
 export default define.page(async (ctx) => {
@@ -28,7 +27,6 @@ export default define.page(async (ctx) => {
 
   // Neighbours in publication order, for the links at the end.
   const { posts } = await listPosts({ offset: 0, limit: 0 });
-  const counts = countTopics(posts);
   const index = posts.findIndex((item) => item.id === post.id);
   const newer = index > 0 ? posts[index - 1] : undefined;
   const older = index >= 0 && index < posts.length - 1
@@ -106,19 +104,14 @@ export default define.page(async (ctx) => {
         }}
       />
 
-      <Shell
-        url={url}
-        counts={counts}
-        aside={
-          <PostIntro
+      <Shell>
+        <article class="article">
+          <PostHeader
             post={post}
             date={date}
             minutes={minutes}
             headings={rendered.headings}
           />
-        }
-      >
-        <article class="article">
           <div
             class="prose"
             f-client-nav={false}

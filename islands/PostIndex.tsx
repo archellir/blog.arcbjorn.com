@@ -20,8 +20,8 @@ function rememberQuantity(quantity: number) {
   globalThis.history.replaceState(globalThis.history.state, "", url);
 }
 
-// The post index: the loaded posts grouped by year, then a row that loads
-// the next page until every post is in.
+// The post index: the loaded posts grouped by year, with a row under the
+// last group that loads the next page until every post is in.
 export default function PostIndex(
   { posts: initialPosts, all, tags }: PostIndexProps,
 ) {
@@ -75,10 +75,11 @@ export default function PostIndex(
     : loading
     ? "Loading"
     : "More posts";
+  const groups = groupByYear(posts);
 
   return (
     <>
-      {groupByYear(posts).map((group) => (
+      {groups.map((group, index) => (
         <section
           key={group.year}
           class="yearGroup"
@@ -88,26 +89,24 @@ export default function PostIndex(
           <ul class="rows">
             {group.posts.map((post) => <PostRow key={post.id} post={post} />)}
           </ul>
+          {index === groups.length - 1 && remaining > 0 && (
+            <button
+              ref={moreRef}
+              type="button"
+              class="moreButton"
+              onClick={loadMore}
+              disabled={loading}
+              aria-busy={loading}
+            >
+              <span class="moreLabel">
+                {label}
+                <span class="totalCount">{remaining}</span>
+              </span>
+              <PlusIcon />
+            </button>
+          )}
         </section>
       ))}
-      {remaining > 0 && (
-        <div class="moreGroup">
-          <button
-            ref={moreRef}
-            type="button"
-            class="moreButton"
-            onClick={loadMore}
-            disabled={loading}
-            aria-busy={loading}
-          >
-            <span class="moreLabel">
-              {label}
-              <span class="totalCount">{remaining}</span>
-            </span>
-            <PlusIcon />
-          </button>
-        </div>
-      )}
     </>
   );
 }

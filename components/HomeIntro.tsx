@@ -3,10 +3,10 @@ import { FunctionalComponent } from "preact";
 import { ArrowUpRight } from "./Icons.tsx";
 import { AUTHOR_HANDLE, AUTHOR_URL, SITE_NAME } from "../constants.ts";
 
-// The letter in the left pane of the home page: the blog's name, whose it
-// is and what it covers, in the blog's own original words, then the links.
+// The head of the home page: the blog's name, whose it is and what it
+// covers, in the blog's own original words, then the links.
 const HomeIntro: FunctionalComponent = () => (
-  <div class="letter">
+  <div class="intro">
     <h1 class="title">{SITE_NAME}</h1>
     <p class="lead">
       My name is Oleg{" "}

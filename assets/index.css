@@ -1,53 +1,104 @@
-/* The post index: posts grouped by year. On a wide pane each year sits in a
-   column beside its rows, as section headings do on arcbjorn.com; below that
-   it heads the rows. Rows lead with the day, so nothing hangs on the right. */
+/* The post index: a row of topics to filter by, then the posts grouped by
+   year. Rows lead with the day, so nothing hangs on the right. */
+
+/* --- topics: one line of filters with counts, a rule beneath ---------------- */
+
+.topics {
+  margin-top: 2.5rem;
+  border-bottom: 1px solid var(--lineColor);
+}
+
+@media (min-width: 640px) {
+  .topics {
+    margin-top: 3rem;
+  }
+}
+
+.topicList {
+  display: flex;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.topicList::-webkit-scrollbar {
+  display: none;
+}
+
+/* Where the row overflows, the right edge fades to hint at the rest */
+@media (max-width: 639px) {
+  .topicList {
+    padding-right: 2rem;
+    mask-image: linear-gradient(
+      to right,
+      black calc(100% - 2.5rem),
+      transparent
+    );
+  }
+}
+
+.topicLink {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-block: 0.625rem;
+  margin-bottom: -1px;
+  color: var(--mutedColor);
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.topicLink:hover {
+  color: var(--focusColor);
+}
+
+.activeRoute {
+  color: var(--color);
+  border-bottom-color: var(--focusColor);
+}
+
+.topicCount {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--mutedColor);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- years: a heading, then rows ---------------------------------------------- */
 
 .index {
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
-  padding: 2.5rem 1.5rem 4.5rem;
+  gap: 2.5rem;
+  margin-top: 2rem;
 }
 
-@container (min-width: 40rem) {
+@media (min-width: 640px) {
   .index {
-    gap: 4.5rem;
-    padding-inline: 2.5rem;
+    gap: 3rem;
+    margin-top: 2.5rem;
   }
 }
 
-.yearGroup,
-.moreGroup {
-  display: grid;
-  gap: 1rem;
+.yearGroup {
   min-width: 0;
   scroll-margin-top: 1.5rem;
 }
 
-/* 15rem heading + 3rem gap + 52rem rows + 5rem pane padding */
-@container (min-width: 75rem) {
-  .yearGroup,
-  .moreGroup {
-    grid-template-columns: minmax(15rem, 1fr) minmax(52rem, 3fr);
-    column-gap: 3rem;
-  }
-
-  .year {
-    position: sticky;
-    top: 2.25rem;
-    align-self: start;
-  }
-
-  .moreButton {
-    grid-column: 2;
-  }
-}
-
 .year {
-  margin: 0;
-  font-size: clamp(1.5rem, 1.9vw, 2.125rem);
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.375rem, 1.6vw, 1.75rem);
   font-weight: 500;
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--focusColor);
   font-variant-numeric: tabular-nums;
 }
@@ -66,9 +117,6 @@
   column-gap: 1.25rem;
   align-items: baseline;
   padding: 0.75rem 0;
-}
-
-.row + .row {
   border-top: 1px solid var(--lineColor);
 }
 
@@ -85,9 +133,9 @@
 
 .rowTitle {
   margin: 0;
-  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.4;
   overflow-wrap: anywhere;
 }
 
@@ -115,19 +163,18 @@
 
 .rowSnippet {
   margin: 0.25rem 0 0;
-  max-width: var(--column);
   font-size: 0.8125rem;
   line-height: 1.6;
   color: var(--mutedColor);
   text-wrap: pretty;
 }
 
-/* A filter the nav has no entry for: say what it is and how to leave it */
+/* A filter the topic row has no entry for: say what it is and how to leave */
 .indexNote {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1.25rem;
-  margin: 0;
+  margin: -0.5rem 0 0;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -164,7 +211,7 @@
   color: var(--mutedColor);
 }
 
-/* --- "more" row: the index's last item until everything is loaded ---------- */
+/* --- "more" row: under the last year until everything is loaded ------------- */
 
 .moreButton {
   display: flex;
@@ -173,10 +220,11 @@
   justify-content: space-between;
   gap: 1.5rem;
   padding: 0.75rem 0;
+  border-top: 1px solid var(--lineColor);
   text-align: left;
-  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.4;
   color: var(--titleColor);
   transition: color 0.2s ease;
 }

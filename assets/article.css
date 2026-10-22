@@ -1,25 +1,12 @@
-/* --- the article pane -------------------------------------------------------- */
+/* --- the article ---------------------------------------------------------- */
 
 .article {
   min-width: 0;
-  padding: 2.5rem 1.5rem 4.5rem;
 }
 
-@container (min-width: 40rem) {
-  .article {
-    padding: 3rem 2.5rem 5rem;
-  }
-}
-
-@container (min-width: 64rem) {
-  .article {
-    padding-inline: 4rem;
-  }
-}
-
-/* Prose: a readable measure in the mono face, quiet links, accent markers. */
+/* Prose: quiet links, accent markers, the column as its measure. */
 .prose {
-  max-width: var(--column);
+  margin-top: 2.5rem;
   font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
   line-height: 1.7;
   color: var(--color);
@@ -316,7 +303,6 @@
 .postNav {
   display: grid;
   gap: 1.5rem;
-  max-width: var(--column);
   margin-top: 4rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--lineColor);
@@ -378,49 +364,4 @@
 
 .postNavNext:hover .postNavIcon {
   transform: translateX(3px);
-}
-
-/* --- footer: closes the content pane ----------------------------------------- */
-
-.footer {
-  margin-top: auto;
-  padding: 2rem 1.5rem 2.5rem;
-  border-top: 1px solid var(--lineColor);
-}
-
-@container (min-width: 40rem) {
-  .footer {
-    padding-inline: 2.5rem;
-  }
-}
-
-.footerLine {
-  display: flex;
-  max-width: var(--column);
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 1.5rem;
-  margin: 0;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--mutedColor);
-}
-
-.footerLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: var(--mutedColor);
-  text-decoration: underline;
-  text-decoration-color: var(--lineColor);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.4em;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
-}
-
-.footerLink:hover {
-  color: var(--focusColor);
-  text-decoration-color: currentColor;
 }

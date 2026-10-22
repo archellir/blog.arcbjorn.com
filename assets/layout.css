@@ -1,71 +1,120 @@
-/* Two panes on lg+: a sticky letter on the left, the content on the right.
-   One column below that. */
+/* One centred column, as wide as a comfortable line of text. */
 
-.shell {
+.page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
+  width: 100%;
+  max-width: calc(var(--column) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-.aside {
-  display: flex;
-  flex-direction: column;
-  padding: 1.25rem 1.5rem 2.5rem;
-}
-
-.intro {
-  margin-top: 2.5rem;
-}
-
-/* The content pane is the query container for everything inside it, so
-   sections lay out by the room they actually get, not the viewport. */
 .main {
   container-type: inline-size;
-  display: flex;
-  flex-direction: column;
+  flex: 1 0 auto;
   min-width: 0;
-  border-top: 1px solid var(--lineColor);
   animation: fadein 0.5s ease;
 }
 
+/* --- header: wordmark left, theme toggle right ------------------------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.25rem;
+  padding-block: 1.25rem;
+}
+
 @media (min-width: 640px) {
-  .aside {
-    padding-inline: 2.5rem;
+  .header {
+    padding-block: 2rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .shell {
-    display: grid;
-    grid-template-columns: minmax(22rem, 30%) minmax(0, 1fr);
-  }
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color);
+  transition: color 0.2s ease;
+}
 
-  .aside {
-    position: sticky;
-    top: 0;
-    align-self: start;
-    height: 100vh;
-    height: 100dvh;
-    overflow-y: auto;
-    scrollbar-width: none;
-    padding: 2.25rem 2.5rem 2.5rem;
-  }
+.logo:hover {
+  color: var(--focusColor);
+}
 
-  .aside::-webkit-scrollbar {
-    display: none;
-  }
+.themeToggle {
+  display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-right: -0.5rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--mutedColor);
+  transition: color 0.2s ease;
+}
 
-  .intro {
-    margin-top: 3.5rem;
-  }
+.themeToggle:hover {
+  color: var(--color);
+}
 
-  .main {
-    min-height: 100vh;
-    min-height: 100dvh;
-    border-top: 0;
-    border-left: 1px solid var(--lineColor);
-  }
+.themeIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* The sun shows in the dark (click for light), the moon in the light */
+.themeIconSun {
+  display: none;
+}
+
+.dark .themeIconSun {
+  display: block;
+}
+
+.dark .themeIconMoon {
+  display: none;
+}
+
+/* --- footer: closes the page -------------------------------------------------- */
+
+.footer {
+  margin-top: 4rem;
+  padding: 1.5rem 0 2.5rem;
+  border-top: 1px solid var(--lineColor);
+}
+
+.footerLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mutedColor);
+}
+
+.footerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--mutedColor);
+  text-decoration: underline;
+  text-decoration-color: var(--lineColor);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.4em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: var(--focusColor);
+  text-decoration-color: currentColor;
 }
 
 @keyframes fadein {

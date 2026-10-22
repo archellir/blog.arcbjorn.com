@@ -1,11 +1,10 @@
 import { FunctionalComponent } from "preact";
 
 import type { IHeading, IPostSummary } from "../types.ts";
-import { SITE_NAME } from "../constants.ts";
 import { isoDate } from "../utils/dates.ts";
 import { tagHref } from "../utils/tags.ts";
 
-interface PostIntroProps {
+interface PostHeaderProps {
   post: IPostSummary;
   date: string;
   minutes: number;
@@ -15,15 +14,12 @@ interface PostIntroProps {
 // Show a table of contents only when there is enough to navigate.
 const TOC_MIN_HEADINGS = 3;
 
-// Left-pane letter for a post: title, when and how long, tags, the snippet,
-// and on wide screens the sections of the article.
-const PostIntro: FunctionalComponent<PostIntroProps> = (
+// The head of a post: title, when and how long, tags, the snippet, and the
+// sections of the article when there are a few.
+const PostHeader: FunctionalComponent<PostHeaderProps> = (
   { post, date, minutes, headings },
 ) => (
-  <div class="letter">
-    <p class="eyebrow">
-      <a href="/">{SITE_NAME}</a>
-    </p>
+  <header class="intro">
     <h1 class="title pageTitle">
       {post.title}
       {post.leetcode_number
@@ -60,7 +56,7 @@ const PostIntro: FunctionalComponent<PostIntroProps> = (
         </ol>
       </nav>
     )}
-  </div>
+  </header>
 );
 
-export default PostIntro;
+export default PostHeader;

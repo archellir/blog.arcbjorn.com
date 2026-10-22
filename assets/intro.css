@@ -1,168 +1,22 @@
-/* --- brand row: wordmark left, theme toggle right ---------------------------- */
+/* The head of a page: a title, a line or two, then links or metadata. The
+   same hierarchy as the letter on arcbjorn.com, left-aligned in the column. */
 
-.brand {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 2.25rem;
-}
-
-.logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color);
-  transition: color 0.2s ease;
-}
-
-.logo:hover {
-  color: var(--focusColor);
-}
-
-.controls {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: 0.25rem;
-  margin-right: -0.5rem;
-}
-
-.themeToggle {
-  display: flex;
-  width: 2.25rem;
-  height: 2.25rem;
-  align-items: center;
-  justify-content: center;
-  color: var(--mutedColor);
-  transition: color 0.2s ease;
-}
-
-.themeToggle:hover {
-  color: var(--color);
-}
-
-.themeIcon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-/* The sun shows in the dark (click for light), the moon in the light */
-.themeIconSun {
-  display: none;
-}
-
-.dark .themeIconSun {
-  display: block;
-}
-
-.dark .themeIconMoon {
-  display: none;
-}
-
-/* --- topics: the page nav, an index of what the posts cover --------------- */
-
-/* One column: a row of labels under the brand row, as on arcbjorn.com */
-.topics {
-  margin-top: 1rem;
-}
-
-.topicList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.topicLink {
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: 0.25rem;
-  color: var(--mutedColor);
-  transition: color 0.2s ease;
-}
-
-.topicLink:hover {
-  color: var(--focusColor);
-}
-
-.activeRoute {
-  color: var(--color);
-}
-
-.activeRoute .topicLabel {
-  text-decoration: underline;
-  text-decoration-color: var(--focusColor);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.45em;
-}
-
-.topicCount {
-  display: none;
-}
-
-/* Two panes: an index with counts at the foot of the pane */
-@media (min-width: 1024px) {
-  .topics {
-    order: 1;
-    margin-top: auto;
-    padding-top: 3rem;
-  }
-
-  .topicList {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .topicLink {
-    display: flex;
-    padding-block: 0.3125rem;
-  }
-
-  .topicCount {
-    display: inline;
-    font-weight: 400;
-    letter-spacing: 0;
-    color: var(--mutedColor);
-    font-variant-numeric: tabular-nums;
-  }
-}
-
-/* --- the letter: title, a line or two, then links ---------------------------- */
-
-.letter {
+.intro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 1.5rem;
 }
 
-.eyebrow {
-  margin: 0 0 1rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--mutedColor);
-}
-
-.eyebrow a {
-  transition: color 0.2s ease;
-}
-
-.eyebrow a:hover {
-  color: var(--focusColor);
+@media (min-width: 640px) {
+  .intro {
+    margin-top: 2.5rem;
+  }
 }
 
 .title {
   margin: 0;
-  font-size: clamp(2.25rem, 3.2vw, 3.75rem);
+  font-size: clamp(2rem, 2.6vw, 2.75rem);
   font-weight: 500;
   line-height: 1.1;
   color: var(--color);
@@ -171,7 +25,7 @@
 }
 
 .pageTitle {
-  font-size: clamp(1.625rem, 2.2vw, 2.375rem);
+  font-size: clamp(1.625rem, 2.2vw, 2.25rem);
   line-height: 1.2;
 }
 
@@ -186,15 +40,16 @@
 }
 
 .lead {
-  margin: 1.5rem 0 0;
-  font-size: clamp(1.125rem, 1.4vw, 1.5rem);
-  line-height: 1.45;
+  margin: 1.25rem 0 0;
+  font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
+  line-height: 1.5;
   color: var(--color);
   text-wrap: pretty;
 }
 
 .summary {
-  margin: 1rem 0 0;
+  margin: 0.875rem 0 0;
+  max-width: 40rem;
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--mutedColor);
@@ -203,7 +58,7 @@
 
 .standfirst {
   margin: 1.25rem 0 0;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--color);
   text-wrap: pretty;
@@ -225,7 +80,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem 0.875rem;
-  margin: 0.75rem 0 0;
+  margin: 0.625rem 0 0;
   padding: 0;
   list-style: none;
   font-size: 0.6875rem;
@@ -248,7 +103,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem 1.5rem;
-  margin: 2rem 0 0;
+  margin: 1.5rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -313,9 +168,9 @@
 }
 
 .note {
-  margin: 1.5rem 0 0;
-  font-size: 0.875rem;
-  line-height: 1.55;
+  margin: 1.25rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
   color: var(--color);
 }
 
@@ -324,18 +179,11 @@
   background-color: var(--surface);
 }
 
-/* --- table of contents: the article's sections, on wide screens only --------- */
+/* --- table of contents: the article's sections ------------------------------ */
 
 .toc {
-  display: none;
-  margin-top: 2rem;
+  margin-top: 1.75rem;
   max-width: 100%;
-}
-
-@media (min-width: 1024px) {
-  .toc {
-    display: block;
-  }
 }
 
 .tocLabel {

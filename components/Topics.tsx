@@ -8,8 +8,8 @@ interface TopicsProps {
   counts?: number[];
 }
 
-// The page nav: what the posts cover. A row of labels under the brand row on
-// one column; on lg an index with counts at the foot of the left pane.
+// The index's filter row: what the posts cover, with a count each. One line
+// that scrolls sideways on a narrow screen rather than wrapping.
 const Topics: FunctionalComponent<TopicsProps> = ({ url, counts }) => {
   const active = activeTopic(url);
 

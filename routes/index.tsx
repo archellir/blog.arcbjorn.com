@@ -3,6 +3,7 @@ import { define } from "../fresh.ts";
 import HeadElement from "../components/HeadElement.tsx";
 import Shell from "../components/Shell.tsx";
 import HomeIntro from "../components/HomeIntro.tsx";
+import Topics from "../components/Topics.tsx";
 import PostIndex from "../islands/PostIndex.tsx";
 
 import { IPostsResponse } from "../types.ts";
@@ -26,8 +27,8 @@ export default define.page(async (ctx) => {
 
   const tags = url.searchParams.get("tags") ?? undefined;
   const title = postsSectionTitle(tags);
-  // A filter that is not one of the nav topics (a tag link from a post) gets
-  // a line saying so, since nothing in the nav lights up for it.
+  // A filter that is not one of the topics (a tag link from a post) gets a
+  // line saying so, since nothing in the topic row lights up for it.
   const customFilter = Boolean(tags) && !activeTopic(url);
   const count = `${postsData.all} ${postsData.all === 1 ? "post" : "posts"}`;
 
@@ -40,7 +41,9 @@ export default define.page(async (ctx) => {
         image={`${url.origin}/images/og-default.png`}
       />
 
-      <Shell url={url} counts={counts} aside={<HomeIntro />}>
+      <Shell>
+        <HomeIntro />
+        <Topics url={url} counts={counts} />
         <div class="index">
           {customFilter && (
             <p class="indexNote">

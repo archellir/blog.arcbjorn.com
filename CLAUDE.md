@@ -53,12 +53,13 @@ technical explorations.
   - `posts.ts` - JSON endpoint for the next page of posts
   - `rss.ts`, `sitemap.xml.ts` - Feeds
 - `islands/` - Client-side interactive components (Fresh islands)
-  - `ThemeToggle.tsx` - Light/dark switch in the brand row
+  - `ThemeToggle.tsx` - Light/dark switch in the header
   - `PostIndex.tsx` - Posts grouped by year plus the "More posts" control
   - `PostEnhancer.tsx` - Copy buttons and lazy, theme-aware mermaid
 - `components/` - Preact components (server-rendered)
-  - `Shell.tsx` - Two-pane layout; every route renders it with an `aside`
-  - `HomeIntro.tsx`, `PostIntro.tsx`, `PageIntro.tsx` - Left-pane letters
+  - `Shell.tsx` - One centred column: header (wordmark, theme toggle), the page,
+    footer
+  - `HomeIntro.tsx`, `PostHeader.tsx`, `PageIntro.tsx` - The head of a page
   - `Topics.tsx` (page nav with counts), `PostRow.tsx`, `PostNav.tsx`,
     `Footer.tsx`
 - `api/` - Data access and rendering (`listPosts`, `loadPost`, `renderMarkdown`)
@@ -66,7 +67,7 @@ technical explorations.
 - `static/` - Static assets (self-hosted woff2 fonts, images)
 - `assets/` - Stylesheets, bundled via Vite from `client.ts`; `styles.css`
   imports Tailwind v4 and one file per concern (`base`, `layout`, `aside`,
-  `index`, `article`, `code`)
+  `intro`, `index`, `article`, `code`)
 - `utils/` - Dates, tags, topics, reading time, headings, theme and font
   constants, URL parsing
 
@@ -96,18 +97,18 @@ snippet, tags). The system reads these files at runtime.
 the list (exact, case-insensitive). `utils/topics.ts` defines the nav topics,
 each a group of tags.
 
-**Shell and Theme**: `components/Shell.tsx` ports the arcbjorn.com layout: a
-sticky left pane (brand row, topic nav with post counts, intro) and a content
-pane that is a CSS container. The home index groups posts by year; on a wide
-pane the year sits in a column beside its rows, like the section headings on
-arcbjorn.com. Content is left-aligned; `--column` caps prose and snippets. The
-palette lives in `assets/base.css` as `--bg`, `--color`, `--focusColor`
-(orange), `--titleColor` (teal), with `--mutedColor`, `--lineColor` and
-`--surface` derived via `color-mix`. The theme class (`dark`/`light`) is set on
-`<html>` by the inline script in `utils/theme.ts` before paint; without a stored
-choice the system preference and then the time of day decide. IBM Plex Mono is
-the only text face, self-hosted from `static/fonts/` and declared in
-`utils/fonts.ts`.
+**Shell and Theme**: `components/Shell.tsx` is one centred column, `--column`
+wide with `--gutter` at the sides, in the visual language of arcbjorn.com:
+wordmark and theme toggle on top, the page, a footer line. The home page is the
+intro, a row of topics with post counts, then the posts grouped by year with the
+day in a column of its own. A post page is its header (title, date, reading
+time, tags, snippet, contents) and the prose. The palette lives in
+`assets/base.css` as `--bg`, `--color`, `--focusColor` (orange), `--titleColor`
+(teal), with `--mutedColor`, `--lineColor` and `--surface` derived via
+`color-mix`. The theme class (`dark`/`light`) is set on `<html>` by the inline
+script in `utils/theme.ts` before paint; without a stored choice the system
+preference and then the time of day decide. IBM Plex Mono is the only text face,
+self-hosted from `static/fonts/` and declared in `utils/fonts.ts`.
 
 ## Content Management
 
@@ -158,8 +159,7 @@ the only text face, self-hosted from `static/fonts/` and declared in
 - Components are functional Preact components
 - Tailwind v4 via `@tailwindcss/vite`; styles loaded from `client.ts`. The
   design is plain CSS with semantic class names; Tailwind provides the reset
-- There is no `_layout.tsx`: each route renders `Shell` so it can pass its own
-  left-pane content
+- There is no `_layout.tsx`: each route renders `Shell` around its own content
 
 ### Performance Optimizations
 

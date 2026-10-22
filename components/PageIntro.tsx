@@ -5,12 +5,12 @@ interface PageIntroProps {
   children?: ComponentChildren;
 }
 
-// Left-pane intro for pages other than home: a title and optionally a line
-// or two beneath.
+// The head of a page other than home or a post: a title and optionally a
+// line or two beneath.
 const PageIntro: FunctionalComponent<PageIntroProps> = (
   { title, children },
 ) => (
-  <div class="letter">
+  <div class="intro">
     <h1 class="title pageTitle">{title}</h1>
     {children}
   </div>
