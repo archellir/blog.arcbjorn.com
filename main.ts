@@ -80,12 +80,45 @@ const edgeCache = define.middleware(async (ctx) => {
 });
 app.use(edgeCache);
 
-// Security headers middleware
+// Security headers. The policy names every third party the site touches:
+// the analytics script and the CDN that serves mermaid and the KaTeX fonts.
+// Inline scripts stay allowed because Fresh hydrates islands with one, and
+// the theme is set by an inline script before paint.
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://analytics.arcbjorn.com https://cdn.jsdelivr.net",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' https://cdn.jsdelivr.net",
+  "img-src 'self' data: https:",
+  "connect-src 'self' https://analytics.arcbjorn.com https://cdn.jsdelivr.net",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
 const securityHeaders = define.middleware(async (ctx) => {
   const res = await ctx.next();
+  const secure = ctx.url.protocol === "https:";
+  res.headers.set(
+    "Content-Security-Policy",
+    secure
+      ? `${CONTENT_SECURITY_POLICY}; upgrade-insecure-requests`
+      : CONTENT_SECURITY_POLICY,
+  );
+  if (secure) {
+    res.headers.set(
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains",
+    );
+  }
   res.headers.set("X-Frame-Options", "DENY");
   res.headers.set("X-Content-Type-Options", "nosniff");
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  );
   return res;
 });
 app.use(securityHeaders);
