@@ -8,7 +8,8 @@
   --bg: #f9f5ef;
   --color: #1b1d1e;
   --focusColor: #f15025;
-  --titleColor: #008080;
+  /* A hair darker than arcbjorn.com's #008080 so 13px dates pass AA */
+  --titleColor: #007676;
   --onFocusColor: #1b1d1e;
 
   /* The page column: a comfortable line in the mono face, and its gutters */
@@ -28,15 +29,16 @@
   --lineColor: color-mix(in srgb, var(--color) 14%, var(--bg));
   --surface: color-mix(in srgb, var(--color) 4%, var(--bg));
 
-  /* Syntax: gruvbox light */
-  --synComment: #928374;
+  /* Syntax: gruvbox light, each tone deepened until 13px code on the
+     surface tone passes AA (4.5:1) */
+  --synComment: #6f655b;
   --synKeyword: #9d0006;
-  --synString: #79740e;
+  --synString: #66610b;
   --synNumber: #8f3f71;
-  --synFunction: #b57614;
+  --synFunction: #8f5a0a;
   --synOperator: #af3a03;
-  --synType: #427b58;
-  --synPunctuation: #7c6f64;
+  --synType: #386b4c;
+  --synPunctuation: #6a6058;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,9 +51,9 @@
     --titleColor: #01dae0;
     --surface: color-mix(in srgb, var(--color) 6%, var(--bg));
 
-    /* Syntax: gruvbox dark */
-    --synComment: #928374;
-    --synKeyword: #fb4934;
+    /* Syntax: gruvbox dark, comment and keyword lifted to pass AA */
+    --synComment: #a89984;
+    --synKeyword: #fc5a46;
     --synString: #b8bb26;
     --synNumber: #d3869b;
     --synFunction: #fabd2f;
@@ -70,8 +72,8 @@
   --titleColor: #01dae0;
   --surface: color-mix(in srgb, var(--color) 6%, var(--bg));
 
-  --synComment: #928374;
-  --synKeyword: #fb4934;
+  --synComment: #a89984;
+  --synKeyword: #fc5a46;
   --synString: #b8bb26;
   --synNumber: #d3869b;
   --synFunction: #fabd2f;

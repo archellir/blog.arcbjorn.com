@@ -96,7 +96,8 @@
 
 .year {
   margin: 0 0 0.25rem;
-  font-size: clamp(1.375rem, 1.6vw, 1.75rem);
+  /* Never under 24px: large text, so the accent passes contrast */
+  font-size: clamp(1.5rem, 1.6vw, 1.75rem);
   font-weight: 500;
   line-height: 1.2;
   color: var(--focusColor);
