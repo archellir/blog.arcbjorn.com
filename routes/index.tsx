@@ -49,10 +49,19 @@ export default define.page(async (ctx) => {
             <p class="indexNote">
               <span class="indexFilter">Tagged {title}</span>
               <span class="indexCount">{count}</span>
-              <a class="indexClear" href="/">All posts</a>
+              <a class="indexClear" href="/" f-client-nav={false}>All posts</a>
             </p>
           )}
-          <PostIndex posts={postsData.posts} all={postsData.all} tags={tags} />
+          {
+            /* Keyed by filter: a new filter mounts a fresh list rather than
+              handing new posts to an island that keeps its own state. */
+          }
+          <PostIndex
+            key={tags ?? "all"}
+            posts={postsData.posts}
+            all={postsData.all}
+            tags={tags}
+          />
         </div>
       </Shell>
     </>
