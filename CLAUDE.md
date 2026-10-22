@@ -100,12 +100,12 @@ the list (exact, case-insensitive). `utils/topics.ts` defines the nav topics,
 each a group of tags.
 
 **Shell and Theme**: `components/Shell.tsx` is one centred column, `--page` wide
-with `--gutter` at the sides; prose keeps the narrower `--column` measure, in
-the visual language of arcbjorn.com: wordmark, site links and theme toggle on
-top, the page, a footer line. The home page is the intro, a row of topics with
-post counts, then the posts grouped by year with the day in a column of its own.
-A post page is its header (title, date, reading time, tags, snippet, contents)
-and the prose. The palette lives in `assets/base.css` as `--bg`, `--color`,
+with `--gutter` at the sides; `--column` caps only the index snippets, in the
+visual language of arcbjorn.com: wordmark, site links and theme toggle on top,
+the page, a footer line. The home page is the intro, a row of topics with post
+counts, then the posts grouped by year with the day in a column of its own. A
+post page is its header (title, date, reading time, tags, snippet, contents) and
+the prose. The palette lives in `assets/base.css` as `--bg`, `--color`,
 `--focusColor` (orange), `--titleColor` (teal), with `--mutedColor`,
 `--lineColor` and `--surface` derived via `color-mix`. The theme class
 (`dark`/`light`) is set on `<html>` by the inline script in `utils/theme.ts`

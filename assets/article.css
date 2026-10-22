@@ -4,10 +4,8 @@
   min-width: 0;
 }
 
-/* Prose: quiet links, accent markers, a reading measure for the text while
-   code, tables and diagrams may use the whole page column. */
+/* Prose: quiet links, accent markers, the whole page column as its width. */
 .prose {
-  max-width: var(--column);
   margin-top: 2.5rem;
   font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
   line-height: 1.7;
@@ -21,16 +19,6 @@
 
 .prose > * + * {
   margin-top: 1.25em;
-}
-
-/* Wide blocks: the page column is the query container, so 100cqw is its
-   width whatever the viewport */
-.prose > .codeBlock,
-.prose > .tableWrap,
-.prose > pre.mermaid,
-.prose > .katex-display {
-  width: 100cqw;
-  max-width: 100cqw;
 }
 
 .prose h2,
