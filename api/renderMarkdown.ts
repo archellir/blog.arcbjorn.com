@@ -42,6 +42,22 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
+// Prism leaves ">" alone in text; the validators would rather see "&gt;".
+// A ">" right after a quote or a tag name closes a tag, the rest is text.
+function escapeGreaterThan(html: string): string {
+  return html.replace(/(?<!")(?<!span)>/g, "&gt;");
+}
+
+// The math pass reads " $30/mo ... $40" as a formula. Pandoc's rule tells
+// prices apart: a closing dollar followed by a digit is not maths, so both
+// dollars get escaped and come out as plain text.
+function keepPricesAsText(markdown: string): string {
+  return markdown.replace(
+    /(^|\s)\$(\S[^$\n]*?)\$(?=\d)/gm,
+    (_match, lead: string, body: string) => `${lead}\\$${body}\\$`,
+  );
+}
+
 function grammarFor(language: string): Prism.Grammar | undefined {
   return Object.prototype.hasOwnProperty.call(Prism.languages, language)
     ? Prism.languages[language]
@@ -85,7 +101,7 @@ export class PostRenderer extends Renderer {
 
     const grammar = lang ? grammarFor(lang) : undefined;
     const body = grammar
-      ? Prism.highlight(source, grammar, lang)
+      ? escapeGreaterThan(Prism.highlight(source, grammar, lang))
       : escapeHtml(source);
     const label = lang ? ` data-lang="${escapeHtml(lang)}"` : "";
     const codeClass = lang ? ` class="language-${escapeHtml(lang)}"` : "";
@@ -124,7 +140,7 @@ export interface IRenderedPost {
 // Posts are first-party content, so the HTML is not sanitized; that keeps
 // the classes and attributes the stylesheet and islands rely on.
 export function renderMarkdown(markdown: string): IRenderedPost {
-  const html = render(markdown, {
+  const html = render(keepPricesAsText(markdown), {
     allowMath: true,
     renderer: new PostRenderer(),
     disableHtmlSanitization: true,

@@ -121,6 +121,20 @@ describe("api", () => {
       assertEquals(headings.map((heading) => heading.text), ["Top", "Go"]);
     });
 
+    it("keeps prices out of the math pass", () => {
+      const { html, hasMath } = renderMarkdown(
+        "Plans: $30/mo, X Premium+ $40/mo, or API. Still $O(n)$ here.",
+      );
+      assertStringIncludes(html, "$30/mo, X Premium+ $40/mo");
+      assert(hasMath);
+    });
+
+    it("escapes greater-than inside highlighted code", () => {
+      const { html } = renderMarkdown("```go\nif n >= 2 { x := a -> b }\n```");
+      assert(!/[^"n]>[^<]/.test(html.split("<code")[1].split("</code>")[0]));
+      assertStringIncludes(html, "&gt;=");
+    });
+
     it("makes scrollable code focusable", () => {
       const { html } = renderMarkdown("```go\nx := 1\n```");
       assertStringIncludes(
