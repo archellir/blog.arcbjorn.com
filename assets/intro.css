@@ -26,10 +26,12 @@
 
 /* Post titles fill each line; balancing would break them early */
 .pageTitle {
-  /* Sized so a 55-character title fits the column on one line */
+  /* Sized so a 55-character title fits the column on one line. Plain
+     wrapping: "pretty" and "balance" move the break differently in each
+     browser, and both pull it into the middle of the sentence. */
   font-size: clamp(1.5rem, 1.9vw, 1.875rem);
   line-height: 1.25;
-  text-wrap: pretty;
+  text-wrap: wrap;
 }
 
 .titleNumber {
