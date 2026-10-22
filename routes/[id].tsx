@@ -3,6 +3,12 @@ import { HttpError } from "fresh";
 import { Head } from "fresh/runtime";
 import { KATEX_CSS } from "$gfm";
 
+// KaTeX fonts arrive from the CDN after the text; show the fallback meanwhile.
+const MATH_CSS = KATEX_CSS.replace(
+  /@font-face\{/g,
+  "@font-face{font-display:swap;",
+);
+
 import { loadPost } from "../api/loadPost.ts";
 import { listPosts } from "../api/listPosts.ts";
 import { renderMarkdown } from "../api/renderMarkdown.ts";
@@ -83,7 +89,7 @@ export default define.page(async (ctx) => {
       />
       {rendered.hasMath && (
         <Head>
-          <style dangerouslySetInnerHTML={{ __html: KATEX_CSS }} />
+          <style dangerouslySetInnerHTML={{ __html: MATH_CSS }} />
         </Head>
       )}
 

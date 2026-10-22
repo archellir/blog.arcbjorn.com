@@ -26,6 +26,7 @@ export default define.page(function App({ Component }) {
             crossorigin="anonymous"
           />
         ))}
+        <link rel="preconnect" href="https://analytics.arcbjorn.com" />
         <link rel="icon" href={asset("/favicon.ico")} sizes="32x32" />
         <link rel="icon" href={asset("/icon.svg")} type="image/svg+xml" />
         <link rel="apple-touch-icon" href={asset("/apple-touch-icon.png")} />
