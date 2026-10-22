@@ -99,18 +99,19 @@ snippet, tags). The system reads these files at runtime.
 the list (exact, case-insensitive). `utils/topics.ts` defines the nav topics,
 each a group of tags.
 
-**Shell and Theme**: `components/Shell.tsx` is one centred column, `--column`
-wide with `--gutter` at the sides, in the visual language of arcbjorn.com:
-wordmark, site links and theme toggle on top, the page, a footer line. The home
-page is the intro, a row of topics with post counts, then the posts grouped by
-year with the day in a column of its own. A post page is its header (title,
-date, reading time, tags, snippet, contents) and the prose. The palette lives in
-`assets/base.css` as `--bg`, `--color`, `--focusColor` (orange), `--titleColor`
-(teal), with `--mutedColor`, `--lineColor` and `--surface` derived via
-`color-mix`. The theme class (`dark`/`light`) is set on `<html>` by the inline
-script in `utils/theme.ts` before paint; without a stored choice the system
-preference and then the time of day decide. IBM Plex Mono is the only text face,
-self-hosted from `static/fonts/` and declared in `utils/fonts.ts`.
+**Shell and Theme**: `components/Shell.tsx` is one centred column, `--page` wide
+with `--gutter` at the sides; prose keeps the narrower `--column` measure, in
+the visual language of arcbjorn.com: wordmark, site links and theme toggle on
+top, the page, a footer line. The home page is the intro, a row of topics with
+post counts, then the posts grouped by year with the day in a column of its own.
+A post page is its header (title, date, reading time, tags, snippet, contents)
+and the prose. The palette lives in `assets/base.css` as `--bg`, `--color`,
+`--focusColor` (orange), `--titleColor` (teal), with `--mutedColor`,
+`--lineColor` and `--surface` derived via `color-mix`. The theme class
+(`dark`/`light`) is set on `<html>` by the inline script in `utils/theme.ts`
+before paint; without a stored choice the system preference and then the time of
+day decide. IBM Plex Mono is the only text face, self-hosted from
+`static/fonts/` and declared in `utils/fonts.ts`.
 
 ## Content Management
 

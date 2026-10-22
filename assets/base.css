@@ -12,7 +12,8 @@
   --titleColor: #007676;
   --onFocusColor: #1b1d1e;
 
-  /* The page column: a comfortable line in the mono face, and its gutters */
+  /* The page column, the narrower measure for prose, and the gutters */
+  --page: 60rem;
   --column: 46rem;
   --gutter: 1.25rem;
 
