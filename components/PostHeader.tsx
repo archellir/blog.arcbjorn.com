@@ -36,7 +36,10 @@ const PostHeader: FunctionalComponent<PostHeaderProps> = (
       <ul class="tags" aria-label="Tags">
         {post.tags.map((tag) => (
           <li key={tag}>
-            <a class="tag" href={tagHref(tag)}>{tag}</a>
+            <a class="tag" href={tagHref(tag)}>
+              <span class="srOnly">Posts tagged</span>
+              {tag}
+            </a>
           </li>
         ))}
       </ul>

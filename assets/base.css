@@ -169,7 +169,20 @@ button {
   text-decoration-color: currentColor;
 }
 
-/* Keyboard users can jump past the letter straight to the content */
+/* Text for assistive tech only */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Keyboard users can jump past the header straight to the content */
 .skipLink {
   position: absolute;
   top: -100%;
