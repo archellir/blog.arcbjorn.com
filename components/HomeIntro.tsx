@@ -2,8 +2,8 @@ import { FunctionalComponent } from "preact";
 
 import { AUTHOR_HANDLE, AUTHOR_URL, SITE_NAME } from "../constants.ts";
 
-// The head of the home page: the blog's name, whose it is and what it
-// covers, in the blog's own original words.
+// The head of the home page: the blog's name and whose it is. What it
+// covers is the topic row beneath, so it is not said twice.
 const HomeIntro: FunctionalComponent = () => (
   <div class="intro">
     <h1 class="title">{SITE_NAME}</h1>
@@ -17,11 +17,6 @@ const HomeIntro: FunctionalComponent = () => (
       >
         {AUTHOR_HANDLE}
       </a>.
-    </p>
-    <p class="summary">
-      Here I share my explorations of system design, algorithms, math, networks,
-      databases, operational systems, blockchain, programming languages &amp;
-      patterns, web related tech.
     </p>
   </div>
 );

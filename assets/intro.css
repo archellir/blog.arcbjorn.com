@@ -47,15 +47,6 @@
   text-wrap: pretty;
 }
 
-.summary {
-  margin: 0.875rem 0 0;
-  max-width: 40rem;
-  font-size: var(--text-base);
-  line-height: 1.6;
-  color: var(--mutedColor);
-  text-wrap: pretty;
-}
-
 .standfirst {
   margin: 1.25rem 0 0;
   font-size: var(--text-lg);
