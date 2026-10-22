@@ -18,6 +18,7 @@ import { formatDate, isoDate } from "../utils/dates.ts";
 import { describePost } from "../utils/describePost.ts";
 import { readingTime } from "../utils/readingTime.ts";
 import { resolveImageUrl } from "../utils/imageUtils.ts";
+import { countTopics } from "../utils/topics.ts";
 import { AUTHOR, AUTHOR_URL, SITE_NAME, SITE_URL } from "../constants.ts";
 
 export default define.page(async (ctx) => {
@@ -27,6 +28,7 @@ export default define.page(async (ctx) => {
 
   // Neighbours in publication order, for the links at the end.
   const { posts } = await listPosts({ offset: 0, limit: 0 });
+  const counts = countTopics(posts);
   const index = posts.findIndex((item) => item.id === post.id);
   const newer = index > 0 ? posts[index - 1] : undefined;
   const older = index >= 0 && index < posts.length - 1
@@ -106,6 +108,7 @@ export default define.page(async (ctx) => {
 
       <Shell
         url={url}
+        counts={counts}
         aside={
           <PostIntro
             post={post}

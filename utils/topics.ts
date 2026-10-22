@@ -1,4 +1,5 @@
 import { parseTags } from "./tags.ts";
+import type { IPostSummary } from "../types.ts";
 
 export interface ITopic {
   label: string;
@@ -31,11 +32,23 @@ export function activeTopic(url: URL): ITopic | undefined {
   return topics.find((topic) => topic.tags === tags);
 }
 
-// Heading for the post list: the topic's name when the filter is one of the
-// nav topics, the raw tags otherwise, "Posts" when unfiltered.
+// Title for the list: the topic's name when the filter is one of the nav
+// topics, the raw tags otherwise, "Posts" when unfiltered.
 export function postsSectionTitle(tags?: string | null): string {
   const parsed = parseTags(tags);
   if (parsed.length === 0) return "Posts";
   const topic = topics.find((item) => item.tags === parsed.join(","));
   return topic?.label ?? parsed.join(" · ");
+}
+
+// How many posts each topic holds, in nav order, by the same rule the list
+// filters with: a post counts when any of its tags is in the topic's set.
+export function countTopics(posts: IPostSummary[]): number[] {
+  return topics.map((topic) => {
+    const wanted = parseTags(topic.tags);
+    if (wanted.length === 0) return posts.length;
+    return posts.filter((post) =>
+      post.tags?.some((tag) => wanted.includes(tag.toLowerCase()))
+    ).length;
+  });
 }
