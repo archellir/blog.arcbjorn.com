@@ -24,7 +24,7 @@ const Shell: FunctionalComponent<ShellProps> = ({ children }) => (
           target="_blank"
           rel="me noopener noreferrer"
         >
-          arcbjorn.com
+          About
           <ArrowUpRight class="linkIcon" />
         </a>
         <a class="headerLink" href="/rss">RSS</a>
