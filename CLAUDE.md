@@ -99,7 +99,7 @@ each a group of tags.
 
 **Shell and Theme**: `components/Shell.tsx` is one centred column, `--column`
 wide with `--gutter` at the sides, in the visual language of arcbjorn.com:
-wordmark and theme toggle on top, the page, a footer line. The home page is the
+wordmark, site links and theme toggle on top, the page, a footer line. The home page is the
 intro, a row of topics with post counts, then the posts grouped by year with the
 day in a column of its own. A post page is its header (title, date, reading
 time, tags, snippet, contents) and the prose. The palette lives in

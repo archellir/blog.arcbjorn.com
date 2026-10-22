@@ -46,11 +46,45 @@
   color: var(--focusColor);
 }
 
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.headerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color);
+  text-decoration: underline;
+  text-decoration-color: var(--lineColor);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.4em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.headerLink:hover {
+  color: var(--focusColor);
+  text-decoration-color: currentColor;
+}
+
+.linkIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex: none;
+}
+
 .themeToggle {
   display: flex;
   width: 2.25rem;
   height: 2.25rem;
   margin-right: -0.5rem;
+  margin-left: -0.25rem;
   align-items: center;
   justify-content: center;
   color: var(--mutedColor);
@@ -98,6 +132,10 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--mutedColor);
+}
+
+.footerYears {
+  font-variant-numeric: tabular-nums;
 }
 
 .footerLink {

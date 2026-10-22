@@ -85,6 +85,8 @@ body {
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -94,6 +96,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   background-color: var(--bg);
   color: var(--color);
 }
@@ -185,5 +188,44 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print: the words, in black, without the chrome */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --color: #000000;
+    --focusColor: #000000;
+    --titleColor: #000000;
+  }
+
+  .header,
+  .footer,
+  .topics,
+  .moreButton,
+  .postNav,
+  .copyButton,
+  .skipLink {
+    display: none;
+  }
+
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  .main {
+    animation: none;
+  }
+
+  .prose a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--mutedColor);
+  }
+
+  .prose a.anchor::after {
+    content: none;
   }
 }
