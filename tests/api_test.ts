@@ -16,6 +16,7 @@ import {
   postsSectionTitle,
 } from "../utils/topics.ts";
 import { groupByYear } from "../utils/groupPosts.ts";
+import { relatedPosts } from "../utils/related.ts";
 import { readingTime } from "../utils/readingTime.ts";
 import { extractHeadings } from "../utils/headings.ts";
 import { describePost } from "../utils/describePost.ts";
@@ -246,6 +247,22 @@ describe("utils", () => {
       groupByYear(posts).map((group) => [group.year, group.posts.length]),
       [["2026", 1], ["2025", 2], ["2023", 1]],
     );
+  });
+
+  it("finds related posts by shared tags", () => {
+    const posts = [
+      { id: "a", title: "A", publishedAt: "2026-01-01", tags: ["go", "ai"] },
+      { id: "b", title: "B", publishedAt: "2025-01-01", tags: ["go"] },
+      { id: "c", title: "C", publishedAt: "2024-01-01", tags: ["ai", "go"] },
+      { id: "d", title: "D", publishedAt: "2023-01-01", tags: ["rust"] },
+      { id: "e", title: "E", publishedAt: "2022-01-01", tags: ["AI"] },
+    ];
+    assertEquals(
+      relatedPosts(posts[0], posts).map((post) => post.id),
+      ["c", "b", "e"],
+    );
+    assertEquals(relatedPosts(posts[3], posts), []);
+    assertEquals(relatedPosts(posts[1], posts, 1).map((p) => p.id), ["a"]);
   });
 
   it("formats dates and survives bad locales", () => {

@@ -5,14 +5,16 @@ import { isoDate, shortDate } from "../utils/dates.ts";
 
 interface PostRowProps {
   post: IPostSummary;
+  // Day and month under a year heading; the full date anywhere else.
+  fullDate?: boolean;
 }
 
-// One post under a year heading: the day in a column of its own, then the
-// title and snippet. The title is the link and the whole row its hit area.
-const PostRow: FunctionalComponent<PostRowProps> = ({ post }) => (
+// One post in a list: the date in a column of its own, then the title and
+// snippet. The title is the link and the whole row its hit area.
+const PostRow: FunctionalComponent<PostRowProps> = ({ post, fullDate }) => (
   <li class="row">
     <time class="rowDate" dateTime={isoDate(post.publishedAt)}>
-      {shortDate(post.publishedAt)}
+      {fullDate ? isoDate(post.publishedAt) : shortDate(post.publishedAt)}
     </time>
     <div class="rowBody">
       <h3 class="rowTitle">

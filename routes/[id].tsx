@@ -11,12 +11,14 @@ import HeadElement from "../components/HeadElement.tsx";
 import Shell from "../components/Shell.tsx";
 import PostHeader from "../components/PostHeader.tsx";
 import PostNav from "../components/PostNav.tsx";
+import RelatedPosts from "../components/RelatedPosts.tsx";
 import StructuredData from "../components/StructuredData.tsx";
 import PostEnhancer from "../islands/PostEnhancer.tsx";
 
 import { formatDate, isoDate } from "../utils/dates.ts";
 import { describePost } from "../utils/describePost.ts";
 import { readingTime } from "../utils/readingTime.ts";
+import { relatedPosts } from "../utils/related.ts";
 import { resolveImageUrl } from "../utils/imageUtils.ts";
 import { AUTHOR, AUTHOR_URL, SITE_NAME, SITE_URL } from "../constants.ts";
 
@@ -32,6 +34,7 @@ export default define.page(async (ctx) => {
   const older = index >= 0 && index < posts.length - 1
     ? posts[index + 1]
     : undefined;
+  const related = relatedPosts(post, posts);
 
   const rendered = renderMarkdown(post.content);
   // One English date format throughout, to match the index.
@@ -119,6 +122,7 @@ export default define.page(async (ctx) => {
             dangerouslySetInnerHTML={{ __html: rendered.html }}
           />
           <PostNav newer={newer} older={older} />
+          <RelatedPosts posts={related} />
         </article>
         <PostEnhancer mermaid={rendered.hasMermaid} />
       </Shell>

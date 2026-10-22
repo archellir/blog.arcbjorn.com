@@ -365,3 +365,23 @@
 .postNavNext:hover .postNavIcon {
   transform: translateX(3px);
 }
+
+/* --- related posts: a few more on the same subjects ------------------------- */
+
+.related {
+  margin-top: 4rem;
+}
+
+.relatedTitle {
+  margin: 0 0 0.25rem;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--mutedColor);
+}
+
+/* The index's rows, with room for the full date */
+.related .row {
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+}
