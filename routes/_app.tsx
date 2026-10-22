@@ -27,6 +27,8 @@ export default define.page(function App({ Component }) {
           />
         ))}
         <link rel="icon" href={asset("/favicon.ico")} sizes="32x32" />
+        <link rel="icon" href={asset("/icon.svg")} type="image/svg+xml" />
+        <link rel="apple-touch-icon" href={asset("/apple-touch-icon.png")} />
         <link
           rel="alternate"
           type="application/rss+xml"
