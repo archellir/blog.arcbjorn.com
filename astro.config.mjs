@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
+import { fileURLToPath } from 'node:url';
 
 // KaTeX ships its stylesheet without font-display, so maths text would stay
 // invisible until its fonts arrive. Swap shows the fallback meanwhile.
@@ -14,11 +15,24 @@ const katexFontDisplay = {
   },
 };
 
+// Once the pages exist, the script policy gets a hash per inline script.
+/** @type {import('astro').AstroIntegration} */
+const cspHashes = {
+  name: 'csp-hashes',
+  hooks: {
+    'astro:build:done': async ({ dir, logger }) => {
+      const { writeScriptHashes } = await import('./scripts/csp-hashes.mjs');
+      const hashes = await writeScriptHashes(fileURLToPath(dir));
+      logger.info(`script-src carries ${hashes.length} inline script hashes`);
+    },
+  },
+};
+
 // Static site: every page is built ahead of time and served as files.
 export default defineConfig({
   site: 'https://blog.arcbjorn.com',
   trailingSlash: 'never',
-  integrations: [preact()],
+  integrations: [preact(), cspHashes],
   build: {
     inlineStylesheets: 'never',
   },

@@ -60,7 +60,7 @@ of time; Cloudflare Workers serves the files.
 - `public/` - Fonts, images, icons, `robots.txt`, and Cloudflare's `_headers` (security
   headers, cache rules) and `_redirects`
 - `tests/` - vitest suites for the pipeline and the library
-- `scripts/` - `images.mjs` for the touch icon
+- `scripts/` - `images.mjs` for the touch icon, `csp-hashes.mjs` for the script policy
 
 ### Key Patterns
 
