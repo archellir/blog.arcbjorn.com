@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 
-import { AUTHOR, SITE_URL } from './site';
+import { SITE_URL } from './site';
 
 // The social card: the design of the site in a 1200 by 630 image, drawn at
 // build time with the site's own face. Satori lays out a small tree of
@@ -21,20 +21,20 @@ const palette = {
 
 const require = createRequire(import.meta.url);
 
-async function font(weight: 400 | 500 | 700) {
+async function font(weight: 400 | 500) {
   const path = require.resolve(
     `@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-${weight}-normal.woff`
   );
   return { name: 'IBM Plex Mono', weight, style: 'normal' as const, data: await readFile(path) };
 }
 
-const fonts = Promise.all([font(400), font(500), font(700)]);
+const fonts = Promise.all([font(400), font(500)]);
 
 export interface CardContent {
   title: string;
   // Shown after the title in the muted tone, such as a Leetcode number.
   number?: string;
-  // One or two lines under the title: a date and reading time, or a summary.
+  // One or two lines at the foot: a date and reading time, or a summary.
   line: string;
 }
 
@@ -54,6 +54,7 @@ function box(style: Record<string, unknown>, children: unknown) {
 export async function renderCardSvg({ title, number, line }: CardContent): Promise<string> {
   // Satori adds padding outside a box's width, so the canvas-sized root has
   // none; the inner frame takes the margins instead and stays within it.
+  // Three rows: the domain, the title in the room between, the line.
   const tree = box(
     {
       width: WIDTH,
@@ -68,18 +69,18 @@ export async function renderCardSvg({ title, number, line }: CardContent): Promi
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
         marginTop: 64,
-        marginRight: 80,
-        marginBottom: 56,
-        marginLeft: 80,
+        marginRight: 88,
+        marginBottom: 64,
+        marginLeft: 88,
       },
       [
-        box({ display: 'flex', flexDirection: 'column' }, [
-          box({ fontSize: 28, fontWeight: 700 }, 'arcbjorn'),
+        box({ fontSize: 24, color: palette.muted }, SITE_URL.replace(/^https?:\/\//, '')),
+        box({ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }, [
+          box({ width: 56, height: 4, backgroundColor: palette.accent }, []),
           box(
             {
-              marginTop: 44,
+              marginTop: 28,
               fontSize: titleSize(title),
               fontWeight: 500,
               lineHeight: 1.12,
@@ -97,32 +98,10 @@ export async function renderCardSvg({ title, number, line }: CardContent): Promi
                 ]
               : title
           ),
-          box(
-            {
-              marginTop: 28,
-              maxWidth: 980,
-              fontSize: 27,
-              lineHeight: 1.45,
-              color: palette.muted,
-              lineClamp: 2,
-            },
-            line
-          ),
         ]),
         box(
-          {
-            display: 'flex',
-            justifyContent: 'space-between',
-            paddingTop: 26,
-            borderTop: `3px solid ${palette.accent}`,
-            fontSize: 19,
-            fontWeight: 500,
-            letterSpacing: '0.14em',
-          },
-          [
-            box({}, SITE_URL.replace(/^https?:\/\//, '').toUpperCase()),
-            box({}, AUTHOR.toUpperCase()),
-          ]
+          { maxWidth: 980, fontSize: 26, lineHeight: 1.45, color: palette.muted, lineClamp: 2 },
+          line
         ),
       ]
     )
