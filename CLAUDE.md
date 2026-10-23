@@ -1,224 +1,110 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with
-code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository.
 
 ## Project Overview
 
-This is a personal blog built with Deno Fresh framework - a modern full-stack
-web framework for TypeScript/JavaScript. The blog serves programming-focused
-content including LeetCode solutions, system administration tutorials, and
-technical explorations.
+A personal blog built with Astro as a static site: programming-focused content including
+Leetcode solutions, infrastructure notes and technical explorations. Every page is built ahead
+of time; Cloudflare Workers serves the files.
 
 ## Development Commands
 
-### Core Development
+- `pnpm dev` - Astro dev server with HMR
+- `pnpm build` - static build into `dist/`
+- `pnpm preview` - serve `dist/` with the Workers runtime (`wrangler dev`)
+- `pnpm check` - TypeScript (`tsc --noEmit`) and Prettier
+- `pnpm test` - vitest
+- `pnpm format` - Prettier
+- `pnpm images` - regenerate the social card and touch icon with headless Chrome
+- `pnpm deploy` - build and `wrangler deploy`
 
-- `deno task dev` - Start development server (Vite + HMR)
-- `deno task build` - Build the project for production
-- `deno task start` - Serve the production build
-
-### Testing
-
-- `deno task test` - Run all tests with proper permissions
-- `deno test --allow-read --allow-env` - Run tests directly with manual
-  permissions
-- `deno task check` - Format, lint, and type check
-- Tests use Deno's built-in testing framework with BDD-style describe/it blocks
-
-### Dependency Management
-
-- `deno run -A -r jsr:@fresh/update .` - Update Fresh framework and dependencies
-- `deno outdated` - List dependencies with newer versions
+`pnpm check`, `pnpm test` and `pnpm build` must pass; CI runs all three.
 
 ## Architecture
 
 ### Tech Stack
 
-- **Runtime**: Deno (modern TypeScript/JavaScript runtime)
-- **Framework**: Fresh (Deno's full-stack web framework)
-- **UI**: Preact (lightweight React alternative)
-- **Styling**: Tailwind CSS
-- **Content**: Markdown files with frontmatter metadata
-- **Rendering**: Server-side rendering with islands architecture
+- **Framework**: Astro 7, static output
+- **UI**: Astro components for static markup, Preact 11 for the islands
+- **Content**: Markdown in `data/posts/` through an Astro content collection
+- **Rendering**: a unified pipeline (remark, rehype) in `src/lib/markdown.ts`
+- **Styling**: plain CSS on a palette of variables, no framework
+- **Hosting**: Cloudflare Workers static assets (`wrangler.jsonc`)
+- **Tooling**: Node 24, pnpm, TypeScript 7, Prettier, vitest
 
 ### Directory Structure
 
-- `routes/` - File-based routing (Fresh convention)
-  - `_app.tsx` - HTML skeleton: theme-init script, inlined font faces, preloads,
-    analytics
-  - `index.tsx` - Homepage with the paginated, tag-filterable post list
-  - `[id].tsx` - Post pages; throws `HttpError(404)` for unknown ids
-  - `_error.tsx` - One error page for 404s and failures, rendered with the real
-    status
-  - `posts.ts` - JSON endpoint for the next page of posts
-  - `rss.ts`, `sitemap.xml.ts` - Feeds
-- `islands/` - Client-side interactive components (Fresh islands)
-  - `ThemeToggle.tsx` - Light/dark switch in the header
-  - `PostIndex.tsx` - Posts grouped by year plus the "More posts" control
-  - `PostEnhancer.tsx` - Copy buttons and lazy, theme-aware mermaid
-- `components/` - Preact components (server-rendered)
-  - `Shell.tsx` - One centred column: header (wordmark, theme toggle), the page,
-    footer
-  - `HomeIntro.tsx`, `PostHeader.tsx`, `PageIntro.tsx` - The head of a page
-  - `Topics.tsx` (page nav with counts), `PostRow.tsx`, `PostNav.tsx`,
-    `RelatedPosts.tsx`, `Footer.tsx`
-- `api/` - Data access and rendering (`listPosts`, `loadPost`, `renderMarkdown`)
-- `data/posts/` - Markdown blog posts with frontmatter
-- `static/` - Static assets (self-hosted woff2 fonts, images)
-- `assets/` - Stylesheets, bundled via Vite from `client.ts`; `styles.css`
-  imports Tailwind v4 and one file per concern (`base`, `layout`, `intro`,
-  `index`, `article`, `code`). `base.css` holds the palette, the type scale
-  (`--text-*`, `--tracking-caps`) and the column tokens
-- `utils/` - Dates, tags, topics, reading time, headings, theme and font
-  constants, URL parsing
+- `src/pages/` - File-based routes
+  - `index.astro` - Home: the index of every post, grouped by year
+  - `topics/[slug].astro` - The index filtered by a topic (`src/lib/topics.ts`)
+  - `tags/[tag].astro` - The index filtered by one tag, with a note saying so
+  - `[id].astro` - Post pages
+  - `404.astro` - Not found, served with a real 404 by the Worker
+  - `rss.xml.ts`, `sitemap.xml.ts` - Feeds
+- `src/layouts/Base.astro` - The page: head metadata, theme and font setup, header, footer
+- `src/components/` - Static Astro components (`Topics`, `PostHeader`, `PostNav`,
+  `RelatedPosts`, `IndexNote`, `Footer`, intros) and `Icons.tsx`
+- `src/islands/` - Preact islands: `ThemeToggle`, `PostIndex` ("More posts" reveal),
+  `PostEnhancer` (copy buttons, lazy Mermaid), `PostRow` (used by the index island and
+  statically by `RelatedPosts`)
+- `src/lib/` - `markdown.ts`, `posts.ts` (reads the collection), `topics.ts`, `tags.ts`,
+  `dates.ts`, `related.ts`, `groupPosts.ts`, `describePost.ts`, `readingTime.ts`,
+  `theme.ts`, `fonts.ts`, `site.ts` (constants)
+- `src/content.config.ts` - The `posts` collection: `glob` over `data/posts`, front matter
+  schema, dates normalised to `YYYY-MM-DD`
+- `src/styles/` - `styles.css` imports one file per concern (`base`, `layout`, `intro`,
+  `index`, `article`, `code`). `base.css` holds the palette, the type scale (`--text-*`,
+  `--tracking-caps`), the column tokens (`--page`, `--column`, `--gutter`) and a small reset
+- `public/` - Fonts, images, icons, `robots.txt`, and Cloudflare's `_headers` (security
+  headers, cache rules) and `_redirects`
+- `tests/` - vitest suites for the pipeline and the library
+- `scripts/` - `images.mjs` with the HTML templates for the social card and the touch icon
 
-### Key Architecture Patterns
+### Key Patterns
 
-**Islands Architecture**: Fresh uses islands of interactivity - most components
-render server-side, with selective client-side hydration for interactive
-components in `islands/`.
+**Static everything.** Filters are pages, not query strings: `/topics/leetcode`,
+`/tags/go`. The index island receives every post of its list and hides the ones past the
+first ten until "More posts" reveals them, so the full list is in the HTML.
 
-**File-based Post System**: Blog posts are stored as Markdown files in
-`data/posts/` with YAML frontmatter containing metadata (title, published_at,
-snippet, tags). The system reads these files at runtime.
+**Markdown pipeline** (`src/lib/markdown.ts`): remark-gfm and remark-math, then rehype with
+KaTeX and the blog's own plugin: content headings start at h2 and never skip a level, each
+with a permalink; code highlighted with Prism at build time inside `.codeBlock[data-lang]`;
+`mermaid` fences left as `pre.mermaid` for the client; tables wrapped so they scroll;
+external links in a new tab; `\$` in code shown as `$`; prices such as `$30/mo ... $40`
+kept out of the maths pass. Posts are first-party, so nothing is sanitized. Add a Prism
+language by importing its component there.
 
-**Post Loading Pipeline**:
+**Theme.** The class (`dark`/`light`) is set on `<html>` by the inline script from
+`src/lib/theme.ts` before paint; without a stored choice the system preference and then the
+time of day decide. IBM Plex Mono is the only text face, self-hosted from `public/fonts/`
+and declared in `src/lib/fonts.ts`.
 
-1. `api/loadPost.ts` - Loads individual posts from filesystem, extracts
-   frontmatter
-2. `api/listPosts.ts` - Loads every `.md` file, sorts by date, filters by tags
-   and paginates; returns summaries without the body
-3. `api/renderMarkdown.ts` - Renders a post with a custom deno-gfm renderer:
-   Prism highlighting at render time (`.codeBlock[data-lang]`), mermaid fences
-   left as `pre.mermaid` for the client, heading permalinks, wrapped tables,
-   external links in a new tab. Posts are first-party, so the HTML is not
-   sanitized.
+**Headers.** `public/_headers` sets the security headers, among them a Content Security
+Policy that names the only third party the site uses, the analytics host. Mermaid and the
+KaTeX fonts are bundled. A new external script, font or image host must be added there.
 
-**Tag System**: Tags are free-form strings in frontmatter. `?tags=a,b` filters
-the list (exact, case-insensitive). `utils/topics.ts` defines the nav topics,
-each a group of tags.
-
-**Shell and Theme**: `components/Shell.tsx` is one centred column, `--page` wide
-with `--gutter` at the sides; `--column` caps only the index snippets, in the
-visual language of arcbjorn.com: wordmark, site links and theme toggle on top,
-the page, a footer line. The home page is the intro, a row of topics with post
-counts, then the posts grouped by year with the day in a column of its own. A
-post page is its header (title, date, reading time, tags, snippet, contents) and
-the prose. The palette lives in `assets/base.css` as `--bg`, `--color`,
-`--focusColor` (orange), `--titleColor` (teal), with `--mutedColor`,
-`--lineColor` and `--surface` derived via `color-mix`. The theme class
-(`dark`/`light`) is set on `<html>` by the inline script in `utils/theme.ts`
-before paint; without a stored choice the system preference and then the time of
-day decide. IBM Plex Mono is the only text face, self-hosted from
-`static/fonts/` and declared in `utils/fonts.ts`.
+**URLs.** No trailing slashes (`trailingSlash: "never"` in Astro, `drop-trailing-slash` in
+the Worker). Post URLs are the file names, as before.
 
 ## Content Management
 
-### Adding New Posts
-
-1. Create new `.md` file in `data/posts/` directory
-2. Include required frontmatter:
-   ```yaml
-   ---
-   title: "Post Title"
-   published_at: "2024-01-01"
-   snippet: "Brief description"
-   tags: ["leetcode", "go"]  # optional
-   image: "/images/posts/my-post-banner.png"  # optional - for social media previews
-   ---
-   ```
-3. No registry step needed; routes are resolved dynamically.
-
-### Adding Images to Posts
-
-- **For social media preview images**:
-  - Place images in `/static/images/posts/` directory
-  - Use relative path in frontmatter: `image: "/images/posts/my-banner.png"`
-  - Recommended size: 1200x630 pixels for optimal display
-  - Supports both local paths (`/images/...`) and external URLs (`https://...`)
-- **Default image**: If no image is specified, uses
-  `/static/images/og-default.png`
-
-### Post Metadata
-
-- Posts support math rendering (KaTeX); its stylesheet is included only on pages
-  that use it
-- Syntax highlighting at render time for Go, TypeScript, JavaScript, Python,
-  Bash, YAML, Zig, SQL, C, C++, Rust, TOML, JSON, Java and Dockerfiles; add a
-  language by importing its Prism component in `api/renderMarkdown.ts`
-- Mermaid diagrams in `` ```mermaid `` fences; the library loads from the CDN
-  only on posts that have one and redraws on theme change
-- Posts escape `$` in code as `\$` so the math pass leaves it alone; the
-  renderer shows the bare `$`
-- GitHub Flavored Markdown rendering
-
-## Development Notes
-
-### Fresh Framework Specifics
-
-- Uses JSR imports for Fresh core (`jsr:@fresh/core`), `@deno/gfm` and `@std/*`;
-  npm for the rest. Nothing comes from deno.land/x or esm.sh
-- Routes use `define.page` and `define.handlers` (v2 API)
-- Components are functional Preact components
-- Tailwind v4 via `@tailwindcss/vite`; styles loaded from `client.ts`. The
-  design is plain CSS with semantic class names; Tailwind provides the reset
-- There is no `_layout.tsx`: each route renders `Shell` around its own content
-
-### Performance Optimizations
-
-- Static asset caching middleware for fonts
-- Pagination system loads posts in sets of 10 (`POSTS_SET_NUMBER`)
-- Concurrent post loading using `Promise.all()`
-- Lists and the JSON endpoint carry post summaries, never bodies
-- Fonts are preloaded and declared inline; no third-party font requests
-
-### SEO Features
-
-- Dynamic meta tags based on post content (see `components/HeadElement.tsx`)
-- RSS feed generation at `/rss` endpoint
-
-## Git Conventions
-
-**Commit Messages**: Use conventional commits format without Co-Authored-By or
-other metadata:
-
-- `feat: add new feature`
-- `fix: resolve bug in component`
-- `refactor: restructure API layer`
-- `chore: update dependencies`
-- `docs: update documentation`
-
-Follow the existing commit style seen in the repository history.
-
-## Headers
-
-`main.ts` sets the security headers, among them a Content Security Policy that
-names the only third parties the site uses: the analytics host and the CDN that
-serves mermaid and the KaTeX fonts. A new external script, font or image host
-must be added there, or the browser blocks it. Pages and the posts JSON carry
-edge cache headers.
-
-## Error Handling
-
-`routes/_error.tsx` renders every error inside the shell. Fresh passes the
-thrown error as `ctx.error`; an `HttpError` keeps its status (404 for unknown
-paths and post ids), anything else is a 500. `main.ts` registers no plain
-`notFound`/`onError` handlers so the page is always used.
+Create `data/posts/<id>.md` with front matter `title`, `published_at`, optional `snippet`,
+`tags`, `image`, `leetcode_number`. No registry step; the collection picks the file up.
+Social preview images go in `public/images/posts/`; the default is
+`public/images/og-default.png`, regenerated with `pnpm images`.
 
 ## Common Development Patterns
 
-When adding new features:
+1. Keep logic in `src/lib/` as pure functions with tests; pages and endpoints only read the
+   collection and call them.
+2. Use the palette variables, never literal colours; sizes below the body size come from the
+   `--text-*` scale.
+3. Keep islands small and few; everything else renders at build time.
+4. Reference static assets by absolute paths (`/images/...`).
 
-1. Check existing patterns in `routes/` and `components/` directories
-2. Follow Fresh conventions for handlers and components
-3. Use TypeScript interfaces defined in `types.ts`
-4. Maintain the islands architecture - keep interactivity minimal and isolated
-5. Reference static assets by absolute paths (e.g., `/images/...`)
-6. Guard client-side code with `IS_BROWSER` checks when needed
-7. Test new API functions and utilities in `tests/api_test.ts`
-8. Use the palette variables, never literal colours, so both themes follow;
-   sizes below the body size come from the `--text-*` scale
+## Git Conventions
 
-The codebase follows functional programming patterns with TypeScript,
-emphasizing immutability and pure functions where possible.
+Conventional commits, one goal per commit, subject under 50 characters, no Co-Authored-By or
+other metadata.
