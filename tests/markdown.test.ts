@@ -92,3 +92,19 @@ describe('render markdown', () => {
     );
   });
 });
+
+describe('table headers', () => {
+  it('scopes column headers and makes the first column row headers when the corner is empty', () => {
+    const { html } = renderMarkdown('| | Eclipse | MegaETH |\n|---|---|---|\n| TPS | 9k | 20k |');
+    expect(html).toContain('<td></td>');
+    expect(html).toContain('<th scope="col">Eclipse</th>');
+    expect(html).toContain('<th scope="row">TPS</th>');
+    expect(html).toContain('<td>9k</td>');
+  });
+
+  it('leaves a table with a named first column as data cells', () => {
+    const { html } = renderMarkdown('| Metric | Value |\n|---|---|\n| TPS | 9k |');
+    expect(html).toContain('<th scope="col">Metric</th>');
+    expect(html).toContain('<td>TPS</td>');
+  });
+});

@@ -187,7 +187,8 @@
   vertical-align: top;
 }
 
-.prose th {
+/* Column headers */
+.prose thead th {
   font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: var(--tracking-caps);
@@ -195,6 +196,13 @@
   color: var(--mutedColor);
   vertical-align: bottom;
   border-bottom: 1px solid var(--color);
+}
+
+/* Row headers, when a table's first column names the rows, read as body text */
+.prose tbody th {
+  font-weight: 500;
+  text-align: left;
+  border-bottom: 1px solid var(--lineColor);
 }
 
 .prose td {

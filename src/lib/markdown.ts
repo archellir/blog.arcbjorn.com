@@ -105,6 +105,34 @@ function raw(value: string) {
   return { type: 'raw' as const, value };
 }
 
+function elements(node: Element): Element[] {
+  return node.children.filter((child): child is Element => child.type === 'element');
+}
+
+// Column headers get a scope. When the corner cell is empty, the first
+// column names the rows: those cells become row headers, and the corner
+// stops being a header at all.
+function labelTableHeaders(table: Element) {
+  const thead = elements(table).find(child => child.tagName === 'thead');
+  const tbody = elements(table).find(child => child.tagName === 'tbody');
+  const headRow = thead && elements(thead)[0];
+  if (!headRow) return;
+  const headCells = elements(headRow);
+  for (const cell of headCells) cell.properties = { ...cell.properties, scope: 'col' };
+
+  const corner = headCells[0];
+  if (!corner || toString(corner).trim() !== '') return;
+  corner.tagName = 'td';
+  delete corner.properties.scope;
+  for (const row of tbody ? elements(tbody) : []) {
+    const first = elements(row)[0];
+    if (first?.tagName === 'td') {
+      first.tagName = 'th';
+      first.properties = { ...first.properties, scope: 'row' };
+    }
+  }
+}
+
 // The blog's own markup: content headings start at h2 and never skip a
 // level, with a permalink each; code is highlighted with a language label,
 // mermaid sources are left for the client, tables scroll in a wrapper,
@@ -169,6 +197,7 @@ function rehypePost(out: { headings: IHeading[]; hasMermaid: boolean }) {
       }
 
       if (node.tagName === 'table') {
+        labelTableHeaders(node);
         parent.children[index] = {
           type: 'element',
           tagName: 'div',
