@@ -8,20 +8,7 @@ export function yearOf(publishedAt: string): string {
   return isoDate(publishedAt).slice(0, 4);
 }
 
-const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Day and month for a row under a year heading: "2026-07-04" -> "04 Jul".
 // Always six characters, so the column stays aligned in the mono face.
@@ -33,20 +20,9 @@ export function shortDate(publishedAt: string): string {
   return `${day} ${month}`;
 }
 
-// A long, localized date; falls back to the ISO date when the locale list
-// from the request cannot be used or the date is malformed.
-export function formatDate(publishedAt: string, locales: string[]): string {
-  const date = new Date(publishedAt);
+// The long English form: "2026-07-04" -> "4 July 2026".
+export function longDate(publishedAt: string): string {
+  const date = new Date(`${isoDate(publishedAt)}T00:00:00Z`);
   if (Number.isNaN(date.getTime())) return isoDate(publishedAt);
-
-  for (const locale of [...locales, "en-GB"]) {
-    try {
-      return new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(
-        date,
-      );
-    } catch {
-      // Unsupported or malformed locale tag; try the next one.
-    }
-  }
-  return isoDate(publishedAt);
+  return new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
 }

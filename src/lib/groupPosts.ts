@@ -1,14 +1,14 @@
-import type { IPostSummary } from "../types.ts";
-import { yearOf } from "./dates.ts";
+import type { IPostSummary } from './types';
+import { yearOf } from './dates';
 
-export interface IYearGroup {
+export interface IYearGroup<T extends IPostSummary = IPostSummary> {
   year: string;
-  posts: IPostSummary[];
+  posts: T[];
 }
 
 // Splits a date-ordered list into runs of the same year, keeping the order.
-export function groupByYear(posts: IPostSummary[]): IYearGroup[] {
-  const groups: IYearGroup[] = [];
+export function groupByYear<T extends IPostSummary>(posts: T[]): IYearGroup<T>[] {
+  const groups: IYearGroup<T>[] = [];
   for (const post of posts) {
     const year = yearOf(post.publishedAt);
     const last = groups[groups.length - 1];

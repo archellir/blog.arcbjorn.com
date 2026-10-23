@@ -1,10 +1,10 @@
-export type Theme = "light" | "dark";
+export type Theme = 'light' | 'dark';
 
-export const THEME_STORAGE_KEY = "theme";
+export const THEME_STORAGE_KEY = 'theme';
 
 export const THEME_COLORS: Record<Theme, string> = {
-  light: "#f9f5ef",
-  dark: "#1b1d1e",
+  light: '#f9f5ef',
+  dark: '#1b1d1e',
 };
 
 // Runs inline in <head> before the first paint, so the page never flashes the
@@ -23,7 +23,7 @@ if(m){m.setAttribute('content',d?'${THEME_COLORS.dark}':'${THEME_COLORS.light}')
 export function hasStoredTheme(): boolean {
   try {
     const stored = localStorage.getItem(THEME_STORAGE_KEY);
-    return stored === "dark" || stored === "light";
+    return stored === 'dark' || stored === 'light';
   } catch {
     return false;
   }
@@ -31,20 +31,16 @@ export function hasStoredTheme(): boolean {
 
 export function currentTheme(): Theme {
   const root = document.documentElement;
-  if (root.classList.contains("dark")) return "dark";
-  if (root.classList.contains("light")) return "light";
-  return globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  if (root.classList.contains('dark')) return 'dark';
+  if (root.classList.contains('light')) return 'light';
+  return globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
 export function applyTheme(theme: Theme, persist = true): void {
   const root = document.documentElement;
-  root.classList.toggle("dark", theme === "dark");
-  root.classList.toggle("light", theme === "light");
-  document
-    .querySelector('meta[name="theme-color"]')
-    ?.setAttribute("content", THEME_COLORS[theme]);
+  root.classList.toggle('dark', theme === 'dark');
+  root.classList.toggle('light', theme === 'light');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme]);
 
   if (persist) {
     try {
@@ -54,7 +50,5 @@ export function applyTheme(theme: Theme, persist = true): void {
     }
   }
 
-  globalThis.dispatchEvent(
-    new CustomEvent("themechange", { detail: { theme } }),
-  );
+  globalThis.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
 }
