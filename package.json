@@ -11,8 +11,8 @@
     "check": "tsc --noEmit && prettier --check .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "deploy": "astro build && wrangler deploy",
-    "images": "node scripts/images.mjs"
+    "images": "node scripts/images.mjs",
+    "release": "astro build && wrangler deploy"
   },
   "engines": {
     "node": ">=24"

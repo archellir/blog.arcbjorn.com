@@ -53,7 +53,7 @@ diagrams, inline `$...$` is maths, and `$` inside code is written as `\$`.
 The site is a folder of files. `wrangler.jsonc` describes an assets-only Worker that serves
 `dist/`, with a real 404 page and no trailing slashes.
 
-- From this machine: `pnpm deploy` (builds, then `wrangler deploy`; sign in once with
+- From this machine: `pnpm release` (builds, then `wrangler deploy`; sign in once with
   `pnpm exec wrangler login`).
 - From git: connect the repository in the Cloudflare dashboard under Workers & Pages with the
   build command `pnpm build` and the deploy command `pnpm exec wrangler deploy`.

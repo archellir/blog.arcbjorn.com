@@ -18,7 +18,7 @@ of time; Cloudflare Workers serves the files.
 - `pnpm test` - vitest
 - `pnpm format` - Prettier
 - `pnpm images` - regenerate the social card and touch icon with headless Chrome
-- `pnpm deploy` - build and `wrangler deploy`
+- `pnpm release` - build and `wrangler deploy`
 
 `pnpm check`, `pnpm test` and `pnpm build` must pass; CI runs all three.
 
