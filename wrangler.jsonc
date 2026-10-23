@@ -3,6 +3,10 @@
   "name": "blog-arcbjorn-com",
   "compatibility_date": "2026-10-23",
   // A static site: the Worker serves the build output and nothing else.
+  // The site's own host; the deploy creates the custom domain and its DNS record.
+  // Keep the workers.dev address as a preview next to the real host.
+  "workers_dev": true,
+  "routes": [{ "pattern": "blog.arcbjorn.com", "custom_domain": true }],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",
