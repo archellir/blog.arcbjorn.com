@@ -56,6 +56,6 @@ The site is a folder of files. `wrangler.jsonc` describes an assets-only Worker 
 - From this machine: `pnpm release` (builds, then `wrangler deploy`; sign in once with
   `pnpm exec wrangler login`).
 - From git: connect the repository in the Cloudflare dashboard under Workers & Pages with the
-  build command `pnpm build` and the deploy command `pnpm exec wrangler deploy`.
+  build command `pnpm build` and the deploy command `npx wrangler deploy`.
 
 CI runs the checks, the tests and the build on every push.
