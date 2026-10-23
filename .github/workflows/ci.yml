@@ -9,15 +9,19 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: denoland/setup-deno@v2
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
-          deno-version: v2.8.3
+          version: 10.14.0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
       - name: Install dependencies
-        run: deno install --allow-scripts=npm:@tailwindcss/oxide@4.1.13
-      - name: Format, lint, type-check
-        run: deno task check
+        run: pnpm install --frozen-lockfile
+      - name: Types and formatting
+        run: pnpm check
       - name: Test
-        run: deno task test
+        run: pnpm test
       - name: Build
-        run: deno task build
+        run: pnpm build
