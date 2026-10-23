@@ -9,7 +9,7 @@ import { AUTHOR, SITE_DESCRIPTION, SITE_URL } from '../lib/site';
 const siteTitle = `${AUTHOR}'s thoughtbook`;
 
 // Posts that carry their full text in the feed; older ones link out.
-const FULL_TEXT_COUNT = 20;
+const FULL_TEXT_COUNT = 10;
 
 function escapeXml(text: string): string {
   return text
