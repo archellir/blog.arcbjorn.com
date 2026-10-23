@@ -1,0 +1,56 @@
+{
+  "name": "blog.arcbjorn.com",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Thoughtbook, the blog at blog.arcbjorn.com",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "wrangler dev",
+    "check": "tsc --noEmit && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "deploy": "astro build && wrangler deploy",
+    "images": "node scripts/images.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "volta": {
+    "node": "24.5.0",
+    "pnpm": "10.14.0"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "@astrojs/preact": "^6.1.1",
+    "astro": "^7.4.2",
+    "github-slugger": "^2.0.0",
+    "hast-util-to-string": "^3.0.1",
+    "hastscript": "^9.0.1",
+    "katex": "^0.19.0",
+    "mermaid": "^12.2.0",
+    "preact": "^11.0.1",
+    "prismjs": "^1.30.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.5",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^26.6.5",
+    "@types/prismjs": "^1.26.6",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5",
+    "wrangler": "^4.152.0"
+  }
+}

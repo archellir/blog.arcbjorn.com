@@ -1,15 +1,12 @@
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# Fresh build directory
-_fresh/
-# npm dependencies
+# dependencies and build output
 node_modules/
+dist/
+.astro/
+.wrangler/
 
-# MacOS generated files
+# environment files
+.env
+.env.*
+
+# macOS
 .DS_Store
-.DS_Store?
