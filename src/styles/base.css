@@ -89,6 +89,56 @@
   }
 }
 
+/* A small reset: the parts of a browser stylesheet the design does not want */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+p,
+blockquote,
+figure,
+pre {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+summary {
+  display: list-item;
+}
+
 html,
 body {
   height: 100%;
@@ -102,8 +152,7 @@ html {
 }
 
 body {
-  font-family:
-    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: var(--text-lg);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -162,7 +211,9 @@ button {
   text-decoration-color: var(--lineColor);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 .inlineLink:hover {
@@ -245,7 +296,7 @@ button {
   }
 
   .prose a::after {
-    content: " (" attr(href) ")";
+    content: ' (' attr(href) ')';
     font-size: 0.8em;
     color: var(--mutedColor);
   }

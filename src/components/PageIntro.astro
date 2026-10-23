@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+}
+// The head of a page other than home or a post: a title and optionally a
+// line or two beneath.
+const { title } = Astro.props;
+---
+
+<div class="intro">
+  <h1 class="title pageTitle">{title}</h1>
+  <slot />
+</div>

@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import HomeIntro from '../components/HomeIntro.astro';
+import Topics from '../components/Topics.astro';
+import PostIndex from '../islands/PostIndex';
+import { allPosts, summaryOf } from '../lib/posts';
+import { countTopics } from '../lib/topics';
+import { AUTHOR, POSTS_PER_PAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../lib/site';
+
+const posts = (await allPosts()).map(summaryOf);
+const counts = countTopics(posts);
+---
+
+<Base
+  title={`${SITE_NAME} · ${AUTHOR}`}
+  description={SITE_DESCRIPTION}
+  image={`${SITE_URL}/images/og-default.png`}
+>
+  <Fragment slot="head">
+    {/* Links from the previous site filtered with ?tags=; send them on. */}
+    <script is:inline>
+      (function () {
+        var tags = new URLSearchParams(location.search).get('tags');
+        if (!tags) return;
+        var topics = {
+          leetcode: '/topics/leetcode',
+          'linux,k8s,devops,automation': '/topics/infra',
+          'ai,llm,machine-learning,agents': '/topics/ai',
+          'security,crypto': '/topics/security',
+          'blockchain,ethereum,solidity,evm': '/topics/blockchain',
+        };
+        var key = tags.toLowerCase();
+        var first = key
+          .split(',')[0]
+          .trim()
+          .replace(/\+\+$/, 'pp')
+          .replace(/[^a-z0-9]+/g, '-');
+        location.replace(topics[key] || '/tags/' + first);
+      })();
+    </script>
+  </Fragment>
+  <HomeIntro />
+  <Topics counts={counts} />
+  <div class="index">
+    <PostIndex client:idle posts={posts} pageSize={POSTS_PER_PAGE} />
+  </div>
+</Base>

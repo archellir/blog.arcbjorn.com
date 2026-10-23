@@ -1,18 +1,18 @@
-import { FunctionalComponent } from "preact";
+import type { FunctionalComponent } from 'preact';
 
 interface IconProps {
   class?: string;
 }
 
 const stroke = {
-  fill: "none",
-  stroke: "currentColor",
-  "stroke-width": "1.6",
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
+  fill: 'none',
+  stroke: 'currentColor',
+  'stroke-width': '1.6',
+  'stroke-linecap': 'round',
+  'stroke-linejoin': 'round',
 } as const;
 
-export const ArrowRight: FunctionalComponent<IconProps> = (props) => (
+export const ArrowRight: FunctionalComponent<IconProps> = props => (
   <svg
     class={props.class}
     width="1em"
@@ -25,7 +25,7 @@ export const ArrowRight: FunctionalComponent<IconProps> = (props) => (
   </svg>
 );
 
-export const ArrowLeft: FunctionalComponent<IconProps> = (props) => (
+export const ArrowLeft: FunctionalComponent<IconProps> = props => (
   <svg
     class={props.class}
     width="1em"
@@ -38,7 +38,7 @@ export const ArrowLeft: FunctionalComponent<IconProps> = (props) => (
   </svg>
 );
 
-export const ArrowUpRight: FunctionalComponent<IconProps> = (props) => (
+export const ArrowUpRight: FunctionalComponent<IconProps> = props => (
   <svg
     class={props.class}
     width="1em"
@@ -52,9 +52,9 @@ export const ArrowUpRight: FunctionalComponent<IconProps> = (props) => (
 );
 
 // A plus whose vertical bar folds away while its row is busy or open.
-export const PlusIcon: FunctionalComponent<IconProps> = (props) => (
+export const PlusIcon: FunctionalComponent<IconProps> = props => (
   <svg
-    class={`plus${props.class ? ` ${props.class}` : ""}`}
+    class={`plus${props.class ? ` ${props.class}` : ''}`}
     width="1em"
     height="1em"
     viewBox="0 0 20 20"
@@ -69,7 +69,7 @@ export const PlusIcon: FunctionalComponent<IconProps> = (props) => (
   </svg>
 );
 
-export const SunIcon: FunctionalComponent<IconProps> = (props) => (
+export const SunIcon: FunctionalComponent<IconProps> = props => (
   <svg
     class={props.class}
     viewBox="0 0 24 24"
@@ -84,7 +84,7 @@ export const SunIcon: FunctionalComponent<IconProps> = (props) => (
   </svg>
 );
 
-export const MoonIcon: FunctionalComponent<IconProps> = (props) => (
+export const MoonIcon: FunctionalComponent<IconProps> = props => (
   <svg
     class={props.class}
     viewBox="0 0 24 24"

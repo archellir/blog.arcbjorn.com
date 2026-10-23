@@ -65,7 +65,9 @@
   text-decoration-color: var(--lineColor);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.4em;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 .headerLink:hover {
@@ -147,7 +149,9 @@
   text-decoration-color: var(--lineColor);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.4em;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 .footerLink:hover {

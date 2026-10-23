@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { ArrowRight } from '../components/Icons';
+import { SITE_NAME } from '../lib/site';
+---
+
+<Base
+  title={`Page not found · ${SITE_NAME}`}
+  description="There is nothing at this address."
+  noindex
+>
+  <PageIntro title="Page not found">
+    <p class="note">There is nothing at this address.</p>
+    <div class="paths">
+      <a href="/" class="path">
+        All posts
+        <ArrowRight class="pathIcon" />
+      </a>
+    </div>
+  </PageIntro>
+</Base>

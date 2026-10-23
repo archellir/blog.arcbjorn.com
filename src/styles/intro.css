@@ -143,14 +143,14 @@
 }
 
 .tocLabel::after {
-  content: "+";
+  content: '+';
   font-size: var(--text-md);
   font-weight: 400;
   letter-spacing: 0;
 }
 
 .toc[open] .tocLabel::after {
-  content: "\2013";
+  content: '\2013';
 }
 
 .tocLabel:hover {
@@ -184,7 +184,9 @@
   line-height: 1.5;
   color: var(--mutedColor);
   border-left: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .tocLink:hover {

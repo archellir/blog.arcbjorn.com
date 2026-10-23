@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import HomeIntro from '../../components/HomeIntro.astro';
+import Topics from '../../components/Topics.astro';
+import IndexNote from '../../components/IndexNote.astro';
+import PostIndex from '../../islands/PostIndex';
+import { allPosts, summaryOf } from '../../lib/posts';
+import { tagSlug } from '../../lib/tags';
+import { allTags, countTopics, taggedPosts } from '../../lib/topics';
+import { AUTHOR, POSTS_PER_PAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const posts = (await allPosts()).map(summaryOf);
+  return allTags(posts).map(tag => ({ params: { tag: tagSlug(tag) }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const posts = (await allPosts()).map(summaryOf);
+const counts = countTopics(posts);
+const shown = taggedPosts(tag, posts);
+---
+
+<Base
+  title={`${tag} · ${SITE_NAME} · ${AUTHOR}`}
+  description={SITE_DESCRIPTION}
+  image={`${SITE_URL}/images/og-default.png`}
+>
+  <HomeIntro />
+  <Topics counts={counts} />
+  <div class="index">
+    <IndexNote filter={`Tagged ${tag}`} count={shown.length} />
+    <PostIndex client:idle posts={shown} pageSize={POSTS_PER_PAGE} />
+  </div>
+</Base>

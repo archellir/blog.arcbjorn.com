@@ -1,52 +1,43 @@
-import { useEffect } from "preact/hooks";
+import { useEffect } from 'preact/hooks';
 
 interface PostEnhancerProps {
   // Whether the article has mermaid blocks to draw.
   mermaid: boolean;
 }
 
-// Built as a non-literal so the type checker does not try to fetch it.
-const MERMAID_CDN = "https://cdn.jsdelivr.net/npm/mermaid@11.12.0";
-const MERMAID_MODULE = `${MERMAID_CDN}/dist/mermaid.esm.min.mjs`;
-
-interface MermaidApi {
-  initialize(config: Record<string, unknown>): void;
-  run(options: {
-    nodes: HTMLElement[];
-    suppressErrors?: boolean;
-  }): Promise<void>;
-}
+type MermaidApi = Awaited<typeof import('mermaid')>['default'];
+type MermaidConfig = Parameters<MermaidApi['initialize']>[0];
 
 // Copy buttons on every code block.
 function addCopyButtons() {
-  document.querySelectorAll<HTMLElement>(".codeBlock").forEach((block) => {
-    if (block.querySelector(".copyButton")) return;
-    const code = block.querySelector("code");
+  document.querySelectorAll<HTMLElement>('.codeBlock').forEach(block => {
+    if (block.querySelector('.copyButton')) return;
+    const code = block.querySelector('code');
     if (!code) return;
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "copyButton";
-    button.textContent = "copy";
-    button.setAttribute("aria-label", "Copy code to clipboard");
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'copyButton';
+    button.textContent = 'copy';
+    button.setAttribute('aria-label', 'Copy code to clipboard');
 
-    let reset: number | undefined;
-    const flash = (state: "copied" | "failed") => {
+    let reset: ReturnType<typeof setTimeout> | undefined;
+    const flash = (state: 'copied' | 'failed') => {
       button.dataset.state = state;
       button.textContent = state;
       clearTimeout(reset);
       reset = setTimeout(() => {
         delete button.dataset.state;
-        button.textContent = "copy";
+        button.textContent = 'copy';
       }, 1800);
     };
 
-    button.addEventListener("click", async () => {
+    button.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(code.textContent ?? "");
-        flash("copied");
+        await navigator.clipboard.writeText(code.textContent ?? '');
+        flash('copied');
       } catch {
-        flash("failed");
+        flash('failed');
       }
     });
 
@@ -57,7 +48,7 @@ function addCopyButtons() {
 // The computed value of a palette variable as hex, so mermaid's colour maths
 // gets a plain colour rather than a color-mix() expression.
 function paletteColor(name: string): string {
-  const probe = document.createElement("span");
+  const probe = document.createElement('span');
   probe.style.color = `var(${name})`;
   document.body.appendChild(probe);
   const computed = getComputedStyle(probe).color;
@@ -66,40 +57,34 @@ function paletteColor(name: string): string {
   const toHex = (channel: number) =>
     Math.round(Math.min(255, Math.max(0, channel)))
       .toString(16)
-      .padStart(2, "0");
+      .padStart(2, '0');
 
-  const legacy = computed.match(
-    /rgba?\(\s*([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)/,
-  );
+  const legacy = computed.match(/rgba?\(\s*([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)/);
   if (legacy) {
     return `#${toHex(+legacy[1])}${toHex(+legacy[2])}${toHex(+legacy[3])}`;
   }
-  const modern = computed.match(
-    /color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/,
-  );
+  const modern = computed.match(/color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/);
   if (modern) {
-    return `#${toHex(+modern[1] * 255)}${toHex(+modern[2] * 255)}${
-      toHex(+modern[3] * 255)
-    }`;
+    return `#${toHex(+modern[1] * 255)}${toHex(+modern[2] * 255)}${toHex(+modern[3] * 255)}`;
   }
   return computed;
 }
 
-function mermaidConfig(): Record<string, unknown> {
-  const bg = paletteColor("--bg");
-  const text = paletteColor("--color");
-  const line = paletteColor("--lineColor");
-  const muted = paletteColor("--mutedColor");
-  const surface = paletteColor("--surface");
-  const focus = paletteColor("--focusColor");
+function mermaidConfig(): MermaidConfig {
+  const bg = paletteColor('--bg');
+  const text = paletteColor('--color');
+  const line = paletteColor('--lineColor');
+  const muted = paletteColor('--mutedColor');
+  const surface = paletteColor('--surface');
+  const focus = paletteColor('--focusColor');
 
   return {
     startOnLoad: false,
-    theme: "base",
+    theme: 'base',
     fontFamily: "'IBM Plex Mono', monospace",
     themeVariables: {
       fontFamily: "'IBM Plex Mono', monospace",
-      fontSize: "13px",
+      fontSize: '13px',
       background: bg,
       textColor: text,
       lineColor: muted,
@@ -135,7 +120,7 @@ function mermaidConfig(): Record<string, unknown> {
       activationBorderColor: muted,
     },
     flowchart: {
-      curve: "basis",
+      curve: 'basis',
       useMaxWidth: true,
       htmlLabels: true,
       padding: 16,
@@ -148,39 +133,37 @@ function mermaidConfig(): Record<string, unknown> {
 // Draws the diagrams, and draws them again whenever the theme changes.
 // Returns a function that stops any further drawing.
 function setupMermaid(): () => void {
-  const blocks = [...document.querySelectorAll<HTMLElement>("pre.mermaid")];
+  const blocks = [...document.querySelectorAll<HTMLElement>('pre.mermaid')];
   if (blocks.length === 0) return () => {};
 
-  const sources = new Map(
-    blocks.map((block) => [block, block.textContent ?? ""]),
-  );
+  const sources = new Map(blocks.map(block => [block, block.textContent ?? '']));
   let disposed = false;
   let api: MermaidApi | null = null;
 
   const draw = async () => {
     if (!api) {
-      const module = await import(/* @vite-ignore */ MERMAID_MODULE);
-      api = module.default as MermaidApi;
+      // Bundled as its own chunk: it only downloads on a post with a diagram.
+      api = (await import('mermaid')).default;
     }
     if (disposed) return;
 
     api.initialize(mermaidConfig());
     for (const [block, source] of sources) {
-      block.removeAttribute("data-processed");
+      block.removeAttribute('data-processed');
       block.textContent = source;
     }
     await api.run({ nodes: blocks, suppressErrors: true });
   };
 
   const redraw = () => {
-    draw().catch((error) => console.error("Mermaid render failed:", error));
+    draw().catch(error => console.error('Mermaid render failed:', error));
   };
 
   redraw();
-  globalThis.addEventListener("themechange", redraw);
+  window.addEventListener('themechange', redraw);
   return () => {
     disposed = true;
-    globalThis.removeEventListener("themechange", redraw);
+    window.removeEventListener('themechange', redraw);
   };
 }
 

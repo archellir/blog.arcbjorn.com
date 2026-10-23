@@ -1,0 +1,23 @@
+---
+import { ArrowUpRight } from './Icons';
+import { AUTHOR, FIRST_YEAR, LICENSE_NAME, LICENSE_URL } from '../lib/site';
+
+// Closes the page: who wrote this, since when, under which licence, and the
+// feed. The end year is the build's.
+const year = new Date().getFullYear();
+const years = year > FIRST_YEAR ? `${FIRST_YEAR}–${year}` : `${year}`;
+---
+
+<footer class="footer">
+  <p class="footerLine">
+    <span>{AUTHOR}</span>
+    <span class="footerYears">{years}</span>
+    <a class="footerLink" href={LICENSE_URL} target="_blank" rel="license noopener noreferrer">
+      {LICENSE_NAME}
+      <ArrowUpRight class="linkIcon" />
+    </a>
+    <a class="footerLink" href="/rss.xml">
+      RSS
+    </a>
+  </p>
+</footer>

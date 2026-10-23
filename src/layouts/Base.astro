@@ -1,0 +1,111 @@
+---
+import '../styles/styles.css';
+
+import ThemeToggle from '../islands/ThemeToggle';
+import Footer from '../components/Footer.astro';
+import { ArrowUpRight } from '../components/Icons';
+import { FONT_FACE_CSS, FONT_PRELOADS } from '../lib/fonts';
+import { THEME_COLORS, THEME_INIT_SCRIPT } from '../lib/theme';
+import { AUTHOR, AUTHOR_HANDLE, AUTHOR_URL, SITE_NAME, SITE_URL } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  // ISO date; only for articles.
+  publishedAt?: string;
+  noindex?: boolean;
+}
+
+const { title, description, image, type = 'website', publishedAt, noindex = false } = Astro.props;
+
+// One centred column: the wordmark, the site links and the theme toggle on
+// top, the page's content, the footer.
+const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
+
+// Social scrapers cache images hard; a build-dated version lets a new card
+// show up after the next deploy.
+const version = new Date().toISOString().slice(0, 10);
+const imageUrl = image ? `${image}${image.includes('?') ? '&' : '?'}v=${version}` : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content={THEME_COLORS.light} />
+    {/* Theme before paint, fonts before the stylesheet asks for them. */}
+    <script is:inline set:html={THEME_INIT_SCRIPT} />
+    <style is:inline set:html={FONT_FACE_CSS}></style>
+    {FONT_PRELOADS.map(href => (
+      <link rel="preload" href={href} as="font" type="font/woff2" crossorigin="anonymous" />
+    ))}
+    <link rel="preconnect" href="https://analytics.arcbjorn.com" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS`} href="/rss.xml" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content={AUTHOR} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    {type === 'article' && <meta property="article:author" content={AUTHOR} />}
+    {type === 'article' && publishedAt && (
+      <meta property="article:published_time" content={publishedAt} />
+    )}
+
+    <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:site" content={`@${AUTHOR_HANDLE}`} />
+    <meta name="twitter:creator" content={`@${AUTHOR_HANDLE}`} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+
+    <slot name="head" />
+
+    <script
+      is:inline
+      defer
+      src="https://analytics.arcbjorn.com/t.js"
+      data-website-id="98f9ce97-6559-4cf5-90e2-3b059c58bb1a"
+    ></script>
+  </head>
+  <body>
+    <div class="page">
+      <a class="skipLink" href="#content">
+        Skip to content
+      </a>
+      <header class="header">
+        <a class="logo" href="/">
+          {AUTHOR_HANDLE}
+        </a>
+        <nav class="headerNav" aria-label="Site">
+          <a class="headerLink" href={AUTHOR_URL} target="_blank" rel="me noopener noreferrer">
+            About
+            <ArrowUpRight class="linkIcon" />
+          </a>
+          <a class="headerLink" href="/rss.xml">
+            RSS
+          </a>
+          <ThemeToggle client:load />
+        </nav>
+      </header>
+      <main id="content" class="main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

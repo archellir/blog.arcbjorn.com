@@ -37,11 +37,7 @@
 @media (max-width: 639px) {
   .topicList {
     padding-right: 2rem;
-    mask-image: linear-gradient(
-      to right,
-      black calc(100% - 2.5rem),
-      transparent
-    );
+    mask-image: linear-gradient(to right, black calc(100% - 2.5rem), transparent);
   }
 }
 
@@ -53,7 +49,9 @@
   margin-bottom: -1px;
   color: var(--mutedColor);
   border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .topicLink:hover {
@@ -147,7 +145,7 @@
 
 /* The whole row is the link's hit area */
 .rowLink::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
 }
@@ -197,7 +195,9 @@
   text-decoration-color: var(--lineColor);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.4em;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 .indexClear:hover {
@@ -260,4 +260,9 @@
 
 .moreButton:disabled .plusBar {
   transform: scaleY(0);
+}
+
+/* Posts past the first page stay in the markup, hidden until revealed */
+.rowHidden {
+  display: none;
 }

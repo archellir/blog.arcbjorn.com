@@ -1,0 +1,20 @@
+---
+interface Props {
+  // What the list is filtered by, such as "Tagged go".
+  filter: string;
+  count: number;
+}
+
+// A filter the topic row has no entry for: say what it is and how to leave.
+const { filter, count } = Astro.props;
+---
+
+<p class="indexNote">
+  <span class="indexFilter">{filter}</span>
+  <span class="indexCount">
+    {count} {count === 1 ? 'post' : 'posts'}
+  </span>
+  <a class="indexClear" href="/">
+    All posts
+  </a>
+</p>

@@ -1,0 +1,24 @@
+---
+import type { IPostSummary } from '../lib/types';
+import PostRow from '../islands/PostRow';
+
+interface Props {
+  posts: IPostSummary[];
+}
+
+// A few posts on the same subjects, in the index's own row style.
+const { posts } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <section class="related" aria-labelledby="related-title">
+    <h2 id="related-title" class="relatedTitle">
+      Related
+    </h2>
+    <ul class="rows">
+      {posts.map(post => (
+        <PostRow post={post} fullDate />
+      ))}
+    </ul>
+  </section>
+)}

@@ -76,7 +76,9 @@
   font-weight: 400;
   color: var(--mutedColor);
   opacity: 0;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease;
 }
 
 .prose h2:hover .anchor,
@@ -98,7 +100,9 @@
   text-decoration-color: color-mix(in srgb, var(--focusColor) 50%, transparent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 .prose a:not(.anchor):hover {

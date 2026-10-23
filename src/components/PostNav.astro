@@ -1,0 +1,35 @@
+---
+import type { IPostSummary } from '../lib/types';
+import { ArrowLeft, ArrowRight } from './Icons';
+
+interface Props {
+  newer?: IPostSummary;
+  older?: IPostSummary;
+}
+
+// Closes an article: the neighbouring posts in publication order.
+const { newer, older } = Astro.props;
+---
+
+{(newer || older) && (
+  <nav class="postNav" aria-label="Neighbouring posts">
+    {older && (
+      <a class="postNavLink" href={`/${older.id}`} rel="prev">
+        <span class="postNavLabel">Older</span>
+        <span class="postNavTitle">
+          <ArrowLeft class="postNavIcon" />
+          {older.title}
+        </span>
+      </a>
+    )}
+    {newer && (
+      <a class="postNavLink postNavNext" href={`/${newer.id}`} rel="next">
+        <span class="postNavLabel">Newer</span>
+        <span class="postNavTitle">
+          {newer.title}
+          <ArrowRight class="postNavIcon" />
+        </span>
+      </a>
+    )}
+  </nav>
+)}

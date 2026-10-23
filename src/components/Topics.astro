@@ -1,0 +1,35 @@
+---
+import { activeTopic, topicHref, topics } from '../lib/topics';
+
+interface Props {
+  // Post count per topic, in nav order.
+  counts: number[];
+}
+
+const { counts } = Astro.props;
+// The index's filter row: what the posts cover, with a count each. One line
+// that scrolls sideways on a narrow screen rather than wrapping.
+const active = activeTopic(Astro.url.pathname);
+---
+
+<div class="filterBar">
+  <nav class="topics" aria-label="Topics">
+    <ul class="topicList">
+      {topics.map((topic, index) => {
+        const isActive = topic === active;
+        return (
+          <li class="topic">
+            <a
+              class:list={['topicLink', { activeRoute: isActive }]}
+              href={topicHref(topic)}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              <span class="topicLabel">{topic.label}</span>
+              <span class="topicCount">{counts[index]}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+</div>
