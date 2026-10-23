@@ -8,7 +8,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "wrangler dev",
-    "check": "tsc --noEmit && prettier --check .",
+    "check": "astro sync && tsc --noEmit && prettier --check .",
     "format": "prettier --write .",
     "test": "vitest run",
     "images": "node scripts/images.mjs",

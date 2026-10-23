@@ -14,7 +14,7 @@ of time; Cloudflare Workers serves the files.
 - `pnpm dev` - Astro dev server with HMR
 - `pnpm build` - static build into `dist/`
 - `pnpm preview` - serve `dist/` with the Workers runtime (`wrangler dev`)
-- `pnpm check` - TypeScript (`tsc --noEmit`) and Prettier
+- `pnpm check` - Astro types, TypeScript (`tsc --noEmit`) and Prettier
 - `pnpm test` - vitest
 - `pnpm format` - Prettier
 - `pnpm images` - regenerate the social card and touch icon with headless Chrome
