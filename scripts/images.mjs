@@ -1,5 +1,5 @@
-// Renders the social preview image and the touch icon from the HTML files
-// beside this script, using headless Chrome so they use the site's own font.
+// Renders the touch icon from the HTML file beside this script, using
+// headless Chrome. The social cards are drawn at build time (src/lib/card.ts).
 //
 //   pnpm images
 //
@@ -10,10 +10,7 @@ import path from 'node:path';
 
 const CHROME = process.env.CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const here = path.dirname(fileURLToPath(import.meta.url));
-const jobs = [
-  { page: 'og-image.html', out: '../public/images/og-default.png', w: 1200, h: 630 },
-  { page: 'touch-icon.html', out: '../public/apple-touch-icon.png', w: 180, h: 180 },
-];
+const jobs = [{ page: 'touch-icon.html', out: '../public/apple-touch-icon.png', w: 180, h: 180 }];
 
 for (const job of jobs) {
   const out = path.resolve(here, job.out);

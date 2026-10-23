@@ -34,7 +34,8 @@ const rendered = renderMarkdown(post.content);
 const summary = summaryOf(post);
 const minutes = readingTime(post.content);
 const description = describePost(summary);
-const image = resolveImageUrl(post.image, SITE_URL);
+// A card drawn for the post at build time, unless the post brings its own.
+const image = post.image ? resolveImageUrl(post.image, SITE_URL) : `${SITE_URL}/og/${post.id}.png`;
 const url = `${SITE_URL}/${post.id}`;
 
 const structuredData = [
@@ -51,7 +52,7 @@ const structuredData = [
       '@type': 'Organization',
       name: SITE_NAME,
       url: SITE_URL,
-      logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-default.png` },
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/og/default.png` },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     image,

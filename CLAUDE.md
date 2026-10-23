@@ -17,7 +17,7 @@ of time; Cloudflare Workers serves the files.
 - `pnpm check` - Astro types, TypeScript (`tsc --noEmit`) and Prettier
 - `pnpm test` - vitest
 - `pnpm format` - Prettier
-- `pnpm images` - regenerate the social card and touch icon with headless Chrome
+- `pnpm images` - regenerate the touch icon with headless Chrome
 - `pnpm release` - build and `wrangler deploy`
 
 `pnpm check`, `pnpm test` and `pnpm build` must pass; CI runs all three.
@@ -60,7 +60,7 @@ of time; Cloudflare Workers serves the files.
 - `public/` - Fonts, images, icons, `robots.txt`, and Cloudflare's `_headers` (security
   headers, cache rules) and `_redirects`
 - `tests/` - vitest suites for the pipeline and the library
-- `scripts/` - `images.mjs` with the HTML templates for the social card and the touch icon
+- `scripts/` - `images.mjs` for the touch icon
 
 ### Key Patterns
 
@@ -92,8 +92,8 @@ the Worker). Post URLs are the file names, as before.
 
 Create `data/posts/<id>.md` with front matter `title`, `published_at`, optional `snippet`,
 `tags`, `image`, `leetcode_number`. No registry step; the collection picks the file up.
-Social preview images go in `public/images/posts/`; the default is
-`public/images/og-default.png`, regenerated with `pnpm images`.
+A social card is drawn for every post at build time (`src/lib/card.ts`, served at
+`/og/<id>.png`); a post may bring its own with the `image` front matter field.
 
 ## Common Development Patterns
 

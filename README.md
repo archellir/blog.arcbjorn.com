@@ -17,7 +17,7 @@ pnpm test      # unit tests (vitest)
 pnpm build     # static build into dist/
 pnpm preview   # serve dist/ with the Workers runtime at http://localhost:8787
 pnpm format    # prettier
-pnpm images    # regenerate the social card and touch icon (needs Chrome)
+pnpm images    # regenerate the touch icon (needs Chrome)
 ```
 
 ## Write

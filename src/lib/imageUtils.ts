@@ -2,7 +2,7 @@
 export function resolveImageUrl(
   imagePath: string | undefined,
   origin: string,
-  fallback = '/images/og-default.png'
+  fallback = '/og/default.png'
 ): string {
   if (!imagePath) return `${origin}${fallback}`;
   if (imagePath.startsWith('http')) return imagePath;

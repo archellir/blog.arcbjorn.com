@@ -24,6 +24,7 @@
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "@astrojs/preact": "^6.1.1",
+    "@resvg/resvg-js": "^2.6.2",
     "astro": "^7.4.2",
     "github-slugger": "^2.0.0",
     "hast-util-to-string": "^3.0.1",
@@ -39,10 +40,12 @@
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
+    "satori": "^0.63.2",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
     "@types/hast": "^3.0.5",
     "@types/mdast": "^4.0.4",
     "@types/node": "^26.6.5",
