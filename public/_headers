@@ -1,0 +1,17 @@
+# Security headers for every response. The policy names the only third
+# party the site uses, the analytics host; mermaid and the KaTeX fonts are
+# bundled. Inline scripts stay allowed: Astro hydrates islands with one, and
+# the theme is set by an inline script before paint.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.arcbjorn.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://analytics.arcbjorn.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+# Hashed build output and the fonts never change under one name
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

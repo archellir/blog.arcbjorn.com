@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "blog-arcbjorn-com",
+  "compatibility_date": "2026-10-23",
+  // A static site: the Worker serves the build output and nothing else.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash",
+  },
+}
