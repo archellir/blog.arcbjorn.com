@@ -31,7 +31,9 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content={THEME_COLORS.light} />
+    {/* One colour per scheme for the no-script case; the theme script sets the one in use. */}
+    <meta name="theme-color" content={THEME_COLORS.light} media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content={THEME_COLORS.dark} media="(prefers-color-scheme: dark)" />
     {/* Theme before paint, fonts before the stylesheet asks for them. */}
     <script is:inline set:html={THEME_INIT_SCRIPT} />
     <style is:inline set:html={FONT_FACE_CSS}></style>
