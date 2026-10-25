@@ -8,8 +8,8 @@ export const AUTHOR = 'Oleg Luganskiy';
 export const FIRST_YEAR = 2022;
 export const AUTHOR_HANDLE = 'arcbjorn';
 export const AUTHOR_URL = 'https://arcbjorn.com';
-export const LICENSE_NAME = 'CC BY-NC-SA 3.0';
-export const LICENSE_URL = 'https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB';
+export const LICENSE_NAME = 'CC BY-NC-SA 4.0';
+export const LICENSE_URL = 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en';
 
 // Posts shown before "More posts" on an index page.
 export const POSTS_PER_PAGE = 10;

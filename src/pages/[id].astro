@@ -13,7 +13,7 @@ import { readingTime } from '../lib/readingTime';
 import { relatedPosts } from '../lib/related';
 import { resolveImageUrl } from '../lib/imageUtils';
 import { postCardUrl } from '../lib/card';
-import { AUTHOR, AUTHOR_URL, SITE_NAME, SITE_URL } from '../lib/site';
+import { AUTHOR, AUTHOR_URL, LICENSE_URL, SITE_NAME, SITE_URL } from '../lib/site';
 
 export async function getStaticPaths() {
   const posts = await allPosts();
@@ -44,6 +44,7 @@ const structuredData = [
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
+    license: LICENSE_URL,
     description,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
