@@ -12,6 +12,7 @@ import { describePost } from '../lib/describePost';
 import { readingTime } from '../lib/readingTime';
 import { relatedPosts } from '../lib/related';
 import { resolveImageUrl } from '../lib/imageUtils';
+import { postCardUrl } from '../lib/card';
 import { AUTHOR, AUTHOR_URL, SITE_NAME, SITE_URL } from '../lib/site';
 
 export async function getStaticPaths() {
@@ -35,7 +36,7 @@ const summary = summaryOf(post);
 const minutes = readingTime(post.content);
 const description = describePost(summary);
 // A card drawn for the post at build time, unless the post brings its own.
-const image = post.image ? resolveImageUrl(post.image, SITE_URL) : `${SITE_URL}/og/${post.id}.png`;
+const image = post.image ? resolveImageUrl(post.image, SITE_URL) : await postCardUrl(post);
 const url = `${SITE_URL}/${post.id}`;
 
 const structuredData = [

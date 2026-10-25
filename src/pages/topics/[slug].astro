@@ -6,6 +6,7 @@ import PostIndex from '../../islands/PostIndex';
 import { allPosts, summaryOf } from '../../lib/posts';
 import { countTopics, topics, topicPosts } from '../../lib/topics';
 import { AUTHOR, POSTS_PER_PAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../../lib/site';
+import { siteCardUrl } from '../../lib/card';
 
 export async function getStaticPaths() {
   return topics
@@ -22,7 +23,7 @@ const shown = topicPosts(topic, posts);
 <Base
   title={`${topic.label} · ${SITE_NAME} · ${AUTHOR}`}
   description={SITE_DESCRIPTION}
-  image={`${SITE_URL}/og/default.png`}
+  image={await siteCardUrl()}
 >
   <HomeIntro />
   <Topics counts={counts} />

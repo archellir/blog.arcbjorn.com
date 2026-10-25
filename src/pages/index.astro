@@ -6,16 +6,13 @@ import PostIndex from '../islands/PostIndex';
 import { allPosts, summaryOf } from '../lib/posts';
 import { countTopics } from '../lib/topics';
 import { AUTHOR, POSTS_PER_PAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../lib/site';
+import { siteCardUrl } from '../lib/card';
 
 const posts = (await allPosts()).map(summaryOf);
 const counts = countTopics(posts);
 ---
 
-<Base
-  title={`${SITE_NAME} · ${AUTHOR}`}
-  description={SITE_DESCRIPTION}
-  image={`${SITE_URL}/og/default.png`}
->
+<Base title={`${SITE_NAME} · ${AUTHOR}`} description={SITE_DESCRIPTION} image={await siteCardUrl()}>
   <Fragment slot="head">
     {/* Links from the previous site filtered with ?tags=; send them on. */}
     <script is:inline>

@@ -1,9 +1,13 @@
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 
-import { SITE_URL } from './site';
+import { longDate } from './dates';
+import { readingTime } from './readingTime';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './site';
+import type { IPost } from './types';
 
 // The social card: the design of the site in a 1200 by 630 image, drawn at
 // build time with the site's own face. Satori lays out a small tree of
@@ -38,6 +42,18 @@ export interface CardContent {
   line: string;
 }
 
+// The card of a post: its title, its Leetcode number, its date and length.
+export function postCard(post: IPost): CardContent {
+  return {
+    title: post.title,
+    number: post.leetcode_number ? `#${post.leetcode_number}` : undefined,
+    line: `${longDate(post.publishedAt)} · ${readingTime(post.content)} min read`,
+  };
+}
+
+// The card of every page that is not a post.
+export const SITE_CARD: CardContent = { title: SITE_NAME, line: SITE_DESCRIPTION };
+
 // Title size steps down with length so three lines always suffice.
 function titleSize(title: string): number {
   if (title.length <= 24) return 96;
@@ -50,8 +66,7 @@ function box(style: Record<string, unknown>, children: unknown) {
   return { type: 'div', props: { style, children } };
 }
 
-// The card as SVG, before rasterising; also what the tests look at.
-export async function renderCardSvg({ title, number, line }: CardContent): Promise<string> {
+async function layOut({ title, number, line }: CardContent): Promise<string> {
   // Satori adds padding outside a box's width, so the canvas-sized root has
   // none; the inner frame takes the margins instead and stays within it.
   // Three rows: the domain, the title in the room between, the line.
@@ -112,6 +127,36 @@ export async function renderCardSvg({ title, number, line }: CardContent): Promi
     height: HEIGHT,
     fonts: await fonts,
   });
+}
+
+// Each card is laid out once per build: the page asks for its version, the
+// endpoint for the drawing itself.
+const drawings = new Map<string, Promise<string>>();
+
+// The card as SVG, before rasterising; also what the tests look at.
+export function renderCardSvg(content: CardContent): Promise<string> {
+  const key = JSON.stringify(content);
+  let svg = drawings.get(key);
+  if (!svg) {
+    svg = layOut(content);
+    drawings.set(key, svg);
+  }
+  return svg;
+}
+
+// Eight hex digits of the drawing's hash. Share sites cache a card by its
+// URL, so the version changes the URL exactly when the card itself changes.
+export async function cardVersion(content: CardContent): Promise<string> {
+  const svg = await renderCardSvg(content);
+  return createHash('sha256').update(svg).digest('hex').slice(0, 8);
+}
+
+export async function postCardUrl(post: IPost): Promise<string> {
+  return `${SITE_URL}/og/${post.id}.png?v=${await cardVersion(postCard(post))}`;
+}
+
+export async function siteCardUrl(): Promise<string> {
+  return `${SITE_URL}/og/default.png?v=${await cardVersion(SITE_CARD)}`;
 }
 
 export async function renderCard(content: CardContent): Promise<Uint8Array<ArrayBuffer>> {

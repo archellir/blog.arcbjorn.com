@@ -93,7 +93,8 @@ the Worker). Post URLs are the file names, as before.
 Create `data/posts/<id>.md` with front matter `title`, `published_at`, optional `snippet`,
 `tags`, `image`, `leetcode_number`. No registry step; the collection picks the file up.
 A social card is drawn for every post at build time (`src/lib/card.ts`, served at
-`/og/<id>.png`); a post may bring its own with the `image` front matter field.
+`/og/<id>.png`); a post may bring its own with the `image` front matter field. The card's URL
+carries a hash of its drawing, so share sites that cache by URL pick up a redesigned card.
 
 ## Common Development Patterns
 

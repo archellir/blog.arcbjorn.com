@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { renderCard, renderCardSvg } from '../src/lib/card';
+import { cardVersion, postCard, renderCard, renderCardSvg } from '../src/lib/card';
 
 describe('social card', () => {
   it('lays the card out on a 1200 by 630 canvas', async () => {
@@ -18,5 +18,26 @@ describe('social card', () => {
     const view = new DataView(png.buffer, png.byteOffset);
     expect(view.getUint32(16)).toBe(1200);
     expect(view.getUint32(20)).toBe(630);
+  });
+
+  it('versions a card by its drawing', async () => {
+    const content = { title: 'Two sum', number: '#1', line: '24 February 2023' };
+    const version = await cardVersion(content);
+    expect(version).toMatch(/^[0-9a-f]{8}$/);
+    expect(await cardVersion({ ...content })).toBe(version);
+    expect(await cardVersion({ ...content, title: 'Three sum' })).not.toBe(version);
+  });
+
+  it('describes a post on its card', () => {
+    const card = postCard({
+      id: 'two-sum',
+      title: 'Two sum',
+      publishedAt: '2023-02-24',
+      leetcode_number: 1,
+      content: 'word '.repeat(450),
+    });
+    expect(card.title).toBe('Two sum');
+    expect(card.number).toBe('#1');
+    expect(card.line).toMatch(/^24 February 2023 · \d+ min read$/);
   });
 });
