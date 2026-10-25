@@ -15,15 +15,19 @@ const katexFontDisplay = {
   },
 };
 
-// Once the pages exist, the script policy gets a hash per inline script.
+// Once the pages exist, finish the headers file: a hash per inline script
+// in the script policy, and a Link header with the preloads for Early Hints.
 /** @type {import('astro').AstroIntegration} */
-const cspHashes = {
-  name: 'csp-hashes',
+const headers = {
+  name: 'headers',
   hooks: {
     'astro:build:done': async ({ dir, logger }) => {
+      const dist = fileURLToPath(dir);
       const { writeScriptHashes } = await import('./scripts/csp-hashes.mjs');
-      const hashes = await writeScriptHashes(fileURLToPath(dir));
-      logger.info(`script-src carries ${hashes.length} inline script hashes`);
+      const { writeLinkHeader } = await import('./scripts/early-hints.mjs');
+      const hashes = await writeScriptHashes(dist);
+      const links = await writeLinkHeader(dist);
+      logger.info(`${hashes.length} inline script hashes, ${links.length} preloads in Link`);
     },
   },
 };
@@ -32,7 +36,7 @@ const cspHashes = {
 export default defineConfig({
   site: 'https://blog.arcbjorn.com',
   trailingSlash: 'never',
-  integrations: [preact(), cspHashes],
+  integrations: [preact(), headers],
   build: {
     inlineStylesheets: 'never',
   },

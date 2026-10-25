@@ -60,7 +60,8 @@ of time; Cloudflare Workers serves the files.
 - `public/` - Fonts, images, icons, `robots.txt`, and Cloudflare's `_headers` (security
   headers, cache rules) and `_redirects`
 - `tests/` - vitest suites for the pipeline and the library
-- `scripts/` - `images.mjs` for the touch icon, `csp-hashes.mjs` for the script policy
+- `scripts/` - `images.mjs` for the touch icon; `csp-hashes.mjs` and `early-hints.mjs` finish the
+  headers file after a build
 
 ### Key Patterns
 
@@ -83,7 +84,10 @@ and declared in `src/lib/fonts.ts`.
 
 **Headers.** `public/_headers` sets the security headers, among them a Content Security
 Policy that names the only third party the site uses, the analytics host. Mermaid and the
-KaTeX fonts are bundled. A new external script, font or image host must be added there.
+KaTeX fonts are bundled. A new external script, font or image host must be added there. After
+a build, `scripts/csp-hashes.mjs` swaps `'unsafe-inline'` for a hash of each inline script and
+`scripts/early-hints.mjs` adds a `Link` header preloading the stylesheet and fonts, which
+Cloudflare replays as 103 Early Hints (a zone setting).
 
 **URLs.** No trailing slashes (`trailingSlash: "never"` in Astro, `drop-trailing-slash` in
 the Worker). Post URLs are the file names, as before.
