@@ -60,3 +60,8 @@ The site is a folder of files. `wrangler.jsonc` describes an assets-only Worker 
   build command `pnpm build` and the deploy command `npx wrangler deploy`.
 
 CI runs the checks, the tests and the build on every push.
+
+## Licence
+
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en); the full text is
+in [LICENSE](LICENSE).
