@@ -12,7 +12,8 @@ after [arcbjorn.com](https://arcbjorn.com), served by Cloudflare Workers as stat
 ```sh
 pnpm install
 pnpm dev       # Astro dev server with HMR at http://localhost:4321
-pnpm check     # TypeScript and formatting
+pnpm check     # TypeScript, lint and formatting
+pnpm lint      # oxlint, with type-aware rules
 pnpm test      # unit tests (vitest)
 pnpm build     # static build into dist/
 pnpm preview   # serve dist/ with the Workers runtime at http://localhost:8787

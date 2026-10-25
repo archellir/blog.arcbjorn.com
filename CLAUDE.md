@@ -14,7 +14,8 @@ of time; Cloudflare Workers serves the files.
 - `pnpm dev` - Astro dev server with HMR
 - `pnpm build` - static build into `dist/`
 - `pnpm preview` - serve `dist/` with the Workers runtime (`wrangler dev`)
-- `pnpm check` - Astro types, TypeScript (`tsc --noEmit`) and Prettier
+- `pnpm check` - Astro types, TypeScript (`tsc --noEmit`), oxlint and Prettier
+- `pnpm lint` - oxlint alone, with the type-aware rules
 - `pnpm test` - vitest
 - `pnpm format` - Prettier
 - `pnpm images` - regenerate the touch icon with headless Chrome
@@ -32,7 +33,8 @@ of time; Cloudflare Workers serves the files.
 - **Rendering**: a unified pipeline (remark, rehype) in `src/lib/markdown.ts`
 - **Styling**: plain CSS on a palette of variables, no framework
 - **Hosting**: Cloudflare Workers static assets (`wrangler.jsonc`)
-- **Tooling**: Node 24, pnpm, TypeScript 7, Prettier, vitest
+- **Tooling**: Node 24, pnpm, TypeScript 7, oxlint (type-aware, on TypeScript 7's own
+  compiler), Prettier, vitest
 
 ### Directory Structure
 

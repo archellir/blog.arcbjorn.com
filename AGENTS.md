@@ -19,7 +19,7 @@
 - `pnpm build` - build the static site into `dist/`.
 - `pnpm preview` - serve the build with the Workers runtime.
 - `pnpm test` - run vitest.
-- `pnpm check` - type-check and format check.
+- `pnpm check` - type-check, lint (oxlint, type-aware) and format check.
 - `pnpm outdated` - list dependencies with newer versions.
 
 ## Coding Style & Naming Conventions

@@ -16,6 +16,9 @@ export async function htmlFiles(dir) {
   return out;
 }
 
+// Code-unit order, the same on every machine and locale.
+const byCodeUnit = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+
 const INLINE_SCRIPT =
   /<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g;
 
@@ -27,7 +30,7 @@ export async function hashInlineScripts(dist) {
       hashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`);
     }
   }
-  return [...hashes].sort();
+  return [...hashes].sort(byCodeUnit);
 }
 
 export async function writeScriptHashes(dist) {
